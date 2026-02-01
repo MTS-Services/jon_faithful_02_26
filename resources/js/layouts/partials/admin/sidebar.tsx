@@ -21,29 +21,10 @@ const adminNavItems: NavItemType[] = [
         children: [
             {
                 title: 'Admins',
-                href: '#',
+                href: route('admin.all'),
                 icon: Shield,
                 permission: 'manage admins',
-                children: [
-                    { title: 'All Admins', href: '#' },
-                    { title: 'Active', href: '#' },
-                    {
-                        title: 'Inactive',
-                        href: '#',
-                        children: [
-                            { title: 'Recently Inactive', href: '#' },
-                            { title: 'Long Inactive', href: '#' },
-                            {
-                                title: 'Archive',
-                                href: '#',
-                                children: [
-                                    { title: 'Over 1 year', href: '#' },
-                                    { title: 'Over 2 years', href: '#' },
-                                ]
-                            }
-                        ]
-                    },
-                ],
+                slug: 'admin-admins',
             },
             {
                 title: 'Users',

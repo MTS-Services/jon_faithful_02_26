@@ -40,23 +40,8 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'name' => config('app.name'),
             'auth' => [
-                'user' => $request->user() ? array_merge(
-                    $request->user()->only([
-                        'id',
-                        'email',
-                        'name',
-                        'phone_number',
-                        
-                    ]),
-                    [
-                        'name' => $request->user()->name,
-                        // 'role' => $request->user()->role?->value,
-                        // 'role_label' => $request->user()->role_label,
-                        // 'is_admin' => $request->user()->isAdmin(),
-                        // 'can_manage_users' => $request->user()->canManageUsers(),
-                        'avatar_url' => $request->user()->avatar_url ?? '/test',
-                    ]
-                ) : null,
+                'user' => $request->user(),
+                'admin' => $request->user('admin'),
             ],
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
             'features' => [
