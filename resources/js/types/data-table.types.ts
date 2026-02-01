@@ -7,7 +7,7 @@ export interface PaginationData {
   to: number | null;
 }
 
-export interface ColumnConfig<T = unknown> {
+export interface ColumnConfig<T = any> {
   key: string;
   label: string;
   sortable?: boolean;
@@ -27,7 +27,7 @@ export interface FilterConfig {
   placeholder?: string;
 }
 
-export interface ActionConfig<T = unknown> {
+export interface ActionConfig<T = any> {
   label: string | ((item: T) => string);
   icon?: React.ReactNode | ((item: T) => React.ReactNode);
   onClick: (item: T, index: number) => void;
@@ -36,7 +36,7 @@ export interface ActionConfig<T = unknown> {
   className?: string;
 }
 
-export interface DataTableProps<T = unknown> {
+export interface DataTableProps<T = any> {
   data: T[];
   columns: ColumnConfig<T>[];
   pagination: PaginationData;
@@ -46,12 +46,12 @@ export interface DataTableProps<T = unknown> {
   filters?: FilterConfig[];
   actions?: ActionConfig<T>[];
   onSearch?: (search: string) => void;
-  onFilterChange?: (filters: Record<string, unknown>) => void;
+  onFilterChange?: (filters: Record<string, any>) => void;
   onSort?: (sortBy: string, sortOrder: 'asc' | 'desc') => void;
   onPerPageChange?: (perPage: number) => void;
   onPageChange?: (page: number) => void;
   searchValue?: string;
-  filterValues?: Record<string, unknown>;
+  filterValues?: Record<string, any>;
   sortBy?: string;
   sortOrder?: 'asc' | 'desc';
   isLoading?: boolean;

@@ -46,7 +46,7 @@ class HandleInertiaRequests extends Middleware
                         'email',
                         'name',
                         'phone_number',
-                        'avatar',
+                        
                     ]),
                     [
                         'name' => $request->user()->name,
@@ -54,7 +54,7 @@ class HandleInertiaRequests extends Middleware
                         // 'role_label' => $request->user()->role_label,
                         // 'is_admin' => $request->user()->isAdmin(),
                         // 'can_manage_users' => $request->user()->canManageUsers(),
-                        // 'avatar_url' => $request->user()->avatar_url,
+                        'avatar_url' => $request->user()->avatar_url ?? '/test',
                     ]
                 ) : null,
             ],
