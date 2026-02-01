@@ -7,5 +7,7 @@ use Illuminate\Support\Facades\Route;
 Route::name('frontend.')->controller(FrontendController::class)->group(function () {
 
         Route::get('/', 'index')->name('home');
+        Route::get('/partner-program', 'partnerProgram')->name('partnerProgram');
+        Route::get('/bristol', 'livingInBristol')->name('livingInBristol');
 
     });

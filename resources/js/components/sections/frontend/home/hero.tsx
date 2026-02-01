@@ -37,10 +37,10 @@ const Hero: React.FC = () => {
 
       {/* Content */}
       <div className="relative z-20 container mx-auto px-6 text-white mt-10">
-        <h2 className="text-2xl md:text-3xl font-light mb-4 tracking-wide">
+        <h2 className="text-xl md:text-3xl font-light mb-4 tracking-wide">
           Why Tennessee?
         </h2>
-        <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold mb-6 leading-tight">
+        <h1 className="text-2xl md:text-5xl lg:text-7xl font-bold mb-6 leading-tight">
           The Complete Guide to Living,<br />
           Moving and Buying a Home<br />
           in Tennessee

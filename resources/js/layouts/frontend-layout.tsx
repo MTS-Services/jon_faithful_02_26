@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { FrontendFooter } from '@/layouts/partials/frontend/footer';
-import { FrontendHeader } from '@/layouts/partials/frontend/header';
+import FrontendHeader from './partials/frontend/header';
 
 interface FrontendLayoutProps {
     children: React.ReactNode;
@@ -10,7 +10,7 @@ interface FrontendLayoutProps {
 export default function FrontendLayout({ children }: FrontendLayoutProps) {
     return (
         <div className="flex min-h-screen flex-col">
-            <FrontendHeader />
+            <FrontendHeader/>
             <main className="flex flex-1 flex-col">{children}</main>
             <FrontendFooter />
         </div>
