@@ -16,10 +16,16 @@ class FrontendController extends Controller
          return Inertia::render('frontend/index');
 
     }
-    public function home (): Response 
+    public function partnerProgram (): Response 
     {
         
-         return Inertia::render('frontend/home');
+         return Inertia::render('frontend/partnerProgram');
+
+    }
+    public function livingInBristol (): Response 
+    {
+        
+         return Inertia::render('frontend/livingInBristol');
 
     }
 }

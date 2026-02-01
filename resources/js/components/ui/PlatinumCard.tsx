@@ -1,4 +1,5 @@
 import React from "react";
+import { FaBath, FaBed, FaClone, FaMapMarkerAlt } from "react-icons/fa";
 
 type Property = {
     title: string;
@@ -34,15 +35,30 @@ const PlatinumCard: React.FC<{ property: Property }> = ({ property }) => {
 
             {/* Content */}
             <div className="p-5">
-                <h3 className="text-lg text-[#1F3A68] font-bold mb-4">
+                <h3 className="text-lg text-brand-dark font-semibold mb-4">
                     {title}
                 </h3>
 
-                <div className="grid grid-cols-2 gap-y-2 text-sm text-gray-900">
-                    <div>📍 {location}</div>
-                    <div>📐 {sqft} sqft</div>
-                    <div>🛏️ {beds} Bed</div>
-                    <div>🛁 {baths} Bath</div>
+                <div className="grid grid-cols-2 gap-y-3 text-sm text-gray-900">
+                    <div className="flex items-center gap-2">
+                        <FaMapMarkerAlt className="text-brand-dark" />
+                        <span>{location}</span>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                        <FaClone className="text-brand-dark" />
+                        <span>{sqft} sqft</span>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                        <FaBed className="text-brand-dark" />
+                        <span>{beds} Bedroom</span>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                        <FaBath className="text-brand-dark" />
+                        <span>{baths} Bathroom</span>
+                    </div>
                 </div>
             </div>
         </div>

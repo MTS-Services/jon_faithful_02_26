@@ -9,6 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Admin } from '@/types';
 
+
 interface Props {
   admins: Admin[];
   pagination: PaginationData;
@@ -74,23 +75,23 @@ export default function All({
     {
       label: 'View',
       icon: <Eye className="h-4 w-4" />,
-      onClick: (user) => {
+      onClick: (admin) => {
         router.visit('/');
       },
     },
     {
       label: 'Edit',
       icon: <Pencil className="h-4 w-4" />,
-      onClick: (user) => {
-        router.visit('/');
+      onClick: (admin) => {
+        router.visit(route('admin.view.detail', admin?.id));
       },
     },
     {
       label: 'Delete',
       icon: <Trash2 className="h-4 w-4" />,
-      onClick: (user) => {
-        if (confirm(`Are you sure you want to delete ${user.name}?`)) {
-          router.delete('/');
+      onClick: (admin) => {
+        if (confirm(`Are you sure you want to delete ${admin.name}?`)) {
+          router.visit(route('admin.delete', admin?.id));
         }
       },
       variant: 'destructive',
