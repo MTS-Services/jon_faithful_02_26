@@ -41,4 +41,44 @@ class AdminController extends Controller
             'sortOrder' => $result['sort_order']
         ]);
     }
+
+    public function viewAdmin($id){
+
+        $admin = Admin::find($id);
+        if(!$admin) {
+            abort(404);
+        }
+        return Inertia::render('admin/view', [
+            'admin' => $admin
+        ]);
+    }
+    public function editAdmin($id){
+
+        $admin = Admin::find($id);
+        if(!$admin) {
+            abort(404);
+        }
+        return Inertia::render('admin/edit', [
+            'admin' => $admin
+        ]);
+    }
+    public function updateAdmin(Request $request){
+
+     $data = $request->validate([
+        'name' => ['required', 'string', 'max:255'],
+     ]);
+
+      $admin = Admin::find($request->id);
+      $admin->update($data);
+
+      return back()->with('success', 'Admin updated successfully.');
+    }
+    public function deleteAdmin($id){
+        $admin = Admin::find($id);
+        if(!$admin) {
+            abort(404);
+        }
+        $admin->forceDelete();
+        return back()->with('success', 'Admin deleted successfully.');
+    }
 }
