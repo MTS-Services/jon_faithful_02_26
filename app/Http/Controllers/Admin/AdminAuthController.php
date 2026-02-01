@@ -11,11 +11,12 @@ class AdminAuthController extends Controller
 {
     public function showLogin()
     {
-        return Inertia::render('Admin/Login');
+        return Inertia::render('admin/auth/login');
     }
 
     public function login(Request $request)
     {
+       
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required',

@@ -42,21 +42,19 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user() ? array_merge(
                     $request->user()->only([
-                        // 'id',
-                        // 'email',
-                        // 'first_name',
-                        // 'last_name',
-                        // 'phone_number',
-                        // 'employee_code',
-                        // 'avatar',
+                        'id',
+                        'email',
+                        'name',
+                        'phone_number',
+                        
                     ]),
                     [
-                        // 'name' => $request->user()->name,
+                        'name' => $request->user()->name,
                         // 'role' => $request->user()->role?->value,
                         // 'role_label' => $request->user()->role_label,
                         // 'is_admin' => $request->user()->isAdmin(),
                         // 'can_manage_users' => $request->user()->canManageUsers(),
-                        // 'avatar_url' => $request->user()->avatar_url,
+                        'avatar_url' => $request->user()->avatar_url ?? '/test',
                     ]
                 ) : null,
             ],
