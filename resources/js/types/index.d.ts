@@ -3,6 +3,13 @@ import { LucideIcon } from 'lucide-react';
 
 export interface Auth {
     user: User;
+    admin: Admin;
+}
+export interface Admin {
+   name: string|null;
+   email: string|null;
+   created_at: string|null;
+   updated_at: string|null;
 }
 
 export interface BreadcrumbItem {
@@ -39,6 +46,7 @@ export type NavItem = NavItemType;
 export interface SharedData {
     name: string;
     auth: Auth;
+    admin: Admin;
     sidebarOpen: boolean;
     [key: string]: unknown;
 }
