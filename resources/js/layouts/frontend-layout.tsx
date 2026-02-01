@@ -11,7 +11,7 @@ export default function FrontendLayout({ children }: FrontendLayoutProps) {
     return (
         <div className="flex min-h-screen flex-col">
             <FrontendHeader />
-            <main className="flex flex-1 flex-col container px-4 md:lg-0">{children}</main>
+            <main className="flex flex-1 flex-col">{children}</main>
             <FrontendFooter />
         </div>
     );
