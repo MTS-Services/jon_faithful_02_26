@@ -25,18 +25,19 @@ class LoginResponse implements LoginResponseContract
             Log::info('Dispatching WhenIWork users sync job on login', [
                 'user_id' => $user->id,
             ]);
-            SyncWhenIWorkUsersJob::dispatch($user->id, $user->wheniwork_token);
+            
+            // SyncWhenIWorkUsersJob::dispatch($user->id, $user->wheniwork_token);
 
-            // Sync availability based on config
-            if (config('availability.sync_mode') === 'login') {
-                SyncUserAvailabilityJob::dispatch(
-                    $user->id,
-                    $user->wheniwork_token
-                );
-            }
+            // // Sync availability based on config
+            // if (config('availability.sync_mode') === 'login') {
+            //     SyncUserAvailabilityJob::dispatch(
+            //         $user->id,
+            //         $user->wheniwork_token
+            //     );
+            // }
         }
 
-        $redirect = route('dashboard');
+        $redirect = route('user.dashboard');
 
         return $request->wantsJson()
             ? new JsonResponse(['two_factor' => false])
