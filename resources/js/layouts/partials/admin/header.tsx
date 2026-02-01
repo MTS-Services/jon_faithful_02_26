@@ -22,10 +22,11 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { UserMenuContent } from '@/components/user-menu-content';
+
 import { useActiveUrl } from '@/hooks/use-active-url';
 import AppearanceToggleDropdown from '@/components/appearance-dropdown';
 import { Separator } from '@radix-ui/react-separator';
+import { AdminMenuContent } from '@/components/admin-menu-content';
 
 interface AdminHeaderProps {
     isCollapsed: boolean;
@@ -40,6 +41,7 @@ export function AdminHeader({ isCollapsed, setIsCollapsed }: AdminHeaderProps) {
     const getInitials = useInitials();
     const page = usePage<SharedData>();
     const { urlIsActive } = useActiveUrl();
+
 
     return (
         <header className="flex h-16 shrink-0 items-center gap-2 border-b border-sidebar-border/50 px-6 transition-all ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 md:px-4">
@@ -96,16 +98,16 @@ export function AdminHeader({ isCollapsed, setIsCollapsed }: AdminHeaderProps) {
                             <Avatar className="size-8 overflow-hidden rounded-full">
                                 <AvatarImage
                                     src={'/'}
-                                    alt={'test'}
+                                    alt={auth.admin.name}
                                 />
                                 <AvatarFallback className="rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white">
-                                    {'test'}
+                                    {getInitials(auth.admin.name)}
                                 </AvatarFallback>
                             </Avatar>
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="w-56" align="end">
-                        <UserMenuContent user={auth.user} />
+                        <AdminMenuContent admin={auth.admin} />
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>

@@ -8,7 +8,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTrigger } from '@/components/ui/sheet';
-import { UserMenuContent } from '@/components/user-menu-content';
+import { UserMenuContent } from '@/components/admin-menu-content';
 import { useInitials } from '@/hooks/use-initials';
 import { login, register } from '@/routes';
 import { type SharedData } from '@/types';
