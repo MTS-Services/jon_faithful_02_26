@@ -1,17 +1,15 @@
-import { Link, usePage } from '@inertiajs/react';
-import { Users, User, BarChart, Shield, LayoutGrid, Settings } from 'lucide-react';
-import * as React from 'react';
-
 import AppLogo from '@/components/app-logo';
-import { NavItem as NavItemComponent} from '@/components/ui/nav-item';
+import { NavItem } from '@/components/ui/nav-item';
 import { cn } from '@/lib/utils';
-import { dashboard } from '@/routes';
-import { type NavItem, type SharedData } from '@/types';
+import { type NavItemType, type SharedData } from '@/types';
+import { Link, usePage } from '@inertiajs/react';
+import { BarChart, LayoutGrid, Shield, User, Users } from 'lucide-react';
+import * as React from 'react';
 // Navigation configuration
-const adminNavItems: NavItem[] = [
+const adminNavItems: NavItemType[] = [
     {
         title: 'Dashboard',
-        href: dashboard(),
+        href: route('admin.dashboard'),
         icon: LayoutGrid,
         slug: 'dashboard',
     },
@@ -54,7 +52,7 @@ const adminNavItems: NavItem[] = [
                 children: [
                     {
                         title: 'All',
-                        href: route('admin.users.index'),
+                        href: '#',
                         icon: User,
                         slug: 'admin-users'
                     },
@@ -65,22 +63,11 @@ const adminNavItems: NavItem[] = [
         ],
     },
     {
-        title: 'Analytics',
+        title: 'Inquiries',
         href: '#',
-        icon: BarChart,
-        permission: 'view analytics',
-    },
-    {
-        title: 'Settings',
-        href: '#',
-        icon: Settings,
-        badge: 3,
-    },
-    {
-        title: 'Disabled Item',
-        href: '#',
-        icon: Shield,
-        disabled: true,
+        icon: BarChart, // Using BarChart as a placeholder, can be changed
+        permission: 'view analytics', // Assuming similar permission structure
+        slug: 'admin-inquiries',
     },
 ];
 
@@ -89,71 +76,77 @@ interface AdminSidebarProps {
     activeSlug?: string | null;
 }
 
-export const AdminSidebar = React.memo<AdminSidebarProps>(({ isCollapsed, activeSlug }) => {
-    const { url, props } = usePage();
-    const currentRoute = url;
+export const AdminSidebar = React.memo<AdminSidebarProps>(
+    ({ isCollapsed, activeSlug }) => {
+        const { url, props } = usePage();
+        const currentRoute = url;
 
-    // Extract permissions from auth props
-    const userPermissions = React.useMemo(() => {
-        const auth = props.auth as SharedData['auth'];
-        return auth?.user?.permissions ||
-               auth?.user?.all_permissions ||
-               auth?.permissions ||
-               [];
-    }, [props.auth]);
+        // Extract permissions from auth props
+        const userPermissions = React.useMemo(() => {
+            const auth = props.auth as SharedData['auth'];
+            return (
+                auth?.user?.permissions ||
+                auth?.user?.all_permissions ||
+                auth?.permissions ||
+                []
+            );
+        }, [props.auth]);
 
-    return (
-        <aside
-            className={cn(
-                'relative hidden h-screen border-r bg-background',
-                'transition-all duration-300 ease-in-out',
-                'md:flex flex-col',
-                isCollapsed ? 'w-16' : 'w-64'
-            )}
-        >
-            {/* Logo Section */}
-            <div className={cn(
-                "flex h-16 items-center border-b",
-                isCollapsed ? "justify-center px-2" : "px-6"
-            )}>
-                <Link
-                    href="/"
-                    className="flex items-center gap-2 transition-opacity hover:opacity-80"
-                >
-                    {isCollapsed ? (
-                        <LayoutGrid className="h-6 w-6 text-primary" />
-                    ) : (
-                        <AppLogo />
+        return (
+            <aside
+                className={cn(
+                    'relative hidden h-screen border-r bg-background',
+                    'transition-all duration-300 ease-in-out',
+                    'flex-col md:flex',
+                    isCollapsed ? 'w-16' : 'w-64',
+                )}
+            >
+                {/* Logo Section */}
+                <div
+                    className={cn(
+                        'flex h-16 items-center border-b',
+                        isCollapsed ? 'justify-center px-2' : 'px-6',
                     )}
-                </Link>
-            </div>
-
-            {/* Navigation */}
-            <div className="flex-1 overflow-y-auto px-3 py-4 custom-scrollbar">
-                <nav className="space-y-1">
-                    {adminNavItems.map((item, index) => (
-                        <NavItemComponent
-                            key={`${item.title}-${index}`}
-                            item={item}
-                            isCollapsed={isCollapsed}
-                            currentRoute={currentRoute}
-                            isActive={activeSlug === item.slug}
-                            permissions={userPermissions}
-                        />
-                    ))}
-                </nav>
-            </div>
-
-            {/* Footer Section (Optional) */}
-            {!isCollapsed && (
-                <div className="border-t p-4">
-                    <div className="text-xs text-muted-foreground text-center">
-                        v1.0.0
-                    </div>
+                >
+                    <Link
+                        href="/"
+                        className="flex items-center gap-2 transition-opacity hover:opacity-80"
+                    >
+                        {isCollapsed ? (
+                            <LayoutGrid className="h-6 w-6 text-primary" />
+                        ) : (
+                            <AppLogo className="text-base!" />
+                        )}
+                    </Link>
                 </div>
-            )}
-        </aside>
-    );
-});
+
+                {/* Navigation */}
+                <div className="custom-scrollbar flex-1 overflow-y-auto px-3 py-4">
+                    <nav className="space-y-1">
+                        {adminNavItems.map((item, index) => (
+                            <NavItem
+                                key={`${item.title}-${index}`}
+                                item={item}
+                                isCollapsed={isCollapsed}
+                                currentRoute={currentRoute}
+                                isActive={activeSlug === item.slug}
+                                permissions={userPermissions}
+                            />
+                        ))}
+                    </nav>
+                </div>
+
+                {/* Footer Section (Optional) */}
+                {!isCollapsed && (
+                    <div className="border-t p-4">
+                        <div className="text-center text-xs text-muted-foreground">
+                            v1.0.0
+                        </div>
+                    </div>
+                )}
+            </aside>
+        );
+    },
+);
 
 AdminSidebar.displayName = 'AdminSidebar';
