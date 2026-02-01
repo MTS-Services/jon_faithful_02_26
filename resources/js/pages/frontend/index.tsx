@@ -1,4 +1,4 @@
-import { Test } from '@/components/sections/home/test'
+import { Test } from '@/components/sections/frontend/home/test'
 import FrontendLayout from '@/layouts/frontend-layout'
 import React from 'react'
 
