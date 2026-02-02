@@ -19,6 +19,25 @@ const FrontendHeader: React.FC = () => {
     { name: "Knoxville", route: "#" },
     { name: "Memphis", route: "#" },
   ];
+  const movingTopics1 = [
+    { name: 'About Why Tennessee', route: '#' },
+    { name: 'Tennessee Relocation Guide', route: '#' },
+    { name: 'Cost of Living in Tennessee', route: '#' },
+    { name: 'Pros & Cons of Living', route: '#' },
+    { name: 'Best Places to Live', route: '#' },
+  ]
+  const movingTopics2 = [
+    { name: 'Renting in Tennessee', route: '/renting-tennessee' },
+    { name: 'Cost of Renting', route: '#' },
+    { name: 'Renting vs Buying', route: '#' },
+    { name: 'Moving & Renting First', route: '#' },
+  ]
+  const movingTopics3 = [
+    { name: 'Moving Checklist', route: '/moving-checklist' },
+    { name: 'City Comparison', route: '/city-comparison' },
+    { name: 'Download Guide (PDF)', route: '#' },
+    { name: 'Real Estate Agents', route: '/real-estate-agents' },
+  ]
 
   return (
     <>
@@ -96,7 +115,7 @@ const FrontendHeader: React.FC = () => {
                 </button>
                 <div className="absolute top-full left-0 w-56 bg-white shadow-lg rounded-b-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
                   {cities.map((city) => (
-                    <a href={`/${city.route}`} className="block px-4 py-2 text-sm text-gray-700 hover:text-white hover:bg-[#C9A249] transition-colors">
+                    <a href={`/${city.route}`} className="block px-4 py-2 text-sm text-gray-700 hover:text-white hover:bg-secondary transition-colors">
                       {city.name}
                     </a>
                   ))}
@@ -113,10 +132,10 @@ const FrontendHeader: React.FC = () => {
                   <div>
                     <h3 className="text-xl font-bold text-primary mb-4 border-b pb-2">What You Need to Know:</h3>
                     <ul className="space-y-3">
-                      {['About Why Tennessee', 'Tennessee Relocation Guide', 'Cost of Living in Tennessee', 'Pros & Cons of Living', 'Best Places to Live'].map((item) => (
-                        <li key={item}>
-                          <a href="#" className="flex items-center text-sm text-gray-600 hover:text-secondary transition-colors">
-                            <span className="text-primary mr-2 font-bold">»</span> {item}
+                      {movingTopics1.map((item) => (
+                        <li key={item.name}>
+                          <a href={item.route} className="flex items-center text-sm text-gray-600 hover:text-secondary transition-colors">
+                            <span className="text-primary mr-2 font-bold">»</span> {item.name}
                           </a>
                         </li>
                       ))}
@@ -126,10 +145,10 @@ const FrontendHeader: React.FC = () => {
                   <div>
                     <h3 className="text-xl font-bold text-primary mb-4 border-b pb-2">Renting:</h3>
                     <ul className="space-y-3">
-                      {['Renting in Tennessee', 'Cost of Renting', 'Renting vs Buying', 'Moving & Renting First'].map((item) => (
-                        <li key={item}>
-                          <a href="#" className="flex items-center text-sm text-gray-600 hover:text-secondary transition-colors">
-                            <span className="text-primary mr-2 font-bold">»</span> {item}
+                      {movingTopics2.map((item) => (
+                        <li key={item.name}>
+                          <a href={item.route} className="flex items-center text-sm text-gray-600 hover:text-secondary transition-colors">
+                            <span className="text-primary mr-2 font-bold">»</span> {item.name}
                           </a>
                         </li>
                       ))}
@@ -139,10 +158,10 @@ const FrontendHeader: React.FC = () => {
                   <div>
                     <h3 className="text-xl font-bold text-primary mb-4 border-b pb-2">Helpful Tools:</h3>
                     <ul className="space-y-3">
-                      {['Moving Checklist', 'City Comparison', 'Download Guide (PDF)', 'Real Estate Agents'].map((item) => (
-                        <li key={item}>
-                          <a href="#" className="flex items-center text-sm text-gray-600 hover:text-secondary transition-colors">
-                            <span className="text-primary mr-2 font-bold">»</span> {item}
+                      {movingTopics3.map((item) => (
+                        <li key={item.name}>
+                          <a href={item.route} className="flex items-center text-sm text-gray-600 hover:text-secondary transition-colors">
+                            <span className="text-primary mr-2 font-bold">»</span> {item.name}
                           </a>
                         </li>
                       ))}
@@ -156,7 +175,7 @@ const FrontendHeader: React.FC = () => {
 
             {/* Desktop Right CTA / Mobile Toggle */}
             <div className="flex items-center gap-4">
-              <a href={ route('login') } className="hidden sm:flex bg-primary text-white px-6 py-3 rounded-full hover:bg-secondary transition-all items-center text-md font-medium shadow-md hover:shadow-lg">
+              <a href={route('login')} className="hidden sm:flex bg-primary text-white px-6 py-3 rounded-full hover:bg-secondary transition-all items-center text-md font-medium shadow-md hover:shadow-lg">
                 Login/Registration
                 <span className="inline-flex items-center bg-white p-1 ml-2 rounded-full text-black">
                   <FaChevronRight size={12} />

@@ -13,6 +13,8 @@ Route::name('frontend.')->controller(FrontendController::class)->group(function 
         Route::get('/chattanooga', 'livingInChattanooga')->name('livingInChattanooga');
         Route::get('/homes-for-sale', 'homesForSale')->name('homesForSale');
         Route::get('/moving-checklist', 'movingChecklist')->name('movingChecklist');
+        Route::get('/city-comparison', 'cityComparison')->name('cityComparison');
+        Route::get('/real-estate-agents', 'realEstateAgents')->name('realEstateAgents');
         Route::get('/rentals', 'rentals')->name('rentals');
 
     });
