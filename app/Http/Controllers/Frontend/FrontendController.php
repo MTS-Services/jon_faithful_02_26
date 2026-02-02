@@ -36,4 +36,8 @@ class FrontendController extends Controller
      {
           return Inertia::render('frontend/homes-for-sale');
      }
+     public function movingChecklist(): Response
+     {
+          return Inertia::render('frontend/moving-checklist');
+     }
 }
