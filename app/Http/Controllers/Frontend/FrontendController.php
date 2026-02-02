@@ -40,4 +40,8 @@ class FrontendController extends Controller
      {
           return Inertia::render('frontend/rentals');
      }
+     public function whyTennessee(): Response
+     {
+          return Inertia::render('frontend/why-tennessee');
+     }
 }
