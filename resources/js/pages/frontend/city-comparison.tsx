@@ -9,16 +9,16 @@ export default function CityComparison() {
             <FrontendLayout>
                 <Hero
                     slides={[
-                        "assets/images/moving-checklist/moving-banner.jpeg",
+                        "https://whytennessee.com/wp-content/uploads/2025/12/View-From-Fire-Tower-Bays-Mountain-Park-Kingsport-TN-1-scaled.jpeg",
                     ]}
                     title={
                         <>
-                            Moving to Tennessee Checklist
+                            Tennessee City Comparison Guide
                         </>
                     }
                     description={
                         <>
-                            Moving to Tennessee is an exciting decision, but a successful relocation starts with the right plan. Whether you’re moving from another state or relocating within Tennessee, this complete moving checklist will help you stay organized, reduce stress, and avoid costly mistakes. Use this Tennessee moving checklist to prepare before, during, and after your move.
+                            Moving to Tennessee is exciting — but choosing the right city can feel overwhelming. Each city offers a different lifestyle, cost of living, job market, and housing options. This guide breaks down Tennessee’s most popular cities side by side so you can confidently decide where to live.
                         </>
                     }
                 />
