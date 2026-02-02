@@ -10,7 +10,7 @@ export default function RentingSections() {
       <section className="py-16 px-4 container mx-auto">
         <div className="grid md:grid-cols-2 gap-8 items-center">
           <div>
-            <h2 className="text-3xl font-bold mb-4">Is Renting in Tennessee a Good Idea?</h2>
+            <h2 className="text-5xl font-bold mb-4">Is Renting in Tennessee a Good Idea?</h2>
             <p className="text-gray-600 mb-4">Tennessee offers affordable living with vibrant communities and excellent quality of life.</p>
             <ul className="space-y-3">
               <li className="flex items-center gap-3">
@@ -25,7 +25,7 @@ export default function RentingSections() {
                 <span className="flex-shrink-0">
                   <svg aria-hidden="true" className="w-2 h-2 fill-current text-black" viewBox="0 0 512 512">
                     <path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z" />
-                  </svg>
+                  </svg>  
                 </span>
                 <span>Strong job market and growing economy</span>
               </li>
