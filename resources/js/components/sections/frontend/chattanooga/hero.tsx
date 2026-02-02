@@ -10,11 +10,11 @@ export default function Hero() {
         <div className="absolute inset-0 bg-foreground/80"></div>
 
         <div className="container mx-auto relative z-10 px-6">
-            <div className="max-w-3xl text-white">
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-montserrat font-medium  mb-6 text-white">
+            <div className="max-w-3xl">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-montserrat font-medium  mb-6 text-primary-foreground">
                     Living in Chattanooga, Tennessee
                 </h2>
-                <p className="text-base font-montserrat font-normal  mb-6 text-white">Homes, Cost of Living, Neighborhoods &
+                <p className="text-base font-montserrat font-normal  mb-6 text-primary-foreground">Homes, Cost of Living, Neighborhoods &
                     Outdoor Lifestyle Chattanooga, Tennessee is one of the most scenic and fast-growing cities in the
                     Southeast. Known for its mountains, riverfront living, and outdoor lifestyle, Chattanooga blends
                     natural beauty with a revitalized downtown and growing job market. It’s a top choice for
