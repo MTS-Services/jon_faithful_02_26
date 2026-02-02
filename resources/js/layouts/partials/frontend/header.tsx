@@ -69,7 +69,7 @@ const FrontendHeader: React.FC = () => {
       </div>
 
       <header className="bg-white shadow-md relative z-50">
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-24">
 
             {/* Logo */}
