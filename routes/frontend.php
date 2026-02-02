@@ -15,5 +15,6 @@ Route::name('frontend.')->controller(FrontendController::class)->group(function 
         Route::get('/moving-checklist', 'movingChecklist')->name('movingChecklist');
         Route::get('/rentals', 'rentals')->name('rentals');
         Route::get('/why-tennessee', 'whyTennessee')->name('why-tennessee');
+        Route::get('/tennessee-relocation', 'tennesseeRelocation')->name('tennessee-relocation');
 
     });
