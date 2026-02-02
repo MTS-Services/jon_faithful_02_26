@@ -28,4 +28,11 @@ class FrontendController extends Controller
          return Inertia::render('frontend/livingInBristol');
 
     }
+
+    public function livingInChattanooga (): Response 
+    {
+        
+         return Inertia::render('frontend/livingInChattanooga');
+
+    }
 }
