@@ -362,7 +362,7 @@ export default function QuickSearch() {
                     <a href="singleRental.html">
                         <div className="bg-primary-foreground rounded-xl overflow-hidden shadow">
                             <div className="relative">
-                                <img src="/assets/istockphoto-140781367-612x612-1.jpg" className="w-full h-[250px] object-cover" />
+                                <img src="/assets/images/istockphoto-140781367-612x612-1 (1).jpg" className="w-full h-[250px] object-cover" />
                                 <span
                                     className="absolute top-3 left-3 bg-secondary font-semibold font-montserrat text-primary-foreground p-3 rounded-full">
                                     Platinum
@@ -420,7 +420,7 @@ export default function QuickSearch() {
                     <a href="singleRental.html">
                         <div className="bg-primary-foreground rounded-xl overflow-hidden shadow">
                             <div className="relative">
-                                <img src="/assets/images/card.jpg" className="w-full h-[250px] object-cover" />
+                                <img src="/assets/images/433f6d07f4eddc16bb67cef36ed22504-p_e.jpg" className="w-full h-[250px] object-cover" />
                                 <span
                                     className="absolute top-3 left-3 bg-secondary font-semibold font-montserrat text-primary-foreground p-3 rounded-full">
                                     Platinum
