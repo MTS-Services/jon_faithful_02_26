@@ -48,7 +48,7 @@ const PlatinumProperties: React.FC = () => {
     return (
         <section className="py-20 bg-white">
             <div className="container mx-auto px-6">
-                <h2 className="text-3xl font-bold text-[#1F3A68] mb-3">
+                <h2 className="text-3xl font-bold text-primary mb-3">
                     Our Platinum Property For Sale
                 </h2>
 

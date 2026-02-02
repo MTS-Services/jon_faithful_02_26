@@ -20,12 +20,12 @@ const FlipCard: React.FC<CardProps> = ({ title, frontImg, backText, link }) => {
                 </div>
 
                 {/* Back Side */}
-                <div className="absolute inset-0 h-full w-full rounded-xl bg-[#1F3A68] p-6 text-white [backface-visibility:hidden] [transform:rotateY(180deg)] flex flex-col justify-center">
+                <div className="absolute inset-0 h-full w-full rounded-xl bg-primary p-6 text-white [backface-visibility:hidden] [transform:rotateY(180deg)] flex flex-col justify-center">
                     <h3 className="mb-3 text-xl font-bold">{title}</h3>
                     <p className="text-sm leading-relaxed">{backText}</p>
                     <a
                         href={link}
-                        className="mt-6 inline-block rounded-full bg-white px-6 py-2 text-center text-[#1F3A68] font-medium hover:bg-[#C9A249] hover:text-white transition-colors"
+                        className="mt-6 inline-block rounded-full bg-white px-6 py-2 text-center text-primary font-medium hover:bg-secondary hover:text-white transition-colors"
                     >
                         Read More
                     </a>

@@ -31,7 +31,7 @@ const FrontendFooter: React.FC = () => {
 
                     {/* Quick Links Section */}
                     <div>
-                        <h3 className="font-bold text-lg mb-6 text-[#1F3A68]">Quick Links</h3>
+                        <h3 className="font-bold text-lg mb-6 text-primary">Quick Links</h3>
                         <ul className="space-y-3 text-sm text-gray-600">
                             {[
                                 "Moving to Tennessee",
@@ -42,7 +42,7 @@ const FrontendFooter: React.FC = () => {
                             ].map((link) => (
                                 <li key={link}>
                                     <a href="#" className="hover:text-black transition flex items-center group">
-                                        <FaArrowCircleRight className="mr-2 text-gray-400 group-hover:text-[#1F3A68] transition-colors" />
+                                        <FaArrowCircleRight className="mr-2 text-gray-400 group-hover:text-primary transition-colors" />
                                         {link}
                                     </a>
                                 </li>
@@ -52,7 +52,7 @@ const FrontendFooter: React.FC = () => {
 
                     {/* Information Section */}
                     <div>
-                        <h3 className="font-bold text-lg mb-6 text-[#1F3A68]">Information</h3>
+                        <h3 className="font-bold text-lg mb-6 text-primary">Information</h3>
                         <ul className="space-y-4 text-sm text-gray-600">
                             <li className="flex items-center">
                                 <FaEnvelope className="mr-3 text-gray-400 w-5 text-center" />
@@ -77,15 +77,15 @@ const FrontendFooter: React.FC = () => {
 
                     {/* Newsletter Section */}
                     <div>
-                        <h3 className="font-bold text-lg mb-6 text-[#1F3A68]">Newsletter</h3>
+                        <h3 className="font-bold text-lg mb-6 text-primary">Newsletter</h3>
                         <form className="flex flex-col space-y-3" onSubmit={(e) => e.preventDefault()}>
                             <input
                                 type="email"
                                 placeholder="Email"
-                                className="w-full bg-white border border-gray-300 px-4 py-2 text-sm rounded focus:outline-none focus:border-[#1F3A68] transition"
+                                className="w-full bg-white border border-gray-300 px-4 py-2 text-sm rounded focus:outline-none focus:border-primary transition"
                             />
                             <button
-                                className="bg-[#1F3A68] text-white px-4 py-2 rounded text-sm font-medium hover:bg-black transition"
+                                className="bg-primary text-white px-4 py-2 rounded text-sm font-medium hover:bg-black transition"
                             >
                                 Submit
                             </button>
@@ -103,7 +103,7 @@ const FrontendFooter: React.FC = () => {
                 {/* Bottom Bar */}
                 <div className="border-t border-gray-200 pt-8 flex flex-col md:row justify-between items-center text-sm text-gray-500 md:flex-row">
                     <p>&copy; {new Date().getFullYear()} WHY TENNESSEE. All rights reserved.</p>
-                    <a href="#" className="hover:text-[#1F3A68] mt-2 md:mt-0 transition">
+                    <a href="#" className="hover:text-primary mt-2 md:mt-0 transition">
                         Privacy Policy
                     </a>
                 </div>
@@ -116,7 +116,7 @@ const FrontendFooter: React.FC = () => {
 const SocialLink: React.FC<{ href: string; Icon: React.ElementType }> = ({ href, Icon }) => (
     <a
         href={href}
-        className="w-8 h-8 flex items-center justify-center bg-[#1F3A68] rounded-full shadow-sm hover:bg-[#C9A249] group transition-all duration-300"
+        className="w-8 h-8 flex items-center justify-center bg-primary rounded-full shadow-sm hover:bg-secondary group transition-all duration-300"
     >
         <Icon className="w-4 h-4 text-white transition-all duration-300" />
     </a>

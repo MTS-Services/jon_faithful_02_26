@@ -112,8 +112,8 @@ const BristolPage: React.FC = () => {
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 className={`px-6 py-5 font-bold rounded-full transition-all duration-300 flex items-center text-md ${activeTab === tab.id
-                    ? 'bg-[#C9A249] text-white scale-105 shadow-md'
-                    : 'bg-slate-800 text-white hover:bg-[#C9A249]'
+                    ? 'bg-secondary text-white scale-105 shadow-md'
+                    : 'bg-slate-800 text-white hover:bg-secondary'
                   }`}
               >
                 {tab.label}
@@ -130,14 +130,14 @@ const BristolPage: React.FC = () => {
                 <ul className="space-y-4">
                   {tab.items.map((item, iIdx) => (
                     <li key={iIdx} className="flex items-center gap-3">
-                      <FaArrowAltCircleRight className="text-[#C9A249]" size={18} />
+                      <FaArrowAltCircleRight className="text-secondary" size={18} />
                       <span className="text-gray-700 font-medium">{item}</span>
                     </li>
                   ))}
                 </ul>
-                <p className="mt-8 text-gray-500 italic border-l-4 border-[#C9A249] pl-4">{tab.footer}</p>
+                <p className="mt-8 text-gray-500 italic border-l-4 border-secondary pl-4">{tab.footer}</p>
                 {tab.id === 'tab4' && (
-                  <a href="/homes-for-sale" className="inline-flex items-center gap-2 mt-8 bg-slate-900 text-white px-8 py-4 rounded-full hover:bg-[#C9A249] transition-colors font-bold">
+                  <a href="/homes-for-sale" className="inline-flex items-center gap-2 mt-8 bg-slate-900 text-white px-8 py-4 rounded-full hover:bg-secondary transition-colors font-bold">
                     View Local Listings <HiArrowRight />
                   </a>
                 )}
@@ -161,7 +161,7 @@ const BristolPage: React.FC = () => {
               "Assist with relocation details"
             ].map((text, idx) => (
               <div key={idx} className="bg-slate-800 p-8 rounded-2xl hover:bg-slate-700 transition-colors group">
-                <div className="bg-[#C9A249] text-white rounded-2xl inline-flex items-center justify-center w-16 h-16 mb-6 group-hover:scale-110 transition-transform">
+                <div className="bg-secondary text-white rounded-2xl inline-flex items-center justify-center w-16 h-16 mb-6 group-hover:scale-110 transition-transform">
                   <FaHouseUser size={28} />
                 </div>
                 <h3 className="text-lg font-semibold">{text}</h3>
@@ -169,7 +169,7 @@ const BristolPage: React.FC = () => {
             ))}
           </div>
 
-          <a href="#" className="inline-flex items-center gap-3 px-10 py-4 bg-white text-slate-900 font-extrabold rounded-full hover:bg-[#C9A249] hover:text-white transition-all shadow-xl">
+          <a href="#" className="inline-flex items-center gap-3 px-10 py-4 bg-white text-slate-900 font-extrabold rounded-full hover:bg-secondary hover:text-white transition-all shadow-xl">
             Connect With a Bristol Realtor <HiArrowRight size={20} />
           </a>
         </div>
@@ -190,12 +190,12 @@ const BristolPage: React.FC = () => {
             <div className="grid grid-cols-2 gap-4 mb-8">
               {['Johnson City', 'Kingsport', 'Knoxville', 'Chattanooga'].map((city) => (
                 <div key={city} className="flex items-center gap-3 p-3 bg-slate-50 rounded-xl text-slate-700 font-semibold">
-                  <FaMapMarkerAlt className="text-[#C9A249]" />
+                  <FaMapMarkerAlt className="text-secondary" />
                   <span>{city}</span>
                 </div>
               ))}
             </div>
-            <a href="#" className="flex items-center justify-center gap-2 w-full py-4 bg-slate-900 text-white rounded-xl hover:bg-[#C9A249] transition-colors font-bold">
+            <a href="#" className="flex items-center justify-center gap-2 w-full py-4 bg-slate-900 text-white rounded-xl hover:bg-secondary transition-colors font-bold">
               See Best Places in Tennessee <HiArrowRight />
             </a>
           </div>

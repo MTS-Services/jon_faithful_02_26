@@ -34,22 +34,22 @@ const WhyMove: React.FC = () => {
 
           {/* Text Content */}
           <div className="lg:w-1/2">
-            <h2 className="text-3xl lg:text-4xl font-bold text-[#1F3A68] mb-6">
+            <h2 className="text-3xl lg:text-4xl font-bold text-primary mb-6">
               Why People Are Moving to Tennessee
             </h2>
             <p className="text-gray-600 mb-6 leading-relaxed">
               Tennessee is one of the fastest-growing states in the U.S., attracting thousands of new
               residents each year from California, Florida, New York, Texas, and beyond.
             </p>
-            <p className="font-semibold text-[#1F3A68] mb-4">People move to Tennessee for:</p>
+            <p className="font-semibold text-primary mb-4">People move to Tennessee for:</p>
             <ul className="space-y-3 mb-8">
               {benefits.map((item, index) => (
                 <li key={index} className="flex items-start text-gray-700">
-                  <span className="text-[#1F3A68] mt-1 mr-3">➔</span> {item}
+                  <span className="text-primary mt-1 mr-3">➔</span> {item}
                 </li>
               ))}
             </ul>
-            <a href="#" className="inline-flex items-center bg-[#1F3A68] text-white px-8 py-4 rounded-full hover:bg-[#C9A249] transition text-md font-medium">
+            <a href="#" className="inline-flex items-center bg-primary text-white px-8 py-4 rounded-full hover:bg-secondary transition text-md font-medium">
               Learn More About Us 
               <svg className="w-5 h-5 fill-white ml-2" viewBox="0 0 512 512"><path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"></path></svg>
             </a>

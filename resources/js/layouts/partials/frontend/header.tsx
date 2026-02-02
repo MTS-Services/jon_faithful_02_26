@@ -22,7 +22,7 @@ const FrontendHeader: React.FC = () => {
 
   return (
     <>
-      <div className="hidden lg:block bg-[#1F3A68]  border-b border-gray-200">
+      <div className="hidden lg:block bg-primary  border-b border-gray-200">
         <div className="container mx-auto px-6 py-2 flex justify-between items-center text-sm">
 
           <a href="mailto:info@whytennessee.com" className="flex items-center gap-2">
@@ -37,18 +37,18 @@ const FrontendHeader: React.FC = () => {
           </a>
           <div className="flex space-x-3">
             <a href="#"
-              className="w-8 h-8 flex items-center justify-center bg-white rounded-full text-gray-600 shadow-sm hover:bg-[#C9A249] group transition-all duration-300">
+              className="w-8 h-8 flex items-center justify-center bg-white rounded-full text-gray-600 shadow-sm hover:bg-secondary group transition-all duration-300">
               <svg aria-hidden="true"
-                className="w-5 h-5 fill-[#1F3A68] group-hover:fill-white transition-all duration-300"
+                className="w-5 h-5 fill-primary group-hover:fill-white transition-all duration-300"
                 viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z">
                 </path>
               </svg></a>
             <a href="#"
-              className="w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-[#C9A249] group transition-all duration-300">
+              className="w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-secondary group transition-all duration-300">
               <svg aria-hidden="true"
-                className="w-5 h-5 fill-[#1F3A68] group-hover:fill-white transition-all duration-300"
+                className="w-5 h-5 fill-primary group-hover:fill-white transition-all duration-300"
                 viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z">
@@ -56,9 +56,9 @@ const FrontendHeader: React.FC = () => {
               </svg>
             </a>
             <a href="#"
-              className="w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-[#C9A249] group transition-all duration-300">
+              className="w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-secondary group transition-all duration-300">
               <svg aria-hidden="true"
-                className="w-5 h-5 fill-[#1F3A68] group-hover:fill-white transition-all duration-300"
+                className="w-5 h-5 fill-primary group-hover:fill-white transition-all duration-300"
                 viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z">
@@ -85,13 +85,13 @@ const FrontendHeader: React.FC = () => {
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex space-x-8 items-center h-full">
-              <a href="/" className="text-gray-700 hover:text-[#C9A249] font-medium transition-colors">Home</a>
-              <a href="#" className="text-gray-700 hover:text-[#C9A249] font-medium transition-colors">Homes for Sale</a>
-              <a href="#" className="text-gray-700 hover:text-[#C9A249] font-medium transition-colors">Rentals</a>
+              <a href="/" className="text-gray-700 hover:text-secondary font-medium transition-colors">Home</a>
+              <a href="#" className="text-gray-700 hover:text-secondary font-medium transition-colors">Homes for Sale</a>
+              <a href="#" className="text-gray-700 hover:text-secondary font-medium transition-colors">Rentals</a>
 
               {/* Cities Dropdown */}
               <div className="relative group h-full flex items-center">
-                <button className="text-gray-700 group-hover:text-[#C9A249] font-medium flex items-center focus:outline-none transition-colors">
+                <button className="text-gray-700 group-hover:text-secondary font-medium flex items-center focus:outline-none transition-colors">
                   Cities <FaChevronDown className="ml-1 text-[10px]" />
                 </button>
                 <div className="absolute top-full left-0 w-56 bg-white shadow-lg rounded-b-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
@@ -105,7 +105,7 @@ const FrontendHeader: React.FC = () => {
 
               {/* Mega Menu: Moving to Tennessee */}
               <div className="relative group h-full flex items-center">
-                <button className="text-gray-700 group-hover:text-[#C9A249] font-medium flex items-center focus:outline-none transition-colors">
+                <button className="text-gray-700 group-hover:text-secondary font-medium flex items-center focus:outline-none transition-colors">
                   Moving to Tennessee <FaChevronDown className="ml-1 text-[10px]" />
                 </button>
 
@@ -115,8 +115,8 @@ const FrontendHeader: React.FC = () => {
                     <ul className="space-y-3">
                       {['About Why Tennessee', 'Tennessee Relocation Guide', 'Cost of Living in Tennessee', 'Pros & Cons of Living', 'Best Places to Live'].map((item) => (
                         <li key={item}>
-                          <a href="#" className="flex items-center text-md font-medium text-gray-600 hover:text-[#C9A249] transition-colors">
-                            <span className="text-[#1F3A68] mr-2 font-bold">»</span> {item}
+                          <a href="#" className="flex items-center text-sm text-gray-600 hover:text-secondary transition-colors">
+                            <span className="text-primary mr-2 font-bold">»</span> {item}
                           </a>
                         </li>
                       ))}
@@ -128,8 +128,8 @@ const FrontendHeader: React.FC = () => {
                     <ul className="space-y-3">
                       {['Renting in Tennessee', 'Cost of Renting', 'Renting vs Buying', 'Moving & Renting First'].map((item) => (
                         <li key={item}>
-                          <a href="#" className="flex items-center text-md font-medium text-gray-600 hover:text-[#C9A249] transition-colors">
-                            <span className="text-[#1F3A68] mr-2 font-bold">»</span> {item}
+                          <a href="#" className="flex items-center text-sm text-gray-600 hover:text-secondary transition-colors">
+                            <span className="text-primary mr-2 font-bold">»</span> {item}
                           </a>
                         </li>
                       ))}
@@ -141,8 +141,8 @@ const FrontendHeader: React.FC = () => {
                     <ul className="space-y-3">
                       {['Moving Checklist', 'City Comparison', 'Download Guide (PDF)', 'Real Estate Agents'].map((item) => (
                         <li key={item}>
-                          <a href="#" className="flex items-center text-md font-medium text-gray-600 hover:text-[#C9A249] transition-colors">
-                            <span className="text-[#1F3A68] mr-2 font-bold">»</span> {item}
+                          <a href="#" className="flex items-center text-sm text-gray-600 hover:text-secondary transition-colors">
+                            <span className="text-primary mr-2 font-bold">»</span> {item}
                           </a>
                         </li>
                       ))}
@@ -151,12 +151,12 @@ const FrontendHeader: React.FC = () => {
                 </div>
               </div>
 
-              <a href="/partner-program" className="text-gray-700 hover:text-[#C9A249] font-medium transition-colors">Partner Program</a>
+              <a href="/partner-program" className="text-gray-700 hover:text-secondary font-medium transition-colors">Partner Program</a>
             </nav>
 
             {/* Desktop Right CTA / Mobile Toggle */}
             <div className="flex items-center gap-4">
-              <a href={route('login')} className="hidden sm:flex bg-[#1F3A68] text-white px-6 py-3 rounded-full hover:bg-[#C9A249] transition-all items-center text-md font-medium shadow-md hover:shadow-lg">
+              <a href={ route('login') } className="hidden sm:flex bg-primary text-white px-6 py-3 rounded-full hover:bg-secondary transition-all items-center text-md font-medium shadow-md hover:shadow-lg">
                 Login/Registration
                 <span className="inline-flex items-center bg-white p-1 ml-2 rounded-full text-black">
                   <FaChevronRight size={12} />
@@ -165,7 +165,7 @@ const FrontendHeader: React.FC = () => {
 
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="lg:hidden text-gray-700 hover:text-[#C9A249] focus:outline-none p-2"
+                className="lg:hidden text-gray-700 hover:text-secondary focus:outline-none p-2"
               >
                 {isMobileMenuOpen ? <HiX size={32} /> : <HiMenuAlt3 size={32} />}
               </button>
@@ -207,10 +207,10 @@ const FrontendHeader: React.FC = () => {
               </button>
               {activeMobileSubmenu === 'moving' && (
                 <div className="pl-6 space-y-2 bg-gray-50 rounded-lg py-3">
-                  <p className="px-3 text-xs font-bold text-[#C9A249] uppercase">Essentials</p>
+                  <p className="px-3 text-xs font-bold text-secondary uppercase">Essentials</p>
                   <a href="#" className="block px-3 py-1 text-sm text-gray-600">Relocation Guide</a>
                   <a href="#" className="block px-3 py-1 text-sm text-gray-600">Cost of Living</a>
-                  <p className="px-3 text-xs font-bold text-[#C9A249] uppercase pt-2">Tools</p>
+                  <p className="px-3 text-xs font-bold text-secondary uppercase pt-2">Tools</p>
                   <a href="#" className="block px-3 py-1 text-sm text-gray-600">Moving Checklist</a>
                 </div>
               )}
@@ -218,7 +218,7 @@ const FrontendHeader: React.FC = () => {
 
             <a href="/partner-program" className="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50">Partner Program</a>
 
-            <a href={route('login')} className="block w-full text-center mt-6 bg-[#1F3A68] text-white px-5 py-4 rounded-xl font-bold">
+            <a href={route('login')} className="block w-full text-center mt-6 bg-primary text-white px-5 py-4 rounded-xl font-bold">
               Login / Registration
             </a>
           </div>
