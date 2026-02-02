@@ -77,6 +77,8 @@
     --color-text-muted: var(--text-muted);
 
     --shadow-card: var(--shadow-card);
+
+    --color-primary-background: var(--primary-background);
 }
 
 :root {
@@ -131,6 +133,7 @@
 
     --shadow-card: 0 7px 29px 0px #64646F33;
 
+    --primary-background: #faf7ef;
 
 }
 
