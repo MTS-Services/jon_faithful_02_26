@@ -40,4 +40,8 @@ class FrontendController extends Controller
      {
           return Inertia::render('frontend/moving-checklist');
      }
+     public function rentals(): Response
+     {
+          return Inertia::render('frontend/rentals');
+     }
 }
