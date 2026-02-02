@@ -130,64 +130,6 @@ export default function QuickSearch() {
                     <a href="singleRental.html">
                         <div className="bg-background rounded-xl overflow-hidden shadow">
                             <div className="relative">
-                                <img src="/assets//assets/images/card.jpg" className="w-full h-[250px] object-cover" />
-                                <span
-                                    className="absolute top-3 left-3 bg-secondary font-semibold font-montserrat text-primary-foreground p-3 rounded-full">
-                                    Platinum
-                                </span>
-                                <span
-                                    className="absolute top-3 right-3 bg-primary font-semibold font-montserrat text-primary-foreground p-3 rounded-full">
-                                    $999
-                                </span>
-                            </div>
-
-                            <div className="p-4 space-y-2">
-                                <h3 className="font-medium text-text-secondary-foreground text-lg">Modern Home in West Knoxville</h3>
-                                <div className="grid grid-cols-2 gap-2">
-                                    <div className="flex gap-2">
-                                        <svg aria-hidden="true" className="e-font-icon-svg e-fas-map-marker-alt w-4 h-4"
-                                            viewBox="0 0 384 512" xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z">
-                                            </path>
-                                        </svg>
-                                        <p className="text-sm text-primary font-medium font-montserrat"> Knoxville, TN</p>
-                                    </div>
-
-                                    <div className="flex gap-2">
-                                        <svg aria-hidden="true" className="e-font-icon-svg e-far-clone w-4 h-4"
-                                            viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M464 0H144c-26.51 0-48 21.49-48 48v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h320c26.51 0 48-21.49 48-48v-48h48c26.51 0 48-21.49 48-48V48c0-26.51-21.49-48-48-48zM362 464H54a6 6 0 0 1-6-6V150a6 6 0 0 1 6-6h42v224c0 26.51 21.49 48 48 48h224v42a6 6 0 0 1-6 6zm90-96H150a6 6 0 0 1-6-6V54a6 6 0 0 1 6-6h308a6 6 0 0 1 6 6v308a6 6 0 0 1-6 6z">
-                                            </path>
-                                        </svg>
-                                        <p className="text-sm text-primary font-medium font-montserrat"> Knoxville, TN</p>
-                                    </div>
-                                    <div className="flex gap-2">
-                                        <svg aria-hidden="true" className="e-font-icon-svg e-fas-bed w-4 h-4"
-                                            viewBox="0 0 640 512" xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M176 256c44.11 0 80-35.89 80-80s-35.89-80-80-80-80 35.89-80 80 35.89 80 80 80zm352-128H304c-8.84 0-16 7.16-16 16v144H64V80c0-8.84-7.16-16-16-16H16C7.16 64 0 71.16 0 80v352c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16v-48h512v48c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16V240c0-61.86-50.14-112-112-112z">
-                                            </path>
-                                        </svg>
-                                        <p className="text-sm text-primary font-medium font-montserrat"> Knoxville, TN</p>
-                                    </div>
-                                    <div className="flex gap-2">
-                                        <svg aria-hidden="true" className="e-font-icon-svg e-fas-bath w-4 h-4"
-                                            viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M32,384a95.4,95.4,0,0,0,32,71.09V496a16,16,0,0,0,16,16h32a16,16,0,0,0,16-16V480H384v16a16,16,0,0,0,16,16h32a16,16,0,0,0,16-16V455.09A95.4,95.4,0,0,0,480,384V336H32ZM496,256H80V69.25a21.26,21.26,0,0,1,36.28-15l19.27,19.26c-13.13,29.88-7.61,59.11,8.62,79.73l-.17.17A16,16,0,0,0,144,176l11.31,11.31a16,16,0,0,0,22.63,0L283.31,81.94a16,16,0,0,0,0-22.63L272,48a16,16,0,0,0-22.62,0l-.17.17c-20.62-16.23-49.83-21.75-79.73-8.62L150.22,20.28A69.25,69.25,0,0,0,32,69.25V256H16A16,16,0,0,0,0,272v16a16,16,0,0,0,16,16H496a16,16,0,0,0,16-16V272A16,16,0,0,0,496,256Z">
-                                            </path>
-                                        </svg>
-                                        <p className="text-sm text-primary font-medium font-montserrat"> Knoxville, TN</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="singleRental.html">
-                        <div className="bg-primary-foreground rounded-xl overflow-hidden shadow">
-                            <div className="relative">
                                 <img src="/assets/images/card.jpg" className="w-full h-[250px] object-cover" />
                                 <span
                                     className="absolute top-3 left-3 bg-secondary font-semibold font-montserrat text-primary-foreground p-3 rounded-full">
@@ -246,7 +188,7 @@ export default function QuickSearch() {
                     <a href="singleRental.html">
                         <div className="bg-primary-foreground rounded-xl overflow-hidden shadow">
                             <div className="relative">
-                                <img src="/assets/images/card.jpg" className="w-full h-[250px] object-cover" />
+                                <img src="/assets/images/images-1.jpg" className="w-full h-[250px] object-cover" />
                                 <span
                                     className="absolute top-3 left-3 bg-secondary font-semibold font-montserrat text-primary-foreground p-3 rounded-full">
                                     Platinum
@@ -304,7 +246,7 @@ export default function QuickSearch() {
                     <a href="singleRental.html">
                         <div className="bg-primary-foreground rounded-xl overflow-hidden shadow">
                             <div className="relative">
-                                <img src="/assets/images/card.jpg" className="w-full h-[250px] object-cover" />
+                                <img src="/assets/images/midtown-memphis-memphis-tn-3.avif" className="w-full h-[250px] object-cover" />
                                 <span
                                     className="absolute top-3 left-3 bg-secondary font-semibold font-montserrat text-primary-foreground p-3 rounded-full">
                                     Platinum
@@ -362,7 +304,65 @@ export default function QuickSearch() {
                     <a href="singleRental.html">
                         <div className="bg-primary-foreground rounded-xl overflow-hidden shadow">
                             <div className="relative">
-                                <img src="/assets/images/card.jpg" className="w-full h-[250px] object-cover" />
+                                <img src="/assets/images/pexels-ceesz-284432587-17883719-scaled.jpg" className="w-full h-[250px] object-cover" />
+                                <span
+                                    className="absolute top-3 left-3 bg-secondary font-semibold font-montserrat text-primary-foreground p-3 rounded-full">
+                                    Platinum
+                                </span>
+                                <span
+                                    className="absolute top-3 right-3 bg-primary font-semibold font-montserrat text-primary-foreground p-3 rounded-full">
+                                    $999
+                                </span>
+                            </div>
+
+                            <div className="p-4 space-y-2">
+                                <h3 className="font-medium text-text-secondary-foreground text-lg">Modern Home in West Knoxville</h3>
+                                <div className="grid grid-cols-2 gap-2">
+                                    <div className="flex gap-2">
+                                        <svg aria-hidden="true" className="e-font-icon-svg e-fas-map-marker-alt w-4 h-4"
+                                            viewBox="0 0 384 512" xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z">
+                                            </path>
+                                        </svg>
+                                        <p className="text-sm text-primary font-medium font-montserrat"> Knoxville, TN</p>
+                                    </div>
+
+                                    <div className="flex gap-2">
+                                        <svg aria-hidden="true" className="e-font-icon-svg e-far-clone w-4 h-4"
+                                            viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M464 0H144c-26.51 0-48 21.49-48 48v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h320c26.51 0 48-21.49 48-48v-48h48c26.51 0 48-21.49 48-48V48c0-26.51-21.49-48-48-48zM362 464H54a6 6 0 0 1-6-6V150a6 6 0 0 1 6-6h42v224c0 26.51 21.49 48 48 48h224v42a6 6 0 0 1-6 6zm90-96H150a6 6 0 0 1-6-6V54a6 6 0 0 1 6-6h308a6 6 0 0 1 6 6v308a6 6 0 0 1-6 6z">
+                                            </path>
+                                        </svg>
+                                        <p className="text-sm text-primary font-medium font-montserrat"> Knoxville, TN</p>
+                                    </div>
+                                    <div className="flex gap-2">
+                                        <svg aria-hidden="true" className="e-font-icon-svg e-fas-bed w-4 h-4"
+                                            viewBox="0 0 640 512" xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M176 256c44.11 0 80-35.89 80-80s-35.89-80-80-80-80 35.89-80 80 35.89 80 80 80zm352-128H304c-8.84 0-16 7.16-16 16v144H64V80c0-8.84-7.16-16-16-16H16C7.16 64 0 71.16 0 80v352c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16v-48h512v48c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16V240c0-61.86-50.14-112-112-112z">
+                                            </path>
+                                        </svg>
+                                        <p className="text-sm text-primary font-medium font-montserrat"> Knoxville, TN</p>
+                                    </div>
+                                    <div className="flex gap-2">
+                                        <svg aria-hidden="true" className="e-font-icon-svg e-fas-bath w-4 h-4"
+                                            viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M32,384a95.4,95.4,0,0,0,32,71.09V496a16,16,0,0,0,16,16h32a16,16,0,0,0,16-16V480H384v16a16,16,0,0,0,16,16h32a16,16,0,0,0,16-16V455.09A95.4,95.4,0,0,0,480,384V336H32ZM496,256H80V69.25a21.26,21.26,0,0,1,36.28-15l19.27,19.26c-13.13,29.88-7.61,59.11,8.62,79.73l-.17.17A16,16,0,0,0,144,176l11.31,11.31a16,16,0,0,0,22.63,0L283.31,81.94a16,16,0,0,0,0-22.63L272,48a16,16,0,0,0-22.62,0l-.17.17c-20.62-16.23-49.83-21.75-79.73-8.62L150.22,20.28A69.25,69.25,0,0,0,32,69.25V256H16A16,16,0,0,0,0,272v16a16,16,0,0,0,16,16H496a16,16,0,0,0,16-16V272A16,16,0,0,0,496,256Z">
+                                            </path>
+                                        </svg>
+                                        <p className="text-sm text-primary font-medium font-montserrat"> Knoxville, TN</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="singleRental.html">
+                        <div className="bg-primary-foreground rounded-xl overflow-hidden shadow">
+                            <div className="relative">
+                                <img src="/assets/istockphoto-140781367-612x612-1.jpg" className="w-full h-[250px] object-cover" />
                                 <span
                                     className="absolute top-3 left-3 bg-secondary font-semibold font-montserrat text-primary-foreground p-3 rounded-full">
                                     Platinum
