@@ -26,7 +26,7 @@ const BestCities: React.FC = () => {
     <section id="cities" className="py-20 bg-[#f3efe7] rounded-t-[70px]">
       <div className="container mx-auto px-6">
         <div className="text-center mb-12">
-          <h2 className="text-3xl lg:text-4xl font-bold text-[#1F3A68] mb-4">Best Cities to Live in Tennessee</h2>
+          <h2 className="text-3xl lg:text-4xl font-bold text-primary mb-4">Best Cities to Live in Tennessee</h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
             Every city in Tennessee offers something unique. Whether you want urban energy or mountain views, there’s a place for you.
           </p>
@@ -42,7 +42,7 @@ const BestCities: React.FC = () => {
         </div>
 
         <div className="mt-12 text-center">
-          <a href="#" className="bg-[#1F3A68] hover:bg-[#C9A249] text-white px-8 py-5 rounded-full font-medium transition inline-flex items-center">
+          <a href="#" className="bg-primary hover:bg-secondary text-white px-8 py-5 rounded-full font-medium transition inline-flex items-center">
             View all Tennessee city guides
           </a>
         </div>

@@ -8,38 +8,32 @@ use Inertia\Response;
 
 class FrontendController extends Controller
 {
-    //
+     //
 
-    public function index (): Response 
-    {
-        
-         return Inertia::render('frontend/index');
+     public function index(): Response
+     {
+          return Inertia::render('frontend/index');
+     }
+     public function partnerProgram(): Response
+     {
+          return Inertia::render('frontend/partnerProgram');
+     }
+     public function livingInBristol(): Response
+     {
+          return Inertia::render('frontend/livingInBristol');
+     }
+     public function rentingTennessee(): Response
+     {
+          return Inertia::render('frontend/rentingTennessee');
+     }
 
-    }
-    public function partnerProgram (): Response 
-    {
-        
-         return Inertia::render('frontend/partnerProgram');
+     public function livingInChattanooga(): Response
+     {
+          return Inertia::render('frontend/livingInChattanooga');
+     }
 
-    }
-    public function livingInBristol (): Response 
-    {
-        
-         return Inertia::render('frontend/livingInBristol');
-
-    }
-
-    public function livingInChattanooga (): Response 
-    {
-        
-         return Inertia::render('frontend/livingInChattanooga');
-
-    }
-
-    public function homesForSale (): Response 
-    {
-        
-         return Inertia::render('frontend/homes-for-sale');
-
-    }
+     public function homesForSale(): Response
+     {
+          return Inertia::render('frontend/homes-for-sale');
+     }
 }
