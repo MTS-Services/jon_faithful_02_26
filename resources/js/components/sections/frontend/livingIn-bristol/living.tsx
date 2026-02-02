@@ -134,7 +134,7 @@ const Living: React.FC = () => {
 
 const CostCard: React.FC<{ title: string; value: string }> = ({ title, value }) => (
   <div className="bg-gray-100/50 border rounded-xl text-center overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-    <div className="bg-[#1F3A68] py-4">
+    <div className="bg-primary py-4">
       <p className="text-xl font-semibold text-white">{title}</p>
     </div>
     <div className="py-5 lg:py-10">

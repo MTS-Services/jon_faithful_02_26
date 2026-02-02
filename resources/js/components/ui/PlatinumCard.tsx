@@ -24,11 +24,11 @@ const PlatinumCard: React.FC<{ property: Property }> = ({ property }) => {
                     className="w-full h-64 object-cover group-hover:scale-105 transition duration-500"
                 />
 
-                <span className="absolute top-4 left-4 bg-[#C9A249] text-white text-xs uppercase font-bold px-3 py-2.5 rounded-full">
+                <span className="absolute top-4 left-4 bg-secondary text-white text-xs uppercase font-bold px-3 py-2.5 rounded-full">
                     Platinum
                 </span>
 
-                <span className="absolute top-4 right-4 bg-[#1F3A68] text-white text-sm font-bold px-4 py-2.5 rounded-full shadow-sm">
+                <span className="absolute top-4 right-4 bg-primary text-white text-sm font-bold px-4 py-2.5 rounded-full shadow-sm">
                     ${price}k
                 </span>
             </div>

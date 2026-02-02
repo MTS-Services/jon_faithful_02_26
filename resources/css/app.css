@@ -77,6 +77,8 @@
     --color-text-muted: var(--text-muted);
 
     --shadow-card: var(--shadow-card);
+
+    --color-primary-background: var(--primary-background);
 }
 
 :root {
@@ -88,10 +90,10 @@
     --popover: oklch(1 0 0);
     --popover-foreground: oklch(0.145 0 0);
 
-    --primary: #D02738;
+    --primary: #1b2a4a;
     --primary-foreground: oklch(0.985 0 0);
 
-    --secondary: #0D9488;
+    --secondary: #b8912a;
     --secondary-foreground: #121711;
 
     --muted: #F3F3F3;
@@ -130,6 +132,9 @@
     --text-muted: #9B9B9F;
 
     --shadow-card: 0 7px 29px 0px #64646F33;
+
+    --primary-background: #faf7ef;
+
 }
 
 @utility container {
@@ -161,11 +166,11 @@
     }
 
     @media (width >=1500px) {
-        max-width: 100%;
+        max-width: 1420px;
     }
 
     @media (width >=1700px) {
-        max-width: 1700px;
+        max-width: 1420px;
     }
 }
 

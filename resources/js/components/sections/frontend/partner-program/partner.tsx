@@ -40,7 +40,7 @@ const Partner = () => {
                         Realtor Partners. This early-access opportunity is designed for agents seeking increased
                         visibility and early exposure to motivated buyers.
                     </p>
-                    <button className="inline-flex items-center gap-2 mt-8 bg-[#1b2a4a] hover:bg-[#b8912a] text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 hover:-translate-y-1">
+                    <button className="inline-flex items-center gap-2 mt-8 bg-primary hover:bg-[#b8912a] text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 hover:-translate-y-1">
                         Join Partner Program
                         <span className="inline-flex items-center bg-white p-1 rounded-full text-black">
                             <FaChevronRight size={12} />
@@ -50,7 +50,7 @@ const Partner = () => {
             </section>
 
             {/* APPLY BAND (Dark) */}
-            <section className="bg-[#1b2a4a] text-center py-12 px-6">
+            <section className="bg-primary text-center py-12 px-6">
                 <h2 className="text-white text-3xl md:text-5xl font-bold">Apply to Become a Founding Partner</h2>
                 <p className="text-gray-400 text-md mt-2">Spots are limited and reviewed individually.</p>
                 <button className="inline-flex items-center gap-2 mt-6 bg-[#d4a832] hover:bg-[#b8912a] text-white px-10 py-4 rounded-full font-bold transition-colors duration-300">
@@ -107,7 +107,7 @@ const Partner = () => {
                 <div className="container mx-auto flex flex-col md:flex-row gap-8">
 
                     {/* Card 1 */}
-                    <div className="flex-1 bg-[#1b2a4a] text-white rounded-2xl p-8 shadow-xl">
+                    <div className="flex-1 bg-primary text-white rounded-2xl p-8 shadow-xl">
                         <h3 className="text-xl font-bold mb-4">What Founding Realtor Partners Receive</h3>
                         <p className="text-[#c8d4e4] text-sm mb-6 leading-relaxed">
                             As a Founding Partner, you receive early placement and visibility before additional agents join the platform.
@@ -133,7 +133,7 @@ const Partner = () => {
                     </div>
 
                     {/* Card 2 */}
-                    <div className="flex-1 bg-[#1b2a4a] text-white rounded-2xl p-8 shadow-xl">
+                    <div className="flex-1 bg-primary text-white rounded-2xl p-8 shadow-xl">
                         <h3 className="text-xl font-bold mb-4">Limited Availability by City</h3>
                         <p className="text-[#d4a832] font-bold text-sm mb-4 uppercase tracking-wider">Quality Assurance:</p>
                         <ul className="space-y-3 mb-8">
@@ -160,11 +160,11 @@ const Partner = () => {
                         <h3 className="text-xl font-bold mb-4 border-t border-white/10 pt-6">No Long-Term Commitment</h3>
                         <ul className="space-y-3">
                             <li className="flex items-start gap-3 text-sm text-[#c8d4e4]">
-                                <XCircle size={18} className="text-red-500 shrink-0" />
+                                <XCircle size={18} className="text-secondary shrink-0" />
                                 Has no long-term contracts
                             </li>
                             <li className="flex items-start gap-3 text-sm text-[#c8d4e4]">
-                                <XCircle size={18} className="text-red-500 shrink-0" />
+                                <XCircle size={18} className="text-secondary shrink-0" />
                                 Has no upfront listing fees during launch
                             </li>
                             <li className="flex items-start gap-3 text-sm text-[#c8d4e4]">
@@ -179,7 +179,7 @@ const Partner = () => {
             </section>
 
             {/* PROCESS STEPS */}
-            <section className="bg-[#1b2a4a] py-20 px-6">
+            <section className="bg-primary py-20 px-6">
                 <h2 className="text-white text-center text-4xl md:text-5xl font-bold mb-16">How the Process Works</h2>
                 <div className="container mx-auto grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-4">
                     {[
@@ -190,7 +190,7 @@ const Partner = () => {
                         "Begin receiving exposure as the platform grows"
                     ].map((step, idx) => (
                         <div key={idx} className="bg-white rounded-xl p-6 text-center flex flex-col items-center">
-                            <span className="text-5xl font-black text-[#1b2a4a] leading-none mb-4">{idx + 1}</span>
+                            <span className="text-5xl font-black text-primary leading-none mb-4">{idx + 1}</span>
                             <p className="text-sm font-bold text-gray-700 leading-snug">{step}</p>
                         </div>
                     ))}
@@ -199,7 +199,7 @@ const Partner = () => {
 
             {/* FINAL CTA */}
             <section className="bg-white text-center py-20 px-6">
-                <h2 className="text-[#1b2a4a] text-4xl font-bold mb-4">Apply to Become a Founding Partner</h2>
+                <h2 className="text-primary text-4xl font-bold mb-4">Apply to Become a Founding Partner</h2>
                 <p className="text-gray-500 mb-8">Spots are limited and reviewed individually.</p>
                 <button className="inline-flex items-center gap-2 bg-[#d4a832] hover:bg-[#b8912a] text-white font-bold px-10 py-4 rounded-full transition-all hover:-translate-y-1 shadow-lg">
                     Apply Now
@@ -210,7 +210,7 @@ const Partner = () => {
             </section>
 
             {/* DISCLAIMER */}
-            <footer className="bg-[#1b2a4a] text-center px-6 py-12 border-t border-white/5">
+            <footer className="bg-primary text-center px-6 py-12 border-t border-white/5">
                 <h2 className="text-white text-2xl font-bold mb-4">Disclaimer</h2>
                 <p className="text-white/60 max-w-2xl mx-auto text-sm leading-relaxed">
                     Participation in the WhyTennessee.com partner program does not guarantee leads, inquiries, or

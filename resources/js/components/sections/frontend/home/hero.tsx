@@ -55,7 +55,7 @@ const Hero: React.FC = () => {
         <div className="flex flex-col sm:flex-row justify-start gap-4">
           <a
             href="#cities"
-            className="bg-[#32373c] hover:bg-orange-500 text-white px-8 py-3 rounded-full text-lg font-medium transition flex items-center justify-center"
+            className="bg-primary hover:bg-secondary text-white px-8 py-3 rounded-full text-lg font-medium transition flex items-center justify-center"
           >
             Explore Tennessee Cities
             <span className="ml-2">
@@ -72,7 +72,7 @@ const Hero: React.FC = () => {
 
           <a
             href="#"
-            className="bg-[#32373c] hover:bg-orange-500 text-white px-8 py-3 rounded-full text-lg font-medium transition flex items-center justify-center"
+            className="bg-primary hover:bg-secondary text-white px-8 py-3 rounded-full text-lg font-medium transition flex items-center justify-center"
           >
             Search Homes for Sale
             <span className="ml-2">
