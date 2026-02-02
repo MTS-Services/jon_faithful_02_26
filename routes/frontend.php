@@ -16,5 +16,6 @@ Route::name('frontend.')->controller(FrontendController::class)->group(function 
         Route::get('/city-comparison', 'cityComparison')->name('cityComparison');
         Route::get('/real-estate-agents', 'realEstateAgents')->name('realEstateAgents');
         Route::get('/rentals', 'rentals')->name('rentals');
+        Route::get('/why-tennessee', 'whyTennessee')->name('why-tennessee');
 
     });
