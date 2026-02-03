@@ -2,7 +2,7 @@ import React from 'react'
 
 interface LocationProps {
     title: string
-    description: string
+    description: React.ReactNode;
     distances: string[]
     mapUrl: string
     conclusion: string
