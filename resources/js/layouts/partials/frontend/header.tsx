@@ -43,6 +43,7 @@ const FrontendHeader: React.FC = () => {
     { name: 'City Comparison', route: '/city-comparison' },
     { name: 'Download Guide (PDF)', route: '#' },
     { name: 'Real Estate Agents', route: '/real-estate-agents' },
+    { name: 'Live in Tennessee', route: '/live-tennessee' },
   ]
 
   return (
