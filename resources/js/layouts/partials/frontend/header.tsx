@@ -13,17 +13,11 @@ const FrontendHeader: React.FC = () => {
 
   const cities = [
     { name: "Bristol", route: "bristol" },
-    { name: "Chattanooga", route: "chattanooga" },
+    { name: "Chattanooga", route: "#" },
     { name: "Cookeville", route: "#" },
     { name: "Nashville", route: "#" },
     { name: "Knoxville", route: "#" },
-    { name: "Johnson City", route: "#" },
-    { name: "Franklin", route: "#" },
     { name: "Memphis", route: "#" },
-    { name: "Clarksville", route: "#" },
-    { name: "Murfreesboro", route: "#" },
-    { name: "Kingsport", route: "#" },
-    { name: "Jackson", route: "#" },
   ];
   const movingTopics1 = [
     { name: 'About Why Tennessee', route: '#' },
@@ -140,7 +134,7 @@ const FrontendHeader: React.FC = () => {
                     <ul className="space-y-3">
                       {movingTopics1.map((item) => (
                         <li key={item.name}>
-                          <a href={`/${item.route}`} className="flex items-center text-sm text-gray-600 hover:text-secondary transition-colors">
+                          <a href={item.route} className="flex items-center text-sm text-gray-600 hover:text-secondary transition-colors">
                             <span className="text-primary mr-2 font-bold">»</span> {item.name}
                           </a>
                         </li>
