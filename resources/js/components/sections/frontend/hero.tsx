@@ -24,7 +24,7 @@ const Hero: React.FC<HeroProps> = ({
     buttons = [],
     autoSlide = true,
     slideInterval = 5000,
-    height = "h-[450px]",
+    height = "h-[350px]",
 }) => {
     const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -51,11 +51,11 @@ const Hero: React.FC<HeroProps> = ({
                         aria-hidden={index !== currentSlide}
                     />
                 ))}
-                <div className="absolute inset-0 bg-black/40 z-10" />
+                <div className="absolute inset-0 bg-primary z-10"  />
             </div>
 
             {/* Content */}
-            <div className="relative z-20 container mx-auto px-4 lg:px-16 text-white">
+            <div className="relative z-20 container mx-auto px-4 lg:px-16 text-white ">
                 {eyebrow && (
                     <h2 className="text-xl md:text-3xl font-light mb-4 tracking-wide">
                         {eyebrow}

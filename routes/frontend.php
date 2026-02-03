@@ -15,8 +15,9 @@ Route::name('frontend.')->controller(FrontendController::class)->group(function 
         Route::get('/moving-checklist', 'movingChecklist')->name('movingChecklist');
         Route::get('/city-comparison', 'cityComparison')->name('cityComparison');
         Route::get('/real-estate-agents', 'realEstateAgents')->name('realEstateAgents');
+        Route::get('/islamabad', 'islamabad')->name('islamabad');
         Route::get('/rentals', 'rentals')->name('rentals');
-        Route::get('/why-tennessee', 'whyTennessee')->name('why-tennessee');
-        Route::get('/tennessee-relocation', 'tennesseeRelocation')->name('tennessee-relocation');
+        Route::get('/why-tennessee', 'whyTennessee')->name('whyTennessee');
+        Route::get('/tennessee-relocation', 'tennesseeRelocation')->name('tennesseeRelocation');
 
     });

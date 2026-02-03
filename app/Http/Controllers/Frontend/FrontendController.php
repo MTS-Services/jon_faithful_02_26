@@ -52,6 +52,11 @@ class FrontendController extends Controller
      {
           return Inertia::render('frontend/real-estate-agents');
      }
+
+     public function islamabad(): Response
+     {
+          return Inertia::render('frontend/islamabad');
+     }
      public function whyTennessee(): Response
      {
           return Inertia::render('frontend/why-tennessee');
@@ -60,4 +65,6 @@ class FrontendController extends Controller
      {
           return Inertia::render('frontend/tennessee-relocation');
      }
+
+     
 }
