@@ -20,5 +20,7 @@ Route::name('frontend.')->controller(FrontendController::class)->group(function 
         Route::get('/tennessee-relocation', 'tennesseeRelocation')->name('tennessee-relocation');
         Route::get('/single-product', 'singleProduct')->name('single-product');
         Route::get('/living-in-nashville', 'livingInNashville')->name('livingInNashville');
+        Route::get('/living-in-nashville', 'livingInNashville')->name('livingInNashville');
+        Route::get('/living-in-cookeville', 'livingInCookeville')->name('livingInCookeville');
 
     });
