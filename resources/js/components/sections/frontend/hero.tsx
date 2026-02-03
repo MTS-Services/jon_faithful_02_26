@@ -24,7 +24,7 @@ const Hero: React.FC<HeroProps> = ({
     buttons = [],
     autoSlide = true,
     slideInterval = 5000,
-    height = "h-[650px]",
+    height = "h-[450px]",
 }) => {
     const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -62,12 +62,12 @@ const Hero: React.FC<HeroProps> = ({
                     </h2>
                 )}
 
-                <h1 className="text-xl md:text-2xl lg:text-5xl font-bold mb-6 leading-tight">
+                <h1 className="text-xl md:text-2xl lg:text-5xl font-bold mb-6 leading-tight text-center">
                     {title}
                 </h1>
 
                 {description && (
-                    <p className="text-lg md:text-xl max-w-3xl mb-10 text-gray-100 font-light">
+                    <p className="text-lg md:text-xl max-w-3xl mb-10 text-gray-100 font-light text-center">
                         {description}
                     </p>
                 )}
