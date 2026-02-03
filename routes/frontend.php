@@ -21,5 +21,7 @@ Route::name('frontend.')->controller(FrontendController::class)->group(function 
         Route::get('/single-product', 'singleProduct')->name('single-product');
         Route::get('/renting-buy', 'rentingBuy')->name('renting-buy');
         Route::get('/living-in-nashville', 'livingInNashville')->name('livingInNashville');
+        Route::get('/cost-of-renting-tennessee', 'costOfRentingTennessee')->name('cost-of-renting-tennessee');
+        Route::get('/moving-tennessee-renting', 'movingTennesseeRenting')->name('moving-tennessee-renting');
 
     });
