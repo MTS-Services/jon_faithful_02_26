@@ -56,4 +56,8 @@ class FrontendController extends Controller
      {
           return Inertia::render('frontend/why-tennessee');
      }
+     public function tennesseeRelocation(): Response
+     {
+          return Inertia::render('frontend/tennessee-relocation');
+     }
 }
