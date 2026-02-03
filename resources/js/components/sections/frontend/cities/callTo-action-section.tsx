@@ -17,7 +17,7 @@ export default function CallToActionSection(props: CallToActionProps) {
     };
 
     return (
-        <section className="bg-primary py-24 text-center">
+        <section className="bg-primary py-16 text-center">
             <div className="container mx-auto px-4">
                 {/* CALL TO ACTION */}
                 {callToActionProps.title && (

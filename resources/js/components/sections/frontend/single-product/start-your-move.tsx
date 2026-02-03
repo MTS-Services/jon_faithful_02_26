@@ -8,7 +8,7 @@ export default function StartYourMove() {
                         Start Your Move to <br className="hidden sm:block" />{' '}
                         Tennessee with Confidence
                     </h2>
-                    <p className="font-montserrat text-sm font-normal sm:text-base">
+                    <p className="font-montserrat text-sm font-normal sm:text-base mb-4">
                         Explore cities, compare lifestyles, browse homes, and
                         connect with local experts.
                     </p>

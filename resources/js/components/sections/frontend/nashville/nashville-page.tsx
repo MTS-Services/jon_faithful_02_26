@@ -193,8 +193,8 @@ export default function NashvillePage() {
                     />
                 </div>
             </div>
-            <div className="rounded-t-[30px] bg-primary py-16 sm:rounded-t-[50px] md:rounded-t-[60px] lg:rounded-t-[80px]">
-                <div className="bg-primary py-16">
+            <div className="">
+                <div className="bg-primary rounded-t-[30px] py-16 sm:rounded-t-[50px] md:rounded-t-[60px] lg:rounded-t-[80px]">
                     <div className="container mx-auto px-4 lg:px-16">
                         <h2 className="mb-6 text-center text-3xl font-bold text-primary-foreground">
                             Best Neighborhoods in Nashville
