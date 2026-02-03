@@ -29,7 +29,7 @@ class FrontendController extends Controller
 
      public function livingInChattanooga(): Response
      {
-          return Inertia::render('frontend/livingInChattanooga');
+          return Inertia::render('frontend/living-in-chattanooga');
      }
 
      public function homesForSale(): Response
@@ -68,5 +68,21 @@ class FrontendController extends Controller
      public function livetennessee(): Response
      {
           return Inertia::render('frontend/live-tennessee');
+     }
+     public function livingInNashville(): Response
+     {
+          return Inertia::render('frontend/living-in-nashville');
+     }
+     public function livingInCookeville(): Response
+     {
+          return Inertia::render('frontend/living-in-cookeville');
+     }
+     public function livingInKnoxville(): Response
+     {
+          return Inertia::render('frontend/living-in-knoxville');
+     }
+     public function livingInJohnsonCity(): Response
+     {
+          return Inertia::render('frontend/living-in-johnson-city');
      }
 }

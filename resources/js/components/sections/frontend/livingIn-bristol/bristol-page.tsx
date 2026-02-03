@@ -1,11 +1,11 @@
 import CallToActionSection from '@/components/sections/frontend/cities/callTo-action-section';
 import InfoTabsSection from '@/components/sections/frontend/cities/info-tabs-section';
 import NeighborhoodsSection from '@/components/sections/frontend/cities/neighborhoods-section';
+import { ArrowRightIcon } from 'lucide-react';
 import React from 'react';
 import FinalInfoSection from '../cities/final-info-section';
 import MoveLocationSection from '../cities/move-location-section';
 import WhyMoveSection from '../cities/why-move';
-import { ArrowRightIcon } from 'lucide-react';
 
 // WHY MOVE DATA
 const whyMoveData = {
@@ -169,10 +169,10 @@ const BristolPage: React.FC = () => {
                 </div>
             </section>
 
-            <section className="bg-gray-100 py-16">
+            <div className="bg-primary py-16">
                 <div className="container mx-auto px-4 lg:px-16">
-                    <h2 className="mb-6 text-center text-3xl font-bold">
-                        Bristol Neighborhoods
+                    <h2 className="mb-6 text-center text-3xl font-bold text-primary-foreground">
+                        Best Neighborhoods in Bristol
                     </h2>
                     <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
                         {neighborhoods.map((neighborhood, idx) => (
@@ -183,7 +183,7 @@ const BristolPage: React.FC = () => {
                         ))}
                     </div>
                 </div>
-            </section>
+            </div>
             <InfoTabsSection tabs={tabs} />
             <CallToActionSection
                 title="Work With a Bristol Realtor"

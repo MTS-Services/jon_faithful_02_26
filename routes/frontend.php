@@ -20,5 +20,9 @@ Route::name('frontend.')->controller(FrontendController::class)->group(function 
         Route::get('/tennessee-relocation', 'tennesseeRelocation')->name('tennessee-relocation');
         Route::get('/single-product', 'singleProduct')->name('single-product');
         Route::get('/live-tennessee', 'livetennessee')->name('livetennessee');
+        Route::get('/living-in-nashville', 'livingInNashville')->name('livingInNashville');
+        Route::get('/living-in-cookeville', 'livingInCookeville')->name('livingInCookeville');
+        Route::get('/living-in-knoxville', 'livingInKnoxville')->name('livingInKnoxville');
+        Route::get('/living-in-johnson-city', 'livingInJohnsonCity')->name('livingInJohnsonCity');
 
     });
