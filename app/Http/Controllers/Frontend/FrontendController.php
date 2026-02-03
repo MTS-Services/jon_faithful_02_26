@@ -64,4 +64,8 @@ class FrontendController extends Controller
      {
           return Inertia::render('frontend/single-product');
      }
+     public function rentingBuy(): Response
+     {
+          return Inertia::render('frontend/renting-buy');
+     }
 }
