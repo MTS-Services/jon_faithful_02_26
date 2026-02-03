@@ -182,9 +182,9 @@ export default function ChattanoogaPage() {
                     />
                 </div>
             </div>
-            <div className="bg-gray-100 py-16">
+            <div className="bg-primary py-16">
                 <div className="container mx-auto px-4 lg:px-16">
-                    <h2 className="mb-6 text-center text-3xl font-bold">
+                    <h2 className="mb-6 text-center text-3xl font-bold text-primary-foreground">
                         Best Neighborhoods in Chattanooga
                     </h2>
                     <div className="grid grid-cols-1 gap-6 md:grid-cols-5">
