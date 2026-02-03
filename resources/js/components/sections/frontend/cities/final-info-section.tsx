@@ -5,10 +5,11 @@ type property = {
     title ?: string;
     description ?: string;
     cities ?: string[];
+    rightTitle ?: string;
 }
 
 export default function FinalInfoSection({property}: {property: property}) {
-    const { title, description, cities } = property;
+    const { title, description, cities, rightTitle } = property;
     const citiesList = cities || [
         'Johnson City, TN',
         'Kingsport, TN',
@@ -28,7 +29,7 @@ export default function FinalInfoSection({property}: {property: property}) {
                 </div>
 
                 <div className="bg-white p-10 rounded-3xl">
-                    <h2 className="text-3xl font-bold mb-6">Explore Nearby Cities</h2>
+                    <h2 className="text-3xl font-bold mb-6">{rightTitle}</h2>
 
                     <div className="grid grid-cols-2 gap-4 mb-8">
                         {citiesList.map(city => (

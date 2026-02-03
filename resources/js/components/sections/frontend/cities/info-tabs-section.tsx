@@ -10,6 +10,11 @@ interface TabContent {
     items: string[]
     footer: string
     imageUrl: string
+    cta?: {
+        label: string
+        href: string
+        icon: React.ReactNode
+    }
 }
 
 export default function InfoTabsSection({ tabs }: { tabs: TabContent[] }) {
@@ -66,10 +71,10 @@ export default function InfoTabsSection({ tabs }: { tabs: TabContent[] }) {
 
                             {tab.id === 'tab4' && (
                                 <a
-                                    href="/homes-for-sale"
-                                    className="inline-flex gap-2 mt-8 bg-slate-900 text-white px-8 py-4 rounded-full font-bold"
+                                    href={tab.cta?.href}
+                                    className="inline-flex items-center gap-2 mt-8 bg-slate-900 text-white px-8 py-4 rounded-full font-bold"
                                 >
-                                    View Local Listings <HiArrowRight />
+                                    {tab.cta?.label} {tab.cta?.icon}
                                 </a>
                             )}
                         </div>
