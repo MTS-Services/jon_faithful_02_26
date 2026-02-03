@@ -30,7 +30,7 @@ export default function RealEstateAgents() {
           <div className="group relative overflow-hidden rounded-2xl bg-white shadow-md transition-all duration-500 hover:shadow-xl">
             <div className="relative h-72 overflow-hidden bg-gray-200">
               <img 
-                src="assets/images/moving-checklist/engineer_team_full_skill_quality_for_maintenance_and_training_in_industry_factory_worker___warehouse_Workshop_for_factory_operators__mechani (1).jpeg" 
+                src="assets/images/moving-checklist/engineer_team_full_skill.jpeg" 
                 alt="Team Member" 
                 className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
@@ -59,7 +59,7 @@ export default function RealEstateAgents() {
           <div className="group relative overflow-hidden rounded-2xl bg-white shadow-md transition-all duration-500 hover:shadow-xl">
             <div className="relative h-72 overflow-hidden bg-gray-200">
               <img 
-                src="assets/images/moving-checklist/Doctor_and_hospital_administrators_talking_in_meeting1-scaled.jpeg" 
+                src="assets/images/moving-checklist/Doctor_and_hospital.jpeg" 
                 alt="Team Member" 
                 className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
@@ -131,7 +131,7 @@ export default function RealEstateAgents() {
           <div className="group relative overflow-hidden rounded-2xl bg-white shadow-md transition-all duration-500 hover:shadow-xl">
             <div className="relative h-72 overflow-hidden bg-gray-200">
               <img 
-                src="/assets/images/moving-checklist/Biology_class_at_high_school_lab1-scaled.jpeg" 
+                src="/assets/images/moving-checklist/Biology_class_at_high.jpeg" 
                 alt="Team Member" 
                 className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
@@ -189,7 +189,7 @@ export default function RealEstateAgents() {
           <div className="group relative overflow-hidden rounded-2xl bg-white shadow-md transition-all duration-500 hover:shadow-xl">
             <div className="relative h-72 overflow-hidden bg-gray-200">
               <img 
-                src="assets/images/moving-checklist/Man-movers-worker-in-blue-uniform-unloading-cardboard-boxes-from-truck.Professional-delivery-and-moving-service-scaled.jpeg" 
+                src="assets/images/moving-checklist/Man-movers-worker.jpeg" 
                 alt="Team Member" 
                 className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
