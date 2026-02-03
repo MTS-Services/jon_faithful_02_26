@@ -1,38 +1,38 @@
-import { useState } from 'react'
-import { FaArrowAltCircleRight } from 'react-icons/fa'
-import { HiArrowRight } from 'react-icons/hi'
+import { useState } from 'react';
+import { FaArrowAltCircleRight } from 'react-icons/fa';
 
 interface TabContent {
-    id: string
-    label: string
-    title: string
-    intro: string
-    items: string[]
-    footer: string
-    imageUrl: string
+    id: string;
+    label: string;
+    title: string;
+    intro: string;
+    items: string[];
+    footer: string;
+    imageUrl: string;
     cta?: {
-        label: string
-        href: string
-        icon: React.ReactNode
-    }
+        label: string;
+        href: string;
+        icon: React.ReactNode;
+    };
 }
 
 export default function InfoTabsSection({ tabs }: { tabs: TabContent[] }) {
-    const [activeTab, setActiveTab] = useState(tabs[0].id)
+    const [activeTab, setActiveTab] = useState(tabs[0].id);
 
     return (
-        <section className="py-16 bg-white">
-            <div className="max-w-7xl mx-auto px-6">
+        <section className="bg-white py-16">
+            <div className="mx-auto max-w-7xl px-6">
                 {/* Tab Buttons */}
-                <div className="flex flex-wrap justify-center gap-4 mb-12">
-                    {tabs.map(tab => (
+                <div className="mb-12 flex flex-wrap justify-center gap-4">
+                    {tabs.map((tab) => (
                         <button
                             key={tab.id}
                             onClick={() => setActiveTab(tab.id)}
-                            className={`px-6 py-5 font-bold rounded-full transition ${activeTab === tab.id
-                                    ? 'bg-secondary text-white scale-105'
+                            className={`rounded-full px-3 py-2 font-medium sm:font-bold transition sm:px-4 sm:py-3 md:px-6 md:py-5 ${
+                                activeTab === tab.id
+                                    ? 'scale-105 bg-secondary text-white'
                                     : 'bg-slate-800 text-white hover:bg-secondary'
-                                }`}
+                            }`}
                         >
                             {tab.label}
                         </button>
@@ -40,20 +40,21 @@ export default function InfoTabsSection({ tabs }: { tabs: TabContent[] }) {
                 </div>
 
                 {/* Tab Content */}
-                {tabs.map(tab => (
+                {tabs.map((tab) => (
                     <div
                         key={tab.id}
-                        className={`${activeTab === tab.id ? 'grid' : 'hidden'}
-              md:grid-cols-2 gap-12 items-center`}
+                        className={`${activeTab === tab.id ? 'grid' : 'hidden'} items-center gap-12 md:grid-cols-2`}
                     >
                         <img
                             src={tab.imageUrl}
                             alt={tab.title}
-                            className="rounded-2xl shadow-2xl h-96 w-full object-cover"
+                            className="h-96 w-full rounded-2xl object-cover shadow-2xl"
                         />
 
                         <div>
-                            <h2 className="text-4xl font-bold mb-6">{tab.title}</h2>
+                            <h2 className="mb-6 text-4xl font-bold">
+                                {tab.title}
+                            </h2>
                             <p className="mb-6 text-gray-600">{tab.intro}</p>
 
                             <ul className="space-y-4">
@@ -65,14 +66,14 @@ export default function InfoTabsSection({ tabs }: { tabs: TabContent[] }) {
                                 ))}
                             </ul>
 
-                            <p className="mt-8 italic border-l-4 pl-4 border-secondary">
+                            <p className="mt-8 border-l-4 border-secondary pl-4 italic">
                                 {tab.footer}
                             </p>
 
                             {tab.id === 'tab4' && (
                                 <a
                                     href={tab.cta?.href}
-                                    className="inline-flex items-center gap-2 mt-8 bg-slate-900 text-white px-8 py-4 rounded-full font-bold"
+                                    className="mt-8 inline-flex items-center gap-2 rounded-full bg-slate-900 px-8 py-4 font-bold text-white"
                                 >
                                     {tab.cta?.label} {tab.cta?.icon}
                                 </a>
@@ -82,5 +83,5 @@ export default function InfoTabsSection({ tabs }: { tabs: TabContent[] }) {
                 ))}
             </div>
         </section>
-    )
+    );
 }

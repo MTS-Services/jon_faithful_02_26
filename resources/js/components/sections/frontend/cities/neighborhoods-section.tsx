@@ -7,7 +7,7 @@ interface property {
 
 export default function NeighborhoodsSection({ name, features }: property) {
     return (
-        <div className="rounded-xl bg-white p-6 text-gray-800 shadow-lg">
+        <div className="rounded-xl bg-white p-6 text-gray-800 shadow-lg mt-6 md:mt-0">
             <h3 className="mb-4 border-b pb-2 font-bold">{name}</h3>
 
             {features.map((feat, fIdx) => (
