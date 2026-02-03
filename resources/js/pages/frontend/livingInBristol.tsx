@@ -1,5 +1,5 @@
 import { Hero } from '@/components/sections/frontend/hero'
-import BristolPage from '@/components/sections/frontend/livingIn-bristol/BristolPage'
+import BristolPage from '@/components/sections/frontend/livingIn-bristol/bristol-page'
 import Living from '@/components/sections/frontend/livingIn-bristol/living'
 import FrontendLayout from '@/layouts/frontend-layout'
 
