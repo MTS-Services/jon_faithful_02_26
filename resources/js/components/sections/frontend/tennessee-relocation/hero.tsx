@@ -19,7 +19,7 @@ export default function Hero() {
             <p className="text-sm sm:text-base font-montserrat font-normal mb-4 sm:mb-5 md:mb-6 text-background leading-relaxed">
                 Moving to Tennessee is one of the smartest lifestyle and financial decisions many Americans are making today. With no state income tax, affordable living, growing job markets, and diverse cities, Tennessee continues to attract families, retirees, remote workers, and investors from across the country.
             </p>
-            <p className="text-sm sm:text-base font-montserrat font-normal mb-4 sm:mb-5 md:mb-6 text-background leading-relaxed">
+            <p className="text-sm sm:text-base font-montserrat font-normal mb-4 sm:mb-5 md:mb-6 text-background leading-relaxed hidden sm:block">
                 This Tennessee Relocation Guide walks you through everything you need to know before you move — from choosing the right city to understanding housing, renting, jobs, schools, and daily life.
             </p>
         </div>
