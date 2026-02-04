@@ -1,12 +1,10 @@
-import React from 'react'
-import WhyMoveSection from '../cities/why-move';
-import MoveLocationSection from '../cities/move-location-section';
-import NeighborhoodsSection from '../cities/neighborhoods-section';
-import InfoTabsSection from '../cities/info-tabs-section';
+import React from 'react';
 import CallToActionSection from '../cities/callTo-action-section';
 import FinalInfoSection from '../cities/final-info-section';
-
-
+import InfoTabsSection from '../cities/info-tabs-section';
+import MoveLocationSection from '../cities/move-location-section';
+import NeighborhoodsSection from '../cities/neighborhoods-section';
+import WhyMoveSection from '../cities/why-move';
 
 const whyMoveData = {
     title: 'Why People Are Moving to Memphis',
@@ -55,11 +53,7 @@ const neighborhoods = [
     },
     {
         name: 'Midtown',
-        features: [
-            'Historic homes',
-            'Arts and music scene',
-            'Walkable areas',
-        ],
+        features: ['Historic homes', 'Arts and music scene', 'Walkable areas'],
     },
     {
         name: 'Downtown Memphis',
@@ -92,7 +86,8 @@ const tabs = [
             'Medical and technical institutions',
         ],
         footer: 'Education options continue to expand across the metro area.',
-        imageUrl: '/assets/images/Simmons_Bank_Liberty_Stadium_of_Memphis_-_home_of_the_Tigers_Football_Team_-_aerial_view_-_MEMPHIS1-2048x1149.jpeg',
+        imageUrl:
+            '/assets/images/Simmons_Bank_Liberty_Stadium_of_Memphis_-_home_of_the_Tigers_Football_Team_-_aerial_view_-_MEMPHIS1-2048x1149.jpeg',
     },
     {
         id: 'tab2',
@@ -106,7 +101,8 @@ const tabs = [
             'Education and government',
         ],
         footer: 'FedEx alone makes Memphis one of the most important logistics centers in the world.',
-        imageUrl: '/assets/images/toronto-city-skyline-view-with-park-urban-buildings-2048x1374.jpg',
+        imageUrl:
+            '/assets/images/toronto-city-skyline-view-with-park-urban-buildings-2048x1374.jpg',
     },
     {
         id: 'tab3',
@@ -145,77 +141,73 @@ const tabs = [
     },
 ];
 export default function MemphisPage() {
-  return (
-    <div>
-      <WhyMoveSection whyMove={whyMoveData} />
-                  <MoveLocationSection location={locationData} />
-      
-                  {/* COST OF LIVING SECTION */}
-                  <div className="container mx-auto px-4 py-16 lg:px-16">
-                      <h2 className="mb-6 text-center text-3xl font-bold">
-                          Cost of Living in Memphis
-                      </h2>
-                      <p className="mb-10 text-center text-gray-600">
-                          Memphis offers one of the lowest costs of living of any large U.S. city.
-                      </p>
-      
-                      <div className="grid gap-6 md:grid-cols-4">
-                          <CostCard title="Mediam home price" value="$200,000" />
-                          <CostCard
-                              title="2-bedroom apartment"
-                              value="$1,100–$1,500"
-                          />
-                          <CostCard title="Utilities" value="Near national average" />
-                          <CostCard
-                              title="Property taxes"
-                              value="Low compared to many states"
-                          />
-                      </div>
-                  </div>
-                  <div className="bg-primary py-16">
-                      <div className="container mx-auto px-4 lg:px-16">
-                          <h2 className="mb-6 text-center text-3xl font-bold text-primary-foreground">
-                              Best Neighborhoods in Memphis
-                          </h2>
-                          <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
-                              {neighborhoods.map((neighborhood, idx) => (
-                                  <NeighborhoodsSection
-                                      name={neighborhood.name}
-                                      features={neighborhood.features}
-                                  />
-                              ))}
-                          </div>
-                      </div>
-                  </div>
-                  <InfoTabsSection tabs={tabs} />
-                  <CallToActionSection
-                      title="Work With a Memphis Realtor"
-                      description="A local Memphis realtor can help you:"
-                      benefits={[
-                          'Identify safe and desirable neighborhoods',
-                          'Find value and investment opportunities',
-                          'Navigate inspections and negotiations',
-                          'Assist with relocation planning',
-                      ]}
-                      buttonText="Connect With a Memphis Realtor"
-                  />
-      
-                  <FinalInfoSection
-                      property={{
-                          title: 'Is Memphis Right for You?',
-                          rightTitle: 'Explore Other Tennessee Cities',
-                          description:
-                              'Memphis may be a great fit if you’re looking for: Extremely affordable housing Big-city amenities Cultural depth and history Job opportunities in logistics and healthcare Strong rental and investment potential For many relocating buyers, Memphis offers unmatched value and culture.',
-                          cities: [
-                              'Nashville',
-                              'Franklin',
-                              'Clarksville',
-                              'Jackson',
-                          ],
-                      }}
-                  />
-    </div>
-  )
+    return (
+        <div>
+            <WhyMoveSection whyMove={whyMoveData} />
+            <MoveLocationSection location={locationData} />
+
+            {/* COST OF LIVING SECTION */}
+            <div className="container mx-auto px-4 py-16 lg:px-16">
+                <h2 className="mb-6 text-center text-3xl font-bold">
+                    Cost of Living in Memphis
+                </h2>
+                <p className="mb-10 text-center text-gray-600">
+                    Memphis offers one of the lowest costs of living of any
+                    large U.S. city.
+                </p>
+
+                <div className="grid gap-6 md:grid-cols-4">
+                    <CostCard title="Mediam home price" value="$200,000" />
+                    <CostCard
+                        title="2-bedroom apartment"
+                        value="$1,100–$1,500"
+                    />
+                    <CostCard title="Utilities" value="Near national average" />
+                    <CostCard
+                        title="Property taxes"
+                        value="Low compared to many states"
+                    />
+                </div>
+            </div>
+            <div className="bg-primary py-16">
+                <div className="container mx-auto px-4 lg:px-16">
+                    <h2 className="mb-6 text-center text-3xl font-bold text-primary-foreground">
+                        Best Neighborhoods in Memphis
+                    </h2>
+                    <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
+                        {neighborhoods.map((neighborhood, idx) => (
+                            <NeighborhoodsSection
+                                name={neighborhood.name}
+                                features={neighborhood.features}
+                            />
+                        ))}
+                    </div>
+                </div>
+            </div>
+            <InfoTabsSection tabs={tabs} />
+            <CallToActionSection
+                title="Work With a Memphis Realtor"
+                description="A local Memphis realtor can help you:"
+                benefits={[
+                    'Identify safe and desirable neighborhoods',
+                    'Find value and investment opportunities',
+                    'Navigate inspections and negotiations',
+                    'Assist with relocation planning',
+                ]}
+                buttonText="Connect With a Memphis Realtor"
+            />
+
+            <FinalInfoSection
+                property={{
+                    title: 'Is Memphis Right for You?',
+                    rightTitle: 'Explore Other Tennessee Cities',
+                    description:
+                        'Memphis may be a great fit if you’re looking for: Extremely affordable housing Big-city amenities Cultural depth and history Job opportunities in logistics and healthcare Strong rental and investment potential For many relocating buyers, Memphis offers unmatched value and culture.',
+                    cities: ['Nashville', 'Franklin', 'Clarksville', 'Jackson'],
+                }}
+            />
+        </div>
+    );
 }
 
 const CostCard: React.FC<{ title: string; value: string }> = ({
