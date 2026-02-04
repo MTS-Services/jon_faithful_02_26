@@ -24,7 +24,7 @@ export default function Login({ status }: LoginProps) {
 
     return (
         <AuthLayout
-            title="Welcome back"
+            title="Log in to your account"
             description="Enter your credentials to access your account"
         >
             <Head title="Log in" />

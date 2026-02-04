@@ -17,7 +17,7 @@ export default function Login() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-lg">
         <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
           Login
         </h2>
@@ -32,7 +32,7 @@ export default function Login() {
               id="email"
               value={data.email}
               onChange={(e) => setData('email', e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-secondary"
               placeholder="you@example.com"
               required
             />
@@ -48,7 +48,7 @@ export default function Login() {
               id="password"
               value={data.password}
               onChange={(e) => setData('password', e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-secondary"
               placeholder="••••••••"
               required
             />
@@ -61,7 +61,7 @@ export default function Login() {
               id="rememberMe"
               checked={data.remember}
               onChange={(e) => setData('remember', e.target.checked)}
-              className="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+              className="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-secondary"
             />
             <label htmlFor="rememberMe" className="ml-2 block text-sm text-gray-700">
               Remember me
@@ -71,7 +71,7 @@ export default function Login() {
           <button
             type="submit"
             disabled={processing}
-            className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
+            className="w-full bg-secondary text-white py-3 px-4 rounded-md hover:bg-primary focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 transition-colors"
           >
             {processing ? 'Logging in...' : 'Login'}
           </button>
