@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FaChevronDown, FaArrowRight, FaChevronRight } from 'react-icons/fa';
 import { HiMenuAlt3, HiX } from 'react-icons/hi';
+import { MdDoubleArrow } from 'react-icons/md';
 
 
 const FrontendHeader: React.FC = () => {
@@ -13,12 +14,37 @@ const FrontendHeader: React.FC = () => {
 
   const cities = [
     { name: "Bristol", route: "bristol" },
-    { name: "Chattanooga", route: "#" },
-    { name: "Cookeville", route: "#" },
-    { name: "Nashville", route: "#" },
-    { name: "Knoxville", route: "#" },
-    { name: "Memphis", route: "#" },
+    { name: "Chattanooga", route: "chattanooga" },
+    { name: "Cookeville", route: "living-in-cookeville" },
+    { name: "Nashville", route: "living-in-nashville" },
+    { name: "Knoxville", route: "living-in-knoxville" },
+    { name: "Johnson City", route: "living-in-johnson-city" },
+    { name: "Franklin", route: "living-in-franklin" },
+    { name: "Memphis", route: "living-in-memphis" },
+    { name: "Clarksville", route: "living-in-clarksville" },
+    { name: "Murfreesboro", route: "living-in-murfreesboro" },
+    { name: "Kingsport", route: "living-in-kingsport" },
+    { name: "Jackson", route: "living-in-jackson" },
   ];
+  const movingTopics1 = [
+    { name: 'About Why Tennessee', route: 'why-tennessee' },
+    { name: 'Tennessee Relocation Guide', route: 'tennessee-relocation' },
+    { name: 'Cost of Living in Tennessee', route: '#' },
+    { name: 'Pros & Cons of Living', route: '#' },
+    { name: 'Best Places to Live', route: '#' },
+  ]
+  const movingTopics2 = [
+    { name: 'Renting in Tennessee', route: '/renting-tennessee' },
+    { name: 'Cost of Renting', route: '/cost-of-renting-tennessee' },
+    { name: 'Renting vs Buying', route: '/renting-buy' },
+    { name: 'Moving & Renting First', route: '/moving-tennessee-renting' },
+  ]
+  const movingTopics3 = [
+    { name: 'Moving Checklist', route: '/moving-checklist' },
+    { name: 'City Comparison', route: '/city-comparison' },
+    { name: 'Download Guide (PDF)', route: '#' },
+    { name: 'Real Estate Agents', route: '/real-estate-agents' },
+  ]
 
   return (
     <>
@@ -86,8 +112,8 @@ const FrontendHeader: React.FC = () => {
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex space-x-8 items-center h-full">
               <a href="/" className="text-gray-700 hover:text-secondary font-medium transition-colors">Home</a>
-              <a href="#" className="text-gray-700 hover:text-secondary font-medium transition-colors">Homes for Sale</a>
-              <a href="#" className="text-gray-700 hover:text-secondary font-medium transition-colors">Rentals</a>
+              <a href="homes-for-sale" className="text-gray-700 hover:text-secondary font-medium transition-colors">Homes for Sale</a>
+              <a href="rentals" className="text-gray-700 hover:text-secondary font-medium transition-colors">Rentals</a>
 
               {/* Cities Dropdown */}
               <div className="relative group h-full flex items-center">
@@ -96,7 +122,7 @@ const FrontendHeader: React.FC = () => {
                 </button>
                 <div className="absolute top-full left-0 w-56 bg-white shadow-lg rounded-b-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
                   {cities.map((city) => (
-                    <a href={`/${city.route}`} className="block px-4 py-2 text-sm text-gray-700 hover:text-white hover:bg-[#C9A249] transition-colors">
+                    <a href={`/${city.route}`} className="block px-4 py-2 text-sm text-gray-700 hover:text-white hover:bg-secondary transition-colors">
                       {city.name}
                     </a>
                   ))}
@@ -113,10 +139,12 @@ const FrontendHeader: React.FC = () => {
                   <div>
                     <h3 className="text-xl font-bold text-primary mb-4 border-b pb-2">What You Need to Know:</h3>
                     <ul className="space-y-3">
-                      {['About Why Tennessee', 'Tennessee Relocation Guide', 'Cost of Living in Tennessee', 'Pros & Cons of Living', 'Best Places to Live'].map((item) => (
-                        <li key={item}>
-                          <a href="#" className="flex items-center text-sm text-gray-600 hover:text-secondary transition-colors">
-                            <span className="text-primary mr-2 font-bold">»</span> {item}
+                      {movingTopics1.map((item) => (
+                        <li key={item.name}>
+                          <a href={`${item.route}`} className="flex items-center text-sm text-gray-600 hover:text-secondary transition-colors">
+                            <span className="text-primary mr-2 font-bold">
+                              <MdDoubleArrow size={14} />
+                            </span> {item.name}
                           </a>
                         </li>
                       ))}
@@ -126,10 +154,12 @@ const FrontendHeader: React.FC = () => {
                   <div>
                     <h3 className="text-xl font-bold text-primary mb-4 border-b pb-2">Renting:</h3>
                     <ul className="space-y-3">
-                      {['Renting in Tennessee', 'Cost of Renting', 'Renting vs Buying', 'Moving & Renting First'].map((item) => (
-                        <li key={item}>
-                          <a href="#" className="flex items-center text-sm text-gray-600 hover:text-secondary transition-colors">
-                            <span className="text-primary mr-2 font-bold">»</span> {item}
+                      {movingTopics2.map((item) => (
+                        <li key={item.name}>
+                          <a href={item.route} className="flex items-center text-sm text-gray-600 hover:text-secondary transition-colors">
+                            <span className="text-primary mr-2 font-bold">
+                              <MdDoubleArrow size={14} />
+                            </span> {item.name}
                           </a>
                         </li>
                       ))}
@@ -139,10 +169,12 @@ const FrontendHeader: React.FC = () => {
                   <div>
                     <h3 className="text-xl font-bold text-primary mb-4 border-b pb-2">Helpful Tools:</h3>
                     <ul className="space-y-3">
-                      {['Moving Checklist', 'City Comparison', 'Download Guide (PDF)', 'Real Estate Agents'].map((item) => (
-                        <li key={item}>
-                          <a href="#" className="flex items-center text-sm text-gray-600 hover:text-secondary transition-colors">
-                            <span className="text-primary mr-2 font-bold">»</span> {item}
+                      {movingTopics3.map((item) => (
+                        <li key={item.name}>
+                          <a href={item.route} className="flex items-center text-sm text-gray-600 hover:text-secondary transition-colors">
+                            <span className="text-primary mr-2 font-bold">
+                              <MdDoubleArrow size={14} />
+                            </span> {item.name}
                           </a>
                         </li>
                       ))}
@@ -156,7 +188,7 @@ const FrontendHeader: React.FC = () => {
 
             {/* Desktop Right CTA / Mobile Toggle */}
             <div className="flex items-center gap-4">
-              <a href={ route('login') } className="hidden sm:flex bg-primary text-white px-6 py-3 rounded-full hover:bg-secondary transition-all items-center text-md font-medium shadow-md hover:shadow-lg">
+              <a href="user-choose" className="hidden sm:flex bg-primary text-white px-6 py-3 rounded-full hover:bg-secondary transition-all items-center text-md font-medium shadow-md hover:shadow-lg">
                 Login/Registration
                 <span className="inline-flex items-center bg-white p-1 ml-2 rounded-full text-black">
                   <FaChevronRight size={12} />
@@ -176,7 +208,7 @@ const FrontendHeader: React.FC = () => {
         {/* Mobile Menu */}
         <div className={`${isMobileMenuOpen ? 'block' : 'hidden'} lg:hidden bg-white border-t border-gray-200 absolute w-full shadow-xl`}>
           <div className="px-4 py-6 space-y-2 max-h-[80vh] overflow-y-auto">
-            <a href="#" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Home</a>
+            <a href="/" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Home</a>
             <a href="#" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Homes for Sale</a>
             <a href="#" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Rentals</a>
 

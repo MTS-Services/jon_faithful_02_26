@@ -18,10 +18,8 @@ class RedirectIfAuthenticated
                 if ($guard === 'admin') {
                     return redirect('/admin/dashboard');
                 }
-                if ($guard === 'driver') {
-                    return redirect('/driver/dashboard');
-                }
-                return redirect('/dashboard');
+               
+                return redirect('/user/dashboard');
             }
         }
 

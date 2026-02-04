@@ -29,7 +29,7 @@ class FrontendController extends Controller
 
      public function livingInChattanooga(): Response
      {
-          return Inertia::render('frontend/livingInChattanooga');
+          return Inertia::render('frontend/living-in-chattanooga');
      }
 
      public function homesForSale(): Response
@@ -44,8 +44,81 @@ class FrontendController extends Controller
      {
           return Inertia::render('frontend/rentals');
      }
+     public function cityComparison(): Response
+     {
+          return Inertia::render('frontend/city-comparison');
+     }
+     public function realEstateAgents(): Response
+     {
+          return Inertia::render('frontend/real-estate-agents');
+     }
      public function whyTennessee(): Response
      {
           return Inertia::render('frontend/why-tennessee');
+     }
+     public function tennesseeRelocation(): Response
+     {
+          return Inertia::render('frontend/tennessee-relocation');
+     }
+     public function singleProduct(): Response
+     {
+          return Inertia::render('frontend/single-product');
+     }
+     public function rentingBuy(): Response
+     {
+          return Inertia::render('frontend/renting-buy');
+     }
+     public function livingInNashville(): Response
+     {
+          return Inertia::render('frontend/living-in-nashville');
+     }
+     public function costOfRentingTennessee(): Response
+     {
+          return Inertia::render('frontend/cost-of-renting-tennessee');
+     }
+     public function movingTennesseeRenting(): Response
+     {
+          return Inertia::render('frontend/moving-tennessee-renting');
+     }
+     public function livingInCookeville(): Response
+     {
+          return Inertia::render('frontend/living-in-cookeville');
+     }
+     public function livingInKnoxville(): Response
+     {
+          return Inertia::render('frontend/living-in-knoxville');
+     }
+     public function livingInJohnsonCity(): Response
+     {
+          return Inertia::render('frontend/living-in-johnson-city');
+     }
+     public function livingInFranklin(): Response
+     {
+          return Inertia::render('frontend/living-in-franklin');
+     }
+
+     public function userChoose(): Response
+     {
+          return Inertia::render('frontend/user-choose');
+     }
+     public function livingInMemphis(): Response
+     {
+          return Inertia::render('frontend/living-in-memphis');
+     }
+     public function livingInClarksville(): Response
+     {
+          return Inertia::render('frontend/living-in-clarksville');
+     }
+     public function livingInMurfreesboro(): Response
+     {
+          return Inertia::render('frontend/living-in-murfreesboro');
+     }
+     public function livingInKingsport(): Response
+     {
+          return Inertia::render('frontend/living-in-kingsport');
+     }
+     public function livingInJackson(): Response
+     {
+          return Inertia::render('frontend/living-in-jackson');
      }
 }

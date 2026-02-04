@@ -1,72 +1,256 @@
-import { Form, Head, Link } from '@inertiajs/react';
-
-import InputError from '@/components/input-error';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Spinner } from '@/components/ui/spinner';
-import AuthLayout from '@/layouts/auth-layout';
-import { login } from '@/routes';
-import { store } from '@/routes/register';
+import { useForm } from '@inertiajs/react';
+import React from 'react';
 
 export default function Register() {
+    const { data, setData, post, processing, errors } = useForm({
+        username: '',
+        name: '',
+        email: '',
+        password: '',
+        password_confirmation: '',
+        phone: '',
+        license_number: '',
+        brokerage_name: '',
+        image: '',
+        your_self: '',
+    });
+
+    function handleSubmit(e: React.FormEvent) {
+        console.log(data);
+        e.preventDefault();
+        post(route('register'));
+    }
     return (
-        <AuthLayout
-            title="Create an account"
-            description="Join thousands of teams shipping faster today."
-        >
-            <Head title="Register" />
+        <div>
+            <div className="flex min-h-screen items-center justify-center bg-gray-100">
+                <div className="w-full max-w-lg rounded-lg bg-white p-8 shadow-md  my-20">
+                    <h2 className="mb-6 text-center text-2xl font-bold text-gray-800">
+                        Register
+                    </h2>
 
-            <div className="mx-auto w-full max-w-md rounded-2xl border border-border/50 bg-card/50 p-8 shadow-xl backdrop-blur-sm">
-                <Form
-                    {...store.form()}
-                    resetOnSuccess={['password', 'password_confirmation']}
-                    disableWhileProcessing
-                    className="space-y-5"
-                >
-                    {({ processing, errors }) => (
-                        <>
-                            <div className="grid gap-4">
-                                <div className="grid gap-1.5">
-                                    <Label htmlFor="name">Full Name</Label>
-                                    <Input id="name" type="text" required autoFocus name="name" placeholder="John Doe" className="bg-background/50" />
-                                    <InputError message={errors.name} />
-                                </div>
+                    <form className="space-y-4" onSubmit={handleSubmit}>
+                        <div>
+                            <label
+                                htmlFor="file"
+                                className="mb-1 block text-sm font-medium text-gray-700"
+                            >
+                                Image
+                            </label>
+                            <input
+                                type="file"
+                                id="file"
+                                className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
+                            />
+                            {/* error message (optional) */}
+                            <p className="mt-1 text-sm text-red-500"></p>
 
-                                <div className="grid gap-1.5">
-                                    <Label htmlFor="email">Email address</Label>
-                                    <Input id="email" type="email" required name="email" placeholder="name@company.com" className="bg-background/50" />
-                                    <InputError message={errors.email} />
-                                </div>
+                            {/* hint text */}
+                            <p className="mt-1 text-xs text-gray-500">
+                                Maximum file size: 256 MB
+                            </p>
+                        </div>
+                        <div>
+                            <label
+                                htmlFor="username"
+                                className="mb-1 block text-sm font-medium text-gray-700"
+                            >
+                                User Name
+                            </label>
+                            <input
+                                type="text"
+                                id="username"
+                                className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
+                                placeholder="Enter Your Username"
+                                onChange={(e) =>
+                                    setData('username', e.target.value.trim())
+                                }
+                            />
+                            <p className="mt-1 text-sm text-red-500"></p>
+                        </div>
+                        <div>
+                            <label
+                                htmlFor="name"
+                                className="mb-1 block text-sm font-medium text-gray-700"
+                            >
+                                Name
+                            </label>
+                            <input
+                                type="text"
+                                id="name"
+                                className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
+                                placeholder="Enter Your Name"
+                                onChange={(e) =>
+                                    setData('name', e.target.value.trim())
+                                }
+                            />
+                            <p className="mt-1 text-sm text-red-500"></p>
+                        </div>
+                        <div>
+                            <label
+                                htmlFor="license_number"
+                                className="mb-1 block text-sm font-medium text-gray-700"
+                            >
+                                License number
+                            </label>
+                            <input
+                                type="tel"
+                                id="license_number"
+                                className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
+                                placeholder="Enter Your License number"
+                                onChange={(e) =>
+                                    setData(
+                                        'license_number',
+                                        e.target.value.trim(),
+                                    )
+                                }
+                            />
+                            <p className="mt-1 text-sm text-red-500"></p>
+                        </div>
+                        <div>
+                            <label
+                                htmlFor="brokerage_name"
+                                className="mb-1 block text-sm font-medium text-gray-700"
+                            >
+                                Brokerage name
+                            </label>
+                            <input
+                                type="text"
+                                id="brokerage_name"
+                                className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
+                                placeholder="Enter Your brokerage_name"
+                                onChange={(e) =>
+                                    setData('brokerage_name', e.target.value.trim())
+                                }
+                            />
+                            <p className="mt-1 text-sm text-red-500"></p>
+                        </div>
+                        <div>
+                            <label
+                                htmlFor="phone"
+                                className="mb-1 block text-sm font-medium text-gray-700"
+                            >
+                                License number
+                            </label>
+                            <input
+                                type="tel"
+                                id="phone"
+                                className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
+                                placeholder="Enter Your License number"
+                                onChange={(e) =>
+                                    setData('phone', e.target.value.trim())
+                                }
+                            />
+                            <p className="mt-1 text-sm text-red-500"></p>
+                        </div>
+                        <div>
+                            <label
+                                htmlFor="your_self"
+                                className="mb-1 block text-sm font-medium text-gray-700"
+                            >
+                                About Youself
+                            </label>
+                            <textarea
+                                name=""
+                                id=""
+                                className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
+                                onChange={(e) =>
+                                    setData('your_self', e.target.value.trim())
+                                }
+                            ></textarea>
 
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div className="grid gap-1.5">
-                                        <Label htmlFor="password">Password</Label>
-                                        <Input id="password" type="password" required name="password" placeholder="••••••••" className="bg-background/50" />
-                                    </div>
-                                    <div className="grid gap-1.5">
-                                        <Label htmlFor="password_confirmation">Confirm</Label>
-                                        <Input id="password_confirmation" type="password" required name="password_confirmation" placeholder="••••••••" className="bg-background/50" />
-                                    </div>
-                                </div>
-                                <InputError message={errors.password} />
+                            <p className="mt-1 text-sm text-red-500"></p>
+                        </div>
+                        <div>
+                            <label
+                                htmlFor="email"
+                                className="mb-1 block text-sm font-medium text-gray-700"
+                            >
+                                Email
+                            </label>
+                            <input
+                                type="email"
+                                id="email"
+                                className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
+                                placeholder="Enter Your Email"
+                                onChange={(e) =>
+                                    setData('email', e.target.value.trim())
+                                }
+                            />
+                            <p className="mt-1 text-sm text-red-500"></p>
+                        </div>
 
-                                <Button type="submit" className="w-full bg-violet-600 font-semibold text-white shadow-md transition-all hover:bg-violet-700 hover:shadow-violet-500/20 active:scale-[0.98]" disabled={processing}>
-                                    {processing && <Spinner className="mr-2 h-4 w-4" />}
-                                    Create Account
-                                </Button>
-                            </div>
+                        <div>
+                            <label
+                                htmlFor="password"
+                                className="mb-1 block text-sm font-medium text-gray-700"
+                            >
+                                Password
+                            </label>
+                            <input
+                                type="password"
+                                id="password"
+                                className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
+                                placeholder="••••••••"
+                                onChange={(e) =>
+                                    setData('password', e.target.value.trim())
+                                }
+                            />
+                            <p className="mt-1 text-sm text-red-500"></p>
+                        </div>
+                        <div>
+                            <label
+                                htmlFor="password"
+                                className="mb-1 block text-sm font-medium text-gray-700"
+                            >
+                                Confrim Password
+                            </label>
+                            <input
+                                type="password"
+                                id="password"
+                                className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
+                                placeholder="••••••••"
+                                onChange={(e) =>
+                                    setData(
+                                        'password_confirmation',
+                                        e.target.value.trim(),
+                                    )
+                                }
+                            />
+                            <p className="mt-1 text-sm text-red-500"></p>
+                        </div>
 
-                            <div className="text-center text-sm text-muted-foreground">
-                                Already have an account?{' '}
-                                <Link href={login()} className="font-medium text-violet-600 hover:text-violet-500 transition-colors">
-                                    Log in
-                                </Link>
-                            </div>
-                        </>
-                    )}
-                </Form>
+                        <div className="flex items-center">
+                            <input
+                                type="checkbox"
+                                id="rememberMe"
+                                className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-secondary"
+                            />
+                            <label
+                                htmlFor="rememberMe"
+                                className="ml-2 block text-sm text-gray-700"
+                            >
+                                Remember me
+                            </label>
+                        </div>
+
+                        <button
+                            type="submit"
+                            className="w-full rounded-md bg-secondary px-4 py-3 text-white transition-colors hover:bg-primary focus:ring-2 focus:ring-secondary focus:ring-offset-2 focus:outline-none"
+                        >
+                            Register
+                        </button>
+                    </form>
+
+                    {/* <div className="mt-6 text-center">
+                        <a
+                            href=""
+                            className="text-sm text-gray-600 hover:text-gray-800"
+                        >
+                            Singn Up
+                        </a>
+                    </div> */}
+                </div>
             </div>
-        </AuthLayout>
+        </div>
     );
 }

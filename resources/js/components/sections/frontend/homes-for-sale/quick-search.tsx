@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function QuickSearch() {
   return (
-        <div className="container mx-auto py-28 px-4 md:px-16 mt-20">
+        <div className="container mx-auto py-12 sm:py-16 md:py-20 lg:py-28 px-4 md:px-16 mt-20">
 
         <h2
             className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-semibold font-montserrat text-text-secondary-foreground text-center">
@@ -127,7 +127,7 @@ export default function QuickSearch() {
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-6">
 
 
-                    <a href="singleRental.html">
+                    <a href="single-product">
                         <div className="bg-background rounded-xl overflow-hidden shadow">
                             <div className="relative">
                                 <img src="/assets/images/card.jpg" className="w-full h-[250px] object-cover" />
@@ -185,7 +185,7 @@ export default function QuickSearch() {
                             </div>
                         </div>
                     </a>
-                    <a href="singleRental.html">
+                    <a href="single-product">
                         <div className="bg-primary-foreground rounded-xl overflow-hidden shadow">
                             <div className="relative">
                                 <img src="/assets/images/images-1.jpg" className="w-full h-[250px] object-cover" />
@@ -243,7 +243,7 @@ export default function QuickSearch() {
                             </div>
                         </div>
                     </a>
-                    <a href="singleRental.html">
+                    <a href="single-product">
                         <div className="bg-primary-foreground rounded-xl overflow-hidden shadow">
                             <div className="relative">
                                 <img src="/assets/images/midtown-memphis-memphis-tn-3.avif" className="w-full h-[250px] object-cover" />
@@ -301,7 +301,7 @@ export default function QuickSearch() {
                             </div>
                         </div>
                     </a>
-                    <a href="singleRental.html">
+                    <a href="single-product">
                         <div className="bg-primary-foreground rounded-xl overflow-hidden shadow">
                             <div className="relative">
                                 <img src="/assets/images/pexels-ceesz-284432587-17883719-scaled.jpg" className="w-full h-[250px] object-cover" />
@@ -359,7 +359,7 @@ export default function QuickSearch() {
                             </div>
                         </div>
                     </a>
-                    <a href="singleRental.html">
+                    <a href="single-product">
                         <div className="bg-primary-foreground rounded-xl overflow-hidden shadow">
                             <div className="relative">
                                 <img src="/assets/images/istockphoto-140781367-612x612-1 (1).jpg" className="w-full h-[250px] object-cover" />
@@ -417,7 +417,7 @@ export default function QuickSearch() {
                             </div>
                         </div>
                     </a>
-                    <a href="singleRental.html">
+                    <a href="single-product">
                         <div className="bg-primary-foreground rounded-xl overflow-hidden shadow">
                             <div className="relative">
                                 <img src="/assets/images/433f6d07f4eddc16bb67cef36ed22504-p_e.jpg" className="w-full h-[250px] object-cover" />
