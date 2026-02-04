@@ -26,4 +26,7 @@ Route::name('frontend.')->controller(FrontendController::class)->group(function 
         Route::get('/living-in-johnson-city', 'livingInJohnsonCity')->name('livingInJohnsonCity');
         Route::get('/living-in-franklin', 'livingInFranklin')->name('livingInFranklin');
 
+
+        Route::get('/user-choose', 'userChoose')->name('user-choose');
+
     });
