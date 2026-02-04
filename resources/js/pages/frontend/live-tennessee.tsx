@@ -75,7 +75,7 @@ export default function LiveTennessee() {
     <FrontendLayout>
       <Hero
         slides={[
-          'https://whytennessee.com/wp-content/uploads/2025/12/pexels-chaitaastic-3722911-scaled.jpg',
+          'assets/images/moving-checklist/pexels-chaitaastic-3722911-scaled.jpg',
         ]}
         title={<>Best Places to Live in Tennessee</>}
         description={<>Top Cities, Cost of Living, Jobs & Lifestyle Breakdown Tennessee continues to be one of the most popular states to move to in the U.S. Thanks to its no state income tax, affordable housing, strong job markets, and diverse lifestyles, people from across the country are relocating to Tennessee every year. This guide breaks down the best places to live in Tennessee, based on affordability, quality of life, job opportunities, schools, and lifestyle.
