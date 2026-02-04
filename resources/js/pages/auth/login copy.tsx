@@ -49,7 +49,7 @@ export default function Login({ status }: LoginProps) {
                                         required
                                         autoFocus
                                         placeholder="name@company.com"
-                                        className="h-11 bg-white/50 border-gray-200 focus:ring-secondary! focus:border-secondary! transition-all"
+                                        className="h-11 bg-white/50 border-gray-200 focus:ring-violet-500 focus:border-violet-500 transition-all"
                                     />
                                     <InputError message={errors.email} />
                                 </div>
@@ -73,7 +73,7 @@ export default function Login({ status }: LoginProps) {
                                         name="password"
                                         required
                                         placeholder="********"
-                                        className="h-11 bg-white/50 border-gray-200 focus:ring-secondary! focus:border-secondary! transition-all"
+                                        className="h-11 bg-white/50 border-gray-200 focus:ring-violet-500 focus:border-violet-500 transition-all"
                                     />
                                     <InputError message={errors.password} />
                                 </div>
@@ -81,10 +81,10 @@ export default function Login({ status }: LoginProps) {
 
                             <Button
                                 type="submit"
-                                className={`w-full py-6 text-lg bg-secondary! hover:bg-primary! ${processing ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+                                className={`w-full py-6 text-lg ${processing ? 'cursor-not-allowed' : 'cursor-pointer'}`}
                                 disabled={processing}
                             >
-                                {processing ? <Spinner className="h-4 w-4" /> : 'Login'}
+                                {processing ? <Spinner className="h-4 w-4" /> : 'Login With When I Work'}
                             </Button>
                         </>
                     )}
