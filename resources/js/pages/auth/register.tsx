@@ -1,29 +1,29 @@
-import { useForm } from "@inertiajs/react";
-import { Phone } from "lucide-react";
-import React from "react";
+import { useForm } from '@inertiajs/react';
+import React from 'react';
 
 export default function Register() {
-    const {data, setData, post, processing, errors} = useForm({
+    const { data, setData, post, processing, errors } = useForm({
         username: '',
         name: '',
         email: '',
         password: '',
         password_confirmation: '',
         phone: '',
+        license_number: '',
+        brokerage_name: '',
         image: '',
         your_self: '',
-    })
+    });
 
     function handleSubmit(e: React.FormEvent) {
         console.log(data);
         e.preventDefault();
         post(route('register'));
-        
     }
     return (
         <div>
             <div className="flex min-h-screen items-center justify-center bg-gray-100">
-                <div className="w-full max-w-lg rounded-lg bg-white p-8 shadow-md">
+                <div className="w-full max-w-lg rounded-lg bg-white p-8 shadow-md  my-20">
                     <h2 className="mb-6 text-center text-2xl font-bold text-gray-800">
                         Register
                     </h2>
@@ -40,7 +40,6 @@ export default function Register() {
                                 type="file"
                                 id="file"
                                 className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
-                                
                             />
                             {/* error message (optional) */}
                             <p className="mt-1 text-sm text-red-500"></p>
@@ -62,7 +61,9 @@ export default function Register() {
                                 id="username"
                                 className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
                                 placeholder="Enter Your Username"
-                               onChange={e=>setData('username', e.target.value.trim())}
+                                onChange={(e) =>
+                                    setData('username', e.target.value.trim())
+                                }
                             />
                             <p className="mt-1 text-sm text-red-500"></p>
                         </div>
@@ -78,7 +79,48 @@ export default function Register() {
                                 id="name"
                                 className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
                                 placeholder="Enter Your Name"
-                                onChange={e=>setData('name', e.target.value.trim())}
+                                onChange={(e) =>
+                                    setData('name', e.target.value.trim())
+                                }
+                            />
+                            <p className="mt-1 text-sm text-red-500"></p>
+                        </div>
+                        <div>
+                            <label
+                                htmlFor="license_number"
+                                className="mb-1 block text-sm font-medium text-gray-700"
+                            >
+                                License number
+                            </label>
+                            <input
+                                type="tel"
+                                id="license_number"
+                                className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
+                                placeholder="Enter Your License number"
+                                onChange={(e) =>
+                                    setData(
+                                        'license_number',
+                                        e.target.value.trim(),
+                                    )
+                                }
+                            />
+                            <p className="mt-1 text-sm text-red-500"></p>
+                        </div>
+                        <div>
+                            <label
+                                htmlFor="brokerage_name"
+                                className="mb-1 block text-sm font-medium text-gray-700"
+                            >
+                                Brokerage name
+                            </label>
+                            <input
+                                type="text"
+                                id="brokerage_name"
+                                className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
+                                placeholder="Enter Your brokerage_name"
+                                onChange={(e) =>
+                                    setData('brokerage_name', e.target.value.trim())
+                                }
                             />
                             <p className="mt-1 text-sm text-red-500"></p>
                         </div>
@@ -87,20 +129,22 @@ export default function Register() {
                                 htmlFor="phone"
                                 className="mb-1 block text-sm font-medium text-gray-700"
                             >
-                                Phone Number
+                                License number
                             </label>
                             <input
                                 type="tel"
                                 id="phone"
                                 className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
-                                placeholder="Enter Your Phone Number"
-                                onChange={e=>setData('phone', e.target.value.trim())} 
+                                placeholder="Enter Your License number"
+                                onChange={(e) =>
+                                    setData('phone', e.target.value.trim())
+                                }
                             />
                             <p className="mt-1 text-sm text-red-500"></p>
                         </div>
                         <div>
                             <label
-                                htmlFor="phone"
+                                htmlFor="your_self"
                                 className="mb-1 block text-sm font-medium text-gray-700"
                             >
                                 About Youself
@@ -108,7 +152,10 @@ export default function Register() {
                             <textarea
                                 name=""
                                 id=""
-                                className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none" onChange={e=>setData('your_self', e.target.value.trim())}
+                                className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
+                                onChange={(e) =>
+                                    setData('your_self', e.target.value.trim())
+                                }
                             ></textarea>
 
                             <p className="mt-1 text-sm text-red-500"></p>
@@ -125,7 +172,9 @@ export default function Register() {
                                 id="email"
                                 className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
                                 placeholder="Enter Your Email"
-                                onChange={e=>setData('email', e.target.value.trim())}
+                                onChange={(e) =>
+                                    setData('email', e.target.value.trim())
+                                }
                             />
                             <p className="mt-1 text-sm text-red-500"></p>
                         </div>
@@ -142,7 +191,9 @@ export default function Register() {
                                 id="password"
                                 className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
                                 placeholder="••••••••"
-                                onChange={e=>setData('password', e.target.value.trim())}
+                                onChange={(e) =>
+                                    setData('password', e.target.value.trim())
+                                }
                             />
                             <p className="mt-1 text-sm text-red-500"></p>
                         </div>
@@ -158,7 +209,12 @@ export default function Register() {
                                 id="password"
                                 className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
                                 placeholder="••••••••"
-                                onChange={e=>setData('password_confirmation', e.target.value.trim())}
+                                onChange={(e) =>
+                                    setData(
+                                        'password_confirmation',
+                                        e.target.value.trim(),
+                                    )
+                                }
                             />
                             <p className="mt-1 text-sm text-red-500"></p>
                         </div>

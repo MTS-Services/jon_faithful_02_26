@@ -17,6 +17,8 @@ class User extends Authenticatable
         'phone',
         'password',
         'your_self',
+        'brokerage_name',
+        'license_number',
         'image',
     ];
 
