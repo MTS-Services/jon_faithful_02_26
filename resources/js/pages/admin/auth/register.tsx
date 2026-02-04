@@ -1,13 +1,33 @@
+import { useForm } from '@inertiajs/react';
+import React from 'react';
+
+
 export default function Register() {
+    const { data, setData, post, processing, errors } = useForm({
+        username: '',
+        name: '',
+        email: '',
+        password: '',
+        password_confirmation: '',
+        phone: '',
+        image: '',
+        your_self: '',
+    });
+
+    function handleSubmit(e: React.FormEvent) {
+        console.log(data);
+        e.preventDefault();
+        post(route('admin.register.post'));
+    }
     return (
         <div>
             <div className="flex min-h-screen items-center justify-center bg-gray-100">
-                <div className="w-full max-w-lg rounded-lg bg-white p-8 shadow-md">
+                <div className="w-full max-w-lg rounded-lg bg-white p-8 shadow-md  my-20">
                     <h2 className="mb-6 text-center text-2xl font-bold text-gray-800">
                         Register
                     </h2>
 
-                    <form className="space-y-4">
+                    <form className="space-y-4" onSubmit={handleSubmit}>
                         <div>
                             <label
                                 htmlFor="file"
@@ -19,10 +39,9 @@ export default function Register() {
                                 type="file"
                                 id="file"
                                 className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
-                                required
                             />
                             {/* error message (optional) */}
-                            <p className="mt-1 text-sm text-red-500"></p>
+                            <p className="mt-1 text-sm text-red-500">{errors.image}</p>
 
                             {/* hint text */}
                             <p className="mt-1 text-xs text-gray-500">
@@ -41,9 +60,11 @@ export default function Register() {
                                 id="username"
                                 className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
                                 placeholder="Enter Your Username"
-                                required
+                                onChange={(e) =>
+                                    setData('username', e.target.value.trim())
+                                }
                             />
-                            <p className="mt-1 text-sm text-red-500"></p>
+                            <p className="mt-1 text-sm text-red-500">{errors.username}</p>
                         </div>
                         <div>
                             <label
@@ -57,29 +78,33 @@ export default function Register() {
                                 id="name"
                                 className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
                                 placeholder="Enter Your Name"
-                                required
+                                onChange={(e) =>
+                                    setData('name', e.target.value.trim())
+                                }
                             />
-                            <p className="mt-1 text-sm text-red-500"></p>
+                            <p className="mt-1 text-sm text-red-500">{errors.name}</p>
                         </div>
                         <div>
                             <label
                                 htmlFor="phone"
                                 className="mb-1 block text-sm font-medium text-gray-700"
                             >
-                                Phone Number
+                                License number
                             </label>
                             <input
                                 type="tel"
                                 id="phone"
                                 className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
-                                placeholder="Enter Your Phone Number"
-                                required
+                                placeholder="Enter Your License number"
+                                onChange={(e) =>
+                                    setData('phone', e.target.value.trim())
+                                }
                             />
-                            <p className="mt-1 text-sm text-red-500"></p>
+                            <p className="mt-1 text-sm text-red-500">{errors.phone}</p>
                         </div>
                         <div>
                             <label
-                                htmlFor="phone"
+                                htmlFor="your_self"
                                 className="mb-1 block text-sm font-medium text-gray-700"
                             >
                                 About Youself
@@ -88,15 +113,12 @@ export default function Register() {
                                 name=""
                                 id=""
                                 className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
+                                onChange={(e) =>
+                                    setData('your_self', e.target.value.trim())
+                                }
                             ></textarea>
-                            {/* <input
-                                type="tel"
-                                id="phone"
-                                className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
-                                placeholder="Enter Your Phone Number"
-                                required
-                            /> */}
-                            <p className="mt-1 text-sm text-red-500"></p>
+
+                            <p className="mt-1 text-sm text-red-500">{errors.your_self}</p>
                         </div>
                         <div>
                             <label
@@ -110,9 +132,11 @@ export default function Register() {
                                 id="email"
                                 className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
                                 placeholder="Enter Your Email"
-                                required
+                                onChange={(e) =>
+                                    setData('email', e.target.value.trim())
+                                }
                             />
-                            <p className="mt-1 text-sm text-red-500"></p>
+                            <p className="mt-1 text-sm text-red-500">{errors.email}</p>
                         </div>
 
                         <div>
@@ -127,11 +151,13 @@ export default function Register() {
                                 id="password"
                                 className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
                                 placeholder="••••••••"
-                                required
+                                onChange={(e) =>
+                                    setData('password', e.target.value.trim())
+                                }
                             />
-                            <p className="mt-1 text-sm text-red-500"></p>
+                            <p className="mt-1 text-sm text-red-500">{errors.password}</p>
                         </div>
-                        {/* <div>
+                        <div>
                             <label
                                 htmlFor="password"
                                 className="mb-1 block text-sm font-medium text-gray-700"
@@ -143,10 +169,15 @@ export default function Register() {
                                 id="password"
                                 className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
                                 placeholder="••••••••"
-                                required
+                                onChange={(e) =>
+                                    setData(
+                                        'password_confirmation',
+                                        e.target.value.trim(),
+                                    )
+                                }
                             />
-                            <p className="mt-1 text-sm text-red-500"></p>
-                        </div> */}
+                            <p className="mt-1 text-sm text-red-500">{errors.password_confirmation}</p>
+                        </div>
 
                         <div className="flex items-center">
                             <input

@@ -17,12 +17,14 @@ class AdminSeeder extends Seeder
         //
         Admin::insert([
             [
+                'username' => 'admin',
                 'name' => 'admin',
                 'email' => 'admin@dev.com',
                 'password' => Hash::make('admin@dev.com'),
                 'email_verified_at' => now()
             ],
             [
+                'username' => 'admin1',
                 'name' => 'admin',
                 'email' => 'admin1@dev.com',
                 'password' => Hash::make('admin1@dev.com'),
