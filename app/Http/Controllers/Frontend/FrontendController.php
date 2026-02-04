@@ -89,4 +89,25 @@ class FrontendController extends Controller
      {
           return Inertia::render('frontend/living-in-franklin');
      }
+
+     public function userChoose(): Response
+     {
+          return Inertia::render('frontend/user-choose');
+     }
+     public function livingInMemphis(): Response
+     {
+          return Inertia::render('frontend/living-in-memphis');
+     }
+     public function livingInClarksville(): Response
+     {
+          return Inertia::render('frontend/living-in-clarksville');
+     }
+     public function livingInMurfreesboro(): Response
+     {
+          return Inertia::render('frontend/living-in-murfreesboro');
+     }
+     public function livingInKingsport(): Response
+     {
+          return Inertia::render('frontend/living-in-kingsport');
+     }
 }

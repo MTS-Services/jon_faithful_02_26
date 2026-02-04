@@ -1,79 +1,84 @@
-import React from 'react'
+import React from 'react';
+import CallToActionSection from '../cities/callTo-action-section';
 import FinalInfoSection from '../cities/final-info-section';
 import InfoTabsSection from '../cities/info-tabs-section';
-import CallToActionSection from '../cities/callTo-action-section';
-import NeighborhoodsSection from '../cities/neighborhoods-section';
 import MoveLocationSection from '../cities/move-location-section';
+import NeighborhoodsSection from '../cities/neighborhoods-section';
 import WhyMoveSection from '../cities/why-move';
 
-
-
 const whyMoveData = {
-    title: 'Why People Are Moving to Johnson City',
+    title: 'Why People Are Moving to Franklin',
     description:
-        'Johnson City has quietly become a relocation hotspot, especially for buyers moving from higher-cost states.',
+        'Franklin consistently ranks among the best places to live in Tennessee and the Southeast.',
     points: [
         'No state income tax in Tennessee',
-        'Strong healthcare and education job market',
-        'Access to the Appalachian Mountains',
-        'Family-friendly neighborhoods',
-        'Small-city feel with modern amenities',
+        'Top-rated public and private schools',
+        'Beautiful historic downtown',
+        'Upscale neighborhoods and luxury homes',
+        'Strong job market nearby in Nashville',
+        'Family-friendly, safe communities',
     ],
     conclusion:
-        'Many new residents cite quality of life as the top reason they choose Johnson City.',
-    imageUrl:
-        '/assets/images/Johnson_City__TN-8-30-2018_Large_sign_in_downtown_proclaiming_Johnson_City__Tennessee1-scaled.jpeg',
+        'Many buyers choose Franklin for its combination of luxury living and small-town charm.',
+    imageUrl: '/assets/images/Franklin-Tennessee-Cityscape.jpeg',
     videoUrl:
-        'https://whytennessee.com/wp-content/uploads/2025/12/aerial-push-in-to-johnson-city-tennessee-skyline-in-east-tennessee.mp4',
+        'https://whytennessee.com/wp-content/uploads/2025/12/1-Franklin_-Tennessee_-Downtown_-Amazing-Landscape_-Aerial-View-1.mp4',
 };
 
 // LOCATION DATA
 const locationData = {
-    title: 'Where Is Johnson City Located?',
-    description:
-        'Johnson City is located in Northeast Tennessee, within the Tri-Cities region (Johnson City, Kingsport, and Bristol).',
+    title: 'Where Is Franklin Located?',
+    description: 'Franklin is located in Williamson County, approximately:',
     distances: [
-        '15 minutes to Kingsport',
-        '25 minutes to Bristol',
-        '2 hours to Knoxville',
-        '4 hours to Charlotte, NC',
+        '25–30 minutes south of downtown Nashville',
+        '20 minutes to Brentwood',
+        '30 minutes to Murfreesboro',
+        'Easy access to I-65 and major highways',
     ],
-    mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d51457.1062024796!2d-82.22271618683415!3d36.588667533816285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8850702df2f8f8b3%3A0x64e8e04e9c71c4c9!2sBristol%2C%20TN!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus',
+    mapUrl: 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d206841.30668053022!2d-86.839022!3d35.900577!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x886378e0e0f94935%3A0xf7addba980fa8da1!2sFranklin%2C%20TN!5e0!3m2!1sen!2sus!4v1770177569364!5m2!1sen!2sus',
     conclusion:
-        'Its location makes it ideal for both commuters and outdoor enthusiasts.',
+        'Its proximity to Nashville makes Franklin ideal for commuters who want a quieter, more refined lifestyle.',
 };
 
 const neighborhoods = [
     {
-        name: 'North Johnson City',
+        name: 'Downtown Franklin',
         features: [
-            'Established neighborhoods',
-            'Close to downtown and ETSU',
-            'Mix of historic and modern homes',
+            'Historic homes and charm',
+            'Walkable shops and restaurants',
+            'Highly sought-after real estate',
         ],
     },
     {
-        name: 'Boones Creek',
+        name: 'Cool Springs',
         features: [
-            'Popular with families',
-            'Newer subdivisions',
-            'Easy access to Jonesborough and I-26',
+            'Modern subdivisions',
+            'Shopping, dining, and offices',
+            'Popular with professionals',
         ],
     },
     {
-        name: 'Gray',
+        name: 'Fieldstone Farms',
         features: [
-            'Quiet, suburban feel',
-            'New construction options',
-            'Great for commuters',
+            'Master-planned community',
+            'Parks, pools, and trails',
+            'Strong sense of community',
         ],
     },
     {
-        name: 'Downtown Johnson City',
+        name: 'Arrington & Leiper’s Fork Areas',
         features: [
-            'Walkable lifestyle',
-            'Apartments, townhomes, lofts',
-            'Restaurants, breweries, and events',
+            'Estate homes and acreage',
+            'Scenic countryside living',
+            'Privacy and space',
+        ],
+    },
+    {
+        name: 'Westhaven',
+        features: [
+            'Luxury homes and townhomes',
+            'Golf course community',
+            'Highly desirable amenities',
         ],
     },
 ];
@@ -83,58 +88,59 @@ const tabs = [
         id: 'tab1',
         label: 'Schools & Education',
         title: 'Schools & Education',
-        intro: 'Johnson City is home to:',
+        intro: 'Franklin is nationally known for its schools.',
         items: [
-            'East Tennessee State University (ETSU)',
-            'Public and private K-12 schools',
-            'Proximity to Northeast State Community College',
+            'Williamson County Schools (top-rated in TN)',
+            'Excellent private school options',
+            'Proximity to universities in Nashville',
         ],
-        footer: 'Education and healthcare are two of the area’s strongest sectors.',
-        imageUrl: '/assets/images/pexels-denil-33448751-2048x1366 (1).jpg',
+        footer: 'Education quality is one of the biggest drivers of Franklin’s real estate demand.',
+        imageUrl: '/assets/images/MFYMVNTLQJDGHDBKTVFLSEGZJA.avif',
     },
     {
         id: 'tab2',
         label: 'Healthcare & Employment',
         title: 'Healthcare & Employment',
-        intro: 'Johnson City is a major healthcare hub for Northeast Tennessee. Major employers include:',
+        intro: 'Residents benefit from strong employment access:',
         items: [
-            'Ballad Health',
-            'ETSU & ETSU Health',
-            'Manufacturing and logistics companies',
-            'Regional medical and specialty centers',
+            'Close proximity to Nashville’s healthcare industry',
+            'Corporate offices in Cool Springs',
+            'Finance, tech, and professional services',
         ],
-        footer: 'Healthcare professionals frequently relocate to Johnson City for long-term career opportunities.',
-        imageUrl: '/assets/images/pexels-kelly-2833739-2048x1150.jpg',
+        footer: 'Many Franklin residents work locally or commute to Nashville.',
+        imageUrl:
+            '/assets/images/bkg-state-of-franklin-healthcare-associates.jpg',
     },
     {
         id: 'tab3',
-        label: 'Things to Do in Johnson City',
-        title: 'Things to Do in Johnson City',
-        intro: 'Outdoor lovers thrive here:',
+        label: 'Things to Do in Franklin',
+        title: 'Things to Do in Franklin',
+        intro: 'Franklin offers an exceptional lifestyle:',
         items: [
-            'Hiking and biking trails',
-            'Appalachian and Cherokee National Forest access',
-            'Boone Lake and Watauga Lake nearby',
-            'Local breweries and live music',
-            'Annual festivals and community events',
+            'Historic downtown events and festivals',
+            'Local boutiques and dining',
+            'Parks, walking trails, and greenways',
+            'Easy access to Nashville entertainment',
+            'Nearby wineries and countryside attractions',
         ],
-        footer: 'Johnson City blends outdoor adventure with small-city charm.',
+        footer: 'Franklin blends Southern charm with modern convenience.',
         imageUrl:
-            '/assets/images/View-From-Fire-Tower-Bays-Mountain-Park-Kingsport-TN-2048x1362.jpeg',
+            '/assets/images/LEAD-Franklin-Square-jpeg-scaled-1-2048x1378.jpeg',
     },
     {
         id: 'tab4',
-        label: 'Homes for Sale in Johnson City',
-        title: 'Homes for Sale in Johnson City',
-        intro: 'The Johnson City housing market includes:',
+        label: 'Homes for Sale in Franklin',
+        title: 'Homes for Sale in Franklin',
+        intro: 'Franklin’s real estate market includes:',
         items: [
-            'Affordable single-family homes',
-            'New construction neighborhoods',
+            'Luxury single-family homes',
+            'Gated and golf-course communities',
             'Townhomes and condos',
-            'Rural properties just outside the city',
+            'Estate properties with acreage',
         ],
-        footer: 'Homes range from starter properties to larger family homes with mountain views.',
-        imageUrl: '/assets/images/apartment-building-in-sunny-day-2048x1363.jpeg',
+        footer: 'Inventory is competitive, and homes often sell quickly due to demand.',
+        imageUrl:
+            '/assets/images/Home_and_healthy_front_yard_during_late_spring_season1-2048x1560.jpeg',
         cta: {
             label: 'Homes for Sale',
             href: '/chattanooga-homes-for-sale',
@@ -143,80 +149,79 @@ const tabs = [
     },
 ];
 export default function FranklinPage() {
-  return (
-    <div>
-       <WhyMoveSection whyMove={whyMoveData} />
-                  <MoveLocationSection location={locationData} />
-      
-                  {/* COST OF LIVING SECTION */}
-                  <div className="container mx-auto px-4 py-16 lg:px-16">
-                      <h2 className="mb-6 text-center text-3xl font-bold">
-                          Cost of Living in Johnson City
-                      </h2>
-                      <p className="mb-10 text-center text-gray-600">
-                         Johnson City consistently ranks as one of the most affordable cities in Tennessee.
-                      </p>
-      
-                      <div className="grid gap-6 md:grid-cols-4">
-                          <CostCard title="Mediam home price" value="$285,000" />
-                          <CostCard
-                              title="2-bedroom apartment"
-                              value="$1,100–$1,400"
-                          />
-                          <CostCard
-                              title="Utilities"
-                              value="Below national average"
-                          />
-                          <CostCard title="Property taxes" value="Very low" />
-                      </div>
-                  </div>
-                  <div className="bg-primary py-16">
-                      <div className="container mx-auto px-4 lg:px-16">
-                          <h2 className="mb-6 text-center text-3xl font-bold text-primary-foreground">
-                              Best Neighborhoods in Johnson City
-                          </h2>
-                          <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
-                              {neighborhoods.map((neighborhood, idx) => (
-                                  <NeighborhoodsSection
-                                      name={neighborhood.name}
-                                      features={neighborhood.features}
-                                  />
-                              ))}
-                          </div>
-                      </div>
-                  </div>
-                  <InfoTabsSection tabs={tabs} />
-                  <CallToActionSection
-                      title="Work With a Johnson City Realtor"
-                      description="A local Bristol realtor can help you:"
-                      benefits={[
-                          'Neighborhood differences',
-                          'School districts',
-                          'Pricing trends',
-                          'Relocation logistics',
-                      ]}
-                      buttonText="Connect With a Johnson City Realtor"
-                  />
-      
-                  <FinalInfoSection
-                      property={{
-                          title: 'Is Johnson City Right for You?',
-                          rightTitle: 'Explore Nearby Cities',
-                          description:
-                              'Johnson City may be a great fit if you’re looking for: Affordable housing Strong healthcare employment Mountain and outdoor lifestyle Friendly, close-knit community Lower cost of living without sacrificing quality For many relocating buyers, Johnson City offers one of the best values in Tennessee.',
-                          cities: [
-                              'Kingsport',
-                              'Bristol',
-                              'Knoxville',
-                              'Chattanooga',
-                          ],
-                      }}
-                  />
-    </div>
-  )
+    return (
+        <div>
+            <WhyMoveSection whyMove={whyMoveData} />
+            <MoveLocationSection location={locationData} />
+
+            {/* COST OF LIVING SECTION */}
+            <div className="container mx-auto px-4 py-16 lg:px-16">
+                <h2 className="mb-6 text-center text-3xl font-bold">
+                    Cost of Living in Franklin
+                </h2>
+                <p className="mb-10 text-center text-gray-600">
+                    Franklin is one of the more expensive cities in Tennessee,
+                    largely due to demand and school quality.
+                </p>
+
+                <div className="grid gap-6 md:grid-cols-4">
+                    <CostCard title="Mediam home price" value="$850,000" />
+                    <CostCard
+                        title="2-bedroom apartment"
+                        value="$2,000–$2,600"
+                    />
+                    <CostCard title="Utilities" value="Near national average" />
+                    <CostCard
+                        title="Property taxes"
+                        value="Lower than many high-income states"
+                    />
+                </div>
+            </div>
+            <div className="bg-primary py-16">
+                <div className="container mx-auto px-4 lg:px-16">
+                    <h2 className="mb-6 text-center text-3xl font-bold text-primary-foreground">
+                        Best Neighborhoods in Franklin
+                    </h2>
+                    <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+                        {neighborhoods.map((neighborhood, idx) => (
+                            <NeighborhoodsSection
+                                name={neighborhood.name}
+                                features={neighborhood.features}
+                            />
+                        ))}
+                    </div>
+                </div>
+            </div>
+            <InfoTabsSection tabs={tabs} />
+            <CallToActionSection
+                title="Work With a Franklin Realtor"
+                description="A local Franklin realtor can help you:"
+                benefits={[
+                    'Navigate competitive listings',
+                    'Understand school zoning and neighborhoods',
+                    'Identify off-market opportunities',
+                    'Negotiate effectively in a high-demand market',
+                ]}
+                buttonText="Connect With a Franklin Realtor"
+            />
+
+            <FinalInfoSection
+                property={{
+                    title: 'Is Franklin Right for You?',
+                    rightTitle: 'Explore Nearby Cities',
+                    description:
+                        'Franklin may be the perfect fit if you’re looking for: Top-tier schools Luxury and upscale living Safe, family-oriented communities Close proximity to Nashville Long-term property value For many relocating buyers, Franklin represents the pinnacle of suburban living in Tennessee.',
+                    cities: [
+                        'Nashville',
+                        'Murfreesboro',
+                        'Brentwood',
+                        'Clarksville',
+                    ],
+                }}
+            />
+        </div>
+    );
 }
-
-
 
 const CostCard: React.FC<{ title: string; value: string }> = ({
     title,
