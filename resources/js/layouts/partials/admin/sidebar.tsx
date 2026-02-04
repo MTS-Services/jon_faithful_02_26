@@ -33,7 +33,7 @@ const adminNavItems: NavItemType[] = [
                 children: [
                     {
                         title: 'All',
-                        href: '#',
+                        href: route('admin.um.users.index'),
                         icon: User,
                         slug: 'admin-users'
                     },

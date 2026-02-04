@@ -15,9 +15,9 @@ class AdminController extends Controller
 
     public function __construct(protected DataTableService $dataTableService){}
 
-    public function index(): Response
+    public function dashboard(): Response
     {
-        return Inertia::render('admin/index');
+        return Inertia::render('admin/dashboard');
     }
 
     public function allAdmin(): Response

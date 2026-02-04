@@ -19,7 +19,10 @@ Route::name('frontend.')->controller(FrontendController::class)->group(function 
         Route::get('/why-tennessee', 'whyTennessee')->name('why-tennessee');
         Route::get('/tennessee-relocation', 'tennesseeRelocation')->name('tennessee-relocation');
         Route::get('/single-product', 'singleProduct')->name('single-product');
+        Route::get('/renting-buy', 'rentingBuy')->name('renting-buy');
         Route::get('/living-in-nashville', 'livingInNashville')->name('livingInNashville');
+        Route::get('/cost-of-renting-tennessee', 'costOfRentingTennessee')->name('cost-of-renting-tennessee');
+        Route::get('/moving-tennessee-renting', 'movingTennesseeRenting')->name('moving-tennessee-renting');
         Route::get('/living-in-nashville', 'livingInNashville')->name('livingInNashville');
         Route::get('/living-in-cookeville', 'livingInCookeville')->name('livingInCookeville');
         Route::get('/living-in-knoxville', 'livingInKnoxville')->name('livingInKnoxville');
