@@ -19,12 +19,12 @@ const FrontendHeader: React.FC = () => {
     { name: "Nashville", route: "living-in-nashville" },
     { name: "Knoxville", route: "living-in-knoxville" },
     { name: "Johnson City", route: "living-in-johnson-city" },
-    { name: "Franklin", route: "#" },
-    { name: "Memphis", route: "#" },
-    { name: "Clarksville", route: "#" },
-    { name: "Murfreesboro", route: "#" },
-    { name: "Kingsport", route: "#" },
-    { name: "Jackson", route: "#" },
+    { name: "Franklin", route: "living-in-franklin" },
+    { name: "Memphis", route: "living-in-memphis" },
+    { name: "Clarksville", route: "living-in-clarksville" },
+    { name: "Murfreesboro", route: "living-in-murfreesboro" },
+    { name: "Kingsport", route: "living-in-kingsport" },
+    { name: "Jackson", route: "living-in-jackson" },
   ];
   const movingTopics1 = [
     { name: 'About Why Tennessee', route: 'why-tennessee' },
