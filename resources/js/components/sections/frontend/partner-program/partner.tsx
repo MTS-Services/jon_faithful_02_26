@@ -65,7 +65,7 @@ const Partner = () => {
             <section className="py-20">
                 <div className="container mx-auto px-4 lg:px-16 grid md:grid-cols-2 gap-16 items-center">
                     <div>
-                        <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-6">Why WhyTennessee.com Is Different</h2>
+                        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4 sm:mb-5 md:mb-6">Why WhyTennessee.com Is Different</h2>
                         <p className="mb-6 text-gray-600 italic">WhyTennessee.com is not another general listing site.</p>
                         <ul className="space-y-4">
                             {[
@@ -87,7 +87,7 @@ const Partner = () => {
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4 h-[500px]">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 h-[500px]">
                         <img
                             src="https://whytennessee.com/wp-content/uploads/2026/01/Apartments-in-2048x1365.jpeg"
                             className="rounded-2xl w-full h-full object-cover shadow-lg"
