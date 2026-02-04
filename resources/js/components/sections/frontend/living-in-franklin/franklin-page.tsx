@@ -1,12 +1,10 @@
-import React from 'react'
+import React from 'react';
+import CallToActionSection from '../cities/callTo-action-section';
 import FinalInfoSection from '../cities/final-info-section';
 import InfoTabsSection from '../cities/info-tabs-section';
-import CallToActionSection from '../cities/callTo-action-section';
-import NeighborhoodsSection from '../cities/neighborhoods-section';
 import MoveLocationSection from '../cities/move-location-section';
+import NeighborhoodsSection from '../cities/neighborhoods-section';
 import WhyMoveSection from '../cities/why-move';
-
-
 
 const whyMoveData = {
     title: 'Why People Are Moving to Franklin',
@@ -22,8 +20,7 @@ const whyMoveData = {
     ],
     conclusion:
         'Many buyers choose Franklin for its combination of luxury living and small-town charm.',
-    imageUrl:
-        '/assets/images/Franklin-Tennessee-Cityscape.jpeg',
+    imageUrl: '/assets/images/Franklin-Tennessee-Cityscape.jpeg',
     videoUrl:
         'https://whytennessee.com/wp-content/uploads/2025/12/1-Franklin_-Tennessee_-Downtown_-Amazing-Landscape_-Aerial-View-1.mp4',
 };
@@ -31,8 +28,7 @@ const whyMoveData = {
 // LOCATION DATA
 const locationData = {
     title: 'Where Is Franklin Located?',
-    description:
-        'Franklin is located in Williamson County, approximately:',
+    description: 'Franklin is located in Williamson County, approximately:',
     distances: [
         '25–30 minutes south of downtown Nashville',
         '20 minutes to Brentwood',
@@ -112,7 +108,8 @@ const tabs = [
             'Finance, tech, and professional services',
         ],
         footer: 'Many Franklin residents work locally or commute to Nashville.',
-        imageUrl: '/assets/images/bkg-state-of-franklin-healthcare-associates.jpg',
+        imageUrl:
+            '/assets/images/bkg-state-of-franklin-healthcare-associates.jpg',
     },
     {
         id: 'tab3',
@@ -142,7 +139,8 @@ const tabs = [
             'Estate properties with acreage',
         ],
         footer: 'Inventory is competitive, and homes often sell quickly due to demand.',
-        imageUrl: '/assets/images/Home_and_healthy_front_yard_during_late_spring_season1-2048x1560.jpeg',
+        imageUrl:
+            '/assets/images/Home_and_healthy_front_yard_during_late_spring_season1-2048x1560.jpeg',
         cta: {
             label: 'Homes for Sale',
             href: '/chattanooga-homes-for-sale',
@@ -151,80 +149,79 @@ const tabs = [
     },
 ];
 export default function FranklinPage() {
-  return (
-    <div>
-       <WhyMoveSection whyMove={whyMoveData} />
-                  <MoveLocationSection location={locationData} />
-      
-                  {/* COST OF LIVING SECTION */}
-                  <div className="container mx-auto px-4 py-16 lg:px-16">
-                      <h2 className="mb-6 text-center text-3xl font-bold">
-                          Cost of Living in Franklin
-                      </h2>
-                      <p className="mb-10 text-center text-gray-600">
-                         Franklin is one of the more expensive cities in Tennessee, largely due to demand and school quality.
-                      </p>
-      
-                      <div className="grid gap-6 md:grid-cols-4">
-                          <CostCard title="Mediam home price" value="$850,000" />
-                          <CostCard
-                              title="2-bedroom apartment"
-                              value="$2,000–$2,600"
-                          />
-                          <CostCard
-                              title="Utilities"
-                              value="Near national average"
-                          />
-                          <CostCard title="Property taxes" value="Lower than many high-income states" />
-                      </div>
-                  </div>
-                  <div className="bg-primary py-16">
-                      <div className="container mx-auto px-4 lg:px-16">
-                          <h2 className="mb-6 text-center text-3xl font-bold text-primary-foreground">
-                              Best Neighborhoods in Franklin
-                          </h2>
-                          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-                              {neighborhoods.map((neighborhood, idx) => (
-                                  <NeighborhoodsSection
-                                      name={neighborhood.name}
-                                      features={neighborhood.features}
-                                  />
-                              ))}
-                          </div>
-                      </div>
-                  </div>
-                  <InfoTabsSection tabs={tabs} />
-                  <CallToActionSection
-                      title="Work With a Franklin Realtor"
-                      description="A local Franklin realtor can help you:"
-                      benefits={[
-                          'Navigate competitive listings',
-                          'Understand school zoning and neighborhoods',
-                          'Identify off-market opportunities',
-                          'Negotiate effectively in a high-demand market',
-                      ]}
-                      buttonText="Connect With a Franklin Realtor"
-                  />
-      
-                  <FinalInfoSection
-                      property={{
-                          title: 'Is Franklin Right for You?',
-                          rightTitle: 'Explore Nearby Cities',
-                          description:
-                              'Franklin may be the perfect fit if you’re looking for: Top-tier schools Luxury and upscale living Safe, family-oriented communities Close proximity to Nashville Long-term property value For many relocating buyers, Franklin represents the pinnacle of suburban living in Tennessee.',
-                          cities: [
-                              'Nashville',
-                              'Murfreesboro',
-                              'Brentwood',
-                              'Clarksville',
-                          ],
-                      }}
-                  />
-    </div>
-  )
+    return (
+        <div>
+            <WhyMoveSection whyMove={whyMoveData} />
+            <MoveLocationSection location={locationData} />
+
+            {/* COST OF LIVING SECTION */}
+            <div className="container mx-auto px-4 py-16 lg:px-16">
+                <h2 className="mb-6 text-center text-3xl font-bold">
+                    Cost of Living in Franklin
+                </h2>
+                <p className="mb-10 text-center text-gray-600">
+                    Franklin is one of the more expensive cities in Tennessee,
+                    largely due to demand and school quality.
+                </p>
+
+                <div className="grid gap-6 md:grid-cols-4">
+                    <CostCard title="Mediam home price" value="$850,000" />
+                    <CostCard
+                        title="2-bedroom apartment"
+                        value="$2,000–$2,600"
+                    />
+                    <CostCard title="Utilities" value="Near national average" />
+                    <CostCard
+                        title="Property taxes"
+                        value="Lower than many high-income states"
+                    />
+                </div>
+            </div>
+            <div className="bg-primary py-16">
+                <div className="container mx-auto px-4 lg:px-16">
+                    <h2 className="mb-6 text-center text-3xl font-bold text-primary-foreground">
+                        Best Neighborhoods in Franklin
+                    </h2>
+                    <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+                        {neighborhoods.map((neighborhood, idx) => (
+                            <NeighborhoodsSection
+                                name={neighborhood.name}
+                                features={neighborhood.features}
+                            />
+                        ))}
+                    </div>
+                </div>
+            </div>
+            <InfoTabsSection tabs={tabs} />
+            <CallToActionSection
+                title="Work With a Franklin Realtor"
+                description="A local Franklin realtor can help you:"
+                benefits={[
+                    'Navigate competitive listings',
+                    'Understand school zoning and neighborhoods',
+                    'Identify off-market opportunities',
+                    'Negotiate effectively in a high-demand market',
+                ]}
+                buttonText="Connect With a Franklin Realtor"
+            />
+
+            <FinalInfoSection
+                property={{
+                    title: 'Is Franklin Right for You?',
+                    rightTitle: 'Explore Nearby Cities',
+                    description:
+                        'Franklin may be the perfect fit if you’re looking for: Top-tier schools Luxury and upscale living Safe, family-oriented communities Close proximity to Nashville Long-term property value For many relocating buyers, Franklin represents the pinnacle of suburban living in Tennessee.',
+                    cities: [
+                        'Nashville',
+                        'Murfreesboro',
+                        'Brentwood',
+                        'Clarksville',
+                    ],
+                }}
+            />
+        </div>
+    );
 }
-
-
 
 const CostCard: React.FC<{ title: string; value: string }> = ({
     title,
