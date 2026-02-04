@@ -1,9 +1,74 @@
+import InfoTabsSection from '@/components/sections/frontend/cities/info-tabs-section';
 import { Hero } from '@/components/sections/frontend/hero'
 import AgentCard from '@/components/ui/agent-card'
 import FrontendLayout from '@/layouts/frontend-layout'
+import { ArrowRightIcon } from 'lucide-react';
 import React from 'react'
 
-
+const tabs = [
+    {
+        id: 'tab1',
+        label: 'Schools & Education',
+        title: 'Schools & Education',
+        intro: 'Nashville provides extensive education options:',
+        items: [
+            'Public schools serving the city',
+            'Private school options nearby',
+            'Access to Northeast State Community College and ETSU',
+        ],
+        footer: 'Education options support families relocating to the area.',
+        imageUrl:
+            '/assets/images/moving-checklist/Pupils-leaving.jpeg',
+    },
+    {
+        id: 'tab2',
+        label: 'Best Places',
+        title: 'Best Places to Live in Tennessee for Families',
+        intro: 'Nashville offers a range of education options:',
+        items: [
+            'Healthcare and medical services',
+            'Manufacturing and logistics',
+            'Technology and startups',
+            'Education and government',
+        ],
+        footer: 'Major healthcare systems and employers support long-term job stability in the region.',
+        imageUrl: '/assets/images/Team_of_Medical.jpeg',
+    },
+    {
+        id: 'tab3',
+        label: 'Things to Do in Chattanooga',
+        title: 'Things to Do in Chattanooga',
+        intro: 'Chattanooga is an outdoor lover’s paradise:',
+        items: [
+            'Hiking and climbing at Lookout Mountain',
+            'Rock climbing, kayaking, and paddleboarding',
+            'Tennessee Aquarium and riverfront parks',
+            'Bike trails and greenways',
+            'Festivals, live music, and local breweries',
+        ],
+        footer: 'Chattanooga offers a year-round active lifestyle with city conveniences.',
+        imageUrl: '/assets/images/pexels-kelly-2519390-scaled-1-2048x1536.jpg',
+    },
+    {
+        id: 'tab4',
+        label: 'Homes for Sale in Chattanooga',
+        title: 'Homes for Sale in Chattanooga',
+        intro: 'Chattanooga’s housing market includes:',
+        items: [
+            'Single-family homes',
+            'Townhomes and condos',
+            'New construction communities',
+            'Mountain and river-view properties',
+        ],
+        footer: 'Housing options range from affordable starter homes to luxury properties in Signal Mountain and riverfront areas.',
+        imageUrl: '/assets/images/Beautiful_home_exterior.jpeg',
+        cta: {
+            label: 'Homes for Sale',
+            href: '/chattanooga-homes-for-sale',
+            icon: '',
+        },
+    },
+];
 
 export default function LiveTennessee() {
   return (
@@ -32,7 +97,7 @@ export default function LiveTennessee() {
                   playsInline
                   poster="https://whytennessee.com/wp-content/uploads/2025/12/pexels-chaitaastic-3722911-scaled.jpg"
                 >
-                  <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+                  <source src="video/LiveinTennessee.mp4" type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
 
@@ -319,11 +384,10 @@ export default function LiveTennessee() {
         </div>
       </section>
 
-
       <section className="relative py-24 bg-fixed bg-cover bg-center" style={{ backgroundImage: "url('https://whytennessee.com/wp-content/uploads/2026/01/Memphis-scaled.jpeg')" }}>
         <div className="absolute inset-0 bg-black/50"></div>
         <div className="relative z-10 mx-auto text-white text-center flex flex-col items-center justify-center">
-          <h1 className="text-3xl md:text-4xl font-bold mb-4 leading-tight">
+          <h1 className="text-2xl font-bold mb-4 leading-tight">
             Best Places to Live in <br /> West Tennessee Memphis
           </h1>
 
@@ -333,12 +397,46 @@ export default function LiveTennessee() {
 
           <a
             href="#"
-            className="inline-block bg-[#243c64] hover:bg-[#1a2d4b] text-white text-sm font-medium py-3 px-8 rounded-full transition duration-300 shadow-lg border border-white/10"
+            className="inline-block bg-[#243c64]  text-white text-sm font-medium py-3 px-8 rounded-full transition duration-300 shadow-lg border border-white/10"
           >
             Explore Living In Memphis
           </a>
         </div>
       </section>
+
+      
+
+       <InfoTabsSection tabs={tabs} />
+
+       <section className="bg-primary px-58 py-8 flex flex-col lg:flex-row items-center justify-between gap-8">
+        <div className="max-w-2xl text-white">
+          <h2 className="text-3xl font-semibold mb-4">Final Thoughts</h2>
+          <p className="text-lg leading-relaxed opacity-90">
+            Tennessee offers something for everyone — from vibrant cities to quiet small towns, from luxury 
+            suburbs to affordable starter homes. Whether you're moving for work, family, retirement, or 
+            lifestyle, Tennessee remains one of the best states to call home.
+          </p>
+        </div>
+
+        <div className="flex flex-col sm:flex-row gap-4 shrink-0">
+          <a href="#" className="inline-flex items-center justify-center bg-white text-black font-semibold py-4 px-8 rounded-full hover:bg-secondary transition-colors">
+            Explore Tennessee Cities
+            <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="thick-arrow-right-circle"></path>
+              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none" />
+              <path d="M10 8l4 4-4 4" stroke="currentColor" stroke-width="2" />
+            </svg>
+          </a>
+          
+          <a href="#" className="inline-flex items-center justify-center bg-white text-black font-semibold py-4 px-8 rounded-full hover:bg-secondary transition-colors">
+            Search Homes for Sale in Tennessee
+            <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none" />
+              <path d="M10 8l4 4-4 4" stroke="currentColor" stroke-width="2" />
+            </svg>
+          </a>
+        </div>
+        </section>
     </FrontendLayout>
   )
 }
