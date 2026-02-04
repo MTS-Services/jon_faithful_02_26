@@ -19,7 +19,7 @@ export default function Index() {
 
                     {/* Card 3 */}
                     <div className="flex h-[220px] w-full max-w-sm items-center justify-center rounded-xl bg-primary hover:bg-secondary transition-all duration-300 px-6 text-center shadow-lg">
-                        <a href="#" className="text-lg font-semibold text-white">
+                        <a href="login" className="text-lg font-semibold text-white">
                             Both (Realtor & Rentals)
                         </a>
                     </div>

@@ -1,18 +1,20 @@
-import { Form, Head, Link } from '@inertiajs/react';
-
-import InputError from '@/components/input-error';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Spinner } from '@/components/ui/spinner';
-import AuthLayout from '@/layouts/auth-layout';
-import { login } from '@/routes';
-import { store } from '@/routes/register';
+import { useForm } from "@inertiajs/react";
+import { Phone } from "lucide-react";
 
 export default function Register() {
+    const {data, setData, post, processing, errors} = useForm({
+        username: '',
+        name: '',
+        email: '',
+        password: '',
+        password_confirmation: '',
+        phone: '',
+        image: '',
+        your_self: '',
+    })
     return (
-       <>
-       <div className="flex min-h-screen items-center justify-center bg-gray-100">
+        <div>
+            <div className="flex min-h-screen items-center justify-center bg-gray-100">
                 <div className="w-full max-w-lg rounded-lg bg-white p-8 shadow-md">
                     <h2 className="mb-6 text-center text-2xl font-bold text-gray-800">
                         Register
@@ -52,7 +54,7 @@ export default function Register() {
                                 id="username"
                                 className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
                                 placeholder="Enter Your Username"
-                                required
+                               onChange={e=>setData('username', e.target.value.trim())}
                             />
                             <p className="mt-1 text-sm text-red-500"></p>
                         </div>
@@ -68,7 +70,7 @@ export default function Register() {
                                 id="name"
                                 className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
                                 placeholder="Enter Your Name"
-                                required
+                                onChange={e=>setData('name', e.target.value.trim())}
                             />
                             <p className="mt-1 text-sm text-red-500"></p>
                         </div>
@@ -84,7 +86,7 @@ export default function Register() {
                                 id="phone"
                                 className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
                                 placeholder="Enter Your Phone Number"
-                                required
+                                onChange={e=>setData('phone', e.target.value.trim())} 
                             />
                             <p className="mt-1 text-sm text-red-500"></p>
                         </div>
@@ -98,15 +100,9 @@ export default function Register() {
                             <textarea
                                 name=""
                                 id=""
-                                className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
+                                className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none" onChange={e=>setData('your_self', e.target.value.trim())}
                             ></textarea>
-                            {/* <input
-                                type="tel"
-                                id="phone"
-                                className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
-                                placeholder="Enter Your Phone Number"
-                                required
-                            /> */}
+
                             <p className="mt-1 text-sm text-red-500"></p>
                         </div>
                         <div>
@@ -121,7 +117,7 @@ export default function Register() {
                                 id="email"
                                 className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
                                 placeholder="Enter Your Email"
-                                required
+                                onChange={e=>setData('email', e.target.value.trim())}
                             />
                             <p className="mt-1 text-sm text-red-500"></p>
                         </div>
@@ -138,7 +134,7 @@ export default function Register() {
                                 id="password"
                                 className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
                                 placeholder="••••••••"
-                                required
+                                onChange={e=>setData('password', e.target.value.trim())}
                             />
                             <p className="mt-1 text-sm text-red-500"></p>
                         </div>
@@ -191,7 +187,6 @@ export default function Register() {
                     </div> */}
                 </div>
             </div>
-       
-       </>
+        </div>
     );
 }
