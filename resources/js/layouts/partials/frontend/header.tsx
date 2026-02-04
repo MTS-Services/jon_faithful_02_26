@@ -21,7 +21,7 @@ const FrontendHeader: React.FC = () => {
     { name: "Franklin", route: "living-in-franklin" },
     { name: "Memphis", route: "living-in-memphis" },
     { name: "Clarksville", route: "living-in-clarksville" },
-    { name: "Murfreesboro", route: "#" },
+    { name: "Murfreesboro", route: "living-in-murfreesboro" },
     { name: "Kingsport", route: "#" },
     { name: "Jackson", route: "#" },
   ];
