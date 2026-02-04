@@ -78,8 +78,8 @@ export default function LiveTennessee() {
           'https://whytennessee.com/wp-content/uploads/2025/12/pexels-chaitaastic-3722911-scaled.jpg',
         ]}
         title={<>Best Places to Live in Tennessee</>}
-        description={<>Best Places to Live in Tennessee
-          Top Cities, Cost of Living, Jobs & Lifestyle Breakdown Tennessee continues to be one of the most popular states to move to in the U.S. Thanks to its no state income tax, affordable housing, strong job markets, and diverse lifestyles, people from across the country are relocating to Tennessee every year. This guide breaks down the best places to live in Tennessee, based on affordability, quality of life, job opportunities, schools, and lifestyle.</>}
+        description={<>Top Cities, Cost of Living, Jobs & Lifestyle Breakdown Tennessee continues to be one of the most popular states to move to in the U.S. Thanks to its no state income tax, affordable housing, strong job markets, and diverse lifestyles, people from across the country are relocating to Tennessee every year. This guide breaks down the best places to live in Tennessee, based on affordability, quality of life, job opportunities, schools, and lifestyle.
+.</>}
       />
 
 
@@ -154,33 +154,33 @@ export default function LiveTennessee() {
                 Best Overall Cities to Live in Tennessee
               </h2>
 
-              <p className="text-orange-600 font-semibold uppercase tracking-wide text-sm">
+              <p className="text-yellow-600 font-semibold uppercase tracking-wide text-sm">
                 Nashville
               </p>
 
               <p className="text-slate-700 leading-relaxed">
-                <span className="font-bold text-slate-800">Best for: Jobs, culture, and long-term growth.</span>
+                Best for: Jobs, culture, and long-term growth.
                 Nashville is Tennessee's economic engine and cultural hub. It offers a booming job market,
                 diverse neighborhoods, and strong appreciation potential. Why people choose Nashville:
               </p>
 
               <ul className="space-y-2 text-slate-700">
-                <li className="flex items-start italic">
-                  <span className="mr-2">•</span>
+                <li className="flex items-start ">
+                  <span className="mr-2 text-2xl text-black">•</span>
                   <span>Strong employment in healthcare, tech, and entertainment</span>
                 </li>
-                <li className="flex items-start italic">
-                  <span className="mr-2">•</span>
+                <li className="flex items-start ">
+                  <span className="mr-2 text-2xl text-black">•</span>
                   <span>Vibrant music and food scene</span>
                 </li>
-                <li className="flex items-start italic">
-                  <span className="mr-2">•</span>
+                <li className="flex items-start ">
+                  <span className="mr-2 text-2xl text-black">•</span>
                   <span>Big-city amenities without coastal prices</span>
                 </li>
               </ul>
 
               <div className="pt-4">
-                <a href="#" className="inline-block bg-[#243c64] text-white px-8 py-3 rounded-full font-medium hover:bg-slate-700 transition-colors shadow-lg">
+                <a href="#" className="inline-block bg-chart-2 text-white px-8 py-3 rounded-full font-medium  transition-colors shadow-lg">
                   Explore Living in Nashville
                 </a>
               </div>
@@ -220,7 +220,7 @@ export default function LiveTennessee() {
               Best Overall Cities to Live in Tennessee
             </h2>
 
-            <p className="text-orange-600 font-semibold uppercase tracking-widest text-sm">
+            <p className="text-yellow-600 font-semibold uppercase tracking-widest text-sm">
               Nashville
             </p>
 
@@ -231,16 +231,16 @@ export default function LiveTennessee() {
             </p>
 
             <ul className="space-y-3 text-slate-700">
-              <li className="flex items-start italic">
-                <span className="mr-3 text-xl leading-none text-[#243c64]">•</span>
+              <li className="flex items-start ">
+                <span className="mr-3 text-xl leading-none text-black">•</span>
                 <span>Strong employment in healthcare, tech, and entertainment</span>
               </li>
-              <li className="flex items-start italic">
-                <span className="mr-3 text-xl leading-none text-[#243c64]">•</span>
+              <li className="flex items-start ">
+                <span className="mr-3 text-xl leading-none text-black">•</span>
                 <span>Vibrant music and food scene</span>
               </li>
-              <li className="flex items-start italic">
-                <span className="mr-3 text-xl leading-none text-[#243c64]">•</span>
+              <li className="flex items-start ">
+                <span className="mr-3 text-xl leading-none text-black">•</span>
                 <span>Big-city amenities without coastal prices</span>
               </li>
             </ul>
@@ -248,7 +248,7 @@ export default function LiveTennessee() {
             <div className="pt-6">
               <a
                 href="#"
-                className="inline-block bg-[#243c64] text-white px-10 py-4 rounded-full font-semibold hover:bg-slate-700 transition-all duration-300 shadow-xl hover:shadow-2xl"
+                className="inline-block bg-chart-2 text-white px-10 py-4 rounded-full font-semibold hover:bg-slate-700 transition-all duration-300 shadow-xl hover:shadow-2xl"
               >
                 Explore Living in Nashville
               </a>
@@ -275,7 +275,7 @@ export default function LiveTennessee() {
                 <span className="font-semibold text-slate-700">Best for: Balanced city life & outdoor access</span>
                 Knoxville offers a mix of affordability, jobs, and proximity to the Smoky Mountains.
               </p>
-              <a href="#" className="bg-[#243c64] text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-slate-700 transition-colors">
+              <a href="#" className="bg-chart-2 text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-slate-700 transition-colors">
                 Explore Living in Knoxville
               </a>
             </div>
@@ -286,7 +286,7 @@ export default function LiveTennessee() {
                 <span className="font-semibold text-slate-700">Best for: Affordability & quality of life</span>
                 Johnson City is one of the most underrated cities in Tennessee, especially for families and healthcare professionals.
               </p>
-              <a href="#" className="bg-[#243c64] text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-slate-700 transition-colors">
+              <a href="#" className="bg-chart-2 text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-slate-700 transition-colors">
                 Explore Living in Johnson City
               </a>
             </div>
@@ -297,7 +297,7 @@ export default function LiveTennessee() {
                 <span className="font-semibold text-slate-700">Best for: Outdoor lifestyle & scenic beauty</span>
                 Chattanooga blends mountains, riverfront living, and a growing tech scene.
               </p>
-              <a href="#" className="bg-[#243c64] text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-slate-700 transition-colors">
+              <a href="#" className="bg-chart-2 text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-slate-700 transition-colors">
                 Explore Living in Chattanooga
               </a>
             </div>
@@ -308,7 +308,7 @@ export default function LiveTennessee() {
                 <span className="font-semibold text-slate-700">Best for: Families & Nashville commuters</span>
                 Murfreesboro is one of the fastest-growing cities in the state.
               </p>
-              <a href="#" className="bg-[#243c64] text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-slate-700 transition-colors">
+              <a href="#" className="bg-chart-2 text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-slate-700 transition-colors">
                 Explore Living in Murfreesboro
               </a>
             </div>
@@ -319,7 +319,7 @@ export default function LiveTennessee() {
                 <span className="font-semibold text-slate-700">Best for: Military families & affordability</span>
                 Clarksville offers strong job stability and affordable housing near Fort Campbell.
               </p>
-              <a href="#" className="bg-[#243c64] text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-slate-700 transition-colors">
+              <a href="#" className="bg-chart-2 text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-slate-700 transition-colors">
                 Explore Living in Clarksville
               </a>
             </div>
@@ -330,7 +330,7 @@ export default function LiveTennessee() {
                 <span className="font-semibold text-slate-700">Best for: Small-city living & outdoor access</span>
                 Cookeville is perfect for buyers wanting peace, affordability, and nature.
               </p>
-              <a href="#" className="bg-[#243c64] text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-slate-700 transition-colors">
+              <a href="#" className="bg-chart-2 text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-slate-700 transition-colors">
                 Explore Living in Cookeville
               </a>
             </div>
@@ -347,35 +347,35 @@ export default function LiveTennessee() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-            <div className="bg-[#243c64] text-white rounded-lg p-8 flex flex-col items-center text-center shadow-lg">
+            <div className="bg-chart-2 text-white rounded-lg p-8 flex flex-col items-center text-center shadow-lg">
               <h3 className="text-2xl font-semibold mb-6">Kingsport</h3>
               <p className="text-sm leading-relaxed mb-8 grow">
                 <span className="font-bold">Best for:</span> Families & low housing costs
                 Kingsport offers safe neighborhoods, strong schools, and some of the most affordable homes in the state.
               </p>
-              <a href="#" className="bg-white text-[#243c64] font-medium py-3 px-6 rounded-full hover:bg-gray-100 transition duration-300 w-full md:w-auto">
+              <a href="#" className="bg-white text-black font-medium py-3 px-6 rounded-full hover:bg-gray-100 transition duration-300 w-full md:w-auto">
                 Explore Living in Kingsport
               </a>
             </div>
 
-            <div className="bg-[#243c64] text-white rounded-lg p-8 flex flex-col items-center text-center shadow-lg">
+            <div className="bg-chart-2 text-white rounded-lg p-8 flex flex-col items-center text-center shadow-lg">
               <h3 className="text-2xl font-semibold mb-6">Bristol</h3>
               <p className="text-sm leading-relaxed mb-8 grow">
                 <span className="font-bold">Best for:</span> Small-town charm & affordability
                 Known for its music history and community feel, Bristol is ideal for buyers on a budget.
               </p>
-              <a href="#" className="bg-white text-[#243c64] font-medium py-3 px-6 rounded-full hover:bg-gray-100 transition duration-300 w-full md:w-auto">
+              <a href="#" className="bg-white text-black font-medium py-3 px-6 rounded-full hover:bg-gray-100 transition duration-300 w-full md:w-auto">
                 Explore Living in Bristol
               </a>
             </div>
 
-            <div className="bg-[#243c64] text-white rounded-lg p-8 flex flex-col items-center text-center shadow-lg">
+            <div className="bg-chart-2 text-white rounded-lg p-8 flex flex-col items-center text-center shadow-lg">
               <h3 className="text-2xl font-semibold mb-6">Jackson</h3>
               <p className="text-sm leading-relaxed mb-8 grow">
                 <span className="font-bold">Best for:</span> Central location & value
                 Jackson provides affordable living between Memphis and Nashville.
               </p>
-              <a href="#" className="bg-white text-[#243c64] font-medium py-3 px-6 rounded-full hover:bg-gray-100 transition duration-300 w-full md:w-auto">
+              <a href="#" className="bg-white text-black font-medium py-3 px-6 rounded-full hover:bg-gray-100 transition duration-300 w-full md:w-auto">
                 Explore Living in Jackson
               </a>
             </div>
@@ -397,14 +397,12 @@ export default function LiveTennessee() {
 
           <a
             href="#"
-            className="inline-block bg-[#243c64]  text-white text-sm font-medium py-3 px-8 rounded-full transition duration-300 shadow-lg border border-white/10"
+            className="inline-block bg-chart-2  text-white text-sm font-medium py-3 px-8 rounded-full transition duration-300 shadow-lg border border-white/10"
           >
             Explore Living In Memphis
           </a>
         </div>
-      </section>
-
-      
+      </section>   
 
        <InfoTabsSection tabs={tabs} />
 
