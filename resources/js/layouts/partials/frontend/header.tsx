@@ -27,7 +27,7 @@ const FrontendHeader: React.FC = () => {
   ];
   const movingTopics1 = [
     { name: 'About Why Tennessee', route: '#' },
-    { name: 'Tennessee Relocation Guide', route: '#' },
+    { name: 'Tennessee Relocation Guide', route: 'tennessee-relocation' },
     { name: 'Cost of Living in Tennessee', route: '#' },
     { name: 'Pros & Cons of Living', route: '#' },
     { name: 'Best Places to Live', route: '#' },
@@ -112,8 +112,8 @@ const FrontendHeader: React.FC = () => {
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex space-x-8 items-center h-full">
               <a href="/" className="text-gray-700 hover:text-secondary font-medium transition-colors">Home</a>
-              <a href="#" className="text-gray-700 hover:text-secondary font-medium transition-colors">Homes for Sale</a>
-              <a href="#" className="text-gray-700 hover:text-secondary font-medium transition-colors">Rentals</a>
+              <a href="homes-for-sale" className="text-gray-700 hover:text-secondary font-medium transition-colors">Homes for Sale</a>
+              <a href="rentals" className="text-gray-700 hover:text-secondary font-medium transition-colors">Rentals</a>
 
               {/* Cities Dropdown */}
               <div className="relative group h-full flex items-center">

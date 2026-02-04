@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function ExploreTennessee() {
   return (
-        <div className="bg-primary-background py-28 px-4 md:px-16 mt-20 rounded-t-[100px]">
+        <div className="bg-primary-background py-12 sm:py-16 md:py-20 lg:py-28 px-4 md:px-16 mt-20 rounded-t-[100px]">
         <div className="container mx-auto ">
          
             <div className="max-w-2xl mx-auto text-center mb-8">
