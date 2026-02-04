@@ -23,7 +23,7 @@ const FrontendHeader: React.FC = () => {
     { name: "Clarksville", route: "living-in-clarksville" },
     { name: "Murfreesboro", route: "living-in-murfreesboro" },
     { name: "Kingsport", route: "living-in-kingsport" },
-    { name: "Jackson", route: "#" },
+    { name: "Jackson", route: "living-in-jackson" },
   ];
   const movingTopics1 = [
     { name: 'About Why Tennessee', route: '#' },
