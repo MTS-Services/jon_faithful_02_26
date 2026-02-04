@@ -1,18 +1,7 @@
-import { Form, Head, Link } from '@inertiajs/react';
-
-import InputError from '@/components/input-error';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Spinner } from '@/components/ui/spinner';
-import AuthLayout from '@/layouts/auth-layout';
-import { login } from '@/routes';
-import { store } from '@/routes/register';
-
 export default function Register() {
     return (
-       <>
-       <div className="flex min-h-screen items-center justify-center bg-gray-100">
+        <div>
+            <div className="flex min-h-screen items-center justify-center bg-gray-100">
                 <div className="w-full max-w-lg rounded-lg bg-white p-8 shadow-md">
                     <h2 className="mb-6 text-center text-2xl font-bold text-gray-800">
                         Register
@@ -191,7 +180,6 @@ export default function Register() {
                     </div> */}
                 </div>
             </div>
-       
-       </>
+        </div>
     );
 }

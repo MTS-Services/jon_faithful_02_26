@@ -76,6 +76,12 @@ export default function Login() {
             {processing ? 'Logging in...' : 'Login'}
           </button>
         </form>
+
+        <div className="mt-6 text-center">
+          <a href="register" className="text-sm text-gray-600 hover:text-gray-800">
+            Singn Up
+          </a>
+        </div>
       </div>
     </div>
   );

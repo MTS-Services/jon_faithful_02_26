@@ -10,6 +10,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware('guest:admin')->group(function () {
         Route::get('/login', [AdminAuthController::class, 'showLogin'])->name('login');
         Route::post('/login', [AdminAuthController::class, 'login'])->name('login.post');
+        Route::get('/register', [AdminAuthController::class, 'register'])->name('register');
     });
 
     Route::middleware('admin')->group(function () {
