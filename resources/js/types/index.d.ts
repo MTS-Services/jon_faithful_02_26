@@ -6,10 +6,10 @@ export interface Auth {
     admin: Admin;
 }
 export interface Admin {
-   name: string|null;
-   email: string|null;
-   created_at: string|null;
-   updated_at: string|null;
+    name: string | null;
+    email: string | null;
+    created_at: string | null;
+    updated_at: string | null;
 }
 
 export interface BreadcrumbItem {
@@ -53,9 +53,11 @@ export interface SharedData {
 
 export interface User {
     id: number;
+    username: string | null;
     name: string;
     email: string;
-    avatar?: string;
+    image?: string;
+    image_url?: string;
     email_verified_at: string | null;
     two_factor_enabled?: boolean;
     permissions?: string[];

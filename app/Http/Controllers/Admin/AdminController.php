@@ -11,16 +11,15 @@ use Inertia\Response;
 
 class AdminController extends Controller
 {
-    //
 
     public function __construct(protected DataTableService $dataTableService){}
 
     public function dashboard(): Response
     {
-        return Inertia::render('admin/comming');
+        return Inertia::render('admin/dashboard');
     }
 
-    public function allAdmin(): Response
+    public function index(): Response
     {
         $queryBody = Admin::query();
 
@@ -51,6 +50,35 @@ class AdminController extends Controller
         return Inertia::render('admin/view', [
             'admin' => $admin
         ]);
+    }
+    public function createAdmin(){
+
+        return Inertia::render('admin/create');
+    }
+    public function storeAdmin(Request $request){
+        $data =  $request ->validate([
+            'username' => 'required|unique:admins,username|string|max:255',
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:admins,email',
+            'password' => 'required|string|min:8|confirmed', 
+            'phone' => 'required|string',
+            'your_self' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+        $data['password'] = bcrypt($data['password']);
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $imageName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('admin_images', $imageName);
+            $data['image'] = $imageName;
+        }
+        $admin = Admin::create($data);
+        if (!$admin) {
+            return back()->with('error', 'Admin creation failed.');
+        }
+
+        return redirect()->route('admin.index')->with('success', 'Admin created successfully.');
     }
     public function editAdmin($id){
 

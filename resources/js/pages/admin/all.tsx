@@ -76,14 +76,14 @@ export default function All({
       label: 'View',
       icon: <Eye className="h-4 w-4" />,
       onClick: (admin) => {
-        router.visit('/');
+        router.visit(route('admin.view.detail', admin?.id));
       },
     },
     {
       label: 'Edit',
       icon: <Pencil className="h-4 w-4" />,
       onClick: (admin) => {
-        router.visit(route('admin.view.detail', admin?.id));
+        router.visit(route('admin.edit', admin?.id));
       },
     },
     {
@@ -103,8 +103,8 @@ export default function All({
       <Head title="Users" />
 
       <div className="flex justify-end mb-6">
-        <Link href={'/'}>
-          <Button>Create User</Button>
+        <Link href={route('admin.create')}>
+          <Button>Create Admin</Button>
         </Link>
       </div>
 
