@@ -35,7 +35,18 @@ class User extends Authenticatable
         ];
     }
 
-    public function isAdmin(){
+    public function isAdmin()
+    {
         return false;
+    }
+
+    protected $appends = ['image_url'];
+
+    public function getImageUrlAttribute()
+    {
+        if (filter_var($this->image, FILTER_VALIDATE_URL)) {
+            return $this->image;
+        }
+        return asset('storage/user_images/' . $this->image);
     }
 }

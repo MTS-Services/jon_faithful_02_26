@@ -28,18 +28,20 @@ const adminNavItems: NavItemType[] = [
             },
             {
                 title: 'Users',
-                href: '#',
+                href: route('admin.um.users.index'),
                 icon: User,
-                children: [
-                    {
-                        title: 'All',
-                        href: route('admin.um.users.index'),
-                        icon: User,
-                        slug: 'admin-users'
-                    },
-                    { title: 'Active', href: '#' },
-                    { title: 'Premium', href: '#', badge: 15 },
-                ],
+                permission: 'manage users',
+                slug: 'admin-users',
+                // children: [
+                //     {
+                //         title: 'All',
+                //         href: route('admin.um.users.index'),
+                //         icon: User,
+                //         slug: 'admin-users'
+                //     },
+                //     { title: 'Active', href: '#' },
+                //     { title: 'Premium', href: '#', badge: 15 },
+                // ],
             },
         ],
     },
