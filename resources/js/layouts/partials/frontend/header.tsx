@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FaChevronDown, FaArrowRight, FaChevronRight } from 'react-icons/fa';
 import { HiMenuAlt3, HiX } from 'react-icons/hi';
+import { MdDoubleArrow } from 'react-icons/md';
 
 
 const FrontendHeader: React.FC = () => {
@@ -23,10 +24,10 @@ const FrontendHeader: React.FC = () => {
     { name: "Clarksville", route: "living-in-clarksville" },
     { name: "Murfreesboro", route: "living-in-murfreesboro" },
     { name: "Kingsport", route: "living-in-kingsport" },
-    { name: "Jackson", route: "#" },
+    { name: "Jackson", route: "living-in-jackson" },
   ];
   const movingTopics1 = [
-    { name: 'About Why Tennessee', route: '#' },
+    { name: 'About Why Tennessee', route: 'why-tennessee' },
     { name: 'Tennessee Relocation Guide', route: 'tennessee-relocation' },
     { name: 'Cost of Living in Tennessee', route: '#' },
     { name: 'Pros & Cons of Living', route: '#' },
@@ -34,9 +35,9 @@ const FrontendHeader: React.FC = () => {
   ]
   const movingTopics2 = [
     { name: 'Renting in Tennessee', route: '/renting-tennessee' },
-    { name: 'Cost of Renting', route: '#' },
-    { name: 'Renting vs Buying', route: '#' },
-    { name: 'Moving & Renting First', route: '#' },
+    { name: 'Cost of Renting', route: '/cost-of-renting-tennessee' },
+    { name: 'Renting vs Buying', route: '/renting-buy' },
+    { name: 'Moving & Renting First', route: '/moving-tennessee-renting' },
   ]
   const movingTopics3 = [
     { name: 'Moving Checklist', route: '/moving-checklist' },
@@ -141,8 +142,10 @@ const FrontendHeader: React.FC = () => {
                     <ul className="space-y-3">
                       {movingTopics1.map((item) => (
                         <li key={item.name}>
-                          <a href={`/${item.route}`} className="flex items-center text-sm text-gray-600 hover:text-secondary transition-colors">
-                            <span className="text-primary mr-2 font-bold">»</span> {item.name}
+                          <a href={`${item.route}`} className="flex items-center text-sm text-gray-600 hover:text-secondary transition-colors">
+                            <span className="text-primary mr-2 font-bold">
+                              <MdDoubleArrow size={14} />
+                            </span> {item.name}
                           </a>
                         </li>
                       ))}
@@ -155,7 +158,9 @@ const FrontendHeader: React.FC = () => {
                       {movingTopics2.map((item) => (
                         <li key={item.name}>
                           <a href={item.route} className="flex items-center text-sm text-gray-600 hover:text-secondary transition-colors">
-                            <span className="text-primary mr-2 font-bold">»</span> {item.name}
+                            <span className="text-primary mr-2 font-bold">
+                              <MdDoubleArrow size={14} />
+                            </span> {item.name}
                           </a>
                         </li>
                       ))}
@@ -168,7 +173,9 @@ const FrontendHeader: React.FC = () => {
                       {movingTopics3.map((item) => (
                         <li key={item.name}>
                           <a href={item.route} className="flex items-center text-sm text-gray-600 hover:text-secondary transition-colors">
-                            <span className="text-primary mr-2 font-bold">»</span> {item.name}
+                            <span className="text-primary mr-2 font-bold">
+                              <MdDoubleArrow size={14} />
+                            </span> {item.name}
                           </a>
                         </li>
                       ))}
@@ -182,7 +189,7 @@ const FrontendHeader: React.FC = () => {
 
             {/* Desktop Right CTA / Mobile Toggle */}
             <div className="flex items-center gap-4">
-              <a href={route('login')} className="hidden sm:flex bg-primary text-white px-6 py-3 rounded-full hover:bg-secondary transition-all items-center text-md font-medium shadow-md hover:shadow-lg">
+              <a href="user-choose" className="hidden sm:flex bg-primary text-white px-6 py-3 rounded-full hover:bg-secondary transition-all items-center text-md font-medium shadow-md hover:shadow-lg">
                 Login/Registration
                 <span className="inline-flex items-center bg-white p-1 ml-2 rounded-full text-black">
                   <FaChevronRight size={12} />
@@ -202,7 +209,7 @@ const FrontendHeader: React.FC = () => {
         {/* Mobile Menu */}
         <div className={`${isMobileMenuOpen ? 'block' : 'hidden'} lg:hidden bg-white border-t border-gray-200 absolute w-full shadow-xl`}>
           <div className="px-4 py-6 space-y-2 max-h-[80vh] overflow-y-auto">
-            <a href="#" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Home</a>
+            <a href="/" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Home</a>
             <a href="#" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Homes for Sale</a>
             <a href="#" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Rentals</a>
 

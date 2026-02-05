@@ -13,6 +13,6 @@ class UserController extends Controller
 
     public function index(): Response
     {
-        return Inertia::render('user/dashboard');
+        return Inertia::render('user/comming');
     }
 }

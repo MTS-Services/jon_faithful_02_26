@@ -20,6 +20,10 @@ Route::name('frontend.')->controller(FrontendController::class)->group(function 
         Route::get('/tennessee-relocation', 'tennesseeRelocation')->name('tennessee-relocation');
         Route::get('/single-product', 'singleProduct')->name('single-product');
         Route::get('/live-tennessee', 'livetennessee')->name('livetennessee');
+        Route::get('/renting-buy', 'rentingBuy')->name('renting-buy');
+        Route::get('/living-in-nashville', 'livingInNashville')->name('livingInNashville');
+        Route::get('/cost-of-renting-tennessee', 'costOfRentingTennessee')->name('cost-of-renting-tennessee');
+        Route::get('/moving-tennessee-renting', 'movingTennesseeRenting')->name('moving-tennessee-renting');
         Route::get('/living-in-nashville', 'livingInNashville')->name('livingInNashville');
         Route::get('/living-in-cookeville', 'livingInCookeville')->name('livingInCookeville');
         Route::get('/living-in-knoxville', 'livingInKnoxville')->name('livingInKnoxville');
@@ -29,6 +33,7 @@ Route::name('frontend.')->controller(FrontendController::class)->group(function 
         Route::get('/living-in-clarksville', 'livingInClarksville')->name('livingInClarksville');
         Route::get('/living-in-murfreesboro', 'livingInMurfreesboro')->name('livingInMurfreesboro');
         Route::get('/living-in-kingsport', 'livingInKingsport')->name('livingInKingsport');
+        Route::get('/living-in-jackson', 'livingInJackson')->name('livingInJackson');
 
 
         Route::get('/user-choose', 'userChoose')->name('user-choose');
