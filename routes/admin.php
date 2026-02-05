@@ -22,7 +22,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/store', [AdminController::class, 'storeAdmin'])->name('store');
         Route::get('/view/edit/{id}', [AdminController::class, 'editAdmin'])->name('edit');
         Route::post('/update', [AdminController::class, 'updateAdmin'])->name('update');
-        Route::post('/delete/{id}', [AdminController::class, 'deleteAdmin'])->name('delete');
+        Route::get('/delete/{id}', [AdminController::class, 'deleteAdmin'])->name('delete');
         Route::post('/logout', [AdminAuthController::class, 'logout'])->name('logout');
 
         Route::group(['prefix' => 'users', 'as' => 'um.'], function () {
@@ -32,7 +32,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/user/{id}/view', [UserController::class, 'show'])->name('user.view');
             Route::get('/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
             Route::put('/user/{id}', [UserController::class, 'update'])->name('user.update');
-            Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+            Route::get('/users/{id}', [UserController::class, 'destroy'])->name('user.destroy');
         });
     });
 });
