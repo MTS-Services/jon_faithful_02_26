@@ -126,4 +126,8 @@ class FrontendController extends Controller
      {
           return Inertia::render('frontend/living-in-jackson');
      }
+     public function costOfLivingInTennessee(): Response
+     {
+          return Inertia::render('frontend/cost-of-living-in-tennessee');
+     }
 }
