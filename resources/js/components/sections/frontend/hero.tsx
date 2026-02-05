@@ -24,7 +24,7 @@ const Hero: React.FC<HeroProps> = ({
     buttons = [],
     autoSlide = true,
     slideInterval = 5000,
-    height = "h-[650px]",
+    height = "h-[500px]",
 }) => {
     const [currentSlide, setCurrentSlide] = useState(0);
 
