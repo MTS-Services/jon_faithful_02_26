@@ -1,20 +1,81 @@
+import FileUpload from '@/components/file-upload';
 import UserDashboardLayout from '@/layouts/user-dashboard-layout';
 import { useForm } from '@inertiajs/react';
+import { Label } from '@/components/ui/label';
+import React, { useEffect, useState } from 'react';
+import { User } from '@/types';
 
-export default function Index({ item }: any[]) {
-    const { data, setData, post, processing, errors } = useForm({
-        id: item.id,
-        name: item.name ?? '',
-        username: item.username?? '',
-        email: item.email ?? '',
-        password: '',
-        password_confirmation: '',
-        phone: item.phone ?? '',
-        license_number: item.license_number ?? '',
-        brokerage_name: item.brokerage_name ?? '',
-        image: item.image ?? '',
-        your_self: item.your_self ?? '',
-    });
+
+interface Props {
+    user: User;
+}
+
+
+export default function Index({ user }: Props) {
+    // const { data, setData, post, processing, errors } = useForm({
+    //     id: item.id,
+    //     name: item.name ?? '',
+    //     username: item.username ?? '',
+    //     email: item.email ?? '',
+    //     password: '',
+    //     password_confirmation: '',
+    //     phone: item.phone ?? '',
+    //     license_number: item.license_number ?? '',
+    //     brokerage_name: item.brokerage_name ?? '',
+    //     image: item.image ?? '',
+    //     your_self: item.your_self ?? '',
+    // });
+
+    const { data, setData, post, processing, errors, reset } = useForm({
+            name: '',
+            id: '',
+            username: '',
+            email: '',
+            phone: '',
+            brokerage_name: '',
+            license_number: '',
+            image: null as File | null,
+            password: '',
+            password_confirmation: '',
+            _method: 'POST',
+        });
+        const [existingFiles, setExistingFiles] = useState<any[]>([]);
+    
+        useEffect(() => {
+            if (user) {
+                setData({
+                    name: user.name,
+                    id: user.id,
+                    username: user.username || '',
+                    email: user.email,
+                    phone: user.phone || '',
+                    brokerage_name: user.brokerage_name || '',
+                    license_number: user.license_number || '',
+                    image: null,
+                    _method: 'POST',
+                });
+    
+                // Update existing files whenever information changes
+                if (user.image) {
+                    setExistingFiles([{
+                        id: user.id,
+                        url: `${user.image_url}`,
+                        name: user.image.split('/').pop(),
+                        mime_type: 'image/*',
+                        path: user.image,
+                    }]);
+                } else {
+                    setExistingFiles([]);
+                }
+            }
+        }, [user]);
+    
+        const handleRemoveExisting = () => {
+            if (confirm('Are you sure you want to remove this file? You must upload a new file to save the changes.')) {
+                setExistingFiles([]);
+            }
+        };
+    
     function handleSubmit(e: React.FormEvent) {
         console.log(data);
         e.preventDefault();
@@ -28,7 +89,23 @@ export default function Index({ item }: any[]) {
                         Your Account Setting
                     </h2>
 
-                    <form className="space-y-4"  onSubmit={handleSubmit}>
+                    <form className="space-y-4" onSubmit={handleSubmit}>
+                        <div className="h-[300px] w-[300px]">
+                            <Label htmlFor="image" className="mb-1 font-bold">Image</Label>
+                            <FileUpload
+                                value={data.image}
+                                onChange={(file) =>
+                                    setData('image', file as File | null)
+                                }
+                                existingFiles={existingFiles}
+                                onRemoveExisting={handleRemoveExisting}
+                                accept="image/*"
+                                maxSize={10}
+                            />
+                        </div>
+
+                        
+
                         <div>
                             <label className="block text-sm font-bold text-gray-700">
                                 User Name*
@@ -41,21 +118,6 @@ export default function Index({ item }: any[]) {
                                 }
                                 className="mt-1 block w-full rounded-md border border-gray-400 bg-white px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:ring-blue-500 focus:outline-none"
                             />
-                        </div>
-
-                        <div>
-                            <label className="block text-sm font-bold text-gray-700">
-                                Profile Picture*
-                            </label>
-                            <div className="mt-2">
-                                <input
-                                    type="file"
-                                    className="block w-full text-sm text-gray-500 file:mr-4 file:rounded file:border file:border-gray-400 file:bg-gray-50 file:px-4 file:py-1 file:text-sm file:font-semibold file:text-gray-700 hover:file:bg-gray-100"
-                                />
-                                <p className="mt-1 text-xs text-gray-500">
-                                    Maximum file size: 10 MB
-                                </p>
-                            </div>
                         </div>
 
                         <div>
@@ -95,10 +157,7 @@ export default function Index({ item }: any[]) {
                                 value={data?.brokerage_name ?? ''}
                                 className="mt-1 block w-full rounded-md border border-gray-400 px-3 py-2 text-sm"
                                 onChange={(e) =>
-                                    setData(
-                                        'brokerage_name',
-                                        e.target.value,
-                                    )
+                                    setData('brokerage_name', e.target.value)
                                 }
                             />
                         </div>
@@ -112,10 +171,7 @@ export default function Index({ item }: any[]) {
                                 value={data?.license_number ?? ''}
                                 className="mt-1 block w-full rounded-md border border-gray-400 px-3 py-2 text-sm"
                                 onChange={(e) =>
-                                    setData(
-                                        'license_number',
-                                        e.target.value,
-                                    )
+                                    setData('license_number', e.target.value)
                                 }
                             />
                         </div>
@@ -193,3 +249,4 @@ export default function Index({ item }: any[]) {
         </UserDashboardLayout>
     );
 }
+
