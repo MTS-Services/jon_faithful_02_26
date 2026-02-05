@@ -21,7 +21,7 @@ export default function View({ admin }: Props) {
                 <div className="mb-6 flex items-center justify-between">
                     <h1 className="text-2xl font-bold">Admin Detail</h1>
                     <div className="flex gap-2">
-                      <ActionButton IconNode={ArrowLeft} href={route('admin.all')}>Back to solar panels</ActionButton>
+                      <ActionButton IconNode={ArrowLeft} href={route('admin.index')}>Back to admins</ActionButton>
                       <ActionButton IconNode={SquarePen} href={route('admin.edit', admin.id)}>Edit</ActionButton>
                     </div>
                 </div>

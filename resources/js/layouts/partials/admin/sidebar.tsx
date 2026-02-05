@@ -21,7 +21,7 @@ const adminNavItems: NavItemType[] = [
         children: [
             {
                 title: 'Admins',
-                href: route('admin.all'),
+                href: route('admin.index'),
                 icon: Shield,
                 permission: 'manage admins',
                 slug: 'admin-admins',
@@ -45,13 +45,13 @@ const adminNavItems: NavItemType[] = [
             },
         ],
     },
-    {
-        title: 'Inquiries',
-        href: '#',
-        icon: BarChart, // Using BarChart as a placeholder, can be changed
-        permission: 'view analytics', // Assuming similar permission structure
-        slug: 'admin-inquiries',
-    },
+    // {
+    //     title: 'Inquiries',
+    //     href: '#',
+    //     icon: BarChart, // Using BarChart as a placeholder, can be changed
+    //     permission: 'view analytics', // Assuming similar permission structure
+    //     slug: 'admin-inquiries',
+    // },
 ];
 
 interface AdminSidebarProps {
