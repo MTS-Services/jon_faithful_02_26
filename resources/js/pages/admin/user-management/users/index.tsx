@@ -113,7 +113,7 @@ export default function index({
       icon: <Trash2 className="h-4 w-4" />,
       onClick: (admin) => {
         if (confirm(`Are you sure you want to delete ${admin.name}?`)) {
-          router.visit(route('admin.um.user.delete', admin?.id));
+          router.visit(route('admin.um.user.destroy', admin?.id));
         }
       },
       variant: 'destructive',

@@ -151,7 +151,7 @@ export default function EditUser({ user }: Props) {
                                 type="text"
                                 value={data.phone}
                                 onChange={(e) => setData('phone', e.target.value)}
-                                required
+                                
                             />
                             {errors.phone && <div className="text-red-500 text-sm">{errors.phone}</div>}
                         </div>
@@ -162,7 +162,7 @@ export default function EditUser({ user }: Props) {
                                 type="text"
                                 value={data.brokerage_name}
                                 onChange={(e) => setData('brokerage_name', e.target.value)}
-                                required
+                                
                             />
                             {errors.brokerage_name && <div className="text-red-500 text-sm">{errors.brokerage_name}</div>}
                         </div>
@@ -173,7 +173,7 @@ export default function EditUser({ user }: Props) {
                                 type="text"
                                 value={data.license_number}
                                 onChange={(e) => setData('license_number', e.target.value)}
-                                required
+                                
                             />
                             {errors.license_number && <div className="text-red-500 text-sm">{errors.license_number}</div>}
                         </div>
