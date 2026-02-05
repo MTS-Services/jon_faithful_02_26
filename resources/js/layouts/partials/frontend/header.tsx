@@ -31,7 +31,7 @@ const FrontendHeader: React.FC = () => {
     { name: 'Tennessee Relocation Guide', route: 'tennessee-relocation' },
     { name: 'Cost of Living in Tennessee', route: '#' },
     { name: 'Pros & Cons of Living', route: '#' },
-    { name: 'Best Places to Live', route: '#' },
+    { name: 'Best Places to Live', route: 'live-tennessee' },
   ]
   const movingTopics2 = [
     { name: 'Renting in Tennessee', route: '/renting-tennessee' },
@@ -44,6 +44,7 @@ const FrontendHeader: React.FC = () => {
     { name: 'City Comparison', route: '/city-comparison' },
     { name: 'Download Guide (PDF)', route: '#' },
     { name: 'Real Estate Agents', route: '/real-estate-agents' },
+    { name: 'Live in Tennessee', route: '/live-tennessee' },
   ]
 
   return (

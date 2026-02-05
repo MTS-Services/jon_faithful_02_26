@@ -7,7 +7,7 @@ const agents = [
   {
     name: 'Shuvo',
     email: 'shuvo@gmail.com',
-    image: 'assets/images/moving-checklist/ engineer_team_full_skill_quality_for_maintenance_and_training_in_industry_factory_worker___warehouse_Workshop_for_factory_operators__mechanical_.jpeg',
+    image: 'assets/images/moving-checklist/engineer_team_full_skill_quality_for_maintenance.jpeg',
     description:
       'Shuvo is a property owner committed to maintaining well-managed, high-quality residential and commercial properties.',
   },
