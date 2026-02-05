@@ -192,7 +192,7 @@ export default function Index({ user }: Props) {
 
                         <div>
                             <label className="block text-sm font-bold text-gray-700">
-                                About You*
+                                About You
                             </label>
                             <textarea
                                 rows="3"
@@ -207,7 +207,7 @@ export default function Index({ user }: Props) {
 
                         <div>
                             <label className="block text-sm font-bold text-gray-700">
-                                Password*
+                                Password
                             </label>
                             <input
                                 type="password"
@@ -220,7 +220,7 @@ export default function Index({ user }: Props) {
                         </div>
                         <div>
                             <label className="block text-sm font-bold text-gray-700">
-                                Confirm Password*
+                                Confirm Password
                             </label>
                             <input
                                 type="password"
