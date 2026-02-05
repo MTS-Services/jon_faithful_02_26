@@ -1,53 +1,41 @@
 import React, { useEffect } from 'react';
 import { Head, useForm, Link, router } from '@inertiajs/react';
-import { store, index } from '@/actions/App/Http/Controllers/Admin/UserManagement/UserController';
 import AdminLayout from '@/layouts/admin-layout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import FileUpload from '@/components/file-upload';
+import { storeAdmin, index } from '@/actions/App/Http/Controllers/Admin/AdminController';
 
 interface FormData {
-    files: File | File[] | null;
     username: string;
     name: string;
     email: string;
     phone: string;
-    image: null | File | null,
     your_self: string;
-    brokerage_name: string;
-    license_number: string;
+    image: null | File | null,
     password: string;
     password_confirmation: string;
-    is_admin: boolean;
 }
 
-export default function CreateUser() {
+export default function CreateAdmin() {
     const { data, setData, post, processing, errors } = useForm<FormData>({
-        files: null,
         username: '',
         name: '',
         email: '',
         phone: '',
-        image: null,
         your_self: '',
-        brokerage_name: '',
-        license_number: '',
+        image: null,
         password: '',
         password_confirmation: '',
-        is_admin: false,
     });
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
-        
-        // post(store.url(), {
-        //     onSuccess: () => router.visit(index.url()),
-        // });
-        
-        post(route('admin.um.user.store'), {
-            onSuccess: () => router.visit(route('admin.um.users.index')),
+
+        post(storeAdmin.url(), {
+            onSuccess: () => router.visit(route('admin.index')),
         });
     }
 
@@ -59,7 +47,7 @@ export default function CreateUser() {
                 <CardHeader className="flex flex-row justify-between">
                     <CardTitle className='text-2xl'>Create New User</CardTitle>
                     <Link href={index.url()} className="ml-auto">
-                        <Button>Back to Users</Button>
+                        <Button>Back to Admin</Button>
                     </Link>
                 </CardHeader>
                 <CardContent>
@@ -122,26 +110,15 @@ export default function CreateUser() {
                                 {errors.phone && <div className="text-red-500 text-sm">{errors.phone}</div>}
                             </div>
                             <div className="grid gap-2">
-                                <Label htmlFor="brokerage_name">Brokerage Name</Label>
+                                <Label htmlFor="your_self">Your Self</Label>
                                 <Input
-                                    id="brokerage_name"
+                                    id="your_self"
                                     type="text"
-                                    value={data.brokerage_name}
-                                    onChange={(e) => setData('brokerage_name', e.target.value)}
+                                    value={data.phone}
+                                    onChange={(e) => setData('your_self', e.target.value)}
                                     required
                                 />
-                                {errors.brokerage_name && <div className="text-red-500 text-sm">{errors.brokerage_name}</div>}
-                            </div>
-                            <div className="grid gap-2">
-                                <Label htmlFor="license_number">License Number</Label>
-                                <Input
-                                    id="license_number"
-                                    type="text"
-                                    value={data.license_number}
-                                    onChange={(e) => setData('license_number', e.target.value)}
-                                    required
-                                />
-                                {errors.license_number && <div className="text-red-500 text-sm">{errors.license_number}</div>}
+                                {errors.your_self && <div className="text-red-500 text-sm">{errors.your_self}</div>}
                             </div>
 
                             <div className="grid gap-2">

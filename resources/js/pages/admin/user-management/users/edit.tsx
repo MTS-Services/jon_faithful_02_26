@@ -109,6 +109,7 @@ export default function EditUser({ user }: Props) {
                                 maxSize={10}
                             />
                         </div>
+                        <div></div>
                         <div className="grid gap-2">
                             <Label htmlFor="username">Username</Label>
                             <Input

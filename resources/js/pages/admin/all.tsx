@@ -103,7 +103,7 @@ export default function All({
       <Head title="Users" />
 
       <div className="flex justify-end mb-6">
-        <Link href={route('admin.register')}>
+        <Link href={route('admin.create')}>
           <Button>Create Admin</Button>
         </Link>
       </div>

@@ -38,7 +38,7 @@ export default function EditAdmin({ admin }: Props) {
 
             <CardHeader className="flex items-center flex-row justify-between">
                 <h1 className="text-2xl font-bold">Edit Admin</h1>
-                <ActionButton IconNode={ArrowLeft} href={route('admin.all')}>
+                <ActionButton IconNode={ArrowLeft} href={route('admin.index')}>
                     Back
                 </ActionButton>
             </CardHeader>
