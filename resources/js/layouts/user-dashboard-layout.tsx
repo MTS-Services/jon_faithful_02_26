@@ -38,12 +38,12 @@ export default function UserDashboardLayout({
                 </div>
 
                 <div className="container mx-auto my-20 bg-gray-50 font-sans">
-                    <div className="flex">
+                    <div className="block md:flex gap-10">
                         {/* LEFT SIDEBAR */}
                         <Sidebar />
 
                         {/* RIGHT CONTENT AREA */}
-                        <div className="flex w-full flex-col px-10">
+                        <div className="flex w-full flex-col">
                             <Header />
 
                             <main className="mt-6">{children}</main>
