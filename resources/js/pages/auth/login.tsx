@@ -52,7 +52,7 @@ export default function Login({ status }: LoginProps) {
                                         required
                                         autoFocus
                                         placeholder="name@company.com"
-                                        className="h-11 border-gray-200 bg-white/50 transition-all focus:border-secondary! focus:ring-secondary!"
+                                        className="h-11 border-gray-200 px-4! py-3! bg-white/50 transition-all focus:border-secondary! focus:ring-secondary!"
                                     />
                                     <InputError message={errors.email} />
                                 </div>
@@ -79,7 +79,7 @@ export default function Login({ status }: LoginProps) {
                                         name="password"
                                         required
                                         placeholder="********"
-                                        className="h-11 border-gray-200 bg-white/50 transition-all focus:border-secondary! focus:ring-secondary!"
+                                        className="h-11 border-gray-200 bg-white/50 px-4! py-3! transition-all focus:border-secondary! focus:ring-secondary!"
                                     />
                                     <InputError message={errors.password} />
                                 </div>
