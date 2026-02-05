@@ -39,7 +39,10 @@ export default function Login({ status }: LoginProps) {
                         <>
                             <div className="space-y-4">
                                 <div className="grid gap-1.5">
-                                    <Label htmlFor="email" className="text-sm font-medium text-gray-700 dark:text-gray-300 ml-1">
+                                    <Label
+                                        htmlFor="email"
+                                        className="ml-1 text-sm font-medium text-gray-700 dark:text-gray-300"
+                                    >
                                         Email address
                                     </Label>
                                     <Input
@@ -49,31 +52,34 @@ export default function Login({ status }: LoginProps) {
                                         required
                                         autoFocus
                                         placeholder="name@company.com"
-                                        className="h-11 bg-white/50 border-gray-200 focus:ring-secondary! focus:border-secondary! transition-all"
+                                        className="h-11 border-gray-200 bg-white/50 transition-all focus:border-secondary! focus:ring-secondary!"
                                     />
                                     <InputError message={errors.email} />
                                 </div>
 
                                 <div className="grid gap-1.5">
-                                    <div className="flex items-center justify-between ml-1">
-                                        <Label htmlFor="password" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                                    <div className="ml-1 flex items-center justify-between">
+                                        <Label
+                                            htmlFor="password"
+                                            className="text-sm font-medium text-gray-700 dark:text-gray-300"
+                                        >
                                             Password
                                         </Label>
                                         {features.canResetPassword && (
                                             <TextLink
                                                 href={request()}
-                                                className="text-xs font-semibold text-violet-600 hover:text-violet-500 transition-colors"
+                                                className="text-xs font-semibold text-violet-600 transition-colors hover:text-violet-500"
                                             >
                                                 Forgot password?
                                             </TextLink>
                                         )}
-                                    </div> 
+                                    </div>
                                     <PasswordInput
                                         id="password"
                                         name="password"
                                         required
                                         placeholder="********"
-                                        className="h-11 bg-white/50 border-gray-200 focus:ring-secondary! focus:border-secondary! transition-all"
+                                        className="h-11 border-gray-200 bg-white/50 transition-all focus:border-secondary! focus:ring-secondary!"
                                     />
                                     <InputError message={errors.password} />
                                 </div>
@@ -81,26 +87,45 @@ export default function Login({ status }: LoginProps) {
 
                             <Button
                                 type="submit"
-                                className={`w-full py-6 text-lg bg-secondary! hover:bg-primary! ${processing ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+                                className={`w-full bg-secondary! py-6 text-lg hover:bg-primary! ${processing ? 'cursor-not-allowed' : 'cursor-pointer'}`}
                                 disabled={processing}
                             >
-                                {processing ? <Spinner className="h-4 w-4" /> : 'Login'}
+                                {processing ? (
+                                    <Spinner className="h-4 w-4" />
+                                ) : (
+                                    'Login'
+                                )}
                             </Button>
                         </>
                     )}
                 </Form>
 
                 {features.canRegister && (
-                    <p className="text-center text-sm text-muted-foreground mt-4">
-                        New here? <TextLink href={register()} className="text-violet-600 font-semibold hover:text-violet-500 underline-offset-4 hover:underline">Create an account</TextLink>
+                    <p className="mt-4 text-center text-sm text-muted-foreground">
+                        New here?{' '}
+                        <TextLink
+                            href={register()}
+                            className="font-semibold text-violet-600 underline-offset-4 hover:text-violet-500 hover:underline"
+                        >
+                            Create an account
+                        </TextLink>
                     </p>
                 )}
 
                 {status && (
-                    <div className="mt-4 rounded-xl bg-emerald-50 border border-emerald-100 p-3 text-center text-sm font-medium text-emerald-600 animate-in fade-in slide-in-from-top-2">
+                    <div className="mt-4 animate-in rounded-xl border border-emerald-100 bg-emerald-50 p-3 text-center text-sm font-medium text-emerald-600 fade-in slide-in-from-top-2">
                         {status}
                     </div>
                 )}
+
+                <div className="mt-6 text-center">
+                    <a
+                        href="register"
+                        className="text-sm text-gray-600 hover:text-gray-800"
+                    >
+                        Singn Up
+                    </a>
+                </div>
             </div>
         </AuthLayout>
     );
