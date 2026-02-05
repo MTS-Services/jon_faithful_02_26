@@ -8,5 +8,8 @@ Route::prefix('user')->name('user.')->group(function () {
     Route::middleware(['auth'])->controller(UserController::class)->group(function () {
         Route::get('/dashboard', 'index')->name('dashboard');
          Route::post('/logout', [UserAuthController::class, 'logout'])->name('logout');
+
+         Route::get('/account-settings', 'accountSettings')->name('account-settings');
+         Route::post('/account-settings', 'accountSettingsUpdate')->name('account-settings.update');
     });
 });
