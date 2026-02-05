@@ -26,7 +26,7 @@ export default function UserDashboardLayout({
                     </video>
                     <div className="absolute inset-0 bg-foreground/60"></div>
 
-                    <div className="relative z-10 container mx-auto px-6">
+                    <div className="relative z-10 container mx-auto px-6 h-full flex flex-col items-center justify-center">
                         <div className="text-center text-primary-foreground">
                             <div className="mx-auto max-w-4xl">
                                 <h2 className="mb-6 font-montserrat text-3xl leading-tight font-medium sm:text-4xl md:text-5xl">
