@@ -96,13 +96,13 @@ export const NavItem = React.memo<NavItemProps>(({
                         disabled={item.disabled}
                         className={cn(
                             'group relative flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium',
-                            'text-muted-foreground transition-all duration-200',
-                            'hover:bg-accent hover:text-accent-foreground',
+                            'text-muted transition-all duration-200',
+                            'bg-primary hover:bg-secondary hover:text-white',
                             'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
                             'w-full text-left',
                             isCollapsed ? 'justify-center px-2' : '',
                             level > 0 && !isCollapsed && 'ml-4',
-                            itemIsActive && 'bg-primary/10 text-primary hover:bg-primary/15 hover:text-primary',
+                            itemIsActive && 'bg-secondary text-white hover:bg-primary',
                             item.disabled && 'opacity-50 cursor-not-allowed hover:bg-transparent',
                             item.className
                         )}
@@ -181,7 +181,7 @@ export const NavItem = React.memo<NavItemProps>(({
             className={cn(
                 'group relative flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium',
                 'text-muted-foreground transition-all duration-200',
-                'hover:bg-accent hover:text-accent-foreground',
+                'hover:bg-primary hover:text-accent',
                 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
                 'w-full',
                 isCollapsed ? 'justify-center px-2' : '',

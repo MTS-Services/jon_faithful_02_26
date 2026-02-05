@@ -15,7 +15,7 @@ function ActionButton({ href, IconNode = Plus, className, children  }: Props) {
   return (
   <>
             <Link href={href || '#'}>
-              <Button className={cn('px-4 py-2 h-auto bg-black hover:bg-black/80', className)}>
+              <Button className={cn('px-4 py-3 h-auto bg-primary hover:bg-secondary', className)}>
                 <Icon iconNode={IconNode} variant='default' />
                 {children || 'Create'}
                

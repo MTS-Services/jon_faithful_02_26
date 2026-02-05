@@ -2,33 +2,156 @@
 
 namespace App\Http\Controllers\Admin\UserManagement;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use App\Services\DataTableService;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use App\Concerns\PasswordValidationRules;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
+    use PasswordValidationRules;
+    public function __construct(protected DataTableService $dataTableService) {}
+
     public function index(): Response
     {
-        return Inertia::render('admin/user-management/users/index');
+        $queryBody = User::query();
+
+
+        $result = $this->dataTableService->process($queryBody, request(), [
+            'searchable' => ['name', 'email'],
+            'sortable' => ['id', 'name', 'email', 'created_at'],
+        ]);
+
+
+        return Inertia::render('admin/user-management/users/index', [
+            'admins' => $result['data'],
+            'pagination' => $result['pagination'],
+            'offset' => $result['offset'],
+            'filters' => $result['filters'],
+            'search' => $result['search'],
+            'sortBy' => $result['sort_by'],
+            'sortOrder' => $result['sort_order']
+        ]);
     }
     public function create(): Response
     {
-        return Inertia::render('user/create');
+        return Inertia::render('admin/user-management/users/create');
     }
     public function store(Request $request)
     {
-        // Validate and store the user
+        Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255'],
+            'phone' => ['required', 'string', 'max:20'],
+            'your_self' => ['nullable', 'string', 'max:255'],
+            'brokerage_name' => ['nullable', 'string', 'max:255'],
+            'license_number' => ['nullable', 'string', 'max:255'],
+            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg,webp', 'max:2048'],
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                Rule::unique(User::class),
+            ],
+            'password' => $this->passwordRules(),
+        ])->validate();
+
+        // File upload logic
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $imageName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('user_images', $imageName);
+        }
+        $user = User::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'username' => $request['username'],
+            'phone' => $request['phone'],
+            'your_self' => $request['your_self'],
+            'brokerage_name' => $request['brokerage_name'],
+            'license_number' => $request['license_number'],
+            'image' => isset($imageName) ? $imageName : null,
+            'password' => Hash::make($request['password']),
+        ]);
+        if (!$user) {
+            return redirect()->back()->withErrors(['error' => 'Failed to create user.'])->withInput();
+        }
+        return redirect()->route('admin.um.users.index');
+    }
+    public function show($id): Response
+    {
+        $user = User::findOrFail($id);
+        if (!$user) {
+            abort(404);
+        }
+        return Inertia::render('admin/user-management/users/view', ['user' => $user]);
     }
     public function edit($id): Response
     {
-        return Inertia::render('user/edit', ['id' => $id]);
+        $user = User::findOrFail($id);
+        if (!$user) {
+            abort(404);
+        }
+        return Inertia::render('admin/user-management/users/edit', ['user' => $user]);
     }
     public function update(Request $request, $id)
     {
-        // Validate and update the user
+        $user = User::findOrFail($id);
+        if (!$user) {
+            abort(404);
+        }
+
+
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'phone' => ['required', 'string', 'max:20'],
+            'your_self' => ['nullable', 'string', 'max:255'],
+            'brokerage_name' => ['nullable', 'string', 'max:255'],
+            'license_number' => ['nullable', 'string', 'max:255'],
+            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg,webp', 'max:2048'],
+            'username' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique(User::class)->ignore($user->id),
+            ],
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                Rule::unique(User::class)->ignore($user->id),
+            ],
+        ]);
+
+        if ($request->hasFile('image')) {
+
+            // delete old image
+            if ($user->image && Storage::disk('public')->exists('user_images/' . $user->image)) {
+                Storage::disk('public')->delete('user_images/' . $user->image);
+            }
+
+            // store new image
+            $file = $request->file('image');
+            $imageName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('user_images', $imageName);
+
+            $data['image'] = $imageName;
+        }
+
+        // unset($validated['image']);
+
+        $user->update($data);
+
+        return redirect()->route('admin.um.users.index');
     }
     public function destroy($id)
     {

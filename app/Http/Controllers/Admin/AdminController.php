@@ -17,7 +17,7 @@ class AdminController extends Controller
 
     public function dashboard(): Response
     {
-        return Inertia::render('admin/comming');
+        return Inertia::render('admin/dashboard');
     }
 
     public function allAdmin(): Response

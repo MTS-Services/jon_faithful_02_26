@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminAuthController;
-use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\User\UserController;
 use Faker\Guesser\Name;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AdminAuthController;
+use App\Http\Controllers\Admin\UserManagement\UserController;
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware('guest:admin')->group(function () {
@@ -27,6 +27,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/users', [UserController::class, 'index'])->name('users.index');
             Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
             Route::post('/user/store', [UserController::class, 'store'])->name('user.store');
+            Route::get('/user/{id}/view', [UserController::class, 'show'])->name('user.view');
             Route::get('/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
             Route::put('/user/{id}', [UserController::class, 'update'])->name('user.update');
             Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('user.destroy');
