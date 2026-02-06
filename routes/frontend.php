@@ -36,7 +36,4 @@ Route::name('frontend.')->controller(FrontendController::class)->group(function 
     Route::get('/living-in-jackson', 'livingInJackson')->name('livingInJackson');
     Route::get('/cost-of-living-in-tennessee', 'costOfLivingInTennessee')->name('cost-of-living-in-tennessee');
     Route::get('/pros-cons-living-in-tennessee', 'prosConsTennessee')->name('pros-cons-tennessee');
-
-
-    Route::get('/user-choose', 'userChoose')->name('user-choose');
 });

@@ -101,11 +101,6 @@ class FrontendController extends Controller
      {
           return Inertia::render('frontend/living-in-franklin');
      }
-
-     public function userChoose(): Response
-     {
-          return Inertia::render('frontend/user-choose');
-     }
      public function livingInMemphis(): Response
      {
           return Inertia::render('frontend/living-in-memphis');

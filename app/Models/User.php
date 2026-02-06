@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\Enums\UserType;
+use App\Enums\ActiveInactive;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -15,6 +17,8 @@ class User extends Authenticatable
         'name',
         'email',
         'phone',
+        'user_type',
+        'status',
         'password',
         'your_self',
         'brokerage_name',
@@ -32,6 +36,8 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'user_type' => UserType::class,
+            'status' => ActiveInactive::class,
         ];
     }
 

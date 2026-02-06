@@ -2,6 +2,8 @@ import { useForm } from '@inertiajs/react';
 import React from 'react';
 
 export default function Register() {
+    const userType = new URLSearchParams(window.location.search).get('type');
+
     const { data, setData, post, processing, errors } = useForm({
         username: '',
         name: '',
@@ -13,6 +15,7 @@ export default function Register() {
         brokerage_name: '',
         image: '',
         your_self: '',
+        type: userType,
     });
 
     function handleSubmit(e: React.FormEvent) {
