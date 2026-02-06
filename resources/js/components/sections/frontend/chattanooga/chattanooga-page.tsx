@@ -158,7 +158,7 @@ export default function ChattanoogaPage() {
 
             {/* COST OF LIVING SECTION */}
             <div className="container mx-auto px-4 py-16 lg:px-16">
-                <h2 className="mb-6 text-center text-3xl font-bold">
+                <h2 className="mb-6 text-center text-xl md:text-2xl lg:text-4xl font-bold">
                     Cost of Living in Chattanooga
                 </h2>
                 <p className="mb-10 text-center text-gray-600">
@@ -184,7 +184,7 @@ export default function ChattanoogaPage() {
             </div>
             <div className="bg-primary py-16">
                 <div className="container mx-auto px-4 lg:px-16">
-                    <h2 className="mb-6 text-center text-3xl font-bold text-primary-foreground">
+                    <h2 className="mb-6 text-center text-xl md:text-2xl lg:text-4xl font-bold text-primary-foreground">
                         Best Neighborhoods in Chattanooga
                     </h2>
                     <div className="grid grid-cols-1 gap-6 md:grid-cols-5">

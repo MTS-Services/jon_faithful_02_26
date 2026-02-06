@@ -130,4 +130,8 @@ class FrontendController extends Controller
      {
           return Inertia::render('frontend/cost-of-living-in-tennessee');
      }
+     public function prosConsTennessee(): Response
+     {
+          return Inertia::render('frontend/pros-cons-tennessee');
+     }
 }

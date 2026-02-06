@@ -30,7 +30,7 @@ const FrontendHeader: React.FC = () => {
     { name: 'About Why Tennessee', route: 'why-tennessee' },
     { name: 'Tennessee Relocation Guide', route: 'tennessee-relocation' },
     { name: 'Cost of Living in Tennessee', route: 'cost-of-living-in-tennessee' },
-    { name: 'Pros & Cons of Living in Tennessee', route: '#' },
+    { name: 'Pros & Cons of Living in Tennessee', route: 'pros-cons-living-in-tennessee' },
     { name: 'Best Places to Live in Tennessee', route: 'live-tennessee' },
   ]
   const movingTopics2 = [
@@ -188,7 +188,7 @@ const FrontendHeader: React.FC = () => {
 
             {/* Desktop Right CTA / Mobile Toggle */}
             <div className="flex items-center gap-4">
-              <a href="user-choose" className="hidden sm:flex bg-primary text-white px-6 py-3 rounded-full hover:bg-secondary transition-all items-center text-md font-medium shadow-md hover:shadow-lg">
+              <a href="user-choose" className="hidden sm:flex bg-primary text-white px-6 py-4 rounded-full hover:bg-secondary transition-all items-center text-md font-medium shadow-md hover:shadow-lg">
                 Login/Registration
                 <span className="inline-flex items-center bg-white p-1 ml-2 rounded-full text-black">
                   <FaChevronRight size={12} />
