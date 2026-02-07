@@ -1,95 +1,119 @@
-import { router, usePage } from '@inertiajs/react';
-import { Menu, X } from 'lucide-react';
-import { useState } from 'react';
+import { router, usePage, Link } from '@inertiajs/react'
+import { Menu, X } from 'lucide-react'
+import { useState } from 'react'
+import { cn } from '@/lib/utils'
+import { SharedData } from '@/types'
+import { set } from 'date-fns'
 
 export default function Sidebar() {
-    const { url } = usePage();
-    const [isOpen, setIsOpen] = useState(false);
-    console.log('url', url);
+    const { url } = usePage()
+    const [isOpen, setIsOpen] = useState(false)
+    const { auth } = usePage<SharedData>().props;
+    const [userType, setUserType] = useState(auth.user.user_type);
+
 
     const logout = () => {
-        router.post(route('user.logout'));
-    };
+        router.post(route('user.logout'))
+    }
 
-    const toggleSidebar = () => {
-        setIsOpen(!isOpen);
-    };
+    const NavItem = ({
+        href,
+        label,
+        onClick,
+    }: {
+        href?: string
+        label: string
+        onClick?: () => void
+    }) => (
+        <Link
+            href={href || '#'}
+            onClick={onClick}
+            className={cn(
+                'flex items-center rounded-lg px-4 py-3 text-white font-semibold transition',
+                url === href ? 'bg-secondary' : 'bg-primary hover:bg-secondary'
+            )}
+        >
+            {label}
+        </Link>
+    )
 
     return (
-        <div className="relative z-10">
-            <button
-                onClick={toggleSidebar}
-                className="top-4 left-4 z-50 rounded-lg bg-primary p-2 text-white shadow-lg md:hidden ml-3"
-            >
-                {isOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
+        <div className="relative z-50">
+            {/* Mobile toggle */}
+            <div className="md:hidden flex items-center gap-4">
+                <button
+                    onClick={() => setIsOpen(!isOpen)}
+                    className="md:hidden rounded-lg bg-primary p-2 text-white shadow-lg"
+                >
+                    {isOpen ? <X size={22} /> : <Menu size={22} />}
+                </button>
+                <h4 className="text-lg font-semibold text-primary">Dashboard</h4>
+            </div>
 
             {/* Overlay */}
             {isOpen && (
                 <div
-                    onClick={toggleSidebar}
-                    className="bg-opacity-50 inset-0 z-30 bg-black md:hidden ml-3"
+                    onClick={() => setIsOpen(false)}
+                    className="fixed inset-0 bg-black/50 md:hidden"
                 />
             )}
 
             <aside
-                className={`top-0 left-0 z-40 w-64  flex flex-col overflow-hidden bg-white shadow-lg transition-all duration-500 ease-in-out md:relative md:translate-x-0 ${
-                    isOpen
-                        ? 'max-h-screen translate-x-0 opacity-100'
-                        : 'max-h-0 md:max-h-screen -translate-x-full opacity-0 md:opacity-100'
-                } `}
+                className={cn(
+                    'fixed left-0 top-0 h-full w-72 transition-transform duration-300 md:relative md:translate-x-0 bg-white z-50 md:bg-transparent',
+                    isOpen ? 'translate-x-0' : '-translate-x-full'
+                )}
             >
-                <nav className="flex-1 space-y-2 p-4">
-                    <a
-                        href="#"
-                        className="flex items-center space-x-3 rounded-lg bg-primary p-3 text-white shadow-sm hover:bg-secondary"
+                {/* Mobile Close Button */}
+                <div className="flex items-center justify-between p-4 md:hidden">
+                    <span className="text-lg font-semibold text-primary">Menu</span>
+                    <button
                         onClick={() => setIsOpen(false)}
+                        className="rounded-md p-2 text-primary hover:bg-gray-100"
                     >
-                        <span className="text-lg font-semibold">
-                            Listings (Homes)
-                        </span>
-                    </a>
+                        <X size={22} />
+                    </button>
+                </div>
 
-                    <a
-                        href="#"
-                        className="flex items-center space-x-3 rounded-lg bg-primary p-3 text-white transition hover:bg-secondary"
-                        onClick={() => setIsOpen(false)}
-                    >
-                        <span className="text-lg font-semibold">
-                            Add New Listing
-                        </span>
-                    </a>
+                <nav className="space-y-2 p-4 pt-0">
+                    {/* Homes */}
+                    <NavItem
+                    href='/user/listings-homes' label="Listings (Homes)" />
+                    <NavItem label="Add New Listing (Homes)" />
+                    <NavItem label="Edit Listing (Homes)" />
+                    {userType == 'both' || userType == 'property_owner' ? (
+                        <>
+                            <NavItem label="Listings (Rental)" />
+                            <NavItem label="Add New Listing" />
+                            <NavItem label="Edit Listing" />
+                        </>
+                    ) : (
+                        <></>
+                    )}
 
-                    <a
-                        href="account-settings"
-                        className={`${url == '/user/account-settings' ? 'bg-secondary' : 'bg-primary'} flex items-center space-x-3 rounded-lg p-3 text-white transition hover:bg-secondary`}
-                        onClick={() => setIsOpen(false)}
-                    >
-                        <span className="text-lg font-semibold">
-                            Account Settings
-                        </span>
-                    </a>
+                    {/* Rental */}
 
-                    <a
-                        href="#"
-                        className="flex items-center space-x-3 rounded-lg bg-primary p-3 text-white transition hover:bg-secondary"
-                        onClick={() => setIsOpen(false)}
-                    >
-                        <span className="text-lg font-semibold">
-                            License Status
-                        </span>
-                    </a>
-                    <a
+
+                    {/* Account */}
+                    <NavItem
+                        href="/user/account-settings"
+                        label="Account Settings"
+                    />
+
+                    <NavItem label="Licence Verification Status" />
+
+                    {/* Logout */}
+                    <button
                         onClick={() => {
-                            logout();
-                            setIsOpen(false);
+                            logout()
+                            setIsOpen(false)
                         }}
-                        className="flex cursor-pointer items-center space-x-3 rounded-lg bg-primary p-3 text-white transition hover:bg-secondary"
+                        className="w-full text-left rounded-lg bg-primary px-4 py-3 font-semibold text-white hover:bg-secondary transition"
                     >
-                        <span className="text-lg font-semibold">Log Out</span>
-                    </a>
+                        Log Out
+                    </button>
                 </nav>
             </aside>
         </div>
-    );
+    )
 }

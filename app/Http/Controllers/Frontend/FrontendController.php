@@ -101,11 +101,6 @@ class FrontendController extends Controller
      {
           return Inertia::render('frontend/living-in-franklin');
      }
-
-     public function userChoose(): Response
-     {
-          return Inertia::render('frontend/user-choose');
-     }
      public function livingInMemphis(): Response
      {
           return Inertia::render('frontend/living-in-memphis');
@@ -129,5 +124,9 @@ class FrontendController extends Controller
      public function costOfLivingInTennessee(): Response
      {
           return Inertia::render('frontend/cost-of-living-in-tennessee');
+     }
+     public function prosConsTennessee(): Response
+     {
+          return Inertia::render('frontend/pros-cons-tennessee');
      }
 }

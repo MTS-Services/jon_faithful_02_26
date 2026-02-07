@@ -40,6 +40,17 @@ export default function All({
 
   const columns: ColumnConfig<Admin>[] = [
     {
+      key: 'image',
+      label: 'Avatar',
+      render: (admin) => (
+        <img
+          src={admin.image_url ? `${admin.image_url}` : '/no-user-image-icon.png'}
+          alt={admin.name}
+          className="h-8 w-8 rounded-full object-cover"
+        />
+      ),
+    },
+    {
       key: 'name',
       label: 'Name',
       sortable: true,

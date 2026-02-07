@@ -12,6 +12,9 @@ interface Admin {
     id: number;
     name: string;
     email: string;
+    phone: string;
+    your_self: string | null;
+    image_url: string | null;
     email_verified_at: string | null;
     created_at: string;
     updated_at: string;
@@ -25,6 +28,9 @@ export default function EditAdmin({ admin }: Props) {
     const { data, setData, post, processing, errors } = useForm({
         name: admin.name,
         id: admin.id,
+        phone: admin.phone,
+        email: admin.email, 
+        your_self: admin.your_self,
     });
 
     function handleSubmit(e: React.FormEvent) {
@@ -62,7 +68,7 @@ export default function EditAdmin({ admin }: Props) {
                                             onChange={(e) =>
                                                 setData('name', e.target.value)
                                             }
-                                           
+
                                         />
                                         <InputError message={errors.name} />
                                     </div>
@@ -75,6 +81,28 @@ export default function EditAdmin({ admin }: Props) {
                                             readOnly
                                             className="bg-muted cursor-not-allowed"
                                         />
+                                    </div>
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="phone">Phone</Label>
+                                        <Input
+                                            id="phone"
+                                            type="text"
+                                            value={data.phone}
+                                            onChange={(e) => setData('phone', e.target.value)}
+                                            required
+                                        />
+                                        {errors.phone && <div className="text-red-500 text-sm">{errors.phone}</div>}
+                                    </div>
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="your_self">Your Self</Label>
+                                        <Input
+                                            id="your_self"
+                                            type="text"
+                                            value={data.your_self}
+                                            onChange={(e) => setData('your_self', e.target.value)}
+                                            required
+                                        />
+                                        {errors.your_self && <div className="text-red-500 text-sm">{errors.your_self}</div>}
                                     </div>
                                 </CardContent>
                             </Card>
@@ -94,8 +122,8 @@ export default function EditAdmin({ admin }: Props) {
                                         <p className="text-sm font-medium">
                                             {admin.email_verified_at
                                                 ? new Date(
-                                                      admin.email_verified_at,
-                                                  ).toLocaleString()
+                                                    admin.email_verified_at,
+                                                ).toLocaleString()
                                                 : 'Not Verified'}
                                         </p>
                                     </div>
@@ -133,9 +161,9 @@ export default function EditAdmin({ admin }: Props) {
                                         className="w-full bg-black text-white hover:bg-black/80 cursor-pointer"
                                     >
                                         <Save className="mr-2 h-4 w-4" />
-                                        {processing ? 'Updating…' : 'Update Name'}
+                                        {processing ? 'Updating…' : 'Update Admin'}
                                     </Button>
-                                 
+
                                 </CardContent>
                             </Card>
                         </div>

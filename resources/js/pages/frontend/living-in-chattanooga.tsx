@@ -24,7 +24,7 @@ export default function LivingInChattanooga() {
                         Chattanooga blends natural beauty with a revitalized
                         downtown and growing job market. It’s a top choice for
                         professionals, families, and outdoor enthusiasts
-                        relocating to Tennessee. .
+                        relocating to Tennessee.
                     </>
                 }
             />

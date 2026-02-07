@@ -8,18 +8,19 @@ import { Label } from '@/components/ui/label';
 import { PasswordInput } from '@/components/ui/password-input';
 import { Spinner } from '@/components/ui/spinner';
 import AuthLayout from '@/layouts/auth-layout';
-import { register } from '@/routes';
-import { store } from '@/routes/login';
-import { request } from '@/routes/password';
+// import { request } from '@/routes/password';
 import { SharedData } from '@/types';
+import { store } from '@/actions/App/Http/Controllers/Auth/LoginController';
 
+const userType = new URLSearchParams(window.location.search).get('type');
 interface LoginProps {
+    userType: string;
     status?: string;
     canResetPassword: boolean;
     canRegister: boolean;
 }
 
-export default function Login({ status }: LoginProps) {
+export default function Login({ status, userType }: LoginProps) {
     const { features } = usePage<SharedData>().props;
 
     return (
@@ -39,6 +40,7 @@ export default function Login({ status }: LoginProps) {
                         <>
                             <div className="space-y-4">
                                 <div className="grid gap-1.5">
+                                    <Input type="hidden" name="user_type" value={userType} />
                                     <Label
                                         htmlFor="email"
                                         className="ml-1 text-sm font-medium text-gray-700 dark:text-gray-300"
@@ -67,7 +69,7 @@ export default function Login({ status }: LoginProps) {
                                         </Label>
                                         {features.canResetPassword && (
                                             <TextLink
-                                                href={request()}
+                                                href="#"
                                                 className="text-xs font-semibold text-violet-600 transition-colors hover:text-violet-500"
                                             >
                                                 Forgot password?
@@ -104,7 +106,7 @@ export default function Login({ status }: LoginProps) {
                     <p className="mt-4 text-center text-sm text-muted-foreground">
                         New here?{' '}
                         <TextLink
-                            href={register()}
+                            href={route('register', { type: userType })}
                             className="font-semibold text-violet-600 underline-offset-4 hover:text-violet-500 hover:underline"
                         >
                             Create an account
@@ -120,7 +122,7 @@ export default function Login({ status }: LoginProps) {
 
                 <div className="mt-6 text-center">
                     <a
-                        href="register"
+                        href={route('register', { type: userType })}
                         className="text-sm text-gray-600 hover:text-gray-800"
                     >
                         Singn Up

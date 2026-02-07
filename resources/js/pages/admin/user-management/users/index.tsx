@@ -39,13 +39,12 @@ export default function index({
   } = useDataTable();
 
   const columns: ColumnConfig<Admin>[] = [
-    // avatar column can be added here if needed
     {
       key: 'image',
       label: 'Avatar',
       render: (admin) => (
         <img
-          src={admin.image ? `${window.location.origin}/storage/user_images/${admin.image}` : '/default-avatar.png'}
+          src={admin.image_url ? `${admin.image_url}` : '/no-user-image-icon.png'}
           alt={admin.name}
           className="h-8 w-8 rounded-full object-cover"
         />

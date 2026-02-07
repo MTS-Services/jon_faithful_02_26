@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Inertia\Response;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Log;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -55,43 +55,44 @@ class UserController extends Controller
                 'password' => ['nullable', 'string', 'min:8', 'confirmed'],
             ]);
 
-            // Prepare data for update
-            $data = $request->except(['password', 'password_confirmation', 'image']);
+            $validated = $request->except(['password', 'password_confirmation', 'image']);
 
-            // Handle password update
             if ($request->filled('password')) {
-                $data['password'] = bcrypt($request->password);
+                $validated['password'] = bcrypt($request->password);
             }
 
-            // Handle image upload
             if ($request->hasFile('image')) {
-                // Delete old image if exists
-                if ($user->image && Storage::disk('public')->exists('user_images/' . $user->image)) {
-                    Storage::disk('public')->delete('user_images/' . $user->image);
+                if ($user->image && Storage::disk('public')->exists('user_images/'.$user->image)) {
+                    Storage::disk('public')->delete('user_images/'.$user->image);
                 }
 
                 // Store new image
                 $file = $request->file('image');
-                $imageName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $imageName = time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
                 $file->storeAs('user_images', $imageName, 'public');
 
-                $data['image'] = $imageName;
+                $validated['image'] = $imageName;
             }
 
             // Update user
-            $user->update($data);
+            $user->update($validated);
 
             return back()->with('success', 'Account settings updated successfully.');
         } catch (\Exception $e) {
             Log::error('User Account Update Error', [
                 'message' => $e->getMessage(),
-                'line'    => $e->getLine(),
-                'file'    => $e->getFile(),
+                'line' => $e->getLine(),
+                'file' => $e->getFile(),
                 'user_id' => auth()->id(),
                 'request' => $request->all(),
             ]);
 
             return back()->with('error', 'Something went wrong. Please try again.');
         }
+    }
+
+    public function listingsHomes()
+    {
+        return Inertia::render('user/listings-homes');
     }
 }
