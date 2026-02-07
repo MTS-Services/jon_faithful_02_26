@@ -90,37 +90,37 @@ const RelocationGuides = () => {
     const guides = [
         {
             title: "Best Places to Live in Tennessee",
-            image: "https://whytennessee.com/wp-content/uploads/2025/12/1764027945756-524499646-Waterfront-Home.avif",
+            image: "assets/images/home/1764027945756-524499646-Waterfront-Home.avif",
             description: "",
-            link: "https://whytennessee.com/best-places-to-live-in-tennessee/"
+            link: "live-tennessee"
         },
         {
             title: "Pros and Cons of Living in Tennessee",
             image: "https://whytennessee.com/wp-content/uploads/2025/12/riverfront_lg.jpg",
             description: "Tennessee offers affordable living, no state income tax, and beautiful scenery, but hot summers and limited public transport can be challenging.",
-            link: "https://whytennessee.com/pros-and-cons-of-living-in-tennessee/"
+            link: "live-tennessee"
         },
         {
             title: "Tennessee Moving Checklist",
-            image: "https://whytennessee.com/wp-content/uploads/2025/12/27-PB10401-1.jpg",
+            image: "assets/images/home/27-PB10401-1.jpg",
             description: "Plan your move to Tennessee with ease: pack essentials, update your address, transfer utilities, and explore your new community.",
             link: "https://whytennessee.com/moving-to-tennessee-checklist/"
         },
         {
             title: "Cost of Living in Tennessee",
-            image: "https://whytennessee.com/wp-content/uploads/2025/12/Real-estate-concept-business_-home-insurance-and-real-estate-protection.-Buy-and-sell-houses-and-real-estate-online-on-a-virtual-screen.jpeg",
+            image: "assets/images/home/Real-estate-concept-business.jpeg",
             description: "",
-            link: "https://whytennessee.com/cost-of-living-in-tennessee/"
+            link: "pros-cons-living-in-tennessee"
         },
         {
             title: "Tennessee Moving Checklist",
-            image: "https://whytennessee.com/wp-content/uploads/2025/12/27-PB10401-1.jpg",
+            image: "assets/images/home/27-PB10401-1.jpg",
             description: "Plan your move to Tennessee with ease: pack essentials, update your address, transfer utilities, and explore your new community.",
             link: "https://whytennessee.com/moving-to-tennessee-checklist/"
         },
         {
             title: "Cost of Living in Tennessee",
-            image: "https://whytennessee.com/wp-content/uploads/2025/12/Real-estate-concept-business_-home-insurance-and-real-estate-protection.-Buy-and-sell-houses-and-real-estate-online-on-a-virtual-screen.jpeg",
+            image: "assets/images/home/Real-estate-concept-business.jpeg",
             description: "",
             link: "https://whytennessee.com/cost-of-living-in-tennessee/"
         },
