@@ -60,7 +60,7 @@ export default function Sidebar() {
 
             <aside
                 className={cn(
-                    'fixed left-0 top-0 h-full w-72 transition-transform duration-300 md:relative md:translate-x-0',
+                    'fixed left-0 top-0 h-full w-72 transition-transform duration-300 md:relative md:translate-x-0 bg-white z-50 md:bg-transparent',
                     isOpen ? 'translate-x-0' : '-translate-x-full'
                 )}
             >
@@ -77,7 +77,8 @@ export default function Sidebar() {
 
                 <nav className="space-y-2 p-4 pt-0">
                     {/* Homes */}
-                    <NavItem label="Listings (Homes)" />
+                    <NavItem
+                    href='/user/listings-homes' label="Listings (Homes)" />
                     <NavItem label="Add New Listing (Homes)" />
                     <NavItem label="Edit Listing (Homes)" />
                     {userType == 'both' || userType == 'property_owner' ? (

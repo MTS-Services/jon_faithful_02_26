@@ -1,7 +1,7 @@
 export default function Header() {
     return (
         <div>
-            <div className="">
+            <div className="mt-4 md:mt-0">
                 <div className="relative overflow-hidden rounded-2xl bg-primary p-8 text-white shadow-xl">
                     <div className="relative z-10">
                         <h2 className="mb-2 text-center text-3xl font-medium font-montserrat">
