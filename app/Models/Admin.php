@@ -38,4 +38,16 @@ class Admin extends Authenticatable
     {
         return $this->hasMany(Driver::class, 'approved_by');
     }
+    protected $appends = ['image_url'];
+
+    public function getImageUrlAttribute()
+    {
+        if (filter_var($this->image, FILTER_VALIDATE_URL)) {
+            return $this->image;
+        }
+        if (!$this->image) {
+            return asset('no-user-image-icon.png');
+        }
+        return asset('storage/user_images/' . $this->image);
+    }
 }

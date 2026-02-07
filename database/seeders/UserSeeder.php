@@ -20,29 +20,29 @@ class UserSeeder extends Seeder
                     'username' => 'user',
                     'name' => 'User',
                     'user_type' => UserType::BOTH,
-                    'email' => 'user@gmail.com',
+                    'email' => 'user@dev.com',
                     'password' => Hash::make('user@dev.com'),
                 ],
                 [
                     'username' => 'manager',
                     'name' => 'Manager',
                     'user_type' => UserType::PROPERTY_OWNER,
-                    'email' => 'manager@gmail.com',
-                    'password' => Hash::make('user@dev.com'),
+                    'email' => 'manager@dev.com',
+                    'password' => Hash::make('manager@dev.com'),
                 ],
                 [
                     'username' => 'realtor',
                     'name' => 'Realtor',
                     'user_type' => UserType::REALTOR,
-                    'email' => 'realtor@gmail.com',
-                    'password' => Hash::make('realtor@gmail.com'),
+                    'email' => 'realtor@dev.com',
+                    'password' => Hash::make('realtor@dev.com'),
                 ],
                 [
                     'username' => 'realtor&Rentals',
                     'name' => 'Realtor & Rentals',
                     'user_type' => UserType::BOTH,
-                    'email' => 'realtor&rentals@gmail.com',
-                    'password' => Hash::make('realtor&rentals@gmail.com'),
+                    'email' => 'realtor&rentals@dev.com',
+                    'password' => Hash::make('realtor&rentals@dev.com'),
                 ]
             ]
         );

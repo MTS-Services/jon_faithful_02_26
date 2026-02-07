@@ -11,6 +11,7 @@ use App\Services\DataTableService;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Concerns\PasswordValidationRules;
+use App\Enums\UserType;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -42,14 +43,20 @@ class UserController extends Controller
     }
     public function create(): Response
     {
-        return Inertia::render('admin/user-management/users/create');
+        return Inertia::render('admin/user-management/users/create', [
+            'user_types' => collect(UserType::cases())->map(fn($type) => [
+                'value' => $type->value,
+                'label' => $type->label(),
+            ]),
+        ]);
     }
     public function store(Request $request)
     {
-        Validator::make($request->all(), [
+        $data = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255'],
             'phone' => ['nullable', 'string', 'max:20'],
+            'user_type' => ['required', Rule::in(UserType::cases())],
             'your_self' => ['nullable', 'string', 'max:255'],
             'brokerage_name' => ['nullable', 'string', 'max:255'],
             'license_number' => ['nullable', 'string', 'max:255'],
@@ -69,18 +76,10 @@ class UserController extends Controller
             $file = $request->file('image');
             $imageName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
             $file->storeAs('user_images', $imageName);
+            $data['image'] = $imageName;
         }
-        $user = User::create([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'username' => $request['username'],
-            'phone' => $request['phone'],
-            'your_self' => $request['your_self'],
-            'brokerage_name' => $request['brokerage_name'],
-            'license_number' => $request['license_number'],
-            'image' => isset($imageName) ? $imageName : null,
-            'password' => Hash::make($request['password']),
-        ]);
+        
+        $user = User::create($data);
         if (!$user) {
             return redirect()->back()->withErrors(['error' => 'Failed to create user.'])->withInput();
         }

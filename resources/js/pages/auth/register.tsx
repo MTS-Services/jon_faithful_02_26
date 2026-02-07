@@ -1,3 +1,7 @@
+import InputError from '@/components/input-error';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { PasswordInput } from '@/components/ui/password-input';
 import { useForm } from '@inertiajs/react';
 import React from 'react';
 
@@ -21,7 +25,7 @@ export default function Register() {
     function handleSubmit(e: React.FormEvent) {
         console.log(data);
         e.preventDefault();
-        post(route('register'));
+        post(route('register.post'));
     }
     return (
         <div>
@@ -182,44 +186,31 @@ export default function Register() {
                             <p className="mt-1 text-sm text-red-500"></p>
                         </div>
 
-                        <div>
-                            <label
-                                htmlFor="password"
-                                className="mb-1 block text-sm font-medium text-gray-700"
-                            >
-                                Password
-                            </label>
-                            <input
-                                type="password"
+                        <div className="grid gap-2">
+                            <Label htmlFor="password">Password</Label>
+                            <PasswordInput
                                 id="password"
-                                className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
-                                placeholder="••••••••"
-                                onChange={(e) =>
-                                    setData('password', e.target.value.trim())
-                                }
+                                name="password"
+                                value={data.password}
+                                onChange={(e) => setData('password', e.target.value)}
+                                required
+                                placeholder="********"
+                                className="h-11 border-gray-200 bg-white/50 px-4! py-3! transition-all focus:border-secondary! focus:ring-secondary!"
                             />
-                            <p className="mt-1 text-sm text-red-500"></p>
+                            <InputError message={errors.password} />
                         </div>
-                        <div>
-                            <label
-                                htmlFor="password"
-                                className="mb-1 block text-sm font-medium text-gray-700"
-                            >
-                                Confrim Password
-                            </label>
-                            <input
-                                type="password"
-                                id="password"
-                                className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
-                                placeholder="••••••••"
-                                onChange={(e) =>
-                                    setData(
-                                        'password_confirmation',
-                                        e.target.value.trim(),
-                                    )
-                                }
+                        <div className="grid gap-2">
+                            <Label htmlFor="password_confirmation">Confirm Password</Label>
+                            <PasswordInput
+                                id="password_confirmation"
+                                name="password_confirmation"
+                                value={data.password_confirmation}
+                                onChange={(e) => setData('password_confirmation', e.target.value)}
+                                required
+                                placeholder="********"
+                                className="h-11 border-gray-200 bg-white/50 px-4! py-3! transition-all focus:border-secondary! focus:ring-secondary!"
                             />
-                            <p className="mt-1 text-sm text-red-500"></p>
+                            <InputError message={errors.password_confirmation} />
                         </div>
 
                         <div className="flex items-center">
