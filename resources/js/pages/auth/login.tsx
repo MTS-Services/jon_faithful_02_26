@@ -13,6 +13,7 @@ import { store } from '@/routes/login';
 import { request } from '@/routes/password';
 import { SharedData } from '@/types';
 
+const userType = new URLSearchParams(window.location.search).get('type');
 interface LoginProps {
     status?: string;
     canResetPassword: boolean;
@@ -120,7 +121,7 @@ export default function Login({ status }: LoginProps) {
 
                 <div className="mt-6 text-center">
                     <a
-                        href="register"
+                        href={route('register', { type: userType })}
                         className="text-sm text-gray-600 hover:text-gray-800"
                     >
                         Singn Up

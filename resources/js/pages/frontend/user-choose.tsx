@@ -2,7 +2,7 @@ import { Hero } from '@/components/sections/frontend/hero';
 import Index from '@/components/sections/frontend/user-choose';
 import FrontendLayout from '@/layouts/frontend-layout';
 
-export default function UserChoose() {
+export default function UserChoose({ user_type }: { user_type: any }) {
     return (
         <div>
             <FrontendLayout>
@@ -18,7 +18,7 @@ export default function UserChoose() {
                         </div>
                     }
                 />
-                <Index/>
+                <Index user_type={user_type} />
             </FrontendLayout>
         </div>
     );

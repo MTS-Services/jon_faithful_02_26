@@ -12,14 +12,14 @@ class RedirectIfAuthenticated
     public function handle(Request $request, Closure $next, string ...$guards): Response
     {
         $guards = empty($guards) ? [null] : $guards;
+        $user_type = $request->query('type'); 
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
                 if ($guard === 'admin') {
-                    return redirect('/admin/dashboard');
+                    return redirect(route('admin.dashboard'));
                 }
-               
-                return redirect('/user/dashboard');
+                return redirect(route('user.dashboard'));
             }
         }
 

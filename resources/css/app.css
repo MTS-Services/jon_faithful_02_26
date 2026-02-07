@@ -259,3 +259,12 @@
         -webkit-backdrop-filter: blur(12px);
     }
 }
+
+/* Custom swiper buttons */
+.swiper-button-prev,
+.swiper-button-next {
+    @apply w-12 h-12 rounded-full bg-secondary! hover:bg-primary! transition-colors; 
+}
+.swiper-navigation-icon {
+    @apply w-6! h-6! text-white!;
+}

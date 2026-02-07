@@ -55,17 +55,13 @@ class UserController extends Controller
                 'password' => ['nullable', 'string', 'min:8', 'confirmed'],
             ]);
 
-            // Prepare data for update
-            $data = $request->except(['password', 'password_confirmation', 'image']);
+            $validated = $request->except(['password', 'password_confirmation', 'image']);
 
-            // Handle password update
             if ($request->filled('password')) {
-                $data['password'] = bcrypt($request->password);
+                $validated['password'] = bcrypt($request->password);
             }
 
-            // Handle image upload
             if ($request->hasFile('image')) {
-                // Delete old image if exists
                 if ($user->image && Storage::disk('public')->exists('user_images/' . $user->image)) {
                     Storage::disk('public')->delete('user_images/' . $user->image);
                 }
@@ -75,11 +71,11 @@ class UserController extends Controller
                 $imageName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
                 $file->storeAs('user_images', $imageName, 'public');
 
-                $data['image'] = $imageName;
+                $validated['image'] = $imageName;
             }
 
             // Update user
-            $user->update($data);
+            $user->update($validated);
 
             return back()->with('success', 'Account settings updated successfully.');
         } catch (\Exception $e) {

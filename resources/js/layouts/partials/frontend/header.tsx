@@ -30,21 +30,20 @@ const FrontendHeader: React.FC = () => {
     { name: 'About Why Tennessee', route: 'why-tennessee' },
     { name: 'Tennessee Relocation Guide', route: 'tennessee-relocation' },
     { name: 'Cost of Living in Tennessee', route: 'cost-of-living-in-tennessee' },
-    { name: 'Pros & Cons of Living', route: '#' },
-    { name: 'Best Places to Live', route: 'live-tennessee' },
+    { name: 'Pros & Cons of Living in Tennessee', route: 'pros-cons-living-in-tennessee' },
+    { name: 'Best Places to Live in Tennessee', route: 'live-tennessee' },
   ]
   const movingTopics2 = [
-    { name: 'Renting in Tennessee', route: '/renting-tennessee' },
-    { name: 'Cost of Renting', route: '/cost-of-renting-tennessee' },
-    { name: 'Renting vs Buying', route: '/renting-buy' },
-    { name: 'Moving & Renting First', route: '/moving-tennessee-renting' },
+    { name: 'Renting in Tennessee', route: 'renting-tennessee' },
+    { name: 'Cost of Renting in Tennessee', route: 'cost-of-renting-tennessee' },
+    { name: 'Renting vs Buying in Tennessee', route: 'renting-buy' },
+    { name: 'Moving to Tennessee & Renting First', route: 'moving-tennessee-renting' },
   ]
   const movingTopics3 = [
-    { name: 'Moving Checklist', route: '/moving-checklist' },
-    { name: 'City Comparison', route: '/city-comparison' },
+    { name: 'Moving Checklist', route: 'moving-checklist' },
+    { name: 'City Comparison', route: 'city-comparison' },
     { name: 'Download Guide (PDF)', route: '#' },
-    { name: 'Real Estate Agents', route: '/real-estate-agents' },
-    { name: 'Live in Tennessee', route: '/live-tennessee' },
+    { name: 'Real Estate Agents', route: 'real-estate-agents' },
   ]
 
   return (
@@ -64,7 +63,7 @@ const FrontendHeader: React.FC = () => {
           </a>
           <div className="flex space-x-3">
             <a href="#"
-              className="w-8 h-8 flex items-center justify-center bg-white rounded-full text-gray-600 shadow-sm hover:bg-secondary group transition-all duration-300">
+              className="w-8 h-8 flex items-center justify-center bg-white rounded-full text-muted-foreground shadow-sm hover:bg-secondary group transition-all duration-300">
               <svg aria-hidden="true"
                 className="w-5 h-5 fill-primary group-hover:fill-white transition-all duration-300"
                 viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
@@ -112,18 +111,18 @@ const FrontendHeader: React.FC = () => {
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex space-x-8 items-center h-full">
-              <a href="/" className="text-gray-700 hover:text-secondary font-medium transition-colors">Home</a>
-              <a href="homes-for-sale" className="text-gray-700 hover:text-secondary font-medium transition-colors">Homes for Sale</a>
-              <a href="rentals" className="text-gray-700 hover:text-secondary font-medium transition-colors">Rentals</a>
+              <a href="/" className="text-muted-foreground hover:text-secondary font-medium transition-colors">Home</a>
+              <a href="homes-for-sale" className="text-muted-foreground hover:text-secondary font-medium transition-colors">Homes for Sale</a>
+              <a href="rentals" className="text-muted-foreground hover:text-secondary font-medium transition-colors">Rentals</a>
 
               {/* Cities Dropdown */}
               <div className="relative group h-full flex items-center">
-                <button className="text-gray-700 group-hover:text-secondary font-medium flex items-center focus:outline-none transition-colors">
+                <button className="text-muted-foreground group-hover:text-secondary font-medium flex items-center focus:outline-none transition-colors">
                   Cities <FaChevronDown className="ml-1 text-[10px]" />
                 </button>
                 <div className="absolute top-full left-0 w-56 bg-white shadow-lg rounded-b-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
                   {cities.map((city) => (
-                    <a href={`/${city.route}`} className="block px-4 py-2 text-sm text-gray-700 hover:text-white hover:bg-secondary transition-colors">
+                    <a href={`/${city.route}`} className="block px-4 py-2 text-sm text-muted-foreground hover:text-white hover:bg-secondary transition-colors">
                       {city.name}
                     </a>
                   ))}
@@ -132,7 +131,7 @@ const FrontendHeader: React.FC = () => {
 
               {/* Mega Menu: Moving to Tennessee */}
               <div className="relative group h-full flex items-center">
-                <button className="text-gray-700 group-hover:text-secondary font-medium flex items-center focus:outline-none transition-colors">
+                <button className="text-muted-foreground group-hover:text-secondary font-medium flex items-center focus:outline-none transition-colors">
                   Moving to Tennessee <FaChevronDown className="ml-1 text-[10px]" />
                 </button>
 
@@ -142,7 +141,7 @@ const FrontendHeader: React.FC = () => {
                     <ul className="space-y-3">
                       {movingTopics1.map((item) => (
                         <li key={item.name}>
-                          <a href={`${item.route}`} className="flex items-center text-sm text-gray-600 hover:text-secondary transition-colors">
+                          <a href={`/${item.route}`} className="flex items-center text-sm text-muted-foreground hover:text-secondary transition-colors">
                             <span className="text-primary mr-2 font-bold">
                               <MdDoubleArrow size={14} />
                             </span> {item.name}
@@ -156,8 +155,8 @@ const FrontendHeader: React.FC = () => {
                     <h3 className="text-xl font-bold text-primary mb-4 border-b pb-2">Renting:</h3>
                     <ul className="space-y-3">
                       {movingTopics2.map((item) => (
-                        <li key={item.name}>
-                          <a href={item.route} className="flex items-center text-sm text-gray-600 hover:text-secondary transition-colors">
+                        <li key={`/${item.name}`} id={item.name}>
+                          <a href={item.route} className="flex items-center text-sm text-muted-foreground hover:text-secondary transition-colors">
                             <span className="text-primary mr-2 font-bold">
                               <MdDoubleArrow size={14} />
                             </span> {item.name}
@@ -172,7 +171,7 @@ const FrontendHeader: React.FC = () => {
                     <ul className="space-y-3">
                       {movingTopics3.map((item) => (
                         <li key={item.name}>
-                          <a href={item.route} className="flex items-center text-sm text-gray-600 hover:text-secondary transition-colors">
+                          <a href={`/${item.route}`} className="flex items-center text-sm text-muted-foreground hover:text-secondary transition-colors">
                             <span className="text-primary mr-2 font-bold">
                               <MdDoubleArrow size={14} />
                             </span> {item.name}
@@ -184,12 +183,12 @@ const FrontendHeader: React.FC = () => {
                 </div>
               </div>
 
-              <a href="/partner-program" className="text-gray-700 hover:text-secondary font-medium transition-colors">Partner Program</a>
+              <a href="/partner-program" className="text-muted-foreground hover:text-secondary font-medium transition-colors">Partner Program</a>
             </nav>
 
             {/* Desktop Right CTA / Mobile Toggle */}
             <div className="flex items-center gap-4">
-              <a href="user-choose" className="hidden sm:flex bg-primary text-white px-6 py-3 rounded-full hover:bg-secondary transition-all items-center text-md font-medium shadow-md hover:shadow-lg">
+              <a href={route('user.choose')} className="hidden sm:flex bg-primary text-white px-6 py-4 rounded-full hover:bg-secondary transition-all items-center text-md font-medium shadow-md hover:shadow-lg">
                 Login/Registration
                 <span className="inline-flex items-center bg-white p-1 ml-2 rounded-full text-black">
                   <FaChevronRight size={12} />
@@ -198,7 +197,7 @@ const FrontendHeader: React.FC = () => {
 
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="lg:hidden text-gray-700 hover:text-secondary focus:outline-none p-2"
+                className="lg:hidden text-muted-foreground hover:text-secondary focus:outline-none p-2"
               >
                 {isMobileMenuOpen ? <HiX size={32} /> : <HiMenuAlt3 size={32} />}
               </button>
@@ -209,22 +208,22 @@ const FrontendHeader: React.FC = () => {
         {/* Mobile Menu */}
         <div className={`${isMobileMenuOpen ? 'block' : 'hidden'} lg:hidden bg-white border-t border-gray-200 absolute w-full shadow-xl`}>
           <div className="px-4 py-6 space-y-2 max-h-[80vh] overflow-y-auto">
-            <a href="/" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Home</a>
-            <a href="#" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Homes for Sale</a>
-            <a href="#" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Rentals</a>
+            <a href="/" className="block px-3 py-2 rounded-md text-base font-medium text-muted-foreground hover:bg-gray-50">Home</a>
+            <a href="#" className="block px-3 py-2 rounded-md text-base font-medium text-muted-foreground hover:bg-gray-50">Homes for Sale</a>
+            <a href="#" className="block px-3 py-2 rounded-md text-base font-medium text-muted-foreground hover:bg-gray-50">Rentals</a>
 
             {/* Mobile Cities Submenu */}
             <div className="border-b border-gray-100 pb-2">
               <button
                 onClick={() => toggleMobileSubmenu('cities')}
-                className="w-full text-left flex justify-between items-center px-3 py-2 text-base font-medium text-gray-700"
+                className="w-full text-left flex justify-between items-center px-3 py-2 text-base font-medium text-muted-foreground"
               >
                 Cities <FaChevronDown className={`transition-transform ${activeMobileSubmenu === 'cities' ? 'rotate-180' : ''}`} />
               </button>
               {activeMobileSubmenu === 'cities' && (
                 <div className="pl-6 space-y-1 bg-gray-50 rounded-lg py-2">
-                  {['Nashville', 'Knoxville', 'Chattanooga', 'Bristol'].map(city => (
-                    <a key={city} href="#" className="block px-3 py-2 text-sm text-gray-600">{city}</a>
+                  {cities.map(city => (
+                    <a key={city.name} href={`/${city.route}`} className="block px-3 py-2 text-sm text-muted-foreground">{city.name}</a>
                   ))}
                 </div>
               )}
@@ -234,22 +233,31 @@ const FrontendHeader: React.FC = () => {
             <div className="border-b border-gray-100 pb-2">
               <button
                 onClick={() => toggleMobileSubmenu('moving')}
-                className="w-full text-left flex justify-between items-center px-3 py-2 text-base font-medium text-gray-700"
+                className="w-full text-left flex justify-between items-center px-3 py-2 text-base font-medium text-muted-foreground"
               >
                 Moving to Tennessee <FaChevronDown className={`transition-transform ${activeMobileSubmenu === 'moving' ? 'rotate-180' : ''}`} />
               </button>
               {activeMobileSubmenu === 'moving' && (
                 <div className="pl-6 space-y-2 bg-gray-50 rounded-lg py-3">
-                  <p className="px-3 text-xs font-bold text-secondary uppercase">Essentials</p>
-                  <a href="#" className="block px-3 py-1 text-sm text-gray-600">Relocation Guide</a>
-                  <a href="#" className="block px-3 py-1 text-sm text-gray-600">Cost of Living</a>
-                  <p className="px-3 text-xs font-bold text-secondary uppercase pt-2">Tools</p>
-                  <a href="#" className="block px-3 py-1 text-sm text-gray-600">Moving Checklist</a>
+                  <p className="px-3 text-xs font-bold text-secondary uppercase">What You Need to Know:</p>
+                  {movingTopics1.map((item) => (
+                    <a key={item.name} href={`/${item.route}`} className="block px-3 py-1 text-sm text-muted-foreground">{item.name}</a>
+                  ))}
+
+                  <p className="px-3 text-xs font-bold text-secondary uppercase">Renting:</p>
+                  {movingTopics2.map((item) => (
+                    <a key={item.name} href={`/${item.route}`} className="block px-3 py-1 text-sm text-muted-foreground">{item.name}</a>
+                  ))}
+
+                  <p className="px-3 text-xs font-bold text-secondary uppercase">Helpful Tools:</p>
+                  {movingTopics3.map((item) => (
+                    <a key={item.name} href={`/${item.route}`} className="block px-3 py-1 text-sm text-muted-foreground">{item.name}</a>
+                  ))}
                 </div>
               )}
             </div>
 
-            <a href="/partner-program" className="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50">Partner Program</a>
+            <a href="/partner-program" className="block px-3 py-2 text-base font-medium text-muted-foreground hover:bg-gray-50">Partner Program</a>
 
             <a href={route('login')} className="block w-full text-center mt-6 bg-primary text-white px-5 py-4 rounded-xl font-bold">
               Login / Registration
