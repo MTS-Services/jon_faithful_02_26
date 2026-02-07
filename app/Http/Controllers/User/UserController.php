@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Inertia\Response;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Log;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -62,13 +62,13 @@ class UserController extends Controller
             }
 
             if ($request->hasFile('image')) {
-                if ($user->image && Storage::disk('public')->exists('user_images/' . $user->image)) {
-                    Storage::disk('public')->delete('user_images/' . $user->image);
+                if ($user->image && Storage::disk('public')->exists('user_images/'.$user->image)) {
+                    Storage::disk('public')->delete('user_images/'.$user->image);
                 }
 
                 // Store new image
                 $file = $request->file('image');
-                $imageName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $imageName = time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
                 $file->storeAs('user_images', $imageName, 'public');
 
                 $validated['image'] = $imageName;
@@ -81,13 +81,18 @@ class UserController extends Controller
         } catch (\Exception $e) {
             Log::error('User Account Update Error', [
                 'message' => $e->getMessage(),
-                'line'    => $e->getLine(),
-                'file'    => $e->getFile(),
+                'line' => $e->getLine(),
+                'file' => $e->getFile(),
                 'user_id' => auth()->id(),
                 'request' => $request->all(),
             ]);
 
             return back()->with('error', 'Something went wrong. Please try again.');
         }
+    }
+
+    public function listingsHomes()
+    {
+        return Inertia::render('user/listings-homes');
     }
 }
