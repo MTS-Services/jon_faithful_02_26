@@ -18,6 +18,6 @@ Route::prefix('user')->name('user.')->group(function () {
 
         Route::get('/account-settings', 'accountSettings')->name('account-settings');
         Route::post('/account-settings', 'accountSettingsUpdate')->name('account-settings.update');
-        Route::get('/listing-homes', 'listingsHomes')->name('ListingsHomes');
+        Route::get('/listings-homes', 'listingsHomes')->name('listings-homes');
     });
 });
