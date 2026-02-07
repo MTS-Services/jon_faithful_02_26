@@ -10,7 +10,7 @@ const properties = [
         beds: 5,
         baths: 4,
         price: "999",
-        img: "https://whytennessee.com/wp-content/uploads/2025/12/dream-homes-hero.jpg",
+        img: "assets/images/home/dream-homes-hero.jpg",
     },
     {
         id: 2,
@@ -20,7 +20,7 @@ const properties = [
         beds: 6,
         baths: 5,
         price: "999",
-        img: "https://whytennessee.com/wp-content/uploads/2025/12/Custom-Built-Homes.webp",
+        img: "assets/images/home/Custom-Built-Homes.webp",
     },
     {
         id: 3,
@@ -30,7 +30,7 @@ const properties = [
         beds: 5,
         baths: 4,
         price: "999",
-        img: "https://whytennessee.com/wp-content/uploads/2025/12/LymanEstate-scaled-2.jpg",
+        img: "assets/images/home/LymanEstate-scaled-2.jpg",
     },
     {
         id: 4,
@@ -40,7 +40,7 @@ const properties = [
         beds: 5,
         baths: 4,
         price: "999",
-        img: "https://whytennessee.com/wp-content/uploads/2025/12/1764027945756-524499646-Waterfront-Home.avif",
+        img: "assets/images/home/1764027945756-524499646-Waterfront-Home.avif",
     },
 ];
 
