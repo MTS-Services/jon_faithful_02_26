@@ -5,23 +5,34 @@ import { Icon } from '../icon'
 import { LucideIcon, Plus } from 'lucide-react'
 import { cn } from '@/lib/utils'
 interface Props {
-    href?: string 
-    IconNode?: LucideIcon
-    className?: string
-    children?: React.ReactNode
+  href?: string
+  IconNode?: LucideIcon
+  className?: string
+  children?: React.ReactNode
+  variant?: string
+  rightIcon?: LucideIcon
 
 }
-function ActionButton({ href, IconNode = Plus, className, children  }: Props) {
+function ActionButton({ href, IconNode = Plus, className, children, rightIcon, }: Props) {
   return (
-  <>
-            <Link href={href || '#'}>
-              <Button className={cn('px-4 py-3 h-auto bg-primary hover:bg-secondary', className)}>
-                <Icon iconNode={IconNode} variant='default' />
-                {children || 'Create'}
-               
-              </Button>
-            </Link>
-  </>
+    <>
+      <Link href={href || '#'}>
+        <Button className={cn('px-4 py-3 h-auto bg-primary hover:bg-secondary', className)}>
+          {rightIcon ? (
+            <>
+              {children || 'Create'}
+              <Icon iconNode={rightIcon} />
+            </>
+          ) : (
+            <>
+              <Icon iconNode={IconNode} />
+              {children || 'Create'}
+            </>
+          )}
+
+        </Button>
+      </Link>
+    </>
   )
 }
 

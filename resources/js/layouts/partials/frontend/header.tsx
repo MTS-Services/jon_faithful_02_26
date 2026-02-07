@@ -1,3 +1,8 @@
+import { ActionButton } from '@/components/ui/action-button';
+import { Button } from '@/components/ui/button';
+import { SharedData } from '@/types';
+import { Link, usePage } from '@inertiajs/react';
+import { ArrowRight } from 'lucide-react';
 import React, { useState } from 'react';
 import { FaChevronDown, FaArrowRight, FaChevronRight } from 'react-icons/fa';
 import { HiMenuAlt3, HiX } from 'react-icons/hi';
@@ -5,6 +10,7 @@ import { MdDoubleArrow } from 'react-icons/md';
 
 
 const FrontendHeader: React.FC = () => {
+  const { auth } = usePage<SharedData>().props;
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeMobileSubmenu, setActiveMobileSubmenu] = useState<string | null>(null);
 
@@ -188,12 +194,19 @@ const FrontendHeader: React.FC = () => {
 
             {/* Desktop Right CTA / Mobile Toggle */}
             <div className="flex items-center gap-4">
-              <a href={route('user.choose')} className="hidden sm:flex bg-primary text-white px-6 py-4 rounded-full hover:bg-secondary transition-all items-center text-md font-medium shadow-md hover:shadow-lg">
-                Login/Registration
-                <span className="inline-flex items-center bg-white p-1 ml-2 rounded-full text-black">
-                  <FaChevronRight size={12} />
-                </span>
-              </a>
+              {!auth.user ? (
+                <>
+                  <ActionButton rightIcon={ArrowRight} className="hidden sm:flex px-6 py-4 rounded-full" IconNode={ArrowRight} href={route('user.choose')}>
+                    Login/Registration
+                  </ActionButton>
+                </>
+              ) : (
+                <>
+                  <ActionButton rightIcon={ArrowRight} className="hidden sm:flex px-6 py-4 rounded-full" IconNode={ArrowRight} href={route('user.dashboard')}>
+                    Account
+                  </ActionButton>
+                </>
+              )}
 
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -259,9 +272,22 @@ const FrontendHeader: React.FC = () => {
 
             <a href="/partner-program" className="block px-3 py-2 text-base font-medium text-muted-foreground hover:bg-gray-50">Partner Program</a>
 
-            <a href={route('login')} className="block w-full text-center mt-6 bg-primary text-white px-5 py-4 rounded-xl font-bold">
+            {/* <a href={route('login')} className="block w-full text-center mt-6 bg-primary text-white px-5 py-4 rounded-xl font-bold">
               Login / Registration
-            </a>
+            </a> */}
+            {!auth.user ? (
+              <>
+                <ActionButton rightIcon={ArrowRight} className="md:hidden px-6 py-4 w-full mt-4" IconNode={ArrowRight} href={route('user.choose')}>
+                  Login/Registration
+                </ActionButton>
+              </>
+            ) : (
+              <>
+                <ActionButton rightIcon={ArrowRight} className="md:hidden px-6 py-4 w-full mt-4" IconNode={ArrowRight} href={route('user.dashboard')}>
+                  Account
+                </ActionButton>
+              </>
+            )}
           </div>
         </div>
       </header>
