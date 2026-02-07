@@ -1,12 +1,12 @@
 import React from 'react';
 
 const cities = [
-  { name: 'Nashville', desc: 'Music City, job growth, entertainment, and culture.', img: 'https://whytennessee.com/wp-content/uploads/2025/12/Nashville_-Tennessee_-USA-scaled.jpeg', span: 'col-span-1' },
-  { name: 'Knoxville', desc: 'Affordable living, outdoor lifestyle, strong community.', img: 'https://whytennessee.com/wp-content/uploads/2025/12/433f6d07f4eddc16bb67cef36ed22504-p_e.jpg', span: 'md:col-span-2' },
-  { name: 'Chattanooga', desc: 'Scenic beauty, technology growth, walkable downtown.', img: 'https://whytennessee.com/wp-content/uploads/2025/12/dream-homes-hero.jpg', span: 'md:col-span-2' },
-  { name: 'Johnson City', desc: 'Mountain living, healthcare hub, quality of life.', img: 'https://whytennessee.com/wp-content/uploads/2025/12/29941-1.jpeg', span: 'col-span-1' },
-  { name: 'Franklin', desc: 'Top-rated schools, historic charm, upscale homes.', img: 'https://whytennessee.com/wp-content/uploads/2025/12/Custom-Built-Homes.webp', isSidebar: true },
-  { name: 'Memphis', desc: 'Culture, food scene, affordability, and opportunity.', img: 'https://whytennessee.com/wp-content/uploads/2025/12/LymanEstate-scaled-2.jpg', isSidebar: true },
+  { name: 'Nashville', desc: 'Music City, job growth, entertainment, and culture.', img: 'assets/images/home/Nashville_-Tennessee_-USA-scaled.jpeg', span: 'col-span-1' },
+  { name: 'Knoxville', desc: 'Affordable living, outdoor lifestyle, strong community.', img: 'assets/images/home/433f6d07f4eddc16bb67cef36ed22504-p_e.jpg', span: 'md:col-span-2' },
+  { name: 'Chattanooga', desc: 'Scenic beauty, technology growth, walkable downtown.', img: 'assets/images/home/dream-homes-hero.jpg', span: 'md:col-span-2' },
+  { name: 'Johnson City', desc: 'Mountain living, healthcare hub, quality of life.', img: 'assets/images/home/29941-1.jpeg', span: 'col-span-1' },
+  { name: 'Franklin', desc: 'Top-rated schools, historic charm, upscale homes.', img: 'assets/images/home/Custom-Built-Homes.webp', isSidebar: true },
+  { name: 'Memphis', desc: 'Culture, food scene, affordability, and opportunity.', img: 'assets/images/home/LymanEstate-scaled-2.jpg', isSidebar: true },
 ];
 
 const CityCard = ({ city }: { city: typeof cities[0] }) => (
