@@ -185,7 +185,6 @@ export default function Index({ user }: Props) {
                                         name="password"
                                         value={data.password}
                                         onChange={(e) => setData('password', e.target.value)}
-                                        required
                                         placeholder="********"
                                         className="h-11 border-gray-200 bg-white/50 px-4! py-3! transition-all focus:border-secondary! focus:ring-secondary!"
                                     />
@@ -198,7 +197,6 @@ export default function Index({ user }: Props) {
                                         name="password_confirmation"
                                         value={data.password_confirmation}
                                         onChange={(e) => setData('password_confirmation', e.target.value)}
-                                        required
                                         placeholder="********"
                                         className="h-11 border-gray-200 bg-white/50 px-4! py-3! transition-all focus:border-secondary! focus:ring-secondary!"
                                     />
