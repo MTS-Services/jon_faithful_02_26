@@ -53,6 +53,9 @@ class User extends Authenticatable
         if (filter_var($this->image, FILTER_VALIDATE_URL)) {
             return $this->image;
         }
+        if (!$this->image) {
+            return asset('no-user-image-icon.png');
+        }
         return asset('storage/user_images/' . $this->image);
     }
 }
