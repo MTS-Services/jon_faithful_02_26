@@ -2,36 +2,37 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Models\User;
-use Inertia\Inertia;
-use Inertia\Response;
+use App\Concerns\PasswordValidationRules;
 use App\Enums\UserType;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
-use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Concerns\PasswordValidationRules;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class UserAuthController extends Controller
 {
     use PasswordValidationRules;
-    
+
     public function userChoose(): Response
     {
         return Inertia::render('frontend/user-choose', [
-            'user_type' => collect(UserType::cases())->map(fn($type) => [
+            'user_type' => collect(UserType::cases())->map(fn ($type) => [
                 'value' => $type->value,
                 'label' => $type->label(),
             ]),
         ]);
     }
+
     public function register(): Response
     {
         return Inertia::render('auth/register');
     }
+
     public function registerStore(Request $request)
     {
         Validator::make($request->all(), [
@@ -55,7 +56,7 @@ class UserAuthController extends Controller
         // File upload logic
         if ($request->hasFile('image')) {
             $file = $request->file('image');
-            $imageName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $imageName = time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
             $file->storeAs('user_images', $imageName);
         }
         $user = User::create([
@@ -70,12 +71,14 @@ class UserAuthController extends Controller
             'image' => isset($imageName) ? $imageName : null,
             'password' => Hash::make($request['password']),
         ]);
-        if (!$user) {
+        if (! $user) {
             return redirect()->back()->withErrors(['error' => 'Failed to register user.'])->withInput();
         }
         Auth::login($user);
+
         return redirect()->route('user.dashboard');
     }
+
     public function logout(Request $request)
     {
         Auth::logout();

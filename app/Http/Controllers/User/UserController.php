@@ -95,4 +95,9 @@ class UserController extends Controller
     {
         return Inertia::render('user/listings-homes');
     }
+
+    public function addNewListing()
+    {
+        return Inertia::render('user/add-newlisting');
+    }
 }
