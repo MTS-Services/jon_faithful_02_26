@@ -83,8 +83,8 @@ export default function Sidebar() {
                     {userType == 'both' || userType == 'property_owner' ? (
                         <>
                             <NavItem href='/user/rented-property' label="Listings (Rental)" />
-                            <NavItem href='/user/add-newlisting' label="Add New Listing " />
-                            <NavItem href='/user/edit-rental' label="Edit Listing" />
+                            <NavItem href='/user/add-newhome' label="Add New Listing " />
+                            <NavItem href='/user/edit-home' label="Edit Listing" />
                         </>
                     ) : (
                         <></>
