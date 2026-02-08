@@ -20,5 +20,7 @@ Route::prefix('user')->name('user.')->group(function () {
         Route::post('/account-settings', 'accountSettingsUpdate')->name('account-settings.update');
         Route::get('/listing-homes', 'listingsHomes')->name('ListingsHomes');
         Route::get('/add-newlisting', 'addNewListing')->name('addNewListing');
+        Route::get('/edit-listing', 'editListing')->name('editListing');
+        Route::get(uri: '/rented-property', action: 'rentedProperty')->name('rentedProperty');
     });
 });

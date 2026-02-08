@@ -77,14 +77,14 @@ export default function Sidebar() {
 
                 <nav className="space-y-2 p-4 pt-0">
                     {/* Homes */}
-                    <NavItem label="Listings (Homes)" />
-                    <NavItem href="/user/add-newlisting" label="Add New Listing (Homes)" />
-                    <NavItem label="Edit Listing (Homes)" />
+                    <NavItem href='/user/listing-homes' label="Listings (Homes)" />
+                    <NavItem href='/user/add-newlisting' label="Add New Listing (Homes)" />
+                    <NavItem href='/user/edit-listing' label="Edit Listing (Homes)" />
                     {userType == 'both' || userType == 'property_owner' ? (
                         <>
-                            <NavItem label="Listings (Rental)" />
-                            <NavItem label="Add New Listing" />
-                            <NavItem label="Edit Listing" />
+                            <NavItem href='/user/rented-property' label="Listings (Rental)" />
+                            <NavItem href='/user/add-newlisting' label="Add New Listing " />
+                            <NavItem href='/user/edit-rental' label="Edit Listing" />
                         </>
                     ) : (
                         <></>
@@ -95,11 +95,11 @@ export default function Sidebar() {
 
                     {/* Account */}
                     <NavItem
-                        href="/user/account-settings"
+                        href='/user/account-settings'
                         label="Account Settings"
                     />
 
-                    <NavItem label="Licence Verification Status" />
+                    <NavItem href='/user/licence-verification-status' label="Licence Verification Status" />
 
                     {/* Logout */}
                     <button
