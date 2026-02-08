@@ -137,7 +137,7 @@ export default function AddNewHome() { // Capitalized component name (React requ
                     <div className="pt-4">
                     <button
                         type="submit"
-                        className="bg-[#233d6b] text-white py-3 px-6 rounded font-bold hover:bg-opacity-90 transition-all"
+                        className="bg-chart-2 text-white py-3 px-6 rounded font-bold hover:bg-opacity-90 transition-all"
                     >
                         Submit Listing for Review
                     </button>

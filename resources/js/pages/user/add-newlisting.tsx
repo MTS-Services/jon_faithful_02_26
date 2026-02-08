@@ -267,7 +267,7 @@ export default function addNewListing() {
                             {/*Submit Button*/}
                             <button
                                 type="submit"
-                                className="px-6 py-2.5 border border-red-600 text-[#cc3666] rounded hover:bg-red-600 hover:text-white font-medium transition-colors"
+                                className="px-6 py-2.5 border border-red-600 text-gray-800 rounded hover:bg-red-600 hover:text-white font-medium transition-colors"
                             >
                                 Submit
                             </button>

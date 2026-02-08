@@ -14,11 +14,11 @@ export default function RentedProperty() {
                     className="w-full h-full object-cover"
                 />
 
-                <div className="absolute top-4 left-4 bg-[#d4a854] text-white px-2 py-2 rounded-full font-medium text-lg shadow-sm">
+                <div className="absolute top-4 left-4 bg-secondary text-white px-2 py-2 rounded-full font-medium text-lg shadow-sm">
                     Basic
                 </div>
 
-                <div className="absolute top-4 right-4 bg-[#233d6b] text-white px-2 py-2 rounded-full font-medium text-lg shadow-md">
+                <div className="absolute top-4 right-4 bg-primary text-white px-2 py-2 rounded-full font-medium text-lg shadow-md">
                     $25
                 </div>
                 </div>
@@ -72,11 +72,11 @@ export default function RentedProperty() {
                     className="w-full h-full object-cover"
                 />
 
-                <div className="absolute top-4 left-4 bg-[#d4a854] text-white px-2 py-2 rounded-full font-medium text-lg shadow-sm">
+                <div className="absolute top-4 left-4 bg-secondary text-white px-2 py-2 rounded-full font-medium text-lg shadow-sm">
                     Basic
                 </div>
 
-                <div className="absolute top-4 right-4 bg-[#233d6b] text-white px-2 py-2 rounded-full font-medium text-lg shadow-md">
+                <div className="absolute top-4 right-4 bg-primary text-white px-2 py-2 rounded-full font-medium text-lg shadow-md">
                     $25
                 </div>
                 </div>
@@ -130,11 +130,11 @@ export default function RentedProperty() {
                     className="w-full h-full object-cover"
                 />
 
-                <div className="absolute top-4 left-4 bg-[#d4a854] text-white px-2 py-2 rounded-full font-medium text-lg shadow-sm">
+                <div className="absolute top-4 left-4 bg-secondary text-white px-2 py-2 rounded-full font-medium text-lg shadow-sm">
                     Basic
                 </div>
 
-                <div className="absolute top-4 right-4 bg-[#233d6b] text-white px-2 py-2 rounded-full font-medium text-lg shadow-md">
+                <div className="absolute top-4 right-4 bg-primary text-white px-2 py-2 rounded-full font-medium text-lg shadow-md">
                     $25
                 </div>
                 </div>
@@ -190,11 +190,11 @@ export default function RentedProperty() {
                     className="w-full h-full object-cover"
                 />
 
-                <div className="absolute top-4 left-4 bg-[#d4a854] text-white px-2 py-2 rounded-full font-medium text-lg shadow-sm">
+                <div className="absolute top-4 left-4 bg-secondary text-white px-2 py-2 rounded-full font-medium text-lg shadow-sm">
                     Basic
                 </div>
 
-                <div className="absolute top-4 right-4 bg-[#233d6b] text-white px-2 py-2 rounded-full font-medium text-lg shadow-md">
+                <div className="absolute top-4 right-4 bg-primary text-white px-2 py-2 rounded-full font-medium text-lg shadow-md">
                     $25
                 </div>
                 </div>
@@ -248,11 +248,11 @@ export default function RentedProperty() {
                     className="w-full h-full object-cover"
                 />
 
-                <div className="absolute top-4 left-4 bg-[#d4a854] text-white px-2 py-2 rounded-full font-medium text-lg shadow-sm">
+                <div className="absolute top-4 left-4 bg-secondary text-white px-2 py-2 rounded-full font-medium text-lg shadow-sm">
                     Basic
                 </div>
 
-                <div className="absolute top-4 right-4 bg-[#233d6b] text-white px-2 py-2 rounded-full font-medium text-lg shadow-md">
+                <div className="absolute top-4 right-4 bg-primary text-white px-2 py-2 rounded-full font-medium text-lg shadow-md">
                     $25
                 </div>
                 </div>
@@ -306,11 +306,11 @@ export default function RentedProperty() {
                     className="w-full h-full object-cover"
                 />
 
-                <div className="absolute top-4 left-4 bg-[#d4a854] text-white px-2 py-2 rounded-full font-medium text-lg shadow-sm">
+                <div className="absolute top-4 left-4 bg-secondary text-white px-2 py-2 rounded-full font-medium text-lg shadow-sm">
                     Basic
                 </div>
 
-                <div className="absolute top-4 right-4 bg-[#233d6b] text-white px-2 py-2 rounded-full font-medium text-lg shadow-md">
+                <div className="absolute top-4 right-4 bg-primary text-white px-2 py-2 rounded-full font-medium text-lg shadow-md">
                     $25
                 </div>
                 </div>
