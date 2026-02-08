@@ -6,7 +6,9 @@ export default function AddNewHome() { // Capitalized component name (React requ
 
    return (
         <UserDashboardLayout> 
-           <div className="flex gap-3 mb-4 justify-center"><button className="px-6 py-2.5 rounded-md font-medium transition-colors bg-slate-800 hover:bg-slate-700 text-white">Add Listing Manually</button><button className="px-6 py-2.5 rounded-md font-medium transition-colors bg-white text-slate-800 border border-slate-300">Submit Listing via Link</button></div>
+           <div className="flex gap-3 mb-4 justify-center">
+            <button className="px-6 py-2.5 rounded-md font-medium transition-colors bg-slate-800 hover:bg-slate-700 text-white">Add Listing Manually</button><button className="px-6 py-2.5 rounded-md font-medium transition-colors bg-white text-slate-800 border border-slate-300">Submit Listing via Link</button>
+            </div>
             <div className="container mx-auto my-10 p-8 border border-gray-200 rounded-lg shadow-sm font-sans">
                 
                 {/* content */}
@@ -141,7 +143,7 @@ export default function AddNewHome() { // Capitalized component name (React requ
                     </button>
                     </div>
                 </form>
-</div>
+                </div>
 
             </div>
         </UserDashboardLayout>
