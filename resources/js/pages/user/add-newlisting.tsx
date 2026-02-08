@@ -50,7 +50,7 @@ export default function addNewListing() {
 
                                 {/* Primary Listing Image */}
                                 <div className="mb-6"> 
-                                    <label className="block text-gray-700 font-medium mb-2">
+                                    <label className="block text-secondary-foreground font-bold mb-2">
                                         Primary Listing Image*
                                     </label>
                                     <button
@@ -64,7 +64,7 @@ export default function addNewListing() {
 
                                 {/* Listing Description */}
                                 <div className="mb-6">
-                                    <label className="block text-gray-700 font-medium mb-2">
+                                    <label className="block text-secondary-foreground font-bold mb-2">
                                         Listing Description*
                                     </label>
                                     <textarea
@@ -76,7 +76,7 @@ export default function addNewListing() {
 
                                 {/* Purchase Price */}
                                 <div className="mb-6">
-                                    <label className="block text-gray-700 font-medium mb-2">
+                                    <label className="block text-secondary-foreground font-bold mb-2">
                                         Purchase Price*
                                     </label>
                                     <input
@@ -88,7 +88,7 @@ export default function addNewListing() {
 
                                 {/* Photo Gallery */}
                                 <div className="mb-6">
-                                    <label className="block text-gray-700 font-medium mb-2">
+                                    <label className="block text-secondary-foreground font-bold mb-2">
                                         Photo Gallery*
                                     </label>
                                     <button
@@ -102,7 +102,7 @@ export default function addNewListing() {
 
                                 {/* City */}
                                 <div className="mb-6">
-                                    <label className="block text-gray-700 font-medium mb-2">
+                                    <label className="block text-secondary-foreground font-bold mb-2">
                                         City*
                                     </label>
                                     <select className="w-full px-4 py-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-slate-500 focus:border-transparent outline-none transition bg-white">
@@ -115,7 +115,7 @@ export default function addNewListing() {
 
                                 {/* Listing Status */}
                                 <div className="mb-6">
-                                    <label className="block text-gray-700 font-medium mb-2">
+                                    <label className="block text-secondary-foreground font-bold mb-2">
                                         Listing Status*
                                     </label>
                                     <select className="w-full px-4 py-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-slate-500 focus:border-transparent outline-none transition bg-white">
@@ -127,7 +127,7 @@ export default function addNewListing() {
 
                                 {/* Property Type */}
                                 <div className="mb-6">
-                                    <label className="block text-gray-700 font-medium mb-2">
+                                    <label className="block text-secondary-foreground font-bold mb-2">
                                         Property Type*
                                     </label>
                                     <select className="w-full px-4 py-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-slate-500 focus:border-transparent outline-none transition bg-white">
@@ -140,7 +140,7 @@ export default function addNewListing() {
 
                                 {/* Bedrooms */}
                                 <div className="mb-6">
-                                    <label className="block text-gray-700 font-medium mb-2">
+                                    <label className="block text-secondary-foreground font-bold mb-2">
                                         Bedrooms*
                                     </label>
                                     <input
@@ -152,7 +152,7 @@ export default function addNewListing() {
 
                                 {/* Bathrooms */}
                                 <div className="mb-6">
-                                    <label className="block text-gray-700 font-medium mb-2">
+                                    <label className="block text-secondary-foreground font-bold mb-2">
                                         Bathrooms*
                                     </label>
                                     <input
@@ -164,7 +164,7 @@ export default function addNewListing() {
 
                                 {/* Square Feet */}
                                 <div className="mb-8">
-                                    <label className="block text-gray-700 font-medium mb-2">
+                                    <label className="block text-secondary-foreground font-bold mb-2">
                                         Square Feet*
                                     </label>
                                     <input
@@ -187,7 +187,7 @@ export default function addNewListing() {
                         {activeTab === 'link' && (
                             <form className="space-y-6 max-w-2xl">
                                 <div>
-                                    <label className="block text-gray-700 font-medium mb-2">
+                                    <label className="block text-secondary-foreground font-bold mb-2">
                                         Name (Based on Registration form)
                                     </label>
                                     <input
@@ -197,7 +197,7 @@ export default function addNewListing() {
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-gray-700 font-medium mb-2">
+                                    <label className="block text-secondary-foreground font-bold mb-2">
                                         Email (Based on Registration form)
                                     </label>
                                     <input
@@ -207,7 +207,7 @@ export default function addNewListing() {
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-gray-700 font-medium mb-2">
+                                    <label className="block text-secondary-foreground font-bold mb-2">
                                         External Link (Zillow, Realtor, Redfin or Broker)
                                     </label>
                                     <input
@@ -233,7 +233,7 @@ export default function addNewListing() {
                         <form>
                             {/*Name Field*/}
                             <div className="mb-6">
-                                <label className="block text-gray-900 text-sm mb-2">
+                                <label className="block text-secondary-foreground font-bold mb-2">
                                     Name (Based on Registration form)
                                 </label>
                                 <input
@@ -244,7 +244,7 @@ export default function addNewListing() {
 
                             {/*Email Field*/}
                             <div className="mb-6">
-                                <label className="block text-gray-900 text-sm mb-2">
+                                <label className="block text-secondary-foreground font-bold mb-2">
                                     Email (Based on Registration form)
                                 </label>
                                 <input
@@ -255,7 +255,7 @@ export default function addNewListing() {
 
                             {/*External Link Field*/}
                             <div className="mb-6">
-                                <label className="block text-gray-900 text-sm mb-2">
+                                <label className="block text-secondary-foreground font-bold mb-2">
                                     External Link (Zillow, Realtor, Redfin or Broker)
                                 </label>
                                 <input
