@@ -78,7 +78,7 @@ export default function Sidebar() {
                 <nav className="space-y-2 p-4 pt-0">
                     {/* Homes */}
                     <NavItem label="Listings (Homes)" />
-                    <NavItem label="Add New Listing (Homes)" />
+                    <NavItem href="/user/add-newlisting" label="Add New Listing (Homes)" />
                     <NavItem label="Edit Listing (Homes)" />
                     {userType == 'both' || userType == 'property_owner' ? (
                         <>
