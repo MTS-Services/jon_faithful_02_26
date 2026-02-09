@@ -150,126 +150,86 @@ export default function RentingSections() {
       </section>
 
       {/* Types & Lease Section */}
+
+
       <section className="bg-primary-background py-16 px-4">
-        <div className="container mx-auto grid md:grid-cols-2 gap-8">
-          <div className="flex gap-5">
-            <img src="https://whytennessee.com/wp-content/uploads/2025/12/300-S.Montclair.jpg" alt="Garden apartment" className="w-80 h-96 object-cover" />
-            <div>
-              <h3 className="text-xl lg:text-2xl mb-6">Types of Rentals Available in Tennessee</h3>
-              <p className="text-gray-600 text-md mb-6">Renters can choose from a wide variety of properties:</p>
-              <ul className="space-y-1 text-sm">
-                <li className="flex items-center gap-2 text-md">
-                  <span className="flex-shrink-0">
-                    <svg
-                      aria-hidden="true"
-                      className="w-2 h-2 fill-current text-black"
-                      viewBox="0 0 512 512"
-                    >
-                      <path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z" />
-                    </svg>
-                  </span>
-                  <span>Apartments</span>
+        <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
+
+            <div className="flex flex-col sm:flex-row gap-6">
+            <img
+                src="https://whytennessee.com/wp-content/uploads/2025/12/300-S.Montclair.jpg"
+                alt="Garden apartment in Tennessee"
+                className="w-full sm:w-72 h-96 object-cover rounded-lg shadow-md"
+            />
+            <div className="flex-1">
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">Types of Rentals Available in Tennessee</h3>
+                <p className="text-gray-600 mb-6">Renters can choose from a wide variety of properties:</p>
+
+                <ul className="space-y-3">
+                <li className="flex items-center gap-3 text-gray-700">
+                    <span className="h-2 w-2 rounded-full bg-gray-600"></span>
+                    <span>Apartments</span>
                 </li>
-                <li className="flex items-center gap-2 text-md">
-                  <span className="flex-shrink-0">
-                    <svg
-                      aria-hidden="true"
-                      className="w-2 h-2 fill-current text-black"
-                      viewBox="0 0 512 512"
-                    >
-                      <path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z" />
-                    </svg>
-                  </span>
-                  <span>Condos</span>
+
+                <li className="flex items-center gap-3 text-gray-700">
+                    <span className="h-2 w-2 rounded-full bg-gray-600"></span>
+                    <span>Condos</span>
                 </li>
-                <li className="flex items-center gap-2 text-md">
-                  <span className="flex-shrink-0">
-                    <svg
-                      aria-hidden="true"
-                      className="w-2 h-2 fill-current text-black"
-                      viewBox="0 0 512 512"
-                    >
-                      <path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z" />
-                    </svg>
-                  </span>
-                  <span>Townhomes</span>
+                <li className="flex items-center gap-3 text-gray-700">
+                    <span className="h-2 w-2 rounded-full bg-gray-600"></span>
+                    <span>Townhomes</span>
                 </li>
-                <li className="flex items-center gap-2 text-md">
-                  <span className="flex-shrink-0">
-                    <svg
-                      aria-hidden="true"
-                      className="w-2 h-2 fill-current text-black"
-                      viewBox="0 0 512 512"
-                    >
-                      <path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z" />
-                    </svg>
-                  </span>
-                  <span>Single-family homes</span>
+                <li className="flex items-center gap-3 text-gray-700">
+                    <span className="h-2 w-2 rounded-full bg-gray-600"></span>
+                    <span>Single-family homes</span>
                 </li>
-                <li className="flex items-center gap-2 text-md">
-                  <span className="flex-shrink-0">
-                    <svg
-                      aria-hidden="true"
-                      className="w-2 h-2 fill-current text-black"
-                      viewBox="0 0 512 512"
-                    >
-                      <path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z" />
-                    </svg>
-                  </span>
-                  <span>Short-term and corporate rentals</span>
+                <li className="flex items-center gap-3 text-gray-700">
+                    <span className="h-2 w-2 rounded-full bg-gray-600"></span>
+                    <span>Short-term and corporate rentals</span>
                 </li>
-              </ul>
-              <p className="text-gray-600 text-sm mt-6">Single-family home rentals are especially popular with families relocating to Tennessee.</p>
+                </ul>
+
+                <p className="text-gray-500 text-sm mt-8 italic border-l-4 border-blue-100 pl-4">
+                Single-family home rentals are especially popular with families relocating to Tennessee.
+                </p>
             </div>
-          </div>
-          <div className="flex gap-5">
-            <img src="https://whytennessee.com/wp-content/uploads/2026/01/Interracial-couple-having-consultation-with-a-realtor-scaled.jpeg" alt="Lease agreement" className="w-80 h-96 object-cover" />
-            <div>
-              <h3 className="font-bold text-xl mb-6">Lease Terms & Deposits</h3>
-              <p className="text-gray-600 text-sm mb-6">Understand Tennessee's lease agreements and security deposit requirements.</p>
-              <ul className="space-y-1 text-sm">
-                <li className="flex items-center gap-2 text-md">
-                  <span className="flex-shrink-0">
-                    <svg
-                      aria-hidden="true"
-                      className="w-2 h-2 fill-current text-black"
-                      viewBox="0 0 512 512"
-                    >
-                      <path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z" />
-                    </svg>
-                  </span>
-                  <span>Lease length: 12 months (some offer 6-month or month-to-month)</span>
-                </li>
-                <li className="flex items-center gap-2 text-md">
-                  <span className="flex-shrink-0">
-                    <svg
-                      aria-hidden="true"
-                      className="w-2 h-2 fill-current text-black"
-                      viewBox="0 0 512 512"
-                    >
-                      <path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z" />
-                    </svg>
-                  </span>
-                  <span>Security deposit: Typically 1 month’s rent</span>
-                </li>
-                <li className="flex items-center gap-2 text-md">
-                  <span className="flex-shrink-0">
-                    <svg
-                      aria-hidden="true"
-                      className="w-2 h-2 fill-current text-black"
-                      viewBox="0 0 512 512"
-                    >
-                      <path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z" />
-                    </svg>
-                  </span>
-                  <span>Pet deposit: Varies by property</span>
-                </li>
-              </ul>
-              <p className="text-gray-600 text-sm mt-6">Tennessee landlord-tenant laws are generally landlord-friendly, so renters should carefully review lease terms.</p>
             </div>
-          </div>
+
+            <div className="flex flex-col sm:flex-row gap-6">
+            <img
+                src="https://whytennessee.com/wp-content/uploads/2026/01/Interracial-couple-having-consultation-with-a-realtor-scaled.jpeg"
+                alt="Couple reviewing lease agreement"
+                className="w-full sm:w-72 h-96 object-cover rounded-lg shadow-md"
+            />
+            <div className="flex-1">
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">Lease Terms & Deposits</h3>
+                <p className="text-gray-600 mb-6">Understand Tennessee's lease agreements and security deposit requirements.</p>
+
+                <ul className="space-y-3">
+                <li className="flex items-start gap-3 text-gray-700">
+                    <span className="mt-2 h-2 w-2 rounded-full bg-gray-600 flex-shrink-0"></span>
+                    <span><strong>Lease length:</strong> 12 months (some offer 6-month or month-to-month)</span>
+                </li>
+                <li className="flex items-start gap-3 text-gray-700">
+                    <span className="mt-2 h-2 w-2 rounded-full bg-gray-600 flex-shrink-0"></span>
+                    <span><strong>Security deposit:</strong> Typically 1 month’s rent</span>
+                </li>
+                <li className="flex items-start gap-3 text-gray-700">
+                    <span className="mt-2 h-2 w-2 rounded-full bg-gray-600 flex-shrink-0"></span>
+                    <span><strong>Pet deposit:</strong> Varies by property</span>
+                </li>
+                </ul>
+
+                <div className="mt-8 p-4 bg-amber-50 rounded-lg border border-amber-100">
+                <p className="text-amber-800 text-sm">
+                    <strong>Note:</strong> Tennessee landlord-tenant laws are generally landlord-friendly, so renters should carefully review lease terms.
+                </p>
+                </div>
+            </div>
+            </div>
+
         </div>
-      </section>
+    </section>
 
       {/* Utilities Section */}
       <section className="bg-primary text-white py-16 px-4">
