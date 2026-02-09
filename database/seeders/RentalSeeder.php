@@ -1,0 +1,70 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\City;
+use App\Models\User;
+use App\Models\Rental;
+use App\Enums\ActiveInactive;
+use App\Enums\RentalProperty;
+use Illuminate\Database\Seeder;
+
+class RentalSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $user = User::first();
+        $city = City::first();
+
+        if (!$user || !$city) {
+            $this->command->warn('Users or Cities table is empty. RentalSeeder skipped.');
+            return;
+        }
+
+        $rentals = [
+            [
+                'listing_title'   => 'Modern 2 Bed Apartment',
+                'description'     => 'Bright apartment close to downtown and public transport.',
+                'purchase_price'  => 1800,
+                'security_deposit' => 1800,
+                'property_type'   => RentalProperty::APARTMENT->value,
+                'lease_length'    => 12,
+                'bedrooms'        => 2,
+                'bathrooms'       => 1,
+                'square_feet'     => 950,
+                'pet_friendly'    => true,
+                'parking_garage'  => 1,
+                'sort_order'      => 1,
+            ],
+            [
+                'listing_title'   => 'Family Home with Garage',
+                'description'     => 'Spacious rental home in a quiet neighborhood.',
+                'purchase_price'  => 2400,
+                'security_deposit' => 2400,
+                'property_type'   => RentalProperty::SINGLE_FAMILY_HOME->value,
+                'lease_length'    => 6,
+                'bedrooms'        => 3,
+                'bathrooms'       => 2,
+                'square_feet'     => 1700,
+                'pet_friendly'    => false,
+                'parking_garage'  => 2,
+                'sort_order'      => 2,
+            ],
+        ];
+
+        foreach ($rentals as $data) {
+            Rental::updateOrCreate(
+                [
+                    'listing_title' => $data['listing_title'],
+                    'city_id'       => $city->id,
+                ],
+                array_merge($data, [
+                    'user_id'           => $user->id,
+                    'city_id'           => $city->id,
+                    'primary_image_url' => 'https://via.placeholder.com/1200x800',
+                    'status'            => ActiveInactive::ACTIVE->value,
+                ])
+            );
+        }
+    }
+}

@@ -3,7 +3,6 @@ import { Menu, X } from 'lucide-react'
 import { useState } from 'react'
 import { cn } from '@/lib/utils'
 import { SharedData } from '@/types'
-import { set } from 'date-fns'
 
 export default function Sidebar() {
     const { url } = usePage()
@@ -77,14 +76,14 @@ export default function Sidebar() {
 
                 <nav className="space-y-2 p-4 pt-0">
                     {/* Homes */}
-                    <NavItem href='/user/listings-homes' label="Listings (Homes)" />
-                    <NavItem href='/user/add-newlisting' label="Add New Listing (Homes)" />
-                    <NavItem href='/user/edit-listing' label="Edit Listing (Homes)" />
+                    <NavItem href='/account/listings-homes' label="Listings (Homes)" />
+                    <NavItem href='/account/add-listing-home' label="Add New Listing (Homes)" />
+                    {/* <NavItem href='/account/edit-listing-home' label="Edit Listing (Homes)" /> */}
                     {userType == 'both' || userType == 'property_owner' ? (
                         <>
-                            <NavItem href='/user/rented-property' label="Listings (Rental)" />
-                            <NavItem href='/user/add-newhome' label="Add New Listing " />
-                            <NavItem href='/user/edit-home' label="Edit Listing" />
+                            <NavItem href='/account/listings-rentals' label="Listings (Rental)" />
+                            <NavItem href='/account/add-listing-rental' label="Add New Listing " />
+                            {/* <NavItem href='/account/edit-listing-rental' label="Edit Listing" /> */}
                         </>
                     ) : (
                         <></>
@@ -95,11 +94,11 @@ export default function Sidebar() {
 
                     {/* Account */}
                     <NavItem
-                        href='/user/account-settings'
+                        href='/account/account-settings'
                         label="Account Settings"
                     />
 
-                    <NavItem href='/user/licence-verification-status' label="Licence Verification Status" />
+                    <NavItem href='/account/licence-verification-status' label="Licence Verification Status" />
 
                     {/* Logout */}
                     <button
