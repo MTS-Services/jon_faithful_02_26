@@ -13,6 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('listings', function (Blueprint $table) {
+            $table->id();
 
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('sort_order')->default(0);

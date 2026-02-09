@@ -13,6 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('rentals', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('sort_order')->default(0);
             $table->unsignedBigInteger('city_id');

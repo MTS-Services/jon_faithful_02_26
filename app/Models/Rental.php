@@ -38,6 +38,15 @@ class Rental extends Model
 
     /* ---------------- Relationships ---------------- */
 
+    public function galleries()
+    {
+        return $this->morphMany(
+            ListingGallery::class,
+            'listing',
+            'listing_type',
+            'listing_id'
+        );
+    }
     public function user()
     {
         return $this->belongsTo(User::class);

@@ -1,214 +1,328 @@
+import FileUpload from '@/components/file-upload';
+import InputError from '@/components/input-error';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import UserDashboardLayout from '@/layouts/user-dashboard-layout';
-import { useState } from 'react';
+import { useForm } from '@inertiajs/react';
+import { id } from 'date-fns/locale';
+import { FormEvent, useEffect, useState } from 'react';
+import { toast } from 'sonner';
 
-export default function EditListingHome() {
-    const [activeTab, setActiveTab] = useState('manual');
+interface City {
+    id: number;
+    name: string;
+}
+
+interface PropertyOption {
+    value: string;
+    label: string;
+}
+
+interface Listing {
+    id: number;
+    title: string;
+    description: string;
+    purchase_price: string;
+    city_id: number;
+    listing_status: string;
+    property_type: string;
+    bedrooms: number;
+    bathrooms: number;
+    square_feet: number;
+    primary_image_url: string | null;
+    image_url: string[];
+}
+
+interface Props {
+    listing: Listing;
+    cities: City[];
+    propertyTypes: PropertyOption[];
+    propertyStatuses: PropertyOption[];
+}
+
+export default function EditListingHome({ listing, cities, propertyTypes, propertyStatuses }: Props) {
+    const { data, setData, post, processing, errors } = useForm({
+        title: listing.title || '',
+        description: listing.description || '',
+        purchase_price: listing.purchase_price || '',
+        city_id: String(listing.city_id) || '',
+        listing_status: listing.listing_status || propertyStatuses[0]?.value || '',
+        property_type: listing.property_type || propertyTypes[0]?.value || '',
+        bedrooms: String(listing.bedrooms) || '',
+        bathrooms: String(listing.bathrooms) || '',
+        square_feet: String(listing.square_feet) || '',
+        primary_image_url: null as File | null,
+        gallery_images: [] as File[],
+        _method: 'PUT',
+    });
+    const [existingFiles, setExistingFiles] = useState<any[]>([]);
+    useEffect(() => {
+        if (data) {
+            setData({
+                ...data,
+                _method: 'PUT',
+            });
+
+            // Update existing files whenever information changes
+            if (listing.primary_image_url) {
+                setExistingFiles([{
+                    id: listing.id,
+                    url: listing.image_url,
+                    name: listing.primary_image_url,
+                    path: listing.primary_image_url,
+                    mime_type: 'image/*'
+                }]);
+            } else {
+                setExistingFiles([]);
+            }
+        }
+    }, [listing]);
+
+
+    console.log(listing);
+    const handleRemoveExisting = () => {
+        if (confirm('Are you sure you want to remove this file? You must upload a new file to save the changes.')) {
+            setExistingFiles([]);
+        }
+    };
+
+    const handleSubmit = (e: FormEvent) => {
+        e.preventDefault();
+        post(route('user.update-listing-home', listing.id), {
+            onSuccess: () => {
+                toast.success('Listing updated successfully.');
+            },
+            onError: () => {
+                toast.error('Failed to update listing.');
+            },
+        });
+    };
 
     return (
-        <UserDashboardLayout> 
+        <UserDashboardLayout>
+            <div className="bg-gray-50 min-h-screen p-2">
+                <div className="container mx-auto bg-white rounded-lg shadow-md p-6">
+                    <h2 className="text-2xl font-bold text-gray-800 mb-6">Edit Listing</h2>
 
-        <div className="bg-gray-50 p-2">
-        <div className="container mx-auto bg-white rounded-lg shadow-md p-6">
-            <form>
-            {/* Listing Title */}
-            <div className="mb-4">
-                <label className="block text-sm font-bold text-secondary-foreground mb-2">
-                Listing Title<span className="text-secondary-foreground">*</span>
-                </label>
-                <input
-                type="text"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                required
-                />
-            </div>
-            {/* Featured Image */}
-            <div className="mb-4">
-                <label className="block text-sm font-bold text-secondary-foreground mb-2">
-                Featured Image<span className="text-secondary-foreground">*</span>
-                </label>
-                <button
-                type="button"
-                className="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400"
-                >
-                Choose File
-                </button>
-                <p className="text-xs text-gray-500 mt-1">Maximum file size: 10 MB</p>
-            </div>
-            {/* Listing Description */}
-            <div className="mb-4">
-                <label className="block text-sm font-bold text-secondary-foreground mb-2">
-                Listing Description<span className="text-secondary-foreground">*</span>
-                </label>
-                <textarea
-                rows={4}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                required
-                defaultValue={""}
-                />
-            </div>
-            {/* Purchase Price */}
-            <div className="mb-4">
-                <label className="block text-sm font-bold text-secondary-foreground mb-2">
-                Purchase Price<span className="text-secondary-foreground">*</span>
-                </label>
-                <input
-                type="text"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                required
-                />
-            </div>
-            {/* Deposit */}
-            <div className="mb-4">
-                <label className="block text-sm font-bold text-secondary-foreground mb-2">
-                Deposit<span className="text-secondary-foreground">*</span>
-                </label>
-                <input
-                type="text"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                required
-                />
-            </div>
-            {/* Lease Length */}
-            <div className="mb-4">
-                <label className="block text-sm font-bold text-secondary-foreground mb-2">
-                Lease length<span className="text-secondary-foreground">*</span>
-                </label>
-                <input
-                type="text"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                required
-                />
-            </div>
-            {/* Bedrooms */}
-            <div className="mb-4">
-                <label className="block text-sm font-bold text-secondary-foreground mb-2">
-                Bedrooms<span className="text-secondary-foreground">*</span>
-                </label>
-                <input
-                type="text"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                required
-                />
-            </div>
-            {/* Bathroom */}
-            <div className="mb-4">
-                <label className="block text-sm font-bold text-secondary-foreground mb-2">
-                Bathroom<span className="text-secondary-foreground">*</span>
-                </label>
-                <input
-                type="text"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                required
-                />
-            </div>
-            {/* Square Footage */}
-            <div className="mb-4">
-                <label className="block text-sm font-bold text-secondary-foreground mb-2">
-                Square footage<span className="text-secondary-foreground">*</span>
-                </label>
-                <input
-                type="text"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                required
-                />
-            </div>
-            {/* Photo Gallery */}
-            <div className="mb-4">
-                <label className="block text-sm font-bold text-secondary-foreground mb-2">
-                Photo Gallery<span className="text-secondary-foreground">*</span>
-                </label>
-                <button
-                type="button"
-                className="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400"
-                >
-                Choose Files
-                </button>
-                <p className="text-xs text-gray-500 mt-1">Maximum file size: 246 MB</p>
-            </div>
-            {/* Pet Friendly */}
-            <div className="mb-4">
-                <label className="block text-sm font-bold text-secondary-foreground mb-2">
-                Pet Friendly<span className="text-secondary-foreground">*</span>
-                </label>
-                <div className="space-y-2">
-                <div className="flex items-center">
-                    <input
-                    type="radio"
-                    id="pet-yes"
-                    name="pet-friendly"
-                    defaultValue="yes"
-                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
-                    />
-                    <label htmlFor="pet-yes" className="ml-2 text-sm text-gray-700">
-                    Yes
-                    </label>
-                </div>
-                <div className="flex items-center">
-                    <input
-                    type="radio"
-                    id="pet-no"
-                    name="pet-friendly"
-                    defaultValue="no"
-                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
-                    />
-                    <label htmlFor="pet-no" className="ml-2 text-sm text-gray-700">
-                    No
-                    </label>
-                </div>
-                </div>
-            </div>
-            {/* Parking / Garage */}
-            <div className="mb-4">
-                <label className="block text-sm font-bold text-secondary-foreground mb-2">
-                parking / garage<span className="text-secondary-foreground">*</span>
-                </label>
-                <input
-                type="text"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                required
-                />
-            </div>
-            {/* Rent City */}
-            <div className="mb-4">
-                <label className="block text-sm font-bold text-secondary-foreground mb-2">
-                Rent City<span className="text-secondary-foreground">*</span>
-                </label>
-                <input
-                type="text"
-                defaultValue="Chattanooga"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                required
-                />
-            </div>
-            {/* Property Type */}
-            <div className="mb-6">
-                <label className="block text-sm font-bold text-secondary-foreground mb-2">
-                Property Type<span className="text-secondary-foreground">*</span>
-                </label>
-                <select
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                required
-                >
-                <option value="apartment">Apartment</option>
-                <option value="house">House</option>
-                <option value="condo">Condo</option>
-                <option value="townhouse">Townhouse</option>
-                </select>
-            </div>
-            {/* Submit Button */}
-            <div>
-                <button
-                type="submit"
-                className="w-full sm:w-auto px-6 py-2.5 bg-blue-900 text-white font-medium rounded hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
-                >
-                Update Listing
-                </button>
-            </div>
-            </form>
-        </div>
-        </div>
+                    <form onSubmit={handleSubmit}>
+                        {/* Listing Title */}
+                        <div className="grid gap-2 mb-6">
+                            <Label htmlFor="title">Listing Title*</Label>
+                            <Input
+                                id="title"
+                                type="text"
+                                value={data.title}
+                                onChange={(e) => setData('title', e.target.value)}
+                                placeholder="Enter listing title"
+                            />
+                            <InputError message={errors.title} />
+                        </div>
 
+                        {/* Primary Listing Image */}
+                        <div className="mb-6 w-80">
+                            <div className="grid gap-2">
+                                <Label htmlFor="primary_image_url">Primary Listing Image</Label>
+                                {/* {listing.primary_image_url && !data.primary_image_url && (
+                                    <div className="mb-2">
+                                        <img
+                                            src={listing.image_url}
+                                            alt="Current primary image"
+                                            className="w-full h-48 object-cover rounded-md border border-gray-300"
+                                        />
+                                        <p className="text-xs text-gray-500 mt-1">Current image</p>
+                                    </div>
+                                )} */}
+                                {/* <FileUpload
+                                    value={data.primary_image_url}
+                                    onChange={(file) => setData('primary_image_url', file as File | null)}
+                                    accept="image/*"
+                                    maxSize={10}
+                                /> */}
+                                <FileUpload
+                                    value={data.primary_image_url}
+                                    onChange={(file) => setData('primary_image_url', file as File | null)}
+                                    existingFiles={existingFiles}
+                                    onRemoveExisting={handleRemoveExisting}
+                                    accept="image/*"
+                                    maxSize={10}
+                                />
+                                <InputError message={errors.primary_image_url} />
+                            </div>
+                        </div>
 
+                        {/* Listing Description */}
+                        <div className="grid gap-2 mb-6">
+                            <Label htmlFor="description">Listing Description*</Label>
+                            <textarea
+                                id="description"
+                                rows={4}
+                                value={data.description}
+                                onChange={(e) => setData('description', e.target.value)}
+                                className="w-full px-4 py-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-slate-500 focus:border-transparent outline-none transition resize-none"
+                                placeholder="Enter listing description"
+                            />
+                            <InputError message={errors.description} />
+                        </div>
+
+                        {/* Purchase Price */}
+                        <div className="grid gap-2 mb-6">
+                            <Label htmlFor="purchase_price">Purchase Price*</Label>
+                            <Input
+                                id="purchase_price"
+                                type="text"
+                                value={data.purchase_price}
+                                onChange={(e) => setData('purchase_price', e.target.value)}
+                                placeholder="Enter purchase price"
+                            />
+                            <InputError message={errors.purchase_price} />
+                        </div>
+
+                        {/* Photo Gallery */}
+                        <div className="mb-6">
+                            <Label htmlFor="gallery_images">Photo Gallery</Label>
+                            
+                            <input
+                                id="gallery_images"
+                                type="file"
+                                accept="image/*"
+                                multiple
+                                onChange={(e) => {
+                                    if (e.target.files) {
+                                        setData('gallery_images', Array.from(e.target.files));
+                                    }
+                                }}
+                                className="block w-full text-sm text-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded file:border file:border-gray-300 file:text-sm file:font-medium file:bg-gray-50 hover:file:bg-gray-100 file:transition"
+                            />
+                            <p className="text-xs text-gray-500 mt-1">Maximum file size: 25 MB per image</p>
+                            <InputError message={errors.gallery_images} />
+                        </div>
+
+                        {/* City */}
+                        <div className="grid gap-2 mb-6">
+                            <Label htmlFor="city_id">City*</Label>
+                            <Select
+                                value={data.city_id}
+                                onValueChange={(value) => setData('city_id', value)}
+                            >
+                                <SelectTrigger className="datatable-select">
+                                    <SelectValue placeholder="Select city" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {cities.map((city) => (
+                                        <SelectItem key={city.id} value={String(city.id)}>
+                                            {city.name}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                            <InputError message={errors.city_id} />
+                        </div>
+
+                        {/* Listing Status */}
+                        <div className="grid gap-2 mb-6">
+                            <Label htmlFor="listing_status">Listing Status*</Label>
+                            <Select
+                                value={data.listing_status}
+                                onValueChange={(value) => setData('listing_status', value)}
+                            >
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Select listing status" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {propertyStatuses.map((status) => (
+                                        <SelectItem key={status.value} value={status.value}>
+                                            {status.label}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                            <InputError message={errors.listing_status} />
+                        </div>
+
+                        {/* Property Type */}
+                        <div className="grid gap-2 mb-6">
+                            <Label htmlFor="property_type">Property Type*</Label>
+                            <Select
+                                value={data.property_type}
+                                onValueChange={(value) => setData('property_type', value)}
+                            >
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Select property type" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {propertyTypes.map((type) => (
+                                        <SelectItem key={type.value} value={type.value}>
+                                            {type.label}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                            <InputError message={errors.property_type} />
+                        </div>
+
+                        {/* Bedrooms */}
+                        <div className="grid gap-2 mb-6">
+                            <Label htmlFor="bedrooms">Bedrooms*</Label>
+                            <Input
+                                id="bedrooms"
+                                type="number"
+                                min="0"
+                                value={data.bedrooms}
+                                onChange={(e) => setData('bedrooms', e.target.value)}
+                                placeholder="Type number of bedrooms"
+                            />
+                            <InputError message={errors.bedrooms} />
+                        </div>
+
+                        {/* Bathrooms */}
+                        <div className="grid gap-2 mb-6">
+                            <Label htmlFor="bathrooms">Bathrooms*</Label>
+                            <Input
+                                id="bathrooms"
+                                type="number"
+                                min="0"
+                                value={data.bathrooms}
+                                onChange={(e) => setData('bathrooms', e.target.value)}
+                                placeholder="Type number of bathrooms"
+                            />
+                            <InputError message={errors.bathrooms} />
+                        </div>
+
+                        {/* Square Feet */}
+                        <div className="grid gap-2 mb-8">
+                            <Label htmlFor="square_feet">Square Feet*</Label>
+                            <Input
+                                id="square_feet"
+                                type="number"
+                                min="0"
+                                value={data.square_feet}
+                                onChange={(e) => setData('square_feet', e.target.value)}
+                                placeholder="Type square footage"
+                            />
+                            <InputError message={errors.square_feet} />
+                        </div>
+
+                        {/* Submit Button */}
+                        <div className="flex gap-3">
+                            <button
+                                type="submit"
+                                disabled={processing}
+                                className="bg-slate-800 hover:bg-slate-700 text-white px-8 py-3 rounded-md font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                                {processing ? 'Updating...' : 'Update Listing'}
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => window.history.back()}
+                                className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-8 py-3 rounded-md font-medium transition-colors"
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </UserDashboardLayout>
     );
 }
