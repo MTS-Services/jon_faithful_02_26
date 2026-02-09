@@ -1,7 +1,7 @@
 import React from 'react';
 import UserDashboardLayout from '@/layouts/user-dashboard-layout';
 
-export default function RentedProperty() {
+export default function Listings() {
     return (
         <UserDashboardLayout>
            <div className="flex flex-wrap sm:flex-nowrap items-start gap-3 py-2">

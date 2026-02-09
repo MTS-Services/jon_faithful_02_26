@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\ListingHomeController;
+use App\Http\Controllers\ListingRentalController;
 use App\Http\Controllers\User\UserAuthController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
@@ -9,7 +11,7 @@ Route::get('/login', [LoginController::class, 'showLogin'])->name('login');
 Route::post('/login', [LoginController::class, 'store'])->name('login.post');
 Route::get('/register', [UserAuthController::class, 'register'])->name('register');
 Route::post('/register', [UserAuthController::class, 'registerStore'])->name('register.post');
-Route::prefix('user')->name('user.')->group(function () {
+Route::prefix('account')->name('user.')->group(function () {
     Route::get('/choose-user', [UserAuthController::class, 'userChoose'])->name('choose');
     // Authentication Routes...
     Route::middleware(['auth'])->controller(UserController::class)->group(function () {
@@ -18,11 +20,16 @@ Route::prefix('user')->name('user.')->group(function () {
 
         Route::get('/account-settings', 'accountSettings')->name('account-settings');
         Route::post('/account-settings', 'accountSettingsUpdate')->name('account-settings.update');
-        Route::get('/add-newlisting', 'addNewListing')->name('addNewListing');
-        Route::get('/edit-listing', 'editListing')->name('editListing');
-        Route::get(uri: '/rented-property', action: 'rentedProperty')->name('rentedProperty');
-        Route::get(uri: '/edit-home', action: 'editHome')->name('editHome');
-        Route::get(uri: '/add-newhome', action: 'addNewHome')->name('addNewHome');
-        Route::get('/listings-homes', 'listingsHomes')->name('dashboard');
+        Route::get('/licence-verification-status', 'licenceVerificationStatus')->name('licence-verification-status');
+    });
+    Route::middleware(['auth'])->controller(ListingHomeController::class)->group(function () {
+        Route::get('/listings-homes', 'listings')->name('dashboard');
+        Route::get('/add-listing-home', 'addListing')->name('add-listing-home');
+        Route::get('/edit-listing-home', 'editListing')->name('edit-listing-home');
+    });
+    Route::middleware(['auth'])->controller(ListingRentalController::class)->group(function () {
+        Route::get('/listings-rentals', 'listings')->name('listings-rentals');
+        Route::get('/add-listing-rental', 'addListing')->name('add-listing-rental');
+        Route::get('/edit-listing-rental', 'editListing')->name('edit-listing-rental');
     });
 });

@@ -90,31 +90,8 @@ class UserController extends Controller
             return back()->with('error', 'Something went wrong. Please try again.');
         }
     }
-
-    public function listingsHomes()
+     public function licenceVerificationStatus(): Response
     {
-        return Inertia::render('user/listings-homes');
-    }
-
-    public function addNewListing()
-    {
-        return Inertia::render('user/add-newlisting');
-    }
-
-    public function editListing()
-    {
-        return Inertia::render('user/edit-listing');
-    }
-    public function rentedProperty()
-    {
-        return Inertia::render('user/rented-property');
-    }
-    public function editHome()
-    {
-        return Inertia::render('user/edit-home');
-    }
-    public function addNewHome()
-    {
-        return Inertia::render('user/add-newhome');
+        return Inertia::render('user/licence-verification-status');
     }
 }

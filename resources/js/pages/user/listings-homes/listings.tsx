@@ -1,6 +1,6 @@
 import UserDashboardLayout from '@/layouts/user-dashboard-layout';
 
-export default function ListingHomes() {
+export default function Listings() {
     return (
         <UserDashboardLayout>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-center space-x-4">

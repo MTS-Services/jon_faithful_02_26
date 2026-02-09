@@ -1,7 +1,7 @@
 import UserDashboardLayout from '@/layouts/user-dashboard-layout';
 import { useState } from 'react';
 
-export default function EditHome() {
+export default function EditListingHome() {
     const [activeTab, setActiveTab] = useState('manual');
 
     return (

@@ -1,7 +1,7 @@
 import UserDashboardLayout from '@/layouts/user-dashboard-layout';
 import { useState } from 'react';
 
-export default function AddNewHome() { // Capitalized component name (React requirement)
+export default function AddListingHome() { // Capitalized component name (React requirement)
     const [, setActiveTab] = useState('manual');
 
    return (
