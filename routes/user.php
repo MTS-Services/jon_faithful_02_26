@@ -25,7 +25,10 @@ Route::prefix('account')->name('user.')->group(function () {
     Route::middleware(['auth'])->controller(ListingHomeController::class)->group(function () {
         Route::get('/listings-homes', 'listings')->name('dashboard');
         Route::get('/add-listing-home', 'addListing')->name('add-listing-home');
+        Route::post('/add-listing-home', 'addListingStore')->name('add-listing-home');
         Route::get('/edit-listing-home', 'editListing')->name('edit-listing-home');
+        Route::put('/edit-listing-home', 'editListingUpdate')->name('edit-listing-home');
+        Route::get('/delete-listing-home', 'deleteListing')->name('delete-listing-home');
     });
     Route::middleware(['auth'])->controller(ListingRentalController::class)->group(function () {
         Route::get('/listings-rentals', 'listings')->name('listings-rentals');
