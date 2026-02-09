@@ -34,6 +34,9 @@ Route::prefix('account')->name('user.')->group(function () {
     Route::middleware(['auth'])->controller(ListingRentalController::class)->group(function () {
         Route::get('/listings-rentals', 'listings')->name('listings-rentals');
         Route::get('/add-listing-rental', 'addListing')->name('add-listing-rental');
-        Route::get('/edit-listing-rental', 'editListing')->name('edit-listing-rental');
+        Route::post('/store-listing-rental', 'storeListing')->name('store-listing-rental');
+        Route::get('/edit-listing-rental/{id}', 'editListing')->name('edit-listing-rental');
+        Route::put('/edit-listing-rental/{id}', 'updateListing')->name('update-listing-rental');
+        Route::get('/delete-listing-rental/{id}', 'deleteListing')->name('delete-listing-rental');
     });
 });

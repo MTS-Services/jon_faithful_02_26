@@ -67,7 +67,7 @@ export default function Listings({ rentals }: Props) {
 
                         <div className="flex">
                             <div className='w-full'>
-                                <Link href={route('user.edit-listing-home', rental.id)}>
+                                <Link href={route('user.edit-listing-rental', rental.id)}>
                                     <Button className="rounded-none w-full!">
                                         Edit Post
                                     </Button>

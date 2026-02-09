@@ -63,4 +63,16 @@ class Rental extends Model
     {
         return $query->where('status', ActiveInactive::ACTIVE->value);
     }
+
+    protected $appends = ['image_url'];
+    public function getImageUrlAttribute()
+    {
+        if (filter_var($this->primary_image_url, FILTER_VALIDATE_URL)) {
+            return $this->primary_image_url;
+        }
+        if (!$this->primary_image_url) {
+            return asset('no-image.png');
+        }
+        return asset('storage/rentals/primary/' . $this->primary_image_url);
+    }
 }

@@ -79,8 +79,6 @@ export default function EditListingHome({ listing, cities, propertyTypes, proper
         }
     }, [listing]);
 
-
-    console.log(listing);
     const handleRemoveExisting = () => {
         if (confirm('Are you sure you want to remove this file? You must upload a new file to save the changes.')) {
             setExistingFiles([]);
