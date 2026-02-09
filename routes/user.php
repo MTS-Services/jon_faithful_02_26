@@ -18,6 +18,11 @@ Route::prefix('user')->name('user.')->group(function () {
 
         Route::get('/account-settings', 'accountSettings')->name('account-settings');
         Route::post('/account-settings', 'accountSettingsUpdate')->name('account-settings.update');
+        Route::get('/add-newlisting', 'addNewListing')->name('addNewListing');
+        Route::get('/edit-listing', 'editListing')->name('editListing');
+        Route::get(uri: '/rented-property', action: 'rentedProperty')->name('rentedProperty');
+        Route::get(uri: '/edit-home', action: 'editHome')->name('editHome');
+        Route::get(uri: '/add-newhome', action: 'addNewHome')->name('addNewHome');
         Route::get('/listings-homes', 'listingsHomes')->name('dashboard');
     });
 });
