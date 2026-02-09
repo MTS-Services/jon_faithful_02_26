@@ -49,7 +49,7 @@ export default function addNewListing() {
                                 </div>
 
                                 {/* Primary Listing Image */}
-                                <div className="mb-6"> 
+                                <div className="mb-6">
                                     <label className="block text-secondary-foreground font-bold mb-2">
                                         Primary Listing Image*
                                     </label>

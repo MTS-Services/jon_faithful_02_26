@@ -105,14 +105,17 @@ class UserController extends Controller
     {
         return Inertia::render('user/edit-listing');
     }
+
     public function rentedProperty()
     {
         return Inertia::render('user/rented-property');
     }
+
     public function editHome()
     {
         return Inertia::render('user/edit-home');
     }
+
     public function addNewHome()
     {
         return Inertia::render('user/add-newhome');
