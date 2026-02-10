@@ -24,6 +24,7 @@ class User extends Authenticatable
         'brokerage_name',
         'license_number',
         'image',
+        'is_verified',
     ];
 
     protected $hidden = [
@@ -38,6 +39,7 @@ class User extends Authenticatable
             'password' => 'hashed',
             'user_type' => UserType::class,
             'status' => ActiveInactive::class,
+            'is_verified' => 'boolean',
         ];
     }
 

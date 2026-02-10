@@ -19,29 +19,26 @@ const adminNavItems: NavItemType[] = [
         icon: Users,
         badge: 42,
         children: [
-            {
-                title: 'Admins',
-                href: route('admin.index'),
-                icon: Shield,
-                permission: 'manage admins',
-                slug: 'admin-admins',
-            },
+            // {
+            //     title: 'Admins',
+            //     href: route('admin.index'),
+            //     icon: Shield,
+            //     permission: 'manage admins',
+            //     slug: 'admin-admins',
+            // },
             {
                 title: 'Users',
                 href: route('admin.um.users.index'),
                 icon: User,
                 permission: 'manage users',
                 slug: 'admin-users',
-                // children: [
-                //     {
-                //         title: 'All',
-                //         href: route('admin.um.users.index'),
-                //         icon: User,
-                //         slug: 'admin-users'
-                //     },
-                //     { title: 'Active', href: '#' },
-                //     { title: 'Premium', href: '#', badge: 15 },
-                // ],
+            },
+            {
+                title: 'Pending Verification',
+                href: route('admin.um.user.pending-verification'),
+                icon: User,
+                permission: 'manage users',
+                slug: 'admin-users',
             },
         ],
     },

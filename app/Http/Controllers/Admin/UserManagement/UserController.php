@@ -22,7 +22,7 @@ class UserController extends Controller
 
     public function index(): Response
     {
-        $queryBody = User::query();
+        $queryBody = User::query()->where('is_verified', true);
 
 
         $result = $this->dataTableService->process($queryBody, request(), [
@@ -32,7 +32,7 @@ class UserController extends Controller
 
 
         return Inertia::render('admin/user-management/users/index', [
-            'admins' => $result['data'],
+            'users' => $result['data'],
             'pagination' => $result['pagination'],
             'offset' => $result['offset'],
             'filters' => $result['filters'],
@@ -78,7 +78,7 @@ class UserController extends Controller
             $file->storeAs('user_images', $imageName);
             $data['image'] = $imageName;
         }
-        
+
         $user = User::create($data);
         if (!$user) {
             return redirect()->back()->withErrors(['error' => 'Failed to create user.'])->withInput();
@@ -161,5 +161,33 @@ class UserController extends Controller
         $user->delete();
 
         return redirect()->route('admin.um.users.index');
+    }
+
+    public function pendingVerification(): Response
+    {
+        $queryBody = User::query()->where('is_verified', false);
+
+
+        $result = $this->dataTableService->process($queryBody, request(), [
+            'searchable' => ['name', 'email'],
+            'sortable' => ['id', 'name', 'email', 'created_at'],
+        ]);
+
+
+        return Inertia::render('admin/user-management/users/pending-verification', [
+            'users' => $result['data'],
+            'pagination' => $result['pagination'],
+            'offset' => $result['offset'],
+            'filters' => $result['filters'],
+            'search' => $result['search'],
+            'sortBy' => $result['sort_by'],
+            'sortOrder' => $result['sort_order']
+        ]);
+    }
+    public function verified($id)
+    {
+       $user = User::findOrFail($id);
+       $user->update(['is_verified' => true]);
+       return redirect()->route('admin.um.user.pending-verification');
     }
 }

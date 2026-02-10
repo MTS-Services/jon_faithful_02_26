@@ -33,6 +33,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
             Route::put('/user/{id}', [UserController::class, 'update'])->name('user.update');
             Route::get('/users/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+            Route::get('/pending-verification', [UserController::class, 'pendingVerification'])->name('user.pending-verification');
+            Route::get('/user/verify/{id}', [UserController::class, 'verified'])->name('user.verify');
         });
     });
 });
