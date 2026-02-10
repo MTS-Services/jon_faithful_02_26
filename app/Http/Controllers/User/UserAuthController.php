@@ -80,8 +80,10 @@ class UserAuthController extends Controller
             return redirect()->back()->withErrors(['error' => 'Failed to register user.'])->withInput();
         }
         // Mail::to($user->email)->send(new FoundingPartnerRegistrationMail($user));
-        Mail::to($user->email)->later(now()->addSeconds(5), new FoundingPartnerRegistrationMail($user));
-        Mail::to('XUH2s@example.com')->send(new FoundingAdminRegistrationMail($user));
+        if ($user->email) {
+            Mail::to($user->email)->later(now()->addSeconds(5), new FoundingPartnerRegistrationMail($user));
+        }
+        Mail::to('info@whytennessee.com')->send(new FoundingAdminRegistrationMail($user));
         Auth::login($user);
 
         return redirect()->route('user.pending-verification');

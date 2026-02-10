@@ -5,14 +5,16 @@ namespace App\Http\Controllers\Admin\UserManagement;
 use App\Models\User;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Enums\UserType;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Services\DataTableService;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
-use App\Concerns\PasswordValidationRules;
-use App\Enums\UserType;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\FoundingUserVerifiedMail;
 use Illuminate\Support\Facades\Storage;
+use App\Concerns\PasswordValidationRules;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -186,8 +188,16 @@ class UserController extends Controller
     }
     public function verified($id)
     {
-       $user = User::findOrFail($id);
-       $user->update(['is_verified' => true]);
-       return redirect()->route('admin.um.user.pending-verification');
+        $user = User::findOrFail($id);
+        $user->update(['is_verified' => true]);
+
+        if (!$user) {
+            return redirect()->back()->withErrors(['error' => 'Failed to create user.'])->withInput();
+        }
+        if ($user->email) {
+            Mail::to($user->email)->send(new FoundingUserVerifiedMail($user));
+        }
+
+        return redirect()->route('admin.um.user.pending-verification');
     }
 }
