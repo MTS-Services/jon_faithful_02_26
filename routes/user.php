@@ -1,11 +1,11 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ListingHomeController;
 use App\Http\Controllers\ListingRentalController;
 use App\Http\Controllers\User\UserAuthController;
-use App\Http\Controllers\User\UserController;
-use Illuminate\Support\Facades\Route;
 
 Route::get('/login', [LoginController::class, 'showLogin'])->name('login');
 Route::post('/login', [LoginController::class, 'store'])->name('login.post');
@@ -14,6 +14,7 @@ Route::post('/register', [UserAuthController::class, 'registerStore'])->name('re
 Route::prefix('account')->name('user.')->group(function () {
     Route::get('/choose-user', [UserAuthController::class, 'userChoose'])->name('choose');
     // Authentication Routes...
+    Route::get('/pending-verification', [UserController::class, 'accountPending'])->name('pending-verification');
     Route::middleware(['auth'])->controller(UserController::class)->group(function () {
         // Route::get('/dashboard', 'index')->name('dashboard');
         Route::post('/logout', [UserAuthController::class, 'logout'])->name('logout');

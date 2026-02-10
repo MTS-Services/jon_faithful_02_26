@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Concerns\PasswordValidationRules;
-use App\Enums\UserType;
-use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Enums\UserType;
+use Illuminate\Http\Request;
+use App\Enums\ActiveInactive;
+use Illuminate\Validation\Rule;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use App\Concerns\PasswordValidationRules;
+use Illuminate\Support\Facades\Validator;
+use App\Mail\FoundingPartnerRegistrationMail;
 
 class UserAuthController extends Controller
 {
@@ -21,7 +24,7 @@ class UserAuthController extends Controller
     public function userChoose(): Response
     {
         return Inertia::render('frontend/user-choose', [
-            'user_type' => collect(UserType::cases())->map(fn ($type) => [
+            'user_type' => collect(UserType::cases())->map(fn($type) => [
                 'value' => $type->value,
                 'label' => $type->label(),
             ]),
@@ -56,7 +59,7 @@ class UserAuthController extends Controller
         // File upload logic
         if ($request->hasFile('image')) {
             $file = $request->file('image');
-            $imageName = time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
+            $imageName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
             $file->storeAs('user_images', $imageName);
         }
         $user = User::create([
@@ -69,14 +72,16 @@ class UserAuthController extends Controller
             'brokerage_name' => $request['brokerage_name'],
             'license_number' => $request['license_number'],
             'image' => isset($imageName) ? $imageName : null,
+            'status' => ActiveInactive::INACTIVE->value,
             'password' => Hash::make($request['password']),
         ]);
         if (! $user) {
             return redirect()->back()->withErrors(['error' => 'Failed to register user.'])->withInput();
         }
+        Mail::to($user->email)->send(new FoundingPartnerRegistrationMail($user));
         Auth::login($user);
 
-        return redirect()->route('user.dashboard');
+        return redirect()->route('user.pending-verification');
     }
 
     public function logout(Request $request)
