@@ -9,13 +9,13 @@ import WhyMove from '@/components/sections/frontend/home/why-move'
 import FrontendLayout from '@/layouts/frontend-layout'
 import React from 'react'
 
-export default function Home() {
+export default function Home({ listings }: any) {
   return (
     <FrontendLayout>
       <Hero />
       <WhyMove />
       <BestCities />
-      <PlatinumProperties />
+      <PlatinumProperties listings={listings} />
       <TrustSection />
       <RelocationGuides />
       <ConfidenceCTA />

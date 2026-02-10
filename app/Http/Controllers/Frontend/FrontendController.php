@@ -3,16 +3,24 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\City;
+use App\Models\User;
+use App\Services\ListingService;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class FrontendController extends Controller
 {
-     //
+     public function __construct(private ListingService $service) {}
 
      public function index(): Response
      {
-          return Inertia::render('frontend/index');
+          $listings =  $this->service->getPaginatedDatas(
+               perPage: 8,
+               // filters: []
+          );
+          return Inertia::render('frontend/index', ['listings' => $listings]);
      }
      public function partnerProgram(): Response
      {
@@ -32,9 +40,32 @@ class FrontendController extends Controller
           return Inertia::render('frontend/living-in-chattanooga');
      }
 
-     public function homesForSale(): Response
+     public function homesForSale(Request $request): Response
      {
-          return Inertia::render('frontend/homes-for-sale');
+          $filters = $request->only([
+               'search',
+               'city',
+               'price_min',
+               'price_max',
+               'bedrooms',
+               'bathrooms',
+               // 'sqft_min',
+               'square_feet',
+               'property_type'
+          ]);
+
+          $listings = $this->service->getPaginatedDatas(
+               perPage: 6,
+               filters: $filters
+          );
+
+          $cities = City::orderBy('name')->get();
+
+          return Inertia::render('frontend/homes-for-sale', [
+               'listings' => $listings,
+               'cities' => $cities,
+               'filters' => $filters
+          ]);
      }
      public function movingChecklist(): Response
      {
@@ -50,7 +81,15 @@ class FrontendController extends Controller
      }
      public function realEstateAgents(): Response
      {
-          return Inertia::render('frontend/real-estate-agents');
+          $owners =  User::where('user_type', 'property_owner')->get();
+          $realtors =  User::where('user_type', 'realtor')->get();
+          $boths =  User::where('user_type', 'both')->get();
+
+          return Inertia::render('frontend/real-estate-agents',[
+               'owners' => $owners,
+               'realtors' => $realtors,
+               'boths' => $boths
+          ]);
      }
      public function whyTennessee(): Response
      {
@@ -60,9 +99,11 @@ class FrontendController extends Controller
      {
           return Inertia::render('frontend/tennessee-relocation');
      }
-     public function singleProduct(): Response
+     public function singleProduct($id): Response
      {
-          return Inertia::render('frontend/single-product');
+          $listing = $this->service->findData($id);
+
+          return Inertia::render('frontend/single-product', ['listing' => $listing]);
      }
 
      public function livetennessee(): Response
@@ -129,4 +170,13 @@ class FrontendController extends Controller
      {
           return Inertia::render('frontend/pros-cons-tennessee');
      }
+
+public function userDetails($id): Response
+{
+    $user = User::findOrFail($id);
+
+    return Inertia::render('frontend/user-details', [
+        'user' => $user
+    ]);
+}
 }

@@ -1,20 +1,24 @@
 import { useState } from 'react';
 
-export default function Gallery() {
-    const images = [
-        '/assets/images/classic-house-with-flower-garden-2048x1365.jpeg',
-        '/assets/images/pexels-kelly-34088068-1-scaled.jpg',
-        '/assets/images/Apartments-in-2048x1365.jpeg',
-        '/assets/images/Highbury-Homes-for-rent-cookeville-tn.webp',
-    ];
+export default function Gallery({ listing }: any) {
+    // const images = [
+    //     '/assets/images/classic-house-with-flower-garden-2048x1365.jpeg',
+    //     '/assets/images/pexels-kelly-34088068-1-scaled.jpg',
+    //     '/assets/images/Apartments-in-2048x1365.jpeg',
+    //     '/assets/images/Highbury-Homes-for-rent-cookeville-tn.webp',
+    // ];
 
-    const [selectedImage, setSelectedImage] = useState(images[3]);
+    const images = listing.galleries.map((image: any) => image.image_url);
+
+
+
+    const [selectedImage, setSelectedImage] = useState(images[0]);
 
     return (
         <div className="container mx-auto mt-10 px-4 md:mt-20">
             <div className="mb-6">
                 <h1 className="font-montserrat text-2xl font-semibold text-secondary-foreground md:text-3xl">
-                    Oakwood Family Home
+                    {listing.title}
                 </h1>
                 <div className="mt-1 flex">
                     {[...Array(5)].map((_, i) => (
@@ -130,7 +134,7 @@ export default function Gallery() {
                                 <path d="M176 256c44.11 0 80-35.89 80-80s-35.89-80-80-80-80 35.89-80 80 35.89 80 80 80zm352-128H304c-8.84 0-16 7.16-16 16v144H64V80c0-8.84-7.16-16-16-16H16C7.16 64 0 71.16 0 80v352c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16v-48h512v48c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16V240c0-61.86-50.14-112-112-112z"></path>
                             </svg>
                             <span className="font-montserrat text-base font-semibold text-secondary-foreground md:text-lg">
-                                Bedroom: 3
+                                Bedroom: {listing.bedrooms}
                             </span>
                         </div>
                         <div className="flex items-center gap-2">
@@ -143,7 +147,7 @@ export default function Gallery() {
                                 <path d="M32,384a95.4,95.4,0,0,0,32,71.09V496a16,16,0,0,0,16,16h32a16,16,0,0,0,16-16V480H384v16a16,16,0,0,0,16,16h32a16,16,0,0,0,16-16V455.09A95.4,95.4,0,0,0,480,384V336H32ZM496,256H80V69.25a21.26,21.26,0,0,1,36.28-15l19.27,19.26c-13.13,29.88-7.61,59.11,8.62,79.73l-.17.17A16,16,0,0,0,144,176l11.31,11.31a16,16,0,0,0,22.63,0L283.31,81.94a16,16,0,0,0,0-22.63L272,48a16,16,0,0,0-22.62,0l-.17.17c-20.62-16.23-49.83-21.75-79.73-8.62L150.22,20.28A69.25,69.25,0,0,0,32,69.25V256H16A16,16,0,0,0,0,272v16a16,16,0,0,0,16,16H496a16,16,0,0,0,16-16V272A16,16,0,0,0,496,256Z"></path>
                             </svg>
                             <span className="font-montserrat text-base font-semibold text-secondary-foreground md:text-lg">
-                                Bathroom: 2
+                                Bathroom: {listing.bathrooms}
                             </span>
                         </div>
                         <div className="flex items-center gap-2">
@@ -156,7 +160,7 @@ export default function Gallery() {
                                 <path d="M464 0H144c-26.51 0-48 21.49-48 48v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h320c26.51 0 48-21.49 48-48v-48h48c26.51 0 48-21.49 48-48V48c0-26.51-21.49-48-48-48zM362 464H54a6 6 0 0 1-6-6V150a6 6 0 0 1 6-6h42v224c0 26.51 21.49 48 48 48h224v42a6 6 0 0 1-6 6zm90-96H150a6 6 0 0 1-6-6V54a6 6 0 0 1 6-6h308a6 6 0 0 1 6 6v308a6 6 0 0 1-6 6z"></path>
                             </svg>
                             <span className="font-montserrat text-base font-semibold text-secondary-foreground md:text-lg">
-                                1650 sqft
+                                {listing.square_feet} sqft
                             </span>
                         </div>
                     </div>
@@ -165,7 +169,7 @@ export default function Gallery() {
                             Description:
                         </h2>
                         <p className="font-montserrat font-normal text-primary">
-                            Spacious family home in quiet neighborhood
+                            {listing.description}
                         </p>
                     </div>
                     <div className="px-4">
