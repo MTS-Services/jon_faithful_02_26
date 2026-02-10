@@ -1,68 +1,67 @@
-import { PlatinumCard } from "@/components/ui/PlatinumCard";
-import React from "react";
+import { PlatinumCard } from '@/components/ui/PlatinumCard';
+import { Link } from '@inertiajs/react';
+import React from 'react';
 
-const properties = [
-    {
-        id: 1,
-        title: "New Construction Dream Home",
-        location: "Chattanooga, TN",
-        sqft: "3,900",
-        beds: 5,
-        baths: 4,
-        price: "999",
-        img: "assets/images/home/dream-homes-hero.jpg",
-    },
-    {
-        id: 2,
-        title: "Gated Community Luxury",
-        location: "Cookeville, TN",
-        sqft: "4,800",
-        beds: 6,
-        baths: 5,
-        price: "999",
-        img: "assets/images/home/Custom-Built-Homes.webp",
-    },
-    {
-        id: 3,
-        title: "Historic Renovated Estate",
-        location: "Memphis, TN",
-        sqft: "3,600",
-        beds: 5,
-        baths: 4,
-        price: "999",
-        img: "assets/images/home/LymanEstate-scaled-2.jpg",
-    },
-    {
-        id: 4,
-        title: "Waterfront Home on the Lake",
-        location: "Kingsport, TN",
-        sqft: "4,500",
-        beds: 5,
-        baths: 4,
-        price: "999",
-        img: "assets/images/home/1764027945756-524499646-Waterfront-Home.avif",
-    },
-];
-
-const PlatinumProperties: React.FC = () => {
+const PlatinumProperties: React.FC<{ listings: any }> = ({ listings }) => {
     return (
-        <section className="py-20 bg-white">
+        <section className="bg-white py-20">
             <div className="container mx-auto px-6">
-                <h2 className="text-3xl font-bold text-primary mb-3">
+                <h2 className="mb-3 text-3xl font-bold text-primary">
                     Our Platinum Property For Sale
                 </h2>
 
-                <p className="text-gray-600 mb-8 max-w-2xl">
+                <p className="mb-8 max-w-2xl text-gray-600">
                     An exclusive collection of luxury homes in Tennessee.
                 </p>
 
-                <div className="w-20 h-1 bg-gray-200 mb-10"></div>
+                <div className="mb-10 h-1 w-20 bg-gray-200"></div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {properties.map((property) => (
-                        <PlatinumCard key={property.id} property={property} />
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                    {listings?.data?.map((listing: any) => (
+                        <PlatinumCard key={listing.id} property={listing} />
                     ))}
                 </div>
+
+                {/* Pagination Links */}
+                {listings?.links && listings.links.length > 0 && (
+                    <div className="mt-10 flex items-center justify-center space-x-1">
+                        {listings.links.map((link: any, index: number) => {
+                           
+                            const isPrevious =
+                                link.label.includes('Previous') ||
+                                link.label.includes('&laquo;');
+                            const isNext =
+                                link.label.includes('Next') ||
+                                link.label.includes('&raquo;');
+
+                            
+                            let displayLabel = link.label;
+                            if (isPrevious) displayLabel = 'Previous';
+                            if (isNext) displayLabel = 'Next';
+
+                            return (
+                                <Link
+                                    key={index}
+                                    href={link.url || '#'}
+                                    preserveScroll
+                                    disabled={!link.url}
+                                    className={`rounded px-4 py-2 transition-colors ${
+                                        link.active
+                                            ? 'bg-secondary text-primary-foreground'
+                                            : 'bg-primary text-primary-foreground hover:bg-secondary'
+                                    } ${!link.url ? 'cursor-not-allowed opacity-50' : ''}`}
+                                >
+                                    {isPrevious || isNext
+                                        ? displayLabel
+                                        : link.label.replace(
+                                              /&laquo;|&raquo;/g,
+                                              '',
+                                          )}
+                                </Link>
+                            );
+                        })}
+                    </div>
+                )}
             </div>
         </section>
     );
