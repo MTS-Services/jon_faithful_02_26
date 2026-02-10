@@ -3,14 +3,15 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\City;
 use App\Services\ListingService;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class FrontendController extends Controller
 {
-     public function __construct(private ListingService $service)
-    {}
+     public function __construct(private ListingService $service) {}
 
      public function index(): Response
      {
@@ -38,12 +39,32 @@ class FrontendController extends Controller
           return Inertia::render('frontend/living-in-chattanooga');
      }
 
-     public function homesForSale(): Response
+     public function homesForSale(Request $request): Response
      {
-          $listings =  $this->service->getPaginatedDatas(
+          $filters = $request->only([
+               'search',
+               'city',
+               'price_min',
+               'price_max',
+               'bedrooms',
+               'bathrooms',
+               // 'sqft_min',
+               'square_feet',
+               'property_type'
+          ]);
+
+          $listings = $this->service->getPaginatedDatas(
                perPage: 6,
+               filters: $filters
           );
-          return Inertia::render('frontend/homes-for-sale', ['listings' => $listings]);
+
+          $cities = City::orderBy('name')->get();
+
+          return Inertia::render('frontend/homes-for-sale', [
+               'listings' => $listings,
+               'cities' => $cities,
+               'filters' => $filters
+          ]);
      }
      public function movingChecklist(): Response
      {

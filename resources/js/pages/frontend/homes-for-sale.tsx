@@ -7,11 +7,31 @@ import TypesOfHomes from "@/components/sections/frontend/homes-for-sale/types-of
 import WhyBuy from "@/components/sections/frontend/homes-for-sale/why-buy"
 import FrontendLayout from '@/layouts/frontend-layout'
 
-export default function HomesForSale({ listings }: any) {
+interface City {
+    id: number;
+    name: string;
+}
+
+interface Props {
+    listings: any;
+    cities: City[];
+    filters: {
+        search: string;
+        city: string;
+        price_min: string;
+        price_max: string;
+    };
+}
+
+export default function HomesForSale({ listings, cities, filters }: Props) {
     return (
         <FrontendLayout>
             <Hero />
-            <QuickSearch listings={listings} />
+            <QuickSearch 
+                listings={listings} 
+                cities={cities}
+                filters={filters}
+            />
             <ExploreTennessee />
             <TypesOfHomes />
             <WhyBuy />
