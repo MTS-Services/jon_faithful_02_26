@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\City;
+use App\Models\User;
 use App\Services\ListingService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -80,7 +81,15 @@ class FrontendController extends Controller
      }
      public function realEstateAgents(): Response
      {
-          return Inertia::render('frontend/real-estate-agents');
+          $owners =  User::where('user_type', 'property_owner')->get();
+          $realtors =  User::where('user_type', 'realtor')->get();
+          $boths =  User::where('user_type', 'both')->get();
+
+          return Inertia::render('frontend/real-estate-agents',[
+               'owners' => $owners,
+               'realtors' => $realtors,
+               'boths' => $boths
+          ]);
      }
      public function whyTennessee(): Response
      {
@@ -161,4 +170,13 @@ class FrontendController extends Controller
      {
           return Inertia::render('frontend/pros-cons-tennessee');
      }
+
+public function userDetails($id): Response
+{
+    $user = User::findOrFail($id);
+
+    return Inertia::render('frontend/user-details', [
+        'user' => $user
+    ]);
+}
 }
