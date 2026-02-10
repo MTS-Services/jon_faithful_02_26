@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Enums\ActiveInactive;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,8 +20,11 @@ class UserMiddleware
         if (!Auth::check()) {
             return redirect()->route('user.choose');
         }
+        $user = Auth::user();
+        if ($user->status->value !== ActiveInactive::ACTIVE->value) {
+            return redirect()->route('user.pending-verification');
+        }
 
- 
 
         return $next($request);
     }

@@ -18,6 +18,10 @@ class UserController extends Controller
     {
         return Inertia::render('user/dashboard');
     }
+    public function accountPending(): Response
+    {
+        return Inertia::render('user/account-pending-verification');
+    }
 
     public function accountSettings(): Response
     {
