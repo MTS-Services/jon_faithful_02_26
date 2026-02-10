@@ -1,133 +1,155 @@
-import React from 'react'
+import { PlatinumCard } from '@/components/ui/PlatinumCard';
+import { Link } from '@inertiajs/react';
 
-export default function QuickSearch() {
-  return (
-        <div className="container mx-auto py-12 sm:py-16 md:py-20 lg:py-28 px-4 md:px-16 mt-20">
+export default function QuickSearch({ listings }: any) {
+    return (
+        <div className="container mx-auto mt-20 px-4 py-12 sm:py-16 md:px-16 md:py-20 lg:py-28">
+            <h2 className="text-center font-montserrat text-2xl font-semibold text-text-secondary-foreground sm:text-3xl md:text-4xl lg:text-[42px]">
+                Quick Search
+            </h2>
+            <div className="mx-auto mt-6 w-full sm:w-4/5 md:mt-8 md:w-2/3 lg:max-w-[40%]">
+                <p className="text-center font-montserrat text-sm leading-relaxed font-normal text-text-secondary-foreground sm:text-base md:text-base lg:text-base">
+                    Use the filters below to explore Tennessee homes for sale.
+                    Narrow your search by city, price range, bedrooms,
+                    bathrooms, and property type. New listings are added
+                    regularly from trusted local realtors.
+                </p>
+            </div>
 
-        <h2
-            className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-semibold font-montserrat text-text-secondary-foreground text-center">
-            Quick Search
-        </h2>
-        <div className="w-full sm:w-4/5 md:w-2/3 lg:max-w-[40%] mx-auto mt-6 md:mt-8">
-            <p
-                className="text-center text-sm sm:text-base md:text-base lg:text-base font-normal text-text-secondary-foreground font-montserrat leading-relaxed">
-                Use the filters below to explore Tennessee homes for sale. Narrow your search by city, price range,
-                bedrooms, bathrooms, and property type. New listings are added regularly from trusted local realtors.
-            </p>
-        </div>
+            <div className="mt- mx-auto mt-6 max-w-[20%] border border-text-secondary-foreground"></div>
 
-
-        <div className="max-w-[20%] mt-6 mx-auto border border-text-secondary-foreground mt-"></div>
-
-        <div className="grid grid-cols-12 gap-6 mt-12">
-            <div className="col-span-12 lg:col-span-4">
-                <div className="space-y-6">
-                    <div className="bg-background p-4 rounded-xl shadow">
-                        <h4 className="font-semibold font-montserrat text-text-secondary-foreground mb-3">Search</h4>
-                        <input type="text" placeholder="Search..."
-                            className="w-full border border-text-secondary-foreground rounded-md px-4 py-3 focus:outline-none focus:ring-1" />
-                    </div>
-
-                    <div className="bg-background p-4 rounded-xl shadow font-semibold font-montserrat text-text-secondary-foreground mb-3">
-                        <h4 className="font-semibold mb-3">Property City</h4>
-                        <div className="space-y-2">
-                            <label className="flex items-center gap-2 font-medium cursor-pointer">
-                                <input type="checkbox" value="" checked /> Bristol
-                            </label>
-                            <label className="flex items-center gap-2 font-medium cursor-pointer">
-                                <input type="checkbox" /> Chattanooga
-                            </label>
-                            <label className="flex items-center gap-2 font-medium cursor-pointer">
-                                <input type="checkbox" /> Cookeville
-                            </label>
-                            <label className="flex items-center gap-2 font-medium cursor-pointer">
-                                <input type="checkbox" /> Franklin
-                            </label>
-                            <label className="flex items-center gap-2 font-medium cursor-pointer">
-                                <input type="checkbox" /> Johnson City
-                            </label>
-                            <label className="flex items-center gap-2 font-medium cursor-pointer">
-                                <input type="checkbox" /> Kingsport
-                            </label>
-                            <label className="flex items-center gap-2 font-medium cursor-pointer">
-                                <input type="checkbox" /> Knoxville
-                            </label>
-                            <label className="flex items-center gap-2 font-medium cursor-pointer">
-                                <input type="checkbox" /> Memphis
-                            </label>
-                            <label className="flex items-center gap-2 font-medium cursor-pointer">
-                                <input type="checkbox" /> Murfreesboro
-                            </label>
-                            <label className="flex items-center gap-2 font-medium cursor-pointer">
-                                <input type="checkbox" /> Nashville
-                            </label>
+            <div className="mt-12 grid grid-cols-12 gap-6">
+                <div className="col-span-12 lg:col-span-4">
+                    <div className="space-y-6">
+                        <div className="rounded-xl bg-background p-4 shadow">
+                            <h4 className="mb-3 font-montserrat font-semibold text-text-secondary-foreground">
+                                Search
+                            </h4>
+                            <input
+                                type="text"
+                                placeholder="Search..."
+                                className="w-full rounded-md border border-text-secondary-foreground px-4 py-3 focus:ring-1 focus:outline-none"
+                            />
                         </div>
-                    </div>
 
-                    <div className="bg-background p-4 rounded-xl shadow">
-                        <h4 className="font-semibold mb-3 font-montserrat text-text-secondary-foreground">Bedrooms</h4>
-                        <select className="w-full border border-text-secondary-foreground rounded-md px-4 py-3">
-                            <option>Select...</option>
-                            <option>1+</option>
-                            <option>2+</option>
-                            <option>3+</option>
-                        </select>
-                    </div>
-                    <div className="bg-background p-4 rounded-xl shadow">
-                        <h4 className="font-semibold mb-3 font-montserrat text-text-secondary-foreground">Square Feet</h4>
-                        <select className="w-full border border-text-secondary-foreground rounded-md px-4 py-3">
-                            <option>Select...</option>
-                            <option value="500">500</option>
-                            <option value="750">750</option>
-                            <option value="1000">1000</option>
-                            <option value="1500">1500</option>
-                            <option value="2000">2000</option>
-                        </select>
-                    </div>
-                    <div className="bg-background p-4 rounded-xl shadow">
-                        <h3 className="font-semibold mb-3 font-montserrat text-text-secondary-foreground">
-                            Property Price
-                        </h3>
-                        <div className="space-y-4">
-                            <input type="range" min="0" max="1000000" step="10000"
-                                className="w-full h-2 bg-background rounded-lg appearance-none cursor-pointer accent-muted-foreground" />
+                        <div className="mb-3 rounded-xl bg-background p-4 font-montserrat font-semibold text-text-secondary-foreground shadow">
+                            <h4 className="mb-3 font-semibold">
+                                Property City
+                            </h4>
+                            <div className="space-y-2">
+                                <label className="flex cursor-pointer items-center gap-2 font-medium">
+                                    <input type="checkbox" value="" checked />{' '}
+                                    Bristol
+                                </label>
+                                <label className="flex cursor-pointer items-center gap-2 font-medium">
+                                    <input type="checkbox" /> Chattanooga
+                                </label>
+                                <label className="flex cursor-pointer items-center gap-2 font-medium">
+                                    <input type="checkbox" /> Cookeville
+                                </label>
+                                <label className="flex cursor-pointer items-center gap-2 font-medium">
+                                    <input type="checkbox" /> Franklin
+                                </label>
+                                <label className="flex cursor-pointer items-center gap-2 font-medium">
+                                    <input type="checkbox" /> Johnson City
+                                </label>
+                                <label className="flex cursor-pointer items-center gap-2 font-medium">
+                                    <input type="checkbox" /> Kingsport
+                                </label>
+                                <label className="flex cursor-pointer items-center gap-2 font-medium">
+                                    <input type="checkbox" /> Knoxville
+                                </label>
+                                <label className="flex cursor-pointer items-center gap-2 font-medium">
+                                    <input type="checkbox" /> Memphis
+                                </label>
+                                <label className="flex cursor-pointer items-center gap-2 font-medium">
+                                    <input type="checkbox" /> Murfreesboro
+                                </label>
+                                <label className="flex cursor-pointer items-center gap-2 font-medium">
+                                    <input type="checkbox" /> Nashville
+                                </label>
+                            </div>
+                        </div>
 
+                        <div className="rounded-xl bg-background p-4 shadow">
+                            <h4 className="mb-3 font-montserrat font-semibold text-text-secondary-foreground">
+                                Bedrooms
+                            </h4>
+                            <select className="w-full rounded-md border border-text-secondary-foreground px-4 py-3">
+                                <option>Select...</option>
+                                <option>1+</option>
+                                <option>2+</option>
+                                <option>3+</option>
+                            </select>
+                        </div>
+                        <div className="rounded-xl bg-background p-4 shadow">
+                            <h4 className="mb-3 font-montserrat font-semibold text-text-secondary-foreground">
+                                Square Feet
+                            </h4>
+                            <select className="w-full rounded-md border border-text-secondary-foreground px-4 py-3">
+                                <option>Select...</option>
+                                <option value="500">500</option>
+                                <option value="750">750</option>
+                                <option value="1000">1000</option>
+                                <option value="1500">1500</option>
+                                <option value="2000">2000</option>
+                            </select>
+                        </div>
+                        <div className="rounded-xl bg-background p-4 shadow">
+                            <h3 className="mb-3 font-montserrat font-semibold text-text-secondary-foreground">
+                                Property Price
+                            </h3>
+                            <div className="space-y-4">
+                                <input
+                                    type="range"
+                                    min="0"
+                                    max="1000000"
+                                    step="10000"
+                                    className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-background accent-muted-foreground"
+                                />
 
-                            <div className="flex justify-between text-sm text-muted-foreground">
-                                <span>$0</span>
-                                <span>$1,000,000</span>
+                                <div className="flex justify-between text-sm text-muted-foreground">
+                                    <span>$0</span>
+                                    <span>$1,000,000</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="mb-3 rounded-xl bg-background p-4 font-montserrat font-semibold text-text-secondary-foreground shadow">
+                            <h4 className="mb-3 font-semibold">
+                                Property Type
+                            </h4>
+                            <div className="space-y-2">
+                                <label className="flex cursor-pointer items-center gap-2 font-medium">
+                                    <input type="checkbox" /> New construction
+                                    communities
+                                </label>
+                                <label className="flex cursor-pointer items-center gap-2 font-medium">
+                                    <input type="checkbox" /> Rural properties &
+                                    mini-farms
+                                </label>
+                                <label className="flex cursor-pointer items-center gap-2 font-medium">
+                                    <input type="checkbox" /> Single-family
+                                    homes
+                                </label>
+                                <label className="flex cursor-pointer items-center gap-2 font-medium">
+                                    <input type="checkbox" /> Townhomes & condos
+                                </label>
                             </div>
                         </div>
                     </div>
-                    <div className="bg-background p-4 rounded-xl shadow font-semibold font-montserrat text-text-secondary-foreground mb-3">
-                        <h4 className="font-semibold mb-3">Property Type</h4>
-                        <div className="space-y-2">
-                            <label className="flex items-center gap-2 font-medium cursor-pointer">
-                                <input type="checkbox" /> New construction communities
-                            </label>
-                            <label className="flex items-center gap-2 font-medium cursor-pointer">
-                                <input type="checkbox" /> Rural properties & mini-farms
-                            </label>
-                            <label className="flex items-center gap-2 font-medium cursor-pointer">
-                                <input type="checkbox" /> Single-family homes
-                            </label>
-                            <label className="flex items-center gap-2 font-medium cursor-pointer">
-                                <input type="checkbox" /> Townhomes & condos
-                            </label>
-                        </div>
+                </div>
+                <div className="col-span-12 mt-6 lg:col-span-8">
+                    <div className="">
+                        <p className="mb-3 inline-block cursor-pointer rounded-full border border-primary p-5 font-montserrat font-semibold text-primary hover:border-transparent hover:bg-secondary hover:text-primary-foreground">
+                            Property City:Nashville
+                        </p>
                     </div>
-                </div>
-            </div>
-            <div className="col-span-12 lg:col-span-8 mt-6">
-                <div className="">
-                    <p
-                        className="font-semibold font-montserrat text-primary p-5 border border-primary rounded-full mb-3 inline-block cursor-pointer hover:bg-secondary hover:text-primary-foreground hover:border-transparent">
-                        Property City:Nashville</p>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-2">
+                        {listings?.data?.map((listing: any) => (
+                            <PlatinumCard key={listing.id} property={listing} />
+                        ))}
 
-
-                    <a href="single-product">
+                        {/* <a href="single-product">
                         <div className="bg-background rounded-xl overflow-hidden shadow">
                             <div className="relative">
                                 <img src="/assets/images/card.jpg" className="w-full h-[250px] object-cover" />
@@ -474,23 +496,69 @@ export default function QuickSearch() {
                                 </div>
                             </div>
                         </div>
-                    </a>
-                
+                    </a> */}
+                    </div>
+                    {/* <div className="mt-5 flex items-center space-x-1">
+                        <button className="rounded bg-secondary px-4 py-2 text-primary-foreground">
+                            1
+                        </button>
+
+                        <button className="rounded bg-primary px-4 py-2 text-primary-foreground hover:bg-secondary">
+                            2
+                        </button>
+                        <button className="rounded bg-primary px-4 py-2 text-primary-foreground hover:bg-secondary">
+                            3
+                        </button>
+                        <button className="rounded bg-primary px-4 py-2 text-primary-foreground hover:bg-secondary">
+                            4
+                        </button>
+                        <button className="rounded bg-primary px-4 py-2 text-primary-foreground hover:bg-secondary">
+                            5
+                        </button>
+
+                        <button className="rounded bg-primary px-4 py-2 text-primary-foreground hover:bg-secondary">
+                            Next
+                        </button>
+                    </div> */}
+                    {listings?.links && listings.links.length > 0 && (
+                        <div className="mt-10 flex items-center justify-center space-x-1">
+                            {listings.links.map((link: any, index: number) => {
+                                const isPrevious =
+                                    link.label.includes('Previous') ||
+                                    link.label.includes('&laquo;');
+                                const isNext =
+                                    link.label.includes('Next') ||
+                                    link.label.includes('&raquo;');
+
+                                let displayLabel = link.label;
+                                if (isPrevious) displayLabel = 'Previous';
+                                if (isNext) displayLabel = 'Next';
+
+                                return (
+                                    <Link
+                                        key={index}
+                                        href={link.url || '#'}
+                                        preserveScroll
+                                        disabled={!link.url}
+                                        className={`rounded px-4 py-2 transition-colors ${
+                                            link.active
+                                                ? 'bg-secondary text-primary-foreground'
+                                                : 'bg-primary text-primary-foreground hover:bg-secondary'
+                                        } ${!link.url ? 'cursor-not-allowed opacity-50' : ''}`}
+                                    >
+                                        {isPrevious || isNext
+                                            ? displayLabel
+                                            : link.label.replace(
+                                                  /&laquo;|&raquo;/g,
+                                                  '',
+                                              )}
+                                    </Link>
+                                );
+                            })}
+                        </div>
+                    )}
                 </div>
-                <div className="flex items-center space-x-1 mt-5">
-                    <button className="px-4 py-2 bg-secondary text-primary-foreground rounded">1</button>
-
-                    <button className="px-4 py-2 bg-primary text-primary-foreground rounded hover:bg-secondary">2</button>
-                    <button className="px-4 py-2 bg-primary text-primary-foreground rounded hover:bg-secondary">3</button>
-                    <button className="px-4 py-2 bg-primary text-primary-foreground rounded hover:bg-secondary">4</button>
-                    <button className="px-4 py-2 bg-primary text-primary-foreground rounded hover:bg-secondary">5</button>
-
-                    <button className="px-4 py-2 bg-primary text-primary-foreground rounded hover:bg-secondary">Next</button>
-                </div>
-
             </div>
         </div>
-
-    </div>
-  )
+    );
 }

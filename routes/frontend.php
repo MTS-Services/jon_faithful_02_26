@@ -18,7 +18,7 @@ Route::name('frontend.')->controller(FrontendController::class)->group(function 
     Route::get('/rentals', 'rentals')->name('rentals');
     Route::get('/why-tennessee', 'whyTennessee')->name('why-tennessee');
     Route::get('/tennessee-relocation', 'tennesseeRelocation')->name('tennessee-relocation');
-    Route::get('/single-product', 'singleProduct')->name('single-product');
+    Route::get('/single-product/{id}', 'singleProduct')->name('single-product');
     Route::get('/live-tennessee', 'livetennessee')->name('livetennessee');
     Route::get('/renting-buy', 'rentingBuy')->name('renting-buy');
     Route::get('/living-in-nashville', 'livingInNashville')->name('livingInNashville');

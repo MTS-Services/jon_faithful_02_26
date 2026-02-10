@@ -7,11 +7,11 @@ import TypesOfHomes from "@/components/sections/frontend/homes-for-sale/types-of
 import WhyBuy from "@/components/sections/frontend/homes-for-sale/why-buy"
 import FrontendLayout from '@/layouts/frontend-layout'
 
-export default function HomesForSale() {
+export default function HomesForSale({ listings }: any) {
     return (
         <FrontendLayout>
             <Hero />
-            <QuickSearch />
+            <QuickSearch listings={listings} />
             <ExploreTennessee />
             <TypesOfHomes />
             <WhyBuy />

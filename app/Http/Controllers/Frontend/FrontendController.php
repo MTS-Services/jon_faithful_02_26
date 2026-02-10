@@ -3,16 +3,22 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Services\ListingService;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class FrontendController extends Controller
 {
-     //
+     public function __construct(private ListingService $service)
+    {}
 
      public function index(): Response
      {
-          return Inertia::render('frontend/index');
+          $listings =  $this->service->getPaginatedDatas(
+               perPage: 8,
+               // filters: []
+          );
+          return Inertia::render('frontend/index', ['listings' => $listings]);
      }
      public function partnerProgram(): Response
      {
@@ -34,7 +40,10 @@ class FrontendController extends Controller
 
      public function homesForSale(): Response
      {
-          return Inertia::render('frontend/homes-for-sale');
+          $listings =  $this->service->getPaginatedDatas(
+               perPage: 6,
+          );
+          return Inertia::render('frontend/homes-for-sale', ['listings' => $listings]);
      }
      public function movingChecklist(): Response
      {
@@ -60,9 +69,11 @@ class FrontendController extends Controller
      {
           return Inertia::render('frontend/tennessee-relocation');
      }
-     public function singleProduct(): Response
+     public function singleProduct($id): Response
      {
-          return Inertia::render('frontend/single-product');
+          $listing = $this->service->findData($id);
+
+          return Inertia::render('frontend/single-product', ['listing' => $listing]);
      }
 
      public function livetennessee(): Response

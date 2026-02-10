@@ -27,4 +27,23 @@ class ListingGallery extends Model
     {
         return $this->morphTo(null, 'listing_type', 'listing_id');
     }
+
+    // ListingGallery Model 
+    protected $appends = ['image_url'];
+
+    public function getImageUrlAttribute()
+    {
+        // Get the original value
+        $originalUrl = $this->attributes['image_url'] ?? null;
+
+        if (filter_var($originalUrl, FILTER_VALIDATE_URL)) {
+            return $originalUrl;
+        }
+
+        if (!$originalUrl) {
+            return asset('no-image.png');
+        }
+
+        return asset('storage/listings/gallery/' . $originalUrl);
+    }
 }
