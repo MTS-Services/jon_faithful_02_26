@@ -301,7 +301,7 @@ export function DataTable<T extends Record<string, unknown>>({
                                 >
                                     <div className="datatable-empty">
                                         <svg
-                                            className="datatable-empty-icon"
+                                            className="datatable-empty-icon w-6 h-6"
                                             fill="none"
                                             viewBox="0 0 24 24"
                                             stroke="currentColor"

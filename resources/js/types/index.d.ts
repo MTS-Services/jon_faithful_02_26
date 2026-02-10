@@ -57,7 +57,9 @@ export interface User {
     name: string;
     email: string;
     image?: string;
+    phone?: string;
     image_url?: string;
+    user_type?: string;
     email_verified_at: string | null;
     two_factor_enabled?: boolean;
     permissions?: string[];
@@ -65,6 +67,16 @@ export interface User {
     created_at: string;
     updated_at: string;
     [key: string]: unknown;
+}
+
+export interface ExternalListingSubmission {
+    id: number;
+    user_id: number;
+    name: string;
+    email: string;
+    external_link: string;
+    created_at: string;
+    updated_at: string;
 }
 
 export interface NavItemProps {

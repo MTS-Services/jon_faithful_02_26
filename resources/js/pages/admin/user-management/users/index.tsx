@@ -7,11 +7,11 @@ import { useDataTable } from '@/hooks/use-data-table';
 import { PaginationData, ColumnConfig, ActionConfig } from '@/types/data-table.types';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Admin } from '@/types';
+import { User } from '@/types';
 
 
 interface Props {
-  admins: Admin[];
+  users: User[];
   pagination: PaginationData;
   offset: number;
   filters: Record<string, string | number>;
@@ -21,7 +21,7 @@ interface Props {
 }
 
 export default function index({
-  admins,
+  users,
   pagination,
   offset,
   filters,
@@ -38,14 +38,21 @@ export default function index({
     handlePageChange,
   } = useDataTable();
 
-  const columns: ColumnConfig<Admin>[] = [
+  const USER_TYPE_LABELS: Record<string, string> = {
+    property_owner: 'Property Owner / Manager',
+    realtor: 'Realtor',
+    both: 'Both',
+  };
+
+
+  const columns: ColumnConfig<User>[] = [
     {
       key: 'image',
       label: 'Avatar',
-      render: (admin) => (
+      render: (user) => (
         <img
-          src={admin.image_url ? `${admin.image_url}` : '/no-user-image-icon.png'}
-          alt={admin.name}
+          src={user.image_url ? `${user.image_url}` : '/no-user-image-icon.png'}
+          alt={user.name}
           className="h-8 w-8 rounded-full object-cover"
         />
       ),
@@ -54,9 +61,9 @@ export default function index({
       key: 'name',
       label: 'Name',
       sortable: true,
-      render: (admin) => (
+      render: (user) => (
         <div className="font-medium text-gray-900 dark:text-gray-100">
-          {admin.name}
+          {user.name}
         </div>
       ),
     },
@@ -64,9 +71,9 @@ export default function index({
       key: 'email',
       label: 'Email',
       sortable: true,
-      render: (admin) => (
+      render: (user) => (
         <div className="text-gray-600 dark:text-gray-400">
-          {admin.email}
+          {user.email}
         </div>
       ),
     },
@@ -74,9 +81,30 @@ export default function index({
       key: 'phone',
       label: 'Phone',
       sortable: true,
-      render: (admin) => (
+      render: (user) => (
         <div className="text-gray-600 dark:text-gray-400">
-          {admin.phone}
+          {user.phone ? user.phone : 'N/A'}
+        </div>
+      ),
+    },
+    // user type
+    {
+      key: 'user_type',
+      label: 'User Type',
+      sortable: true,
+      render: (user) => (
+        <div className="text-gray-600 dark:text-gray-400">
+          {USER_TYPE_LABELS[user.user_type] ?? user.user_type}
+        </div>
+      ),
+    },
+    {
+      key: 'is_verified',
+      label: 'Verified',
+      sortable: true,
+      render: (user) => (
+        <div className="text-gray-600 dark:text-gray-400">
+          <span className={`${user.is_verified ? 'bg-green-500' : 'bg-red-500'} text-white px-2 py-1 rounded-full text-xs font-semibold ${user.is_verified ? 'bg-green-500' : 'bg-red-500'}-600`}>{user.is_verified ? 'Verified' : 'Not Verified'}</span>
         </div>
       ),
     },
@@ -84,35 +112,35 @@ export default function index({
       key: 'created_at',
       label: 'Joined Date',
       sortable: true,
-      render: (admin) => (
+      render: (user) => (
         <div className="text-gray-600 dark:text-gray-400">
-          {new Date(admin.created_at).toLocaleDateString()}
+          {new Date(user.created_at).toLocaleDateString()}
         </div>
       ),
     },
   ];
 
-  const actions: ActionConfig<Admin>[] = [
+  const actions: ActionConfig<User>[] = [
     {
       label: 'View',
       icon: <Eye className="h-4 w-4" />,
-      onClick: (admin) => {
-        router.visit(route('admin.um.user.view', admin?.id));
+      onClick: (user) => {
+        router.visit(route('admin.um.user.view', user?.id));
       },
     },
     {
       label: 'Edit',
       icon: <Pencil className="h-4 w-4" />,
-      onClick: (admin) => {
-        router.visit(route('admin.um.user.edit', admin?.id));
+      onClick: (user) => {
+        router.visit(route('admin.um.user.edit', user?.id));
       },
     },
     {
       label: 'Delete',
       icon: <Trash2 className="h-4 w-4" />,
-      onClick: (admin) => {
-        if (confirm(`Are you sure you want to delete ${admin.name}?`)) {
-          router.visit(route('admin.um.user.destroy', admin?.id));
+      onClick: (user) => {
+        if (confirm(`Are you sure you want to delete ${user.name}?`)) {
+          router.visit(route('admin.um.user.destroy', user?.id));
         }
       },
       variant: 'destructive',
@@ -120,7 +148,7 @@ export default function index({
   ];
 
   return (
-    <AdminLayout activeSlug="admin-users">
+    <AdminLayout activeSlug="users">
       <Head title="Users" />
 
       <div className="flex justify-end mb-6">
@@ -131,7 +159,7 @@ export default function index({
 
       <div className="mx-auto">
         <DataTable
-          data={admins}
+          data={users}
           columns={columns}
           pagination={pagination}
           offset={offset}

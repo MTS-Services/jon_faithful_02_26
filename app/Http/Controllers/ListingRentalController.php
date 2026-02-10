@@ -10,8 +10,11 @@ use Illuminate\Http\Request;
 use App\Enums\ActiveInactive;
 use App\Enums\RentalProperty;
 use App\Models\ListingGallery;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
+use App\Models\ExternalListingSubmission;
+use App\Mail\FoundingExternalSubmitionMail;
 
 class ListingRentalController extends Controller
 {
@@ -129,15 +132,18 @@ class ListingRentalController extends Controller
             'external_link' => ['required', 'url', 'max:1000'],
         ]);
 
-        // Store the external rental listing submission
+        // Store the external listing submission
         // You might want to create a separate table for this
-        // ExternalRentalSubmission::create([
-        //     'user_id' => auth()->id(),
-        //     'name' => $validated['name'],
-        //     'email' => $validated['email'],
-        //     'external_link' => $validated['external_link'],
-        // ]);
-
+        $submission = ExternalListingSubmission::create([
+            'user_id' => auth()->id(),
+            // 'listing_id' => null,
+            // 'listing_type' => Listing::class,
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'external_link' => $validated['external_link'],
+        ]);
+        Mail::to('info@whytennessee.com')->send(new FoundingExternalSubmitionMail($submission));
+        
         return redirect()
             ->route('user.listings-rentals')
             ->with('success', 'External rental listing link submitted successfully.');
