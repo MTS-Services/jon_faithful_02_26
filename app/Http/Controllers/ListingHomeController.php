@@ -11,10 +11,12 @@ use Illuminate\Http\Request;
 use App\Enums\ActiveInactive;
 use App\Enums\ListingProperty;
 use App\Models\ListingGallery;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 use App\Models\ExternalListingSubmission;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Log;
+use App\Mail\FoundingExternalSubmitionMail;
 
 class ListingHomeController extends Controller
 {
@@ -113,7 +115,7 @@ class ListingHomeController extends Controller
 
         // Store the external listing submission
         // You might want to create a separate table for this
-        ExternalListingSubmission::create([
+        $submission = ExternalListingSubmission::create([
             'user_id' => auth()->id(),
             // 'listing_id' => null,
             // 'listing_type' => Listing::class,
@@ -121,6 +123,7 @@ class ListingHomeController extends Controller
             'email' => $validated['email'],
             'external_link' => $validated['external_link'],
         ]);
+        Mail::to('info@whytennessee.com')->send(new FoundingExternalSubmitionMail($submission));
 
         return redirect()
             ->route('user.dashboard')

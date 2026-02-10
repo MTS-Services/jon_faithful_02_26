@@ -3,7 +3,9 @@
 use Faker\Guesser\Name;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\ListingController;
 use App\Http\Controllers\Admin\AdminAuthController;
+use App\Http\Controllers\Admin\ExternalLinkSubmiition;
 use App\Http\Controllers\Admin\UserManagement\UserController;
 
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -36,5 +38,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/pending-verification', [UserController::class, 'pendingVerification'])->name('user.pending-verification');
             Route::get('/user/verify/{id}', [UserController::class, 'verified'])->name('user.verify');
         });
+        Route::prefix('listing')->as('listing.')->controller(ListingController::class)->group(function () {
+            Route::get('/homes', 'listingsHome')->name('homes');
+            Route::get('/rentals', 'listingsRental')->name('rentals');
+        });
+        Route::get('/external-link', [ExternalLinkSubmiition::class, 'externalLink'])->name('external-link');
     });
 });

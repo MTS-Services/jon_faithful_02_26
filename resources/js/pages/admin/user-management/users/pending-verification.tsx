@@ -36,6 +36,13 @@ export default function index({
         handlePageChange,
     } = useDataTable();
 
+    const USER_TYPE_LABELS: Record<string, string> = {
+        property_owner: 'Property Owner / Manager',
+        realtor: 'Realtor',
+        both: 'Both',
+    };
+
+
     const columns: ColumnConfig<User>[] = [
         {
             key: 'image',
@@ -75,6 +82,16 @@ export default function index({
             render: (user) => (
                 <div className="text-gray-600 dark:text-gray-400">
                     {user.phone}
+                </div>
+            ),
+        },
+        {
+            key: 'user_type',
+            label: 'User Type',
+            sortable: true,
+            render: (user) => (
+                <div className="text-gray-600 dark:text-gray-400">
+                    {USER_TYPE_LABELS[user.user_type] ?? user.user_type}
                 </div>
             ),
         },

@@ -42,10 +42,31 @@ const adminNavItems: NavItemType[] = [
             },
         ],
     },
+    {
+        title: 'Listings(Homes)',
+        href: route('admin.listing.homes'),
+        icon: BarChart,
+        permission: 'view analytics', // Assuming similar permission structure
+        slug: 'admin-listings',
+    },
+    {
+        title: 'Listings(Rentals)',
+        href: route('admin.listing.rentals'),
+        icon: BarChart,
+        permission: 'view analytics', // Assuming similar permission structure
+        slug: 'admin-listings',
+    },
+    {
+        title: 'External Listing Submissions',
+        href: route('admin.external-link'),
+        icon: BarChart,
+        permission: 'view analytics', // Assuming similar permission structure
+        slug: 'admin-external-listing-submissions',
+    }
     // {
     //     title: 'Inquiries',
     //     href: '#',
-    //     icon: BarChart, // Using BarChart as a placeholder, can be changed
+    //     icon: BarChart,
     //     permission: 'view analytics', // Assuming similar permission structure
     //     slug: 'admin-inquiries',
     // },
