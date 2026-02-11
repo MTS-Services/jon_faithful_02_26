@@ -1,5 +1,5 @@
 import React from 'react'
-import { Head, router } from '@inertiajs/react'
+import { Head, Link, router } from '@inertiajs/react'
 import AdminLayout from '@/layouts/admin-layout'
 import { DataTable } from '@/components/ui/data-table'
 import { useDataTable } from '@/hooks/use-data-table'
@@ -7,6 +7,7 @@ import { PaginationData, ColumnConfig, ActionConfig } from '@/types/data-table.t
 import { Badge } from '@/components/ui/badge'
 import { Listing } from '@/types'
 import { Eye, Pencil, Trash2 } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 
 interface Props {
   listings: Listing[]
@@ -115,15 +116,36 @@ export default function Index({
         router.visit(route('admin.listing.details', item?.id));
       },
     },
+    {
+      label: 'Edit',
+      icon: <Pencil className="h-4 w-4" />,
+      onClick: (item) => {
+        router.visit(route('admin.listing.edit', item?.id));
+      },
+    },
+    {
+      label: 'Delete',
+      icon: <Trash2 className="h-4 w-4" />,
+      onClick: (item) => {
+        if (confirm(`Are you sure you want to delete ${item.title}?`)) {
+          router.visit(route('admin.listing.delete', item?.id));
+        }
+      },
+    },
   ]
 
   return (
     <AdminLayout activeSlug="listings">
       <Head title="Listing Homes" />
 
-      <h2 className="text-3xl font-bold text-slate-900 mb-6">
-        Listing Homes
-      </h2>
+      <div className="flex justify-between mb-6">
+        <h2 className="text-3xl font-bold text-slate-900 mb-6">
+          Listing Homes
+        </h2>
+        {/* <Link href={route('admin.listing.add-listing-home')}>
+          <Button>Create User</Button>
+        </Link> */}
+      </div>
 
       <div className="mx-auto">
         <DataTable
