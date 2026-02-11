@@ -17,9 +17,17 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 use App\Models\ExternalListingSubmission;
 use App\Mail\FoundingExternalSubmitionMail;
+use App\Services\ListingHomeService;
 
 class ListingHomeController extends Controller
 {
+
+    protected $listingService;
+
+    public function __construct(ListingHomeService $listingService)
+    {
+        $this->listingService = $listingService;
+    }
     public function listings(Request $request): Response
     {
         $listing = Listing::where('user_id', $request->user()->id)->with('city')->paginate(10);
@@ -43,10 +51,8 @@ class ListingHomeController extends Controller
             ])
         ]);
     }
-
     public function addListingStore(Request $request)
     {
-        Log::info('Listing home store');
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:500'],
             'description' => ['required', 'string'],
@@ -61,50 +67,38 @@ class ListingHomeController extends Controller
             'gallery_images.*' => ['nullable', 'image', 'max:25600'], // 25MB max per image
         ]);
 
-        // Handle primary image upload
-        $primaryImageUrl = null;
-        if ($request->hasFile('primary_image_url')) {
-            $file = $request->file('primary_image_url');
-            $primaryImageUrl = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('listings/primary', $primaryImageUrl);
-        }
-
-        // Create the listing
-        $listing = Listing::create([
-            'user_id' => auth()->id(),
-            'city_id' => $validated['city_id'],
-            'title' => $validated['title'],
-            'description' => $validated['description'],
-            'purchase_price' => $validated['purchase_price'],
-            'listing_status' => $validated['listing_status'],
-            'property_type' => $validated['property_type'],
-            'bedrooms' => $validated['bedrooms'],
-            'bathrooms' => $validated['bathrooms'],
-            'square_feet' => $validated['square_feet'],
-            'primary_image_url' => $primaryImageUrl,
-            'status' => ActiveInactive::INACTIVE->value,
-            'sort_order' => 0,
-        ]);
-
-        // Handle gallery images if you have a separate table for them
-        if ($request->hasFile('gallery_images')) {
-            foreach ($request->file('gallery_images') as $image) {
-                $galleryUrl = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-                $image->storeAs('listings/gallery', $galleryUrl);
-
-                ListingGallery::create([
-                    'listing_id' => $listing->id,
-                    'listing_type' => Listing::class,
-                    'image_url' => $galleryUrl,
-                ]);
-            }
-        }
+        $this->listingService->createListing($validated, $request);
 
         return redirect()
             ->route('user.dashboard')
             ->with('success', 'Listing submitted successfully and is pending review.');
     }
 
+
+    // public function addListingLinkStore(Request $request)
+    // {
+    //     $validated = $request->validate([
+    //         'name' => ['required', 'string', 'max:255'],
+    //         'email' => ['required', 'email', 'max:255'],
+    //         'external_link' => ['required', 'url', 'max:1000'],
+    //     ]);
+
+    //     // Store the external listing submission
+    //     // You might want to create a separate table for this
+    //     $submission = ExternalListingSubmission::create([
+    //         'user_id' => auth()->id(),
+    //         // 'listing_id' => null,
+    //         // 'listing_type' => Listing::class,
+    //         'name' => $validated['name'],
+    //         'email' => $validated['email'],
+    //         'external_link' => $validated['external_link'],
+    //     ]);
+    //     Mail::to('info@whytennessee.com')->send(new FoundingExternalSubmitionMail($submission));
+
+    //     return redirect()
+    //         ->route('user.dashboard')
+    //         ->with('success', 'External listing link submitted successfully.');
+    // }
     public function addListingLinkStore(Request $request)
     {
         $validated = $request->validate([
@@ -113,22 +107,13 @@ class ListingHomeController extends Controller
             'external_link' => ['required', 'url', 'max:1000'],
         ]);
 
-        // Store the external listing submission
-        // You might want to create a separate table for this
-        $submission = ExternalListingSubmission::create([
-            'user_id' => auth()->id(),
-            // 'listing_id' => null,
-            // 'listing_type' => Listing::class,
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'external_link' => $validated['external_link'],
-        ]);
-        Mail::to('info@whytennessee.com')->send(new FoundingExternalSubmitionMail($submission));
+        $this->listingService->submitExternalListing($validated);
 
         return redirect()
             ->route('user.dashboard')
             ->with('success', 'External listing link submitted successfully.');
     }
+
     public function editListing($id): Response
     {
         $listing = Listing::findOrFail($id);
@@ -149,115 +134,33 @@ class ListingHomeController extends Controller
         ]);
     }
 
-    public function updateListing(Request $request, $id): RedirectResponse
+    public function updateListing(Request $request, $id)
     {
         $listing = Listing::where('user_id', auth()->id())
             ->findOrFail($id);
 
-        /**
-         * ============================
-         * VALIDATION
-         * ============================
-         */
         $validated = $request->validate([
-            'title'            => ['required', 'string', 'max:500'],
-            'description'      => ['required', 'string'],
-            'purchase_price'   => ['required', 'numeric', 'min:0'],
-            'city_id'          => ['required', 'exists:cities,id'],
-            'listing_status'   => ['required', 'string'],
-            'property_type'    => ['required', 'string'],
-            'bedrooms'         => ['required', 'integer', 'min:0'],
-            'bathrooms'        => ['required', 'integer', 'min:0'],
-            'square_feet'      => ['required', 'integer', 'min:0'],
-            'primary_image_url'    => ['nullable', 'image', 'max:10240'],   // 10MB
-            'gallery_images'   => ['nullable', 'array'],
-            'gallery_images.*' => ['image', 'max:25600'],               // 25MB each
+            'title'                 => ['required', 'string', 'max:500'],
+            'description'           => ['required', 'string'],
+            'purchase_price'        => ['required', 'numeric', 'min:0'],
+            'city_id'               => ['required', 'exists:cities,id'],
+            'listing_status'        => ['required', 'string'],
+            'property_type'         => ['required', 'string'],
+            'bedrooms'              => ['required', 'integer', 'min:0'],
+            'bathrooms'             => ['required', 'integer', 'min:0'],
+            'square_feet'           => ['required', 'integer', 'min:0'],
+            'primary_image_url'     => ['nullable', 'image', 'max:10240'],   // 10MB
+            'gallery_images'        => ['nullable', 'array'],
+            'gallery_images.*'      => ['image', 'max:25600'],               // 25MB each
         ]);
 
-        /**
-         * ============================
-         * PRIMARY IMAGE
-         * ============================
-         */
-        if ($request->hasFile('primary_image_url')) {
-
-            // delete old
-            if (
-                $listing->primary_image_url &&
-                Storage::disk('public')->exists('listings/primary/' . $listing->primary_image_url)
-            ) {
-                Storage::disk('public')->delete('listings/primary/' . $listing->primary_image_url);
-            }
-
-            $file = $request->file('primary_image_url');
-            $imageName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('listings/primary', $imageName, 'public');
-
-            $validated['primary_image_url'] = $imageName;
-        }
-
-        /**
-         * ============================
-         * UPDATE LISTING
-         * ============================
-         */
-        $listing->update([
-            'city_id'            => $validated['city_id'],
-            'title'              => $validated['title'],
-            'description'        => $validated['description'],
-            'purchase_price'     => $validated['purchase_price'],
-            'listing_status'     => $validated['listing_status'],
-            'property_type'      => $validated['property_type'],
-            'bedrooms'           => $validated['bedrooms'],
-            'bathrooms'          => $validated['bathrooms'],
-            'square_feet'        => $validated['square_feet'],
-            'primary_image_url'  => $validated['primary_image_url'] ?? $listing->primary_image_url,
-        ]);
-
-        /**
-         * ============================
-         * GALLERY IMAGES (FIXED)
-         * ============================
-         */
-        if ($request->hasFile('gallery_images')) {
-
-            // get old gallery
-            $oldGallery = ListingGallery::where('listing_id', $listing->id)
-                ->where('listing_type', Listing::class)
-                ->get();
-
-            // delete old images from storage
-            foreach ($oldGallery as $gallery) {
-                if (
-                    $gallery->image_url &&
-                    Storage::disk('public')->exists('listings/gallery/' . $gallery->image_url)
-                ) {
-                    Storage::disk('public')->delete('listings/gallery/' . $gallery->image_url);
-                }
-            }
-
-            // delete old records
-            ListingGallery::where('listing_id', $listing->id)
-                ->where('listing_type', Listing::class)
-                ->delete();
-
-            // store new gallery images
-            foreach ($request->file('gallery_images') as $image) {
-                $galleryUrl = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-                $image->storeAs('listings/gallery', $galleryUrl, 'public');
-
-                ListingGallery::create([
-                    'listing_id'   => $listing->id,
-                    'listing_type' => Listing::class,
-                    'image_url'    => $galleryUrl,
-                ]);
-            }
-        }
+        $this->listingService->updateListing($listing, $validated, $request);
 
         return redirect()
             ->route('user.dashboard')
             ->with('success', 'Listing updated successfully.');
     }
+
 
     public function deleteListing(): Response
     {

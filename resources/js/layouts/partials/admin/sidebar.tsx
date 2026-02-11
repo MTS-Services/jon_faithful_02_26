@@ -44,14 +44,14 @@ const adminNavItems: NavItemType[] = [
     },
     {
         title: 'Listings(Homes)',
-        href: route('admin.listing.homes'),
+        href: route('admin.listing.index'),
         icon: BarChart,
         permission: 'view analytics', // Assuming similar permission structure
         slug: 'admin-listings',
     },
     {
         title: 'Listings(Rentals)',
-        href: route('admin.listing.rentals'),
+        href: route('admin.rentals.index'),
         icon: BarChart,
         permission: 'view analytics', // Assuming similar permission structure
         slug: 'admin-listings',

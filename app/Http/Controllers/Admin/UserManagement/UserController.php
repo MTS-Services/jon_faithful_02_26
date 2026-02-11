@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\FoundingUserVerifiedMail;
 use Illuminate\Support\Facades\Storage;
 use App\Concerns\PasswordValidationRules;
+use App\Enums\ActiveInactive;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -189,7 +190,7 @@ class UserController extends Controller
     public function verified($id)
     {
         $user = User::findOrFail($id);
-        $user->update(['is_verified' => true]);
+        $user->update(['is_verified' => true, 'status' => ActiveInactive::ACTIVE->value]);
 
         if (!$user) {
             return redirect()->back()->withErrors(['error' => 'Failed to create user.'])->withInput();
