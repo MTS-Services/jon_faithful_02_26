@@ -36,6 +36,7 @@ Route::prefix('account')->name('user.')->group(function () {
         Route::get('/listings-rentals', 'listings')->name('listings-rentals');
         Route::get('/add-listing-rental', 'addListing')->name('add-listing-rental');
         Route::post('/store-listing-rental', 'storeListing')->name('store-listing-rental');
+        Route::post('/add-listing-home', 'storeLinkListing')->name('add-rental-link-store');
         Route::get('/edit-listing-rental/{id}', 'editListing')->name('edit-listing-rental');
         Route::put('/edit-listing-rental/{id}', 'updateListing')->name('update-listing-rental');
         Route::get('/delete-listing-rental/{id}', 'deleteListing')->name('delete-listing-rental');

@@ -39,7 +39,7 @@ export default function AddListingRental({ cities, propertyTypes }: Props) {
         square_feet: '',
         pet_friendly: 'no',
         parking_garage: '',
-        primary_image: null as File | null,
+        primary_image_url: null as File | null,
         gallery_images: [] as File[],
     });
 
@@ -64,7 +64,7 @@ export default function AddListingRental({ cities, propertyTypes }: Props) {
 
     const handleLinkSubmit = (e: FormEvent) => {
         e.preventDefault();
-        postLink(route('user.rental-link.store'), {
+        postLink(route('user.add-rental-link-store'), {
             onSuccess: () => {
                 setLinkData({
                     name: '',
@@ -127,15 +127,15 @@ export default function AddListingRental({ cities, propertyTypes }: Props) {
                                 {/* Primary Listing Image */}
                                 <div className="w-80">
                                     <div className="grid gap-2">
-                                        <Label htmlFor="primary_image">Primary Listing Image*</Label>
+                                        <Label htmlFor="primary_image_url">Primary Listing Image*</Label>
                                         <FileUpload
-                                            value={data.primary_image}
-                                            onChange={(file) => setData('primary_image', file as File | null)}
+                                            value={data.primary_image_url}
+                                            onChange={(file) => setData('primary_image_url', file as File | null)}
                                             accept="image/*"
                                             maxSize={10}
                                         />
                                         <p className="text-xs text-gray-500">Maximum file size: 10 MB</p>
-                                        <InputError message={errors.primary_image} />
+                                        <InputError message={errors.primary_image_url} />
                                     </div>
                                 </div>
 
