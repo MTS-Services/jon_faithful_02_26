@@ -10,7 +10,7 @@ export default function SingleProduct({listing}: any) {
         <FrontendLayout>
             <Hero />
             <Gallery listing={listing} />
-            <RealatedRentalListing />
+            <RealatedRentalListing listings={[listing]} />
             <StartYourMove />
         </FrontendLayout>
     );

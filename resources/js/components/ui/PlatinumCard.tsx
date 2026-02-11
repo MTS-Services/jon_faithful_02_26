@@ -28,7 +28,7 @@ const PlatinumCard: React.FC<{ property: any }> = ({ property }) => {
                 />
 
                 <span className="absolute top-4 left-4 bg-secondary text-white text-xs uppercase font-bold px-3 py-2.5 rounded-full">
-                   Basic
+                    {property.listing_status}
                 </span>
 
                 <span className="absolute top-4 right-4 bg-primary text-white text-sm font-bold px-4 py-2.5 rounded-full shadow-sm">

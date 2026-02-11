@@ -98,7 +98,7 @@ export default function Gallery({ listing }: any) {
             </div>
             <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
                 <div className="space-y-8 lg:col-span-2">
-                    <div className="px-4 md:pl-20">
+                    <div className="px-4">
                         <h2 className="mb-3 text-xl font-semibold text-text-primary md:mb-5 md:text-2xl">
                             Ericgarcia
                         </h2>
@@ -118,7 +118,7 @@ export default function Gallery({ listing }: any) {
                                 <path d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"></path>
                             </svg>
                             <span className="font-montserrat text-base font-semibold text-secondary-foreground md:text-lg">
-                                Knoxville
+                                {listing.city?.name}
                             </span>
                         </div>
                         <div className="flex items-center gap-2">
@@ -361,15 +361,15 @@ export default function Gallery({ listing }: any) {
                             About Property Agents
                         </h3>
                         <img
-                            src="/assets/images/medium-shot-woman-working-as-real-estate-agent_23-2151065041-1.jpg"
-                            alt="Agent"
+                            src={listing.user?.image_url}
+                            alt={listing.user?.name}
                             className="mb-4 h-64 w-full rounded-lg object-cover"
                         />
                         <h4 className="text-xl leading-tight font-bold text-text-primary">
-                            Maria Johnson
+                            {listing.user?.name}
                         </h4>
                         <p className="text-sm text-primary">
-                            Maria Johnson@gmail.com
+                            {listing.user?.email}
                         </p>
                     </div>
                     <div className="rounded-xl border border-muted bg-background p-6 shadow-sm">
