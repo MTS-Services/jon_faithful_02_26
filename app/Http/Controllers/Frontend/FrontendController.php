@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ContactRealsateAgentMail;
 use App\Models\City;
+use App\Models\ContactRealsateAgent;
 use App\Models\Listing;
 use App\Models\User;
 use App\Services\ListingService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -230,7 +233,7 @@ class FrontendController extends Controller
                $listings = Listing::where('user_id', $decryptedId)
                     ->with(['city', 'galleries'])
                     ->get();
-                    // dd($listings);
+               // dd($listings);
 
                return Inertia::render('frontend/user-details', [
                     'user' => $user,
@@ -239,5 +242,36 @@ class FrontendController extends Controller
           } catch (\Exception $e) {
                abort(404);
           }
+     }
+     public function submitRequest(Request $request)
+     {
+          $request->validate([
+               'name'  => 'required|string|max:255',
+               'email' => 'required|email',
+               'phone' => 'nullable|string|max:20',
+               'listing_id' => 'required|integer',
+          ]);
+
+          $listing = Listing::with('user')->findOrFail($request->listing_id);
+          $owner   = $listing->user;
+          ContactRealsateAgent::create([
+               'name' => $request->name,
+               'email' => $request->email,
+               'phone' => $request->phone,
+               'listing_id' => $listing->id,
+               'realstate_agent_id' => $owner->id,
+          ]);
+          $data = [
+               'name'  => $request->name,
+               'email' => $request->email,
+               'phone' => $request->phone,
+               'listing_title' => $listing->title,
+               'purchase_price' => $listing->purchase_price,
+               'owner_name' => $owner->name,
+          ];
+
+          Mail::to($owner->email)->send(new ContactRealsateAgentMail($data));
+
+          return redirect()->back()->with('success', 'Request sent!');
      }
 }
