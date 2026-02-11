@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ListingController;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\ExternalLinkSubmiition;
+use App\Http\Controllers\Admin\RentalController;
 use App\Http\Controllers\Admin\UserManagement\UserController;
 
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -39,8 +40,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/user/verify/{id}', [UserController::class, 'verified'])->name('user.verify');
         });
         Route::prefix('listing')->as('listing.')->controller(ListingController::class)->group(function () {
-            Route::get('/homes', 'listingsHome')->name('homes');
-            Route::get('/rentals', 'listingsRental')->name('rentals');
+            Route::get('/homes', 'index')->name('index');
+            Route::get('/homes-details/{id}', 'details')->name('details');
+            Route::get('/edit-listing-home/{id}', 'edit')->name('edit');
+            Route::post('/update-listing-home/{id}', 'update')->name('update');
+        });
+        Route::prefix('rentals')->as('rentals.')->controller(RentalController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/details/{id}', 'details')->name('details');
         });
         Route::get('/external-link', [ExternalLinkSubmiition::class, 'externalLink'])->name('external-link');
     });

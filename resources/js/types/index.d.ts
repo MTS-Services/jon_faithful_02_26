@@ -93,3 +93,54 @@ export interface DropdownPosition {
     top: number;
     left: number;
 }
+
+export interface Listing {
+    id: number
+    user_id: number
+    city_id: number
+    title: string
+    description: string | null
+    purchase_price: number | null
+    listing_status: string
+    property_type: string
+    bedrooms: number
+    bathrooms: number
+    square_feet: number
+    primary_image_url: string | null
+    image_url: string[]
+    status: string
+    created_at: string
+    updated_at: string
+    galleries?: ListingGallery[]
+}
+
+export interface Rental {
+    id: number
+    user_id: number
+    city_id: number
+    listing_title: string
+    description: string | null
+    purchase_price: number | null
+    property_type: string
+    security_deposit: number | null
+    lease_length: number
+    bedrooms: number
+    bathrooms: number
+    square_feet: number
+    pet_friendly: boolean
+    parking_garage: number | null
+    primary_image_url: string | null
+    image_url: string[]
+    status: string
+    created_at: string
+    updated_at: string
+    galleries?: ListingGallery[]
+}
+
+
+export interface City {
+    id: number;
+    name: string;
+    created_at: string;
+    updated_at: string;
+}
