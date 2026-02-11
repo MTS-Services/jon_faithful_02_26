@@ -47,6 +47,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         });
         Route::prefix('rentals')->as('rentals.')->controller(RentalController::class)->group(function () {
             Route::get('/', 'index')->name('index');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
             Route::get('/details/{id}', 'details')->name('details');
         });
         Route::get('/external-link', [ExternalLinkSubmiition::class, 'externalLink'])->name('external-link');
