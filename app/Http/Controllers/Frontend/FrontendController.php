@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\City;
+use App\Models\Listing;
 use App\Models\User;
 use App\Services\ListingService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -79,13 +81,62 @@ class FrontendController extends Controller
      {
           return Inertia::render('frontend/city-comparison');
      }
+     // public function realEstateAgents(): Response
+     // {
+     //      $owners =  User::where('user_type', 'property_owner')->get();
+     //      $realtors =  User::where('user_type', 'realtor')->get();
+     //      $boths =  User::where('user_type', 'both')->get();
+
+     //      return Inertia::render('frontend/real-estate-agents', [
+     //           'owners' => $owners,
+     //           'realtors' => $realtors,
+     //           'boths' => $boths
+     //      ]);
+     // }
      public function realEstateAgents(): Response
      {
-          $owners =  User::where('user_type', 'property_owner')->get();
-          $realtors =  User::where('user_type', 'realtor')->get();
-          $boths =  User::where('user_type', 'both')->get();
+          // Get users and encrypt their IDs
+          $owners = User::where('user_type', 'property_owner')
+               ->get()
+               ->map(function ($user) {
+                    return [
+                         'id' => Crypt::encryptString($user->id),
+                         'name' => $user->name,
+                         'email' => $user->email,
+                         'phone' => $user->phone,
+                         'image_url' => $user->image_url,
+                         'your_self' => $user->your_self,
 
-          return Inertia::render('frontend/real-estate-agents',[
+                    ];
+               });
+
+          $realtors = User::where('user_type', 'realtor')
+               ->get()
+               ->map(function ($user) {
+                    return [
+                         'id' => Crypt::encryptString($user->id),
+                         'name' => $user->name,
+                         'email' => $user->email,
+                         'phone' => $user->phone,
+                         'image_url' => $user->image_url,
+                         'your_self' => $user->your_self,
+                    ];
+               });
+
+          $boths = User::where('user_type', 'both')
+               ->get()
+               ->map(function ($user) {
+                    return [
+                         'id' => Crypt::encryptString($user->id),
+                         'name' => $user->name,
+                         'email' => $user->email,
+                         'phone' => $user->phone,
+                         'image_url' => $user->image_url,
+                         'your_self' => $user->your_self,
+                    ];
+               });
+
+          return Inertia::render('frontend/real-estate-agents', [
                'owners' => $owners,
                'realtors' => $realtors,
                'boths' => $boths
@@ -171,12 +222,22 @@ class FrontendController extends Controller
           return Inertia::render('frontend/pros-cons-tennessee');
      }
 
-public function userDetails($id): Response
-{
-    $user = User::findOrFail($id);
+     public function userDetails($id): Response
+     {
+          try {
+               $decryptedId = Crypt::decryptString($id);
+               $user = User::findOrFail($decryptedId);
+               $listings = Listing::where('user_id', $decryptedId)
+                    ->with(['city', 'galleries'])
+                    ->get();
+                    // dd($listings);
 
-    return Inertia::render('frontend/user-details', [
-        'user' => $user
-    ]);
-}
+               return Inertia::render('frontend/user-details', [
+                    'user' => $user,
+                    'listings' => $listings
+               ]);
+          } catch (\Exception $e) {
+               abort(404);
+          }
+     }
 }
