@@ -1,12 +1,14 @@
 import React from 'react'
-import { Head, router } from '@inertiajs/react'
+import { Head, Link, router } from '@inertiajs/react'
 import AdminLayout from '@/layouts/admin-layout'
 import { DataTable } from '@/components/ui/data-table'
 import { useDataTable } from '@/hooks/use-data-table'
 import { PaginationData, ColumnConfig, ActionConfig } from '@/types/data-table.types'
 import { Badge } from '@/components/ui/badge'
 import { Listing } from '@/types'
-import { Eye, Pencil, Trash2 } from 'lucide-react'
+import { Eye, Pencil, Plus, Trash2 } from 'lucide-react'
+import { ActionButton } from '@/components/ui/action-button'
+import { Button } from '@/components/ui/button'
 
 interface Props {
   listings: Listing[]
@@ -121,9 +123,12 @@ export default function Index({
     <AdminLayout activeSlug="listings">
       <Head title="Listing Homes" />
 
-      <h2 className="text-3xl font-bold text-slate-900 mb-6">
+     <div className="flex justify-between items-center">
+       <h2 className="text-3xl font-bold text-slate-900 mb-6">
         Listing Homes
       </h2>
+      <ActionButton href={route('admin.listing.create')} IconNode={Plus} >Create</ActionButton>
+     </div>
 
       <div className="mx-auto">
         <DataTable

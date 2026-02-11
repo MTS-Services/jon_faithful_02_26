@@ -41,6 +41,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         });
         Route::prefix('listing')->as('listing.')->controller(ListingController::class)->group(function () {
             Route::get('/homes', 'index')->name('index');
+            Route::get('/homes-create', 'create')->name('create');
+            Route::post('homes-create', 'store')->name('store');
             Route::get('/homes-details/{id}', 'details')->name('details');
             Route::get('/edit-listing-home/{id}', 'edit')->name('edit');
             Route::post('/update-listing-home/{id}', 'update')->name('update');
