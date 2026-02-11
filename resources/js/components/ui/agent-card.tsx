@@ -1,4 +1,5 @@
 import { Link } from '@inertiajs/react';
+import { privateEncrypt, publicEncrypt } from 'crypto';
 import React from 'react'
 
 type AgentCardProps = {
@@ -28,7 +29,7 @@ export default function AgentCard({ data }: AgentCardProps) {
                     {data.your_self}
                 </p>
                 <div className="mt-6">
-                    <Link href={route('frontend.user-details', data.id)}>
+                     <Link href={route('frontend.user-details', { id: data.id })}>
                         <button className="w-full py-3 px-4 border-2 border-gray-800 text-gray-800 font-medium rounded hover:bg-gray-800 hover:text-white transition-colors duration-300 cursor-pointer">
                             Read More
                         </button>

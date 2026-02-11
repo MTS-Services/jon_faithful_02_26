@@ -21,7 +21,8 @@ class UserMiddleware
             return redirect()->route('user.choose');
         }
         $user = Auth::user();
-        if ($user->status->value !== ActiveInactive::ACTIVE->value) {
+        
+        if ($user->is_verified == false) {
             return redirect()->route('user.pending-verification');
         }
 
