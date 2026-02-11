@@ -227,6 +227,7 @@ export default function View({ rental }: Props) {
 
                                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                                     {rental.galleries.map((image: any) => (
+                                        console.log(image),
                                         <img
                                             key={image.id}
                                             src={image.image_url}

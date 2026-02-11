@@ -37,24 +37,6 @@ export default function View({ listing }: Props) {
                     {/* LEFT SIDE */}
                     <div className="space-y-6 lg:col-span-2">
 
-                        {/* Image */}
-                        {/* <Card>
-                            <CardHeader>
-                                <CardTitle>Primary Image</CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                {listing.primary_image_url ? (
-                                    <img
-                                        src={listing.image_url}
-                                        alt="listing-image"
-                                        className="w-full max-w-md rounded object-cover"
-                                    />
-                                ) : (
-                                    <p className="text-muted-foreground">No image available</p>
-                                )}
-                            </CardContent>
-                        </Card> */}
-
                         {/* Title */}
                         <Card>
                             <CardHeader>

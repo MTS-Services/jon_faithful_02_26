@@ -43,7 +43,10 @@ class ListingGallery extends Model
         if (!$originalUrl) {
             return asset('no-image.png');
         }
+        if($this->listing_type == Listing::class){
+            return asset('storage/listings/gallery/' . $originalUrl);
+        }
 
-        return asset('storage/listings/gallery/' . $originalUrl);
+        return asset('storage/rentals/gallery/' . $originalUrl);
     }
 }
