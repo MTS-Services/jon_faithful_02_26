@@ -60,7 +60,7 @@ export default function RealEstateAgents({
             <section className="bg-gray-50 px-4 py-16">
                 <div className="container mx-auto">
                     <h1 className="mb-12 text-center text-3xl font-bold text-gray-900 md:text-4xl">
-                        Our Both (Realtor & Rentals)
+                        Our Realtor & Rentals
                     </h1>
                     <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                         {boths.map((both, index) => (
