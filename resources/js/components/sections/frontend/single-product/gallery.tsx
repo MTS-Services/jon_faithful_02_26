@@ -1,14 +1,11 @@
 import { useState } from 'react';
 
 export default function Gallery({ listing }: any) {
-    // const images = [
-    //     '/assets/images/classic-house-with-flower-garden-2048x1365.jpeg',
-    //     '/assets/images/pexels-kelly-34088068-1-scaled.jpg',
-    //     '/assets/images/Apartments-in-2048x1365.jpeg',
-    //     '/assets/images/Highbury-Homes-for-rent-cookeville-tn.webp',
-    // ];
 
-    const images = listing.galleries.map((image: any) => image.image_url);
+
+    const primaryImage = listing.image_url;
+    // const images = listing.galleries.map((image: any) => image.image_url);
+    const images = [primaryImage, ...listing.galleries.map((image: any) => image.image_url)];
 
 
 
