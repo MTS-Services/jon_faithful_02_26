@@ -38,7 +38,7 @@ export default function AddListingHome({ cities, propertyTypes, propertyStatuses
         bedrooms: '',
         bathrooms: '',
         square_feet: '',
-        primary_image: null as File | null,
+        primary_image_url: null as File | null,
         gallery_images: [] as File[],
     });
 
@@ -83,7 +83,7 @@ export default function AddListingHome({ cities, propertyTypes, propertyStatuses
 
     const handlePrimaryImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
-            setData('primary_image', e.target.files[0]);
+            setData('primary_image_url', e.target.files[0]);
         }
     };
 
@@ -137,14 +137,14 @@ export default function AddListingHome({ cities, propertyTypes, propertyStatuses
                                 </div>
                                 <div className="mb-6 w-80">
                                     <div className="grid gap-2">
-                                        <Label htmlFor="primary_image">Image</Label>
+                                        <Label htmlFor="primary_image_url">Image</Label>
                                         <FileUpload
-                                            value={data.primary_image}
-                                            onChange={(file) => setData('primary_image', file as File | null)}
+                                            value={data.primary_image_url}
+                                            onChange={(file) => setData('primary_image_url', file as File | null)}
                                             accept="image/*"
                                             maxSize={10}
                                         />
-                                        <InputError message={errors.primary_image} />
+                                        <InputError message={errors.primary_image_url} />
                                     </div>
                                 </div>
 
