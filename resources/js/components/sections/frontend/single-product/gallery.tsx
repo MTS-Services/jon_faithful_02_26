@@ -1,13 +1,33 @@
+import { useForm } from '@inertiajs/react';
 import { useState } from 'react';
 
 export default function Gallery({ listing }: any) {
+    const { data, setData, post, processing, reset } = useForm({
+        name: '',
+        email: '',
+        phone: '',
+        listing_id: listing.id,
+    });
 
+    const submitRequest = (e: React.FormEvent) => {
+        e.preventDefault();
+        post(route('frontend.submit-request'), {
+            onSuccess: () => {
+                alert('Request sent successfully!');
+                reset('name', 'email', 'phone');
+            },
+            onError: (response) => {
+                console.log(response);
+            },
+        });
+    };
 
     const primaryImage = listing.image_url;
     // const images = listing.galleries.map((image: any) => image.image_url);
-    const images = [primaryImage, ...listing.galleries.map((image: any) => image.image_url)];
-
-
+    const images = [
+        primaryImage,
+        ...listing.galleries.map((image: any) => image.image_url),
+    ];
 
     const [selectedImage, setSelectedImage] = useState(images[0]);
 
@@ -376,7 +396,7 @@ export default function Gallery({ listing }: any) {
                         <h3 className="text--muted-foreground mb-4 text-lg font-bold">
                             Contact Realsate Agents
                         </h3>
-                        <form className="space-y-4">
+                        <form className="space-y-4" onSubmit={submitRequest}>
                             <div>
                                 <label className="mb-1 block text-sm font-semibold text-primary">
                                     Name
@@ -385,6 +405,10 @@ export default function Gallery({ listing }: any) {
                                     type="text"
                                     placeholder="Enter Name"
                                     className="w-full rounded-md border p-2.5 transition-all outline-none focus:ring-2"
+                                    value={data.name}
+                                    onChange={(e) =>
+                                        setData('name', e.target.value)
+                                    }
                                 />
                             </div>
                             <div>
@@ -395,6 +419,10 @@ export default function Gallery({ listing }: any) {
                                     type="email"
                                     placeholder="Enter Email Address"
                                     className="w-full rounded-md border p-2.5 transition-all outline-none focus:ring-2"
+                                    value={data.email}
+                                    onChange={(e) =>
+                                        setData('email', e.target.value)
+                                    }
                                 />
                             </div>
                             <div>
@@ -402,12 +430,20 @@ export default function Gallery({ listing }: any) {
                                     Phone Number
                                 </label>
                                 <input
-                                    type="text"
+                                    type="tel"
                                     placeholder="Enter Phone Number"
                                     className="w-full rounded-md border p-2.5 transition-all outline-none focus:ring-2"
+                                    value={data.phone}
+                                    onChange={(e) =>
+                                        setData('phone', e.target.value)
+                                    }
                                 />
                             </div>
-                            <button className="w-full rounded-md bg-primary py-3 font-bold text-primary-foreground transition-colors hover:bg-primary/80">
+                            <button
+                                type="submit"
+                                disabled={processing}
+                                className="w-full rounded-md bg-primary py-3 font-bold text-primary-foreground transition-colors hover:bg-primary/80"
+                            >
                                 Submit Request
                             </button>
                         </form>
