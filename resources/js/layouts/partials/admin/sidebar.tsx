@@ -17,7 +17,8 @@ const adminNavItems: NavItemType[] = [
         title: 'User Management',
         href: '#',
         icon: Users,
-        badge: 42,
+        badge: 2,
+        slug:'user-management',
         children: [
             // {
             //     title: 'Admins',
@@ -31,14 +32,14 @@ const adminNavItems: NavItemType[] = [
                 href: route('admin.um.users.index'),
                 icon: User,
                 permission: 'manage users',
-                slug: 'admin-users',
+                slug: 'users',
             },
             {
                 title: 'Pending Verification',
                 href: route('admin.um.user.pending-verification'),
                 icon: User,
                 permission: 'manage users',
-                slug: 'admin-users',
+                slug: 'pending-verification',
             },
         ],
     },
@@ -47,21 +48,21 @@ const adminNavItems: NavItemType[] = [
         href: route('admin.listing.index'),
         icon: BarChart,
         permission: 'view analytics', // Assuming similar permission structure
-        slug: 'admin-listings',
+        slug: 'listings',
     },
     {
         title: 'Listings(Rentals)',
         href: route('admin.rentals.index'),
         icon: BarChart,
         permission: 'view analytics', // Assuming similar permission structure
-        slug: 'admin-listings',
+        slug: 'rentals',
     },
     {
-        title: 'External Listing Submissions',
+        title: 'External Link Submissions',
         href: route('admin.external-link'),
         icon: BarChart,
         permission: 'view analytics', // Assuming similar permission structure
-        slug: 'admin-external-listing-submissions',
+        slug: 'externa-lLinks',
     }
     // {
     //     title: 'Inquiries',
@@ -124,16 +125,23 @@ export const AdminSidebar = React.memo<AdminSidebarProps>(
                 {/* Navigation */}
                 <div className="custom-scrollbar flex-1 overflow-y-auto px-3 py-4">
                     <nav className="space-y-1">
-                        {adminNavItems.map((item, index) => (
-                            <NavItem
-                                key={`${item.title}-${index}`}
-                                item={item}
-                                isCollapsed={isCollapsed}
-                                currentRoute={currentRoute}
-                                isActive={activeSlug === item.slug}
-                                permissions={userPermissions}
-                            />
-                        ))}
+                        {adminNavItems.map((item, index) => {
+                            // Check if any child is active
+                            const isChildActive = item.children?.some(
+                                child => child.slug === activeSlug
+                            );
+                            
+                            return (
+                                <NavItem
+                                    key={`${item.title}-${index}`}
+                                    item={item}
+                                    isCollapsed={isCollapsed}
+                                    currentRoute={currentRoute}
+                                    isActive={activeSlug === item.slug || isChildActive}
+                                    permissions={userPermissions}
+                                />
+                            );
+                        })}
                     </nav>
                 </div>
 

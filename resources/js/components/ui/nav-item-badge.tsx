@@ -12,7 +12,7 @@ export const NavItemBadge = React.memo<NavItemBadgeProps>(({ badge, className })
     return (
         <span
             className={cn(
-                "px-2 py-0.5 text-xs font-medium bg-primary text-primary-foreground rounded-full shrink-0 min-w-1.5rem text-center",
+                "px-2 py-0.5 text-xs font-medium bg-primary/50 text-primary-foreground rounded-full shrink-0 min-w-1.5rem text-center",
                 className
             )}
         >
