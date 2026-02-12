@@ -7,41 +7,37 @@ use Illuminate\Http\Request;
 
 class DataTableService
 {
-    /**
-     * Process DataTable request
-     *
-     * @param Builder $query
-     * @param Request $request
-     * @param array $config
-     * @return array
-     */
     public function process(Builder $query, Request $request, array $config): array
     {
-        $searchableColumns = $config['searchable'] ?? [];
-        $filterableColumns = $config['filterable'] ?? [];
-        $sortableColumns = $config['sortable'] ?? [];
+        $searchable = $config['searchable'] ?? [];
+        $filterable = $config['filterable'] ?? [];
+        $sortable   = $config['sortable'] ?? [];
 
-        // Apply search
-        if ($request->filled('search')) {
-            $this->applySearch($query, $request->input('search'), $searchableColumns);
+        // SEARCH
+        if ($request->filled('search') && !empty($searchable)) {
+            $this->applySearch($query, $request->search, $searchable);
         }
 
-        // Apply filters
-        if ($request->filled('filters')) {
-            $this->applyFilters($query, $request->input('filters'), $filterableColumns);
+        // FILTERS
+        if ($request->filled('filters') && !empty($filterable)) {
+            $this->applyFilters($query, $request->filters, $filterable);
         }
 
-        // Apply sorting
-        if ($request->filled('sort_by') && in_array($request->input('sort_by'), $sortableColumns)) {
-            $this->applySorting($query, $request->input('sort_by'), $request->input('sort_order', 'asc'));
+        // SORTING
+        if (
+            $request->filled('sort_by') &&
+            in_array($request->sort_by, $sortable)
+        ) {
+            $this->applySorting(
+                $query,
+                $request->sort_by,
+                $request->input('sort_order', 'asc')
+            );
         }
 
-        // Get pagination parameters
-        $perPage = $request->input('per_page', 15);
-        $currentPage = $request->input('page', 1);
-        $offset = ($currentPage - 1) * $perPage;
+        $perPage = (int) $request->input('per_page', 15);
+        $page = (int) $request->input('page', 1);
 
-        // Paginate
         $data = $query->paginate($perPage)->withQueryString();
 
         return [
@@ -54,7 +50,7 @@ class DataTableService
                 'from' => $data->firstItem(),
                 'to' => $data->lastItem(),
             ],
-            'offset' => $offset,
+            'offset' => ($page - 1) * $perPage,
             'filters' => $request->input('filters', []),
             'search' => $request->input('search', ''),
             'sort_by' => $request->input('sort_by', ''),
@@ -62,59 +58,32 @@ class DataTableService
         ];
     }
 
-    /**
-     * Apply search to query
-     */
     private function applySearch(Builder $query, string $search, array $columns): void
     {
         $query->where(function ($q) use ($columns, $search) {
             foreach ($columns as $column) {
-                if (str_contains($column, '.')) {
-                    [$relation, $relationColumn] = explode('.', $column);
-                    $q->orWhereHas($relation, function ($relationQuery) use ($relationColumn, $search) {
-                        $relationQuery->where($relationColumn, 'like', "%{$search}%");
-                    });
-                } else {
-                    $q->orWhere($column, 'like', "%{$search}%");
-                }
+                $q->orWhere($column, 'like', "%{$search}%");
             }
         });
     }
 
-    /**
-     * Apply filters to query
-     */
-    private function applyFilters(Builder $query, array $filters, array $filterableColumns): void
+    private function applyFilters(Builder $query, array $filters, array $allowed): void
     {
         foreach ($filters as $key => $value) {
-            if (in_array($key, $filterableColumns) && !empty($value)) {
-                if (str_contains($key, '.')) {
-                    [$relation, $relationColumn] = explode('.', $key);
-                    $query->whereHas($relation, function ($relationQuery) use ($relationColumn, $value) {
-                        $relationQuery->where($relationColumn, $value);
-                    });
-                } else {
-                    $query->where($key, $value);
-                }
-            }
+
+            if (!in_array($key, $allowed)) continue;
+            if ($value === '' || $value === null) continue;
+
+            // Convert boolean string
+            if ($value === '0') $value = 0;
+            if ($value === '1') $value = 1;
+
+            $query->where($key, $value);
         }
     }
 
-    /**
-     * Apply sorting to query
-     */
     private function applySorting(Builder $query, string $sortBy, string $sortOrder): void
     {
-        if (str_contains($sortBy, '.')) {
-            [$relation, $relationColumn] = explode('.', $sortBy);
-            $query->with($relation)->orderBy(
-                function ($q) use ($relation, $relationColumn) {
-                    return $q->from($relation)->select($relationColumn)->limit(1);
-                },
-                $sortOrder
-            );
-        } else {
-            $query->orderBy($sortBy, $sortOrder);
-        }
+        $query->orderBy($sortBy, $sortOrder === 'desc' ? 'desc' : 'asc');
     }
 }

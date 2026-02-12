@@ -187,7 +187,7 @@ export function DataTable<T extends Record<string, unknown>>({
 
                     {/* Filters */}
                     {filters.length > 0 && (
-                        <div className="datatable-filters">
+                        <div className="datatable-filters mt-4">
                             {filters.map((filter) => (
                                 <div key={filter.key} className="datatable-filter-item">
                                     <Select
@@ -392,7 +392,7 @@ export function DataTable<T extends Record<string, unknown>>({
                         <ChevronLeft className="h-4 w-4" />
                         <span className="datatable-pagination-nav-text">Previous</span>
                     </Button>
-                    <div className="datatable-pagination-numbers">
+                    <div className="flex gap-2 items-center">
                         {renderPagination()}
                     </div>
                     <Button

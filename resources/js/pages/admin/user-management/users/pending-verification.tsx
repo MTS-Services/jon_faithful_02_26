@@ -143,6 +143,17 @@ export default function index({
                     offset={offset}
                     showNumbering={true}
                     actions={actions}
+                    filters={[
+                        {
+                        key: 'user_type',
+                        label: 'User Type',
+                        options: [
+                            { value: 'property_owner', label: 'Property Owner' },
+                            { value: 'realtor', label: 'Realtor' },
+                            { value: 'both', label: 'Both' },
+                        ],
+                        },
+                    ]}
                     onSearch={handleSearch}
                     onFilterChange={handleFilterChange}
                     onSort={handleSort}

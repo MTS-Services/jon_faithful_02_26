@@ -158,7 +158,7 @@ export default function index({
       </div>
 
       <div className="mx-auto">
-        <DataTable
+        {/* <DataTable
           data={users}
           columns={columns}
           pagination={pagination}
@@ -177,7 +177,47 @@ export default function index({
           isLoading={isLoading}
           emptyMessage="No users found"
           searchPlaceholder="Search users by name, email..."
+        /> */}
+        <DataTable
+          data={users}
+          columns={columns}
+          pagination={pagination}
+          offset={offset}
+          showNumbering={true}
+          actions={actions}
+          filters={[
+            {
+              key: 'user_type',
+              label: 'User Type',
+              options: [
+                { value: 'property_owner', label: 'Property Owner' },
+                { value: 'realtor', label: 'Realtor' },
+                { value: 'both', label: 'Both' },
+              ],
+            },
+            {
+              key: 'is_verified',
+              label: 'Verification',
+              options: [
+                { value: '1', label: 'Verified' },
+                { value: '0', label: 'Not Verified' },
+              ],
+            },
+          ]}
+          onSearch={handleSearch}
+          onFilterChange={handleFilterChange}
+          onSort={handleSort}
+          onPerPageChange={handlePerPageChange}
+          onPageChange={handlePageChange}
+          searchValue={search}
+          filterValues={filters}
+          sortBy={sortBy}
+          sortOrder={sortOrder}
+          isLoading={isLoading}
+          emptyMessage="No users found"
+          searchPlaceholder="Search users by name, email..."
         />
+
       </div>
     </AdminLayout>
   );
