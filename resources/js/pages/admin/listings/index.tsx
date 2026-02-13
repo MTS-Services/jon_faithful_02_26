@@ -117,6 +117,22 @@ export default function Index({
         router.visit(route('admin.listing.details', item?.id));
       },
     },
+    {
+      label: 'Edit',
+      icon: <Pencil className="h-4 w-4" />,
+      onClick: (item) => {
+        router.visit(route('admin.listing.edit', item?.id));
+      },
+    },
+    {
+      label: 'Delete',
+      icon: <Trash2 className="h-4 w-4" />,
+      onClick: (item) => {
+        if (confirm(`Are you sure you want to delete ${item.title}?`)) {
+          router.visit(route('admin.listing.delete', item?.id));
+        }
+      },
+    },
   ]
 
   return (

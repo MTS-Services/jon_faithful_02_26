@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\City;
 use Inertia\Inertia;
 use Inertia\Response;
 use App\Models\Listing;
-use Illuminate\Http\Request;
-use App\Models\City;
-use App\Enums\ListingProperty;
 use App\Enums\ListingStatus;
+use Illuminate\Http\Request;
+use App\Enums\ListingProperty;
 use App\Services\DataTableService;
 use App\Services\ListingHomeService;
 use App\Http\Controllers\Controller;

@@ -6,6 +6,7 @@ use App\Models\Rental;
 use App\Models\ListingGallery;
 use App\Models\ExternalListingSubmission;
 use App\Enums\ActiveInactive;
+use App\Enums\RentalProperty;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -25,13 +26,21 @@ class RentalService
 
             $primaryImage = $this->handlePrimaryImage($request);
 
+            $user_id = $userId ?? auth()->id();
+            $propertyType = match ($validated['property_type']) {
+                'house' => RentalProperty::SINGLE_FAMILY_HOME,
+                'apartment' => RentalProperty::APARTMENT,
+                'condo' => RentalProperty::CONDO,
+                'townhome' => RentalProperty::TOWNHOME,
+            };
+
             $rental = Rental::create([
-                'user_id'          => auth()->id(),
+                'user_id'          => $user_id,
                 'city_id'          => $validated['city_id'],
                 'listing_title'    => $validated['listing_title'],
                 'description'      => $validated['description'],
                 'purchase_price'   => $validated['purchase_price'],
-                'property_type'    => $validated['property_type'],
+                'property_type' => $propertyType->value,
                 'security_deposit' => $validated['security_deposit'],
                 'lease_length'     => $validated['lease_length'],
                 'bedrooms'         => $validated['bedrooms'],

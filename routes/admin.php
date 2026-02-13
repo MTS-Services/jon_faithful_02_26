@@ -41,14 +41,16 @@ Route::prefix('admin')->name('admin.')->group(function () {
         });
         Route::prefix('listing')->as('listing.')->controller(ListingController::class)->group(function () {
             Route::get('/homes', 'index')->name('index');
-            Route::get('/homes-create', 'create')->name('create');
-            Route::post('homes-create', 'store')->name('store');
+            Route::get('/add-listing-home', 'create')->name('create');
+            Route::post('/store-listing-home', 'store')->name('store');
             Route::get('/homes-details/{id}', 'details')->name('details');
             Route::get('/edit-listing-home/{id}', 'edit')->name('edit');
             Route::post('/update-listing-home/{id}', 'update')->name('update');
         });
         Route::prefix('rentals')->as('rentals.')->controller(RentalController::class)->group(function () {
             Route::get('/', 'index')->name('index');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
             Route::get('/details/{id}', 'details')->name('details');
         });
         Route::get('/external-link', [ExternalLinkSubmiition::class, 'externalLink'])->name('external-link');
