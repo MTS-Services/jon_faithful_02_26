@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Services\DataTableService;
 use App\Http\Controllers\Controller;
 use App\Models\City;
+use App\Models\Facility;
 use App\Models\User;
 use App\Services\RentalService;
 
@@ -41,7 +42,7 @@ class RentalController extends Controller
     }
     public function details($id): Response
     {
-        $rental = Rental::findOrFail($id)->load('galleries');
+        $rental = Rental::findOrFail($id)->load('galleries', 'facilities');
         return Inertia::render('admin/rentals/view', [
             'rental' => $rental
         ]);
@@ -52,6 +53,7 @@ class RentalController extends Controller
     {
         $cities = City::all();
         $users = User::all();
+        $facilities = Facility::all();
 
         // Get enum values as key => label
         $propertyTypes = collect(RentalProperty::cases())
@@ -63,7 +65,8 @@ class RentalController extends Controller
             'cities' => $cities,
             'propertyTypes' => $propertyTypes,
             'users' => $users,
-            'status' => $status
+            'status' => $status,
+            'facilities' => $facilities
         ]);
     }
 
@@ -86,10 +89,17 @@ class RentalController extends Controller
             'primary_image_url' => 'nullable|file|image|max:5120', // 5MB max
             'gallery_images.*' => 'nullable|file|image|max:5120',
             'status' => 'required|string',
+            'facilities' => ['nullable', 'array'],
+            'facilities.*' => ['exists:facilities,id'],
         ]);
 
         // Use RentalService to create the rental
         $rental = $this->rentalService->createRental($request->all(), $request, $validated);
+
+        // Using sync ensures the pivot table is updated correctly
+        if ($request->has('facilities')) {
+            $rental->facilities()->sync($request->input('facilities', []));
+        }
 
         // Redirect back to the rentals index or wherever you want
         return redirect()->route('admin.rentals.index')
@@ -98,9 +108,10 @@ class RentalController extends Controller
 
     public function edit($id)
     {
-        $rental = Rental::findOrFail($id);
+        $rental = Rental::with('facilities')->findOrFail($id);
         $cities = City::all();
         $users = User::all();
+        $facilities = Facility::all();
         $propertyTypes = collect(RentalProperty::cases())
             ->mapWithKeys(fn($type) => [$type->value => $type->label()]);
         $status = collect(ActiveInactive::cases())
@@ -111,7 +122,8 @@ class RentalController extends Controller
             'cities' => $cities,
             'users' => $users,
             'propertyTypes' => $propertyTypes,
-            'status' => $status
+            'status' => $status,
+            'facilities' => $facilities
         ]);
     }
 
@@ -134,12 +146,18 @@ class RentalController extends Controller
             'primary_image_url' => 'nullable|file|image|max:5120',
             'gallery_images.*' => 'nullable|file|image|max:5120',
             'status' => 'required|string',
+            'facilities' => ['nullable', 'array'],
+            'facilities.*' => ['exists:facilities,id'],
         ]);
 
 
         $rental = Rental::findOrFail($id);
 
-        $this->rentalService->updateRental($rental, $validated, $request);
+       $rentalUpdated = $this->rentalService->updateRental($rental, $validated, $request);
+
+        if ($request->has('facilities')) {
+            $rentalUpdated->facilities()->sync($request->input('facilities', []));
+        }
 
         return redirect()->route('admin.rentals.index')
             ->with('success', 'Rental updated successfully!');
