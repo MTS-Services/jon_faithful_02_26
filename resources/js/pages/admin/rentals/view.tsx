@@ -3,18 +3,30 @@ import { ActionButton } from '@/components/ui/action-button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import AdminLayout from '@/layouts/admin-layout';
-import {  Rental } from '@/types';
+import { Rental } from '@/types';
 import { Head } from '@inertiajs/react';
-import { ArrowLeft, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, Youtube } from 'lucide-react';
 
 interface Props {
     rental: Rental & {
-        facilities?: { id: number; name: string }[]
-        youtube_video_url?: string
-    }
+        facilities?: { id: number; name: string }[];
+        youtube_video_url?: string;
+    };
 }
 
 export default function View({ rental }: Props) {
+    const getEmbedUrl = (url: string | undefined) => {
+        if (!url) return null;
+        const regExp =
+            /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+        const match = url.match(regExp);
+        return match && match[2].length === 11
+            ? `https://www.youtube.com/embed/${match[2]}`
+            : null;
+    };
+
+    const embedUrl = getEmbedUrl(rental.youtube_video_url);
+
     return (
         <AdminLayout activeSlug={'rentals'}>
             <Head title="Rental Details" />
@@ -180,6 +192,38 @@ export default function View({ rental }: Props) {
                                 </CardContent>
                             </Card>
                         </div>
+                        {/* YouTube Video Section */}
+                        {rental.youtube_video_url && (
+                            <Card>
+                                <CardHeader>
+                                    <CardTitle className="flex items-center gap-2 text-lg">
+                                        <Youtube className="h-5 w-5 text-red-600" />
+                                        Video Walkthrough
+                                    </CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                    {embedUrl ? (
+                                        <div className="aspect-video w-full">
+                                            <iframe
+                                                className="h-full w-full rounded-md shadow-sm"
+                                                src={embedUrl}
+                                                title="YouTube video player"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                allowFullScreen
+                                            ></iframe>
+                                        </div>
+                                    ) : (
+                                        <a
+                                            href={rental.youtube_video_url}
+                                            target="_blank"
+                                            className="text-blue-600 underline"
+                                        >
+                                            Watch Video on YouTube
+                                        </a>
+                                    )}
+                                </CardContent>
+                            </Card>
+                        )}
                     </div>
 
                     {/* RIGHT SIDE */}
@@ -190,15 +234,30 @@ export default function View({ rental }: Props) {
                             </CardHeader>
 
                             <CardContent className="space-y-4">
-                                <div className="flex justify-between items-center border-b pb-2">
-                                    <span className="text-sm text-muted-foreground">Status</span>
-                                    <Badge variant={rental.status === 'active' ? 'default' : 'destructive'}>
+                                <div className="flex items-center justify-between border-b pb-2">
+                                    <span className="text-sm text-muted-foreground">
+                                        Status
+                                    </span>
+                                    <Badge
+                                        variant={
+                                            rental.status === 'active'
+                                                ? 'default'
+                                                : 'destructive'
+                                        }
+                                    >
                                         {rental.status}
                                     </Badge>
                                 </div>
-                                <div className="flex justify-between items-center border-b pb-2">
-                                    <span className="text-sm text-muted-foreground">Market Status</span>
-                                    <Badge variant="outline" className="capitalize">{rental.property_type}</Badge>
+                                <div className="flex items-center justify-between border-b pb-2">
+                                    <span className="text-sm text-muted-foreground">
+                                        Market Status
+                                    </span>
+                                    <Badge
+                                        variant="outline"
+                                        className="capitalize"
+                                    >
+                                        {rental.property_type}
+                                    </Badge>
                                 </div>
 
                                 <div>
@@ -228,16 +287,7 @@ export default function View({ rental }: Props) {
                                 </div>
                             </CardContent>
                         </Card>
-                    </div>
-                </div>
 
-                {/* Images Section */}
-                <Card className="mt-6">
-                    <CardHeader>
-                        <CardTitle>Listing Images</CardTitle>
-                    </CardHeader>
-
-                    <CardContent className="space-y-4">
                         {/* Primary Image */}
                         {rental.primary_image_url && (
                             <div>
@@ -251,7 +301,16 @@ export default function View({ rental }: Props) {
                                 />
                             </div>
                         )}
+                    </div> 
+                </div>
 
+                {/* Images Section */}
+                <Card className="mt-6">
+                    <CardHeader>
+                        <CardTitle>Listing Images</CardTitle>
+                    </CardHeader>
+
+                    <CardContent className="space-y-4">
                         {/* Gallery Images */}
                         {rental.galleries && rental.galleries.length > 0 ? (
                             <div>
