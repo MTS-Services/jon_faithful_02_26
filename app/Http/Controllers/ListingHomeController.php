@@ -6,6 +6,8 @@ use App\Enums\ActiveInactive;
 use App\Enums\ListingProperty;
 use App\Enums\ListingStatus;
 use App\Mail\FoundingExternalSubmitionMail;
+use App\Mail\ListingSubmittedAdminMail;
+use App\Mail\ListingSubmittedUserMail;
 use App\Models\City;
 use App\Models\ExternalListingSubmission;
 use App\Models\Facility;
@@ -84,6 +86,15 @@ class ListingHomeController extends Controller
         if ($request->has('facilities')) {
             $listing->facilities()->sync($request->input('facilities', []));
         }
+
+        $listing->load('facilities');
+        // 🔹 Send mail to user
+        Mail::to($listing->user->email)
+            ->send(new ListingSubmittedUserMail($listing));
+
+        // 🔹 Send mail to admin
+        Mail::to('info@whytennessee.com') // or hardcode admin email
+            ->send(new ListingSubmittedAdminMail($listing));
 
         return redirect()
             ->route('user.dashboard')
