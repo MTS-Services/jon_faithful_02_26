@@ -43,10 +43,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/homes', 'index')->name('index');
             Route::get('/add-listing-home', 'create')->name('create');
             Route::post('/store-listing-home', 'store')->name('store');
-            Route::get('/homes-details/{id}', 'details')->name('details');
-            Route::get('/edit-listing-home/{id}', 'edit')->name('edit');
-            Route::post('/update-listing-home/{id}', 'update')->name('update');
-            Route::get('/delete-listing-home', 'delete')->name('delete');
+            Route::get('/homes-details/{listing}', 'details')->name('details');
+            Route::get('/edit-listing-home/{listing}', 'edit')->name('edit');
+            Route::put('/update-listing-home/{listing}', 'update')->name('update');
+            Route::get('/delete-listing-home/{listing}', 'delete')->name('delete');
             // Facilities
             Route::post('/admin/facilities', [ListingController::class, 'storeFacility'])->name('facilities.store');
 
