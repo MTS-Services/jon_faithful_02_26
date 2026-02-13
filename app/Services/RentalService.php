@@ -28,7 +28,7 @@ class RentalService
 
             $primaryImage = $this->handlePrimaryImage($request);
 
-            $user_id = $validated['user_id'];
+            $user_id = $validated['user_id'] ?? auth()->id();
 
 
             $rental = Rental::create([

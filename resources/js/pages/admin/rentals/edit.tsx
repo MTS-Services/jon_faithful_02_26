@@ -321,19 +321,6 @@ export default function Edit({
                                 <InputError message={errors.property_type} />
                             </div>
 
-                            {/* Sort Order */}
-                            <div className="grid gap-2">
-                                <Label htmlFor="sort_order">Sort Order</Label>
-                                <Input
-                                    id="sort_order"
-                                    type="number"
-                                    value={data.sort_order}
-                                    onChange={(e) => setData('sort_order', e.target.value)}
-                                    placeholder="Enter sort order"
-                                />
-                                <InputError message={errors.sort_order} />
-                            </div>
-
                             {/* Bedrooms */}
                             <div className="grid gap-2">
                                 <Label htmlFor="bedrooms">Bedrooms*</Label>

@@ -16,6 +16,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 use App\Models\ExternalListingSubmission;
 use App\Mail\FoundingExternalSubmitionMail;
+use App\Models\Facility;
+use Illuminate\Validation\Rules\Enum;
 
 class ListingRentalController extends Controller
 {
@@ -47,13 +49,18 @@ class ListingRentalController extends Controller
     public function addListing(): Response
     {
         $cities = City::all(['id', 'name']);
+        $facilities = Facility::all();
 
         return Inertia::render('user/listings-rentals/add-listing-rental', [
             'cities' => $cities,
-            'propertyTypes' => collect(RentalProperty::cases())->map(fn($type) => [
-                'value' => $type->value,
-                'label' => $type->label(),
-            ]),
+            'facilities' => $facilities,
+            'propertyTypes' => collect(RentalProperty::cases())
+                ->map(fn($type) => [
+                    'value' => $type->value,
+                    'label' => $type->label(),
+                ])
+                ->values()
+                ->toArray(),
         ]);
     }
 
@@ -143,9 +150,15 @@ class ListingRentalController extends Controller
             'square_feet' => ['required', 'integer', 'min:0'],
             'pet_friendly' => ['required', 'in:yes,no'],
             'parking_garage' => ['required', 'integer', 'min:0'],
-            'primary_image_url' => ['nullable', 'image', 'max:10240'], // 10MB max
-            'gallery_images.*' => ['nullable', 'image', 'max:51200'], // 50MB max per image
+            'primary_image_url' => ['nullable', 'image', 'max:10240'],
+            'gallery_images.*' => ['nullable', 'image', 'max:51200'],
+            'youtube_video_url' => ['nullable', 'url'],
+            'facilities' => ['nullable', 'array'],
+            'facilities.*' => ['integer', 'exists:facilities,id'],
         ]);
+
+        // Status validation এর বাইরে set করুন
+        $validated['status'] = ActiveInactive::ACTIVE->value;
 
         $this->rentalService->createRental($validated, $request);
 
@@ -183,10 +196,13 @@ class ListingRentalController extends Controller
         return Inertia::render('user/listings-rentals/edit-listing-rental', [
             'rental' => $rental,
             'cities' => $cities,
-            'propertyTypes' => collect(RentalProperty::cases())->map(fn($type) => [
-                'value' => $type->value,
-                'label' => $type->label(),
-            ]),
+            'propertyTypes' => collect(RentalProperty::cases())
+                ->map(fn($type) => [
+                    'value' => $type->value,
+                    'label' => $type->label(),
+                ])
+                ->values()
+                ->toArray(),
         ]);
     }
 
@@ -209,8 +225,11 @@ class ListingRentalController extends Controller
             'parking_garage' => ['required', 'integer', 'min:0'],
             'primary_image_url' => ['nullable', 'image', 'max:10240'], // 10MB max
             'gallery_images.*' => ['nullable', 'image', 'max:51200'], // 50MB max per image
+            'status' => ['required', new Enum(ActiveInactive::class)],
+            'youtube_video_url' => ['nullable', 'url'],
         ]);
 
+        $validated['status'] = ActiveInactive::ACTIVE->value;
         $this->rentalService->updateRental($rental, $validated, $request);
 
         return redirect()
