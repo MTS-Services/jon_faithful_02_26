@@ -25,6 +25,7 @@ class Rental extends Model
         'parking_garage',
         'primary_image_url',
         'status',
+        'youtube_video_url',
     ];
 
     protected $casts = [

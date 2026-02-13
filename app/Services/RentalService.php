@@ -46,6 +46,7 @@ class RentalService
                 'primary_image_url' => $primaryImage,
                 'status'           => $validated['status'],
                 'sort_order'       => 0,
+                'youtube_video_url' => $validated['youtube_video_url'],
             ]);
 
             $this->handleGalleryImages($request, $rental);
@@ -89,6 +90,7 @@ class RentalService
                 'parking_garage'   => $validated['parking_garage'],
                 'primary_image_url' => $validated['primary_image_url'] ?? $rental->primary_image_url,
                 'status'           => $validated['status'],
+                'youtube_video_url' => $validated['youtube_video_url'],
             ]);
 
             if ($request->hasFile('gallery_images')) {

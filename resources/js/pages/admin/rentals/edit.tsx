@@ -36,6 +36,7 @@ interface FormData {
     gallery_images: File | null;
     status: string;
     facilities: number[];
+    youtube_video_url?: string;
 }
 
 export default function Edit({
@@ -68,7 +69,8 @@ export default function Edit({
         parking_garage: rental.parking_garage || '',
         primary_image_url: null,
         gallery_images: null,
-        facilities: rental.facilities?.map(f => f.id) || [],
+        facilities: rental.facilities?.map((f) => f.id) || [],
+        youtube_video_url: rental.youtube_video_url || '',
     });
 
     const [existingFiles, setExistingFiles] = useState<any[]>([]);
@@ -483,6 +485,20 @@ export default function Edit({
                                 placeholder="Enter number of parking spaces"
                             />
                             <InputError message={errors.parking_garage} />
+                        </div>
+
+                        {/* Square Youtube Video */}
+                        <div className="col-span-2 mb-6 grid gap-2">
+                            <Label htmlFor="youtube_video_url">
+                                YouTube Video URL
+                            </Label>
+                            <Input  id="youtube_video_url" type="text" value={data.youtube_video_url}
+                                onChange={(e) =>
+                                    setData('youtube_video_url', e.target.value)
+                                }
+                                placeholder="Type YouTube Video URL"
+                            />
+                            <InputError message={errors.youtube_video_url} />
                         </div>
 
                         {/* Description */}

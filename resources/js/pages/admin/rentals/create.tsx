@@ -36,6 +36,7 @@ interface FormData {
     gallery_images: File | null;
     status: string;
     facilities: number[];
+    youtube_video_url?: string;
 }
 
 export default function Create({
@@ -62,6 +63,7 @@ export default function Create({
         primary_image_url: null,
         gallery_images: null,
         facilities: [],
+        youtube_video_url: '',
     });
 
     const addNewFacility = async () => {
@@ -419,6 +421,22 @@ export default function Create({
                                 placeholder="Enter number of parking spaces"
                             />
                             <InputError message={errors.parking_garage} />
+                        </div>
+                        {/* Square Youtube Video */}
+                        <div className="col-span-2 grid gap-2">
+                            <Label htmlFor="youtube_video_url">
+                                YouTube Video URL
+                            </Label>
+                            <Input
+                                id="youtube_video_url"
+                                type="text"
+                                value={data.youtube_video_url}
+                                onChange={(e) =>
+                                    setData('youtube_video_url', e.target.value)
+                                }
+                                placeholder="Type YouTube Video URL"
+                            />
+                            <InputError message={errors.youtube_video_url} />
                         </div>
 
                         {/* Description */}

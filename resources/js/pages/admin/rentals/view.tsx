@@ -3,12 +3,15 @@ import { ActionButton } from '@/components/ui/action-button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import AdminLayout from '@/layouts/admin-layout';
-import { Rental } from '@/types';
+import {  Rental } from '@/types';
 import { Head } from '@inertiajs/react';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, CheckCircle2 } from 'lucide-react';
 
 interface Props {
-    rental: Rental;
+    rental: Rental & {
+        facilities?: { id: number; name: string }[]
+        youtube_video_url?: string
+    }
 }
 
 export default function View({ rental }: Props) {
@@ -53,6 +56,39 @@ export default function View({ rental }: Props) {
                                 <p className="whitespace-pre-line text-muted-foreground">
                                     {rental.description ?? 'N/A'}
                                 </p>
+                            </CardContent>
+                        </Card>
+
+                        {/* Facilities */}
+                        <Card>
+                            <CardHeader>
+                                <CardTitle className="flex items-center gap-2 text-lg">
+                                    <CheckCircle2 className="h-5 w-5 text-green-500" />
+                                    Facilities & Amenities
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <div className="flex flex-wrap gap-2">
+                                    {rental.facilities &&
+                                    rental.facilities.length > 0 ? (
+                                        rental.facilities.map((facility) => {
+                                            console.log(rental.facilities);
+                                            return (
+                                                <Badge
+                                                    key={facility.id}
+                                                    variant="secondary"
+                                                    className="px-3 py-1"
+                                                >
+                                                    {facility.name}
+                                                </Badge>
+                                            );
+                                        })
+                                    ) : (
+                                        <p className="text-sm text-muted-foreground">
+                                            No facilities listed.
+                                        </p>
+                                    )}
+                                </div>
                             </CardContent>
                         </Card>
 
@@ -154,34 +190,15 @@ export default function View({ rental }: Props) {
                             </CardHeader>
 
                             <CardContent className="space-y-4">
-                                <div>
-                                    <p className="text-sm text-muted-foreground">
-                                        Status
-                                    </p>
-                                    <Badge
-                                        variant={
-                                            rental.status === 'active'
-                                                ? 'default'
-                                                : 'destructive'
-                                        }
-                                    >
+                                <div className="flex justify-between items-center border-b pb-2">
+                                    <span className="text-sm text-muted-foreground">Status</span>
+                                    <Badge variant={rental.status === 'active' ? 'default' : 'destructive'}>
                                         {rental.status}
                                     </Badge>
                                 </div>
-
-                                <div>
-                                    <p className="text-sm text-muted-foreground">
-                                        Pet Friendly
-                                    </p>
-                                    <Badge
-                                        variant={
-                                            rental.pet_friendly
-                                                ? 'default'
-                                                : 'destructive'
-                                        }
-                                    >
-                                        {rental.pet_friendly ? 'Yes' : 'No'}
-                                    </Badge>
+                                <div className="flex justify-between items-center border-b pb-2">
+                                    <span className="text-sm text-muted-foreground">Market Status</span>
+                                    <Badge variant="outline" className="capitalize">{rental.property_type}</Badge>
                                 </div>
 
                                 <div>
@@ -209,34 +226,6 @@ export default function View({ rental }: Props) {
                                             : 'N/A'}
                                     </p>
                                 </div>
-                            </CardContent>
-                        </Card>
-
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>Facilities</CardTitle>
-                            </CardHeader>
-
-                            <CardContent className="space-y-4">
-                                {/* <div>
-                                    <p className="text-sm text-muted-foreground">Wifi</p>
-                                </div> */}
-
-                                {rental.facilities &&
-                                rental.facilities.length > 0 ? (
-                                    rental.facilities.map((facility: any) => (
-                                        <Badge
-                                            key={facility.id}
-                                            className="mr-2 mb-2"
-                                        >
-                                            {facility.name}
-                                        </Badge>
-                                    ))
-                                ) : (
-                                    <p className="text-muted-foreground">
-                                        No facilities available
-                                    </p>
-                                )}
                             </CardContent>
                         </Card>
                     </div>
