@@ -58,7 +58,7 @@ class ListingService
     public function findData($id)
     {
         return $this->model
-            ->with(['city', 'user', 'galleries'])
+            ->with(['city', 'user', 'galleries', 'facilities'])
             ->findOrFail($id);
     }
 }
