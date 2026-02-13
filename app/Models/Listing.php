@@ -70,7 +70,7 @@ class Listing extends Model
         return $query->where('status', ActiveInactive::ACTIVE->value);
     }
 
-    protected $appends = ['image_url'];
+    protected $appends = ['image_url', 'listing_status_label'];
     public function getImageUrlAttribute()
     {
         if (filter_var($this->primary_image_url, FILTER_VALIDATE_URL)) {
@@ -80,5 +80,11 @@ class Listing extends Model
             return asset('no-image.png');
         }
         return asset('storage/listings/primary/' . $this->primary_image_url);
+    }
+
+
+    public function getListingStatusLabelAttribute(): string
+    {
+        return $this->listing_status?->label() ?? 'For Rent';
     }
 }
