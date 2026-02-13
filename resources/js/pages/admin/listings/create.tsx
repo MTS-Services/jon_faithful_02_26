@@ -31,6 +31,7 @@ interface PropertyOption {
 }
 
 interface Props {
+    users: any;
     cities: City[];
     facilities: Facility[]; // Added facilities to props
     propertyTypes: PropertyOption[];
@@ -38,7 +39,7 @@ interface Props {
     statuses: PropertyOption[];
 }
 
-export default function Create({ cities, facilities: initialFacilities, propertyTypes, propertyStatuses, statuses }: Props) {
+export default function Create({ cities, facilities: initialFacilities, propertyTypes, propertyStatuses, statuses, users }: Props) {
 
     // Maintain a local state for facilities to allow "Add New" without refresh
     const [facilities, setFacilities] = useState(initialFacilities);
@@ -48,6 +49,7 @@ export default function Create({ cities, facilities: initialFacilities, property
         description: '',
         purchase_price: '',
         city_id: '',
+        user_id: '',
         listing_status: propertyStatuses[0]?.value || '',
         property_type: propertyTypes[0]?.value || '',
         status: statuses[0]?.value || '',
@@ -121,7 +123,6 @@ export default function Create({ cities, facilities: initialFacilities, property
                 <CardContent>
                     <form onSubmit={handleSubmit}>
                         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-                            {/* Listing Title */}
                             <div className="w-80 col-span-2">
                                 <div className="grid gap-2">
                                     <Label htmlFor="primary_image_url">Image</Label>
@@ -147,6 +148,28 @@ export default function Create({ cities, facilities: initialFacilities, property
                                 />
                                 <p className="text-xs text-gray-500 mt-1">Maximum file size: 25 MB</p>
                                 <InputError message={errors.gallery_images} />
+                            </div>
+                            {/* user */}
+                            <div className="grid gap-2">
+                                <Label>User</Label>
+                                <Select
+                                    onValueChange={(v) => setData('user_id', v)}
+                                >
+                                    <SelectTrigger>
+                                        <SelectValue placeholder="Select a user" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {users.map((user: any) => (
+                                            <SelectItem
+                                                key={user.id}
+                                                value={String(user.id)}
+                                            >
+                                                {user.name}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                                <InputError message={errors.user_id} />
                             </div>
                             {/* Listing Title */}
                             <div className="grid gap-2">
@@ -311,7 +334,7 @@ export default function Create({ cities, facilities: initialFacilities, property
 
                             {/* Listing Description */}
                             <div className="grid gap-2 col-span-2">
-                                <Label htmlFor="description">Listing Description*</Label>
+                                <Label htmlFor="description">Listing Description</Label>
                                 <textarea
                                     id="description"
                                     rows={4}
