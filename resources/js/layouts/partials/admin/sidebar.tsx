@@ -3,8 +3,9 @@ import { NavItem } from '@/components/ui/nav-item';
 import { cn } from '@/lib/utils';
 import { type NavItemType, type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
-import { BarChart, LayoutGrid, Shield, User, Users } from 'lucide-react';
+import { BarChart, LayoutGrid, User, Users } from 'lucide-react';
 import * as React from 'react';
+
 // Navigation configuration
 const adminNavItems: NavItemType[] = [
     {
@@ -17,59 +18,46 @@ const adminNavItems: NavItemType[] = [
         title: 'User Management',
         href: '#',
         icon: Users,
-        badge: 42,
+        badge: 2,
+        slug: 'user-management',
         children: [
-            // {
-            //     title: 'Admins',
-            //     href: route('admin.index'),
-            //     icon: Shield,
-            //     permission: 'manage admins',
-            //     slug: 'admin-admins',
-            // },
             {
                 title: 'Users',
                 href: route('admin.um.users.index'),
                 icon: User,
                 permission: 'manage users',
-                slug: 'admin-users',
+                slug: 'users',
             },
             {
                 title: 'Pending Verification',
                 href: route('admin.um.user.pending-verification'),
                 icon: User,
                 permission: 'manage users',
-                slug: 'admin-users',
+                slug: 'pending-verification',
             },
         ],
     },
     {
-        title: 'Listings(Homes)',
+        title: 'Listings (Homes)',
         href: route('admin.listing.index'),
         icon: BarChart,
-        permission: 'view analytics', // Assuming similar permission structure
-        slug: 'admin-listings',
+        permission: 'view analytics',
+        slug: 'listings',
     },
     {
-        title: 'Listings(Rentals)',
+        title: 'Listings (Rentals)',
         href: route('admin.rentals.index'),
         icon: BarChart,
-        permission: 'view analytics', // Assuming similar permission structure
-        slug: 'admin-listings',
+        permission: 'view analytics',
+        slug: 'rentals',
     },
     {
-        title: 'External Listing Submissions',
+        title: 'External Link Submissions',
         href: route('admin.external-link'),
         icon: BarChart,
-        permission: 'view analytics', // Assuming similar permission structure
-        slug: 'admin-external-listing-submissions',
-    }
-    // {
-    //     title: 'Inquiries',
-    //     href: '#',
-    //     icon: BarChart,
-    //     permission: 'view analytics', // Assuming similar permission structure
-    //     slug: 'admin-inquiries',
-    // },
+        permission: 'view analytics',
+        slug: 'external-links', // ✅ fixed slug typo
+    },
 ];
 
 interface AdminSidebarProps {
@@ -79,12 +67,12 @@ interface AdminSidebarProps {
 
 export const AdminSidebar = React.memo<AdminSidebarProps>(
     ({ isCollapsed, activeSlug }) => {
-        const { url, props } = usePage();
-        const currentRoute = url;
+        const { props } = usePage();
 
-        // Extract permissions from auth props
+        // Extract permissions safely
         const userPermissions = React.useMemo(() => {
             const auth = props.auth as SharedData['auth'];
+
             return (
                 auth?.user?.permissions ||
                 auth?.user?.all_permissions ||
@@ -124,20 +112,29 @@ export const AdminSidebar = React.memo<AdminSidebarProps>(
                 {/* Navigation */}
                 <div className="custom-scrollbar flex-1 overflow-y-auto px-3 py-4">
                     <nav className="space-y-1">
-                        {adminNavItems.map((item, index) => (
-                            <NavItem
-                                key={`${item.title}-${index}`}
-                                item={item}
-                                isCollapsed={isCollapsed}
-                                currentRoute={currentRoute}
-                                isActive={activeSlug === item.slug}
-                                permissions={userPermissions}
-                            />
-                        ))}
+                        {adminNavItems.map((item, index) => {
+                            const isParentActive =
+                                activeSlug === item.slug;
+
+                            const isChildActive = item.children?.some(
+                                (child) => child.slug === activeSlug
+                            );
+
+                            return (
+                                <NavItem
+                                    key={`${item.title}-${index}`}
+                                    item={item}
+                                    isCollapsed={isCollapsed}
+                                    activeSlug={activeSlug}
+                                    isActive={isParentActive || isChildActive}
+                                    permissions={userPermissions}
+                                />
+                            );
+                        })}
                     </nav>
                 </div>
 
-                {/* Footer Section (Optional) */}
+                {/* Footer */}
                 {!isCollapsed && (
                     <div className="border-t p-4">
                         <div className="text-center text-xs text-muted-foreground">

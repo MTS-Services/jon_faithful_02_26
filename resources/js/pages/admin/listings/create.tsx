@@ -1,15 +1,16 @@
+import { index, store } from '@/actions/App/Http/Controllers/Admin/ListingController';
 import FileUpload from '@/components/file-upload';
 import InputError from '@/components/input-error';
+import { ActionButton } from '@/components/ui/action-button';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import AdminLayout from '@/layouts/admin-layout';
-import UserDashboardLayout from '@/layouts/user-dashboard-layout';
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Head, Link, router, useForm } from '@inertiajs/react';
+import { ArrowLeft } from 'lucide-react';
 import { FormEvent } from 'react';
-import { useState } from 'react';
 import { toast } from 'sonner';
 
 interface City {
@@ -29,7 +30,6 @@ interface Props {
 }
 
 export default function Create({ cities, propertyTypes, propertyStatuses }: Props) {
-    const [activeTab, setActiveTab] = useState('manual');
 
     const { data, setData, post, processing, errors, reset } = useForm({
         title: '',
@@ -54,7 +54,7 @@ export default function Create({ cities, propertyTypes, propertyStatuses }: Prop
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         console.log(data);
-        post(route('user.add-listing-home'), {
+        post(route('admin.listing.store'), {
             onSuccess: () => {
                 console.log(data);
                 reset();
@@ -83,178 +83,196 @@ export default function Create({ cities, propertyTypes, propertyStatuses }: Prop
         <AdminLayout activeSlug="admin-users">
             <Head title="Create User" />
 
-            <Card>
+            <CardContent>
                 <CardHeader className="flex flex-row justify-between">
                     <CardTitle className='text-2xl'>Create New User</CardTitle>
-                    <Link href={index.url()} className="ml-auto">
-                        <Button>Back to Users</Button>
-                    </Link>
+                    <ActionButton href={index.url()} IconNode={ArrowLeft}>Back to Listings</ActionButton>
                 </CardHeader>
                 <CardContent>
-                    <AdminLayout activeSlug="admin-users">
-                        <Head title="Create User" />
+                    <form onSubmit={handleSubmit}>
+                            {/* Listing Title */}
+                            <div className="grid gap-2 mb-6">
+                                <Label htmlFor="title">Listing Title*</Label>
+                                <Input
+                                    id="title"
+                                    type="text"
+                                    value={data.title}
+                                    onChange={(e) => setData('title', e.target.value)}
+                                    placeholder="Enter listing title"
+                                />
+                                <InputError message={errors.title} />
+                            </div>
+                            <div className="mb-6 w-80">
+                                <div className="grid gap-2">
+                                    <Label htmlFor="primary_image_url">Image</Label>
+                                    <FileUpload
+                                        value={data.primary_image_url}
+                                        onChange={(file) => setData('primary_image_url', file as File | null)}
+                                        accept="image/*"
+                                        maxSize={10}
+                                    />
+                                    <InputError message={errors.primary_image_url} />
+                                </div>
+                            </div>
 
-                        <Card>
-                            <CardHeader className="flex flex-row justify-between">
-                                <CardTitle className='text-2xl'>Create New User</CardTitle>
-                                <Link href={index.url()} className="ml-auto">
-                                    <Button>Back to Users</Button>
-                                </Link>
-                            </CardHeader>
-                            <CardContent>
-                                <form onSubmit={handleSubmit} className="space-y-6">
-                                    <div className="space-y-4 grid md:grid-cols-2 gap-6">
-                                        {/* Image */}
-                                        <div className="grid gap-2">
-                                            <Label htmlFor="image">Image</Label>
-                                            <FileUpload
-                                                value={data.image}
-                                                onChange={(file) => setData('image', file as File | null)}
-                                                accept="image/*"
-                                                maxSize={10}
-                                            />
-                                            <InputError message={errors.image} />
-                                        </div>
-                                        <div></div>
-                                        <div className="grid gap-2">
-                                            <Label htmlFor="username">Username</Label>
-                                            <Input
-                                                id="username"
-                                                type="text"
-                                                value={data.username}
-                                                onChange={(e) => setData('username', e.target.value)}
-                                                required
-                                            />
-                                            <InputError message={errors.username} />
-                                        </div>
-                                        <div className="grid gap-2">
-                                            <Label htmlFor="name">Name</Label>
-                                            <Input
-                                                id="name"
-                                                type="text"
-                                                value={data.name}
-                                                onChange={(e) => setData('name', e.target.value)}
-                                                required
-                                            />
-                                            <InputError message={errors.name} />
-                                        </div>
-                                        <div className="grid gap-2">
-                                            <Label htmlFor="user_type">User Type</Label>
-                                            <Select
-                                                value={data.user_type || ''}
-                                                onValueChange={(value) => setData('user_type', value)}
-                                            >
-                                                <SelectTrigger className="datatable-select">
-                                                    <SelectValue placeholder="Select user type" />
-                                                </SelectTrigger>
-                                                <SelectContent>
-                                                    {(user_types || []).map((option: any) => (
-                                                        <SelectItem key={(option.value ?? option.id ?? option)} value={String(option.value ?? option.id ?? option)}>
-                                                            {option.label ?? option.name ?? option}
-                                                        </SelectItem>
-                                                    ))}
-                                                </SelectContent>
-                                            </Select>
-                                            <InputError message={errors.user_type} />
-                                        </div>
+                            {/* Listing Description */}
+                            <div className="grid gap-2 mb-6">
+                                <Label htmlFor="description">Listing Description*</Label>
+                                <textarea
+                                    id="description"
+                                    rows={4}
+                                    value={data.description}
+                                    onChange={(e) => setData('description', e.target.value)}
+                                    className="w-full px-4 py-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-slate-500 focus:border-transparent outline-none transition resize-none"
+                                    placeholder="Enter listing description"
+                                />
+                                <InputError message={errors.description} />
+                            </div>
 
-                                        <div className="grid gap-2">
-                                            <Label htmlFor="email">Email</Label>
-                                            <Input
-                                                id="email"
-                                                type="email"
-                                                value={data.email}
-                                                onChange={(e) => setData('email', e.target.value)}
-                                                required
-                                            />
-                                            <InputError message={errors.email} />
-                                        </div>
-                                        <div className="grid gap-2">
-                                            <Label htmlFor="phone">Phone</Label>
-                                            <Input
-                                                id="phone"
-                                                type="text"
-                                                value={data.phone}
-                                                onChange={(e) => setData('phone', e.target.value)}
+                            {/* Purchase Price */}
+                            <div className="grid gap-2 mb-6">
+                                <Label htmlFor="purchase_price">Purchase Price*</Label>
+                                <Input
+                                    id="purchase_price"
+                                    type="text"
+                                    value={data.purchase_price}
+                                    onChange={(e) => setData('purchase_price', e.target.value)}
+                                    placeholder="Enter purchase price"
+                                />
+                                <InputError message={errors.purchase_price} />
+                            </div>
 
-                                            />
-                                            <InputError message={errors.phone} />
-                                        </div>
-                                        <div className="grid gap-2">
-                                            <Label htmlFor="brokerage_name">Brokerage Name</Label>
-                                            <Input
-                                                id="brokerage_name"
-                                                type="text"
-                                                value={data.brokerage_name}
-                                                onChange={(e) => setData('brokerage_name', e.target.value)}
+                            {/* Photo Gallery */}
+                            <div className="mb-6">
+                                <Label htmlFor="gallery_images">Photo Gallery*</Label>
+                                <input
+                                    id="gallery_images"
+                                    type="file"
+                                    accept="image/*"
+                                    multiple
+                                    onChange={handleGalleryImagesChange}
+                                    className="block w-full text-sm text-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded file:border file:border-gray-300 file:text-sm file:font-medium file:bg-gray-50 hover:file:bg-gray-100 file:transition"
+                                />
+                                <p className="text-xs text-gray-500 mt-1">Maximum file size: 25 MB</p>
+                                <InputError message={errors.gallery_images} />
+                            </div>
 
-                                            />
-                                            <InputError message={errors.brokerage_name} />
-                                        </div>
-                                        <div className="grid gap-2">
-                                            <Label htmlFor="your_self">Your Self</Label>
-                                            <Input
-                                                id="your_self"
-                                                type="text"
-                                                value={data.your_self}
-                                                onChange={(e) => setData('your_self', e.target.value)}
-                                            />
-                                            <InputError message={errors.your_self} />
-                                        </div>
-                                        <div className="grid gap-2">
-                                            <Label htmlFor="license_number">License Number</Label>
-                                            <Input
-                                                id="license_number"
-                                                type="text"
-                                                value={data.license_number}
-                                                onChange={(e) => setData('license_number', e.target.value)}
-                                            />
-                                            <InputError message={errors.license_number} />
-                                        </div>
-                                        <div className="grid gap-2">
-                                            <Label htmlFor="password">Password</Label>
-                                            <PasswordInput
-                                                id="password"
-                                                name="password"
-                                                value={data.password}
-                                                onChange={(e) => setData('password', e.target.value)}
-                                                required
-                                                placeholder="********"
-                                                className="h-11 border-gray-200 bg-white/50 px-4! py-3! transition-all focus:border-secondary! focus:ring-secondary!"
-                                            />
-                                            <InputError message={errors.password} />
-                                        </div>
-                                        <div className="grid gap-2">
-                                            <Label htmlFor="password_confirmation">Confirm Password</Label>
-                                            <PasswordInput
-                                                id="password_confirmation"
-                                                name="password_confirmation"
-                                                value={data.password_confirmation}
-                                                onChange={(e) => setData('password_confirmation', e.target.value)}
-                                                required
-                                                placeholder="********"
-                                                className="h-11 border-gray-200 bg-white/50 px-4! py-3! transition-all focus:border-secondary! focus:ring-secondary!"
-                                            />
-                                            <InputError message={errors.password_confirmation} />
-                                        </div>
-                                    </div>
+                            {/* City */}
+                            <div className="grid gap-2 mb-6">
+                                <Label htmlFor="city_id">City*</Label>
+                                <Select
+                                    value={data.city_id}
+                                    onValueChange={(value) => setData('city_id', value)}
+                                >
+                                    <SelectTrigger className="datatable-select">
+                                        <SelectValue placeholder="Select city" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {cities.map((city) => (
+                                            <SelectItem key={city.id} value={String(city.id)}>
+                                                {city.name}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                                <InputError message={errors.city_id} />
+                            </div>
 
-                                    <div className="flex items-center gap-4">
-                                        <Button type="submit" disabled={processing}>
-                                            {processing ? 'Creating...' : 'Create User'}
-                                        </Button>
-                                        <Link href={index.url()}>
-                                            <Button type="button" variant="outline">
-                                                Cancel
-                                            </Button>
-                                        </Link>
-                                    </div>
-                                </form>
-                            </CardContent>
-                        </Card>
-                    </AdminLayout>
+                            {/* Listing Status */}
+                            <div className="grid gap-2 mb-6">
+                                <Label htmlFor="listing_status">Listing Status*</Label>
+                                <Select
+                                    value={data.listing_status}
+                                    onValueChange={(value) => setData('listing_status', value)}
+                                >
+                                    <SelectTrigger>
+                                        <SelectValue placeholder="Select listing status" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {propertyStatuses.map((status) => (
+                                            <SelectItem key={status.value} value={status.value}>
+                                                {status.label}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                                <InputError message={errors.listing_status} />
+                            </div>
+
+                            {/* Property Type */}
+                            <div className="grid gap-2 mb-6">
+                                <Label htmlFor="property_type">Property Type*</Label>
+                                <Select
+                                    value={data.property_type}
+                                    onValueChange={(value) => setData('property_type', value)}
+                                >
+                                    <SelectTrigger>
+                                        <SelectValue placeholder="Select property type" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {propertyTypes.map((type) => (
+                                            <SelectItem key={type.value} value={type.value}>
+                                                {type.label}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                                <InputError message={errors.property_type} />
+                            </div>
+
+                            {/* Bedrooms */}
+                            <div className="grid gap-2 mb-6">
+                                <Label htmlFor="bedrooms">Bedrooms*</Label>
+                                <Input
+                                    id="bedrooms"
+                                    type="number"
+                                    min="0"
+                                    value={data.bedrooms}
+                                    onChange={(e) => setData('bedrooms', e.target.value)}
+                                    placeholder="Type number of bedrooms"
+                                />
+                                <InputError message={errors.bedrooms} />
+                            </div>
+
+                            {/* Bathrooms */}
+                            <div className="grid gap-2 mb-6">
+                                <Label htmlFor="bathrooms">Bathrooms*</Label>
+                                <Input
+                                    id="bathrooms"
+                                    type="number"
+                                    min="0"
+                                    value={data.bathrooms}
+                                    onChange={(e) => setData('bathrooms', e.target.value)}
+                                    placeholder="Type number of bathrooms"
+                                />
+                                <InputError message={errors.bathrooms} />
+                            </div>
+
+                            {/* Square Feet */}
+                            <div className="grid gap-2 mb-8">
+                                <Label htmlFor="square_feet">Square Feet*</Label>
+                                <Input
+                                    id="square_feet"
+                                    type="number"
+                                    min="0"
+                                    value={data.square_feet}
+                                    onChange={(e) => setData('square_feet', e.target.value)}
+                                    placeholder="Type square footage"
+                                />
+                                <InputError message={errors.square_feet} />
+                            </div>
+
+                            {/* Submit Button */}
+                            <button
+                                type="submit"
+                                disabled={processing}
+                                className="bg-slate-800 hover:bg-slate-700 text-white px-8 py-3 rounded-md font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                                {processing ? 'Submitting...' : 'Submit Listing for Review'}
+                            </button>
+                        </form>
                 </CardContent>
-            </Card>
+            </CardContent>
         </AdminLayout>
     );
 }

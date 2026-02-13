@@ -83,7 +83,7 @@ export default function ExternalLink({
     const actions: ActionConfig<ExternalListingSubmission>[] = [];
 
     return (
-        <AdminLayout activeSlug="externalLinks">
+        <AdminLayout activeSlug="externa-lLinks">
             <Head title="externalLinks" />
             <h2 className="text-3xl font-bold text-slate-900 mb-6">External Links Listing</h2>
 

@@ -6,7 +6,8 @@ import { useDataTable } from '@/hooks/use-data-table'
 import { PaginationData, ColumnConfig, ActionConfig } from '@/types/data-table.types'
 import { Badge } from '@/components/ui/badge'
 import { Listing } from '@/types'
-import { Eye, Pencil, Trash2 } from 'lucide-react'
+import { Eye, Pencil, Plus, Trash2 } from 'lucide-react'
+import { ActionButton } from '@/components/ui/action-button'
 import { Button } from '@/components/ui/button'
 
 interface Props {
@@ -138,14 +139,12 @@ export default function Index({
     <AdminLayout activeSlug="listings">
       <Head title="Listing Homes" />
 
-      <div className="flex justify-between mb-6">
-        <h2 className="text-3xl font-bold text-slate-900 mb-6">
-          Listing Homes
-        </h2>
-        {/* <Link href={route('admin.listing.add-listing-home')}>
-          <Button>Create User</Button>
-        </Link> */}
-      </div>
+     <div className="flex justify-between items-center">
+       <h2 className="text-3xl font-bold text-slate-900 mb-6">
+        Listing Homes
+      </h2>
+      <ActionButton href={route('admin.listing.create')} IconNode={Plus} >Create</ActionButton>
+     </div>
 
       <div className="mx-auto">
         <DataTable

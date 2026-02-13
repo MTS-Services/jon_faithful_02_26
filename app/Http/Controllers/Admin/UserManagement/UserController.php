@@ -23,27 +23,27 @@ class UserController extends Controller
     use PasswordValidationRules;
     public function __construct(protected DataTableService $dataTableService) {}
 
-    public function index(): Response
-    {
-        $queryBody = User::query()->where('is_verified', true);
+   public function index(): Response
+{
+    $query = User::query()->where('is_verified', true);
 
+    $result = $this->dataTableService->process($query, request(), [
+        'searchable' => ['name', 'email'],
+        'sortable' => ['id', 'name', 'email', 'created_at'],
+        'filterable' => ['user_type', 'is_verified', 'status'],
+    ]);
 
-        $result = $this->dataTableService->process($queryBody, request(), [
-            'searchable' => ['name', 'email'],
-            'sortable' => ['id', 'name', 'email', 'created_at'],
-        ]);
+    return Inertia::render('admin/user-management/users/index', [
+        'users' => $result['data'],
+        'pagination' => $result['pagination'],
+        'offset' => $result['offset'],
+        'filters' => $result['filters'],
+        'search' => $result['search'],
+        'sortBy' => $result['sort_by'],
+        'sortOrder' => $result['sort_order'],
+    ]);
+}
 
-
-        return Inertia::render('admin/user-management/users/index', [
-            'users' => $result['data'],
-            'pagination' => $result['pagination'],
-            'offset' => $result['offset'],
-            'filters' => $result['filters'],
-            'search' => $result['search'],
-            'sortBy' => $result['sort_by'],
-            'sortOrder' => $result['sort_order']
-        ]);
-    }
     public function create(): Response
     {
         return Inertia::render('admin/user-management/users/create', [
@@ -174,6 +174,7 @@ class UserController extends Controller
         $result = $this->dataTableService->process($queryBody, request(), [
             'searchable' => ['name', 'email'],
             'sortable' => ['id', 'name', 'email', 'created_at'],
+            'filterable' => ['user_type', 'is_verified', 'status'],
         ]);
 
 
