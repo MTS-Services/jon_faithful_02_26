@@ -1,7 +1,8 @@
 import FileUpload from '@/components/file-upload';
 import InputError from '@/components/input-error';
+import { ActionButton } from '@/components/ui/action-button';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
@@ -13,6 +14,7 @@ import {
 } from '@/components/ui/select';
 import AdminLayout from '@/layouts/admin-layout';
 import { Head, useForm } from '@inertiajs/react';
+import { ArrowLeft } from 'lucide-react';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'sonner';
@@ -69,7 +71,7 @@ export default function Edit({
         parking_garage: rental.parking_garage || '',
         primary_image_url: null,
         gallery_images: null,
-        facilities: rental.facilities?.map((f) => f.id) || [],
+        facilities: rental.facilities?.map((f: any) => f.id) || [],
         youtube_video_url: rental.youtube_video_url || '',
     });
 
@@ -143,90 +145,74 @@ export default function Edit({
         post(route('admin.rentals.update', rental.id), {
             forceFormData: true,
             preserveScroll: true,
-            // _method: 'put',
+            onSuccess: () => {
+                toast.success('Rental listing updated successfully.');
+            },
+            onError: () => {
+                toast.error('Failed to update rental listing.');
+            },
         });
     }
 
     return (
         <AdminLayout activeSlug="rentals">
-            <Head title="Edit Listing" />
+            <Head title="Edit Rental Listing" />
 
-            <Card>
-                <CardHeader>
-                    <CardTitle className="text-2xl">
-                        Edit Rental Listing
-                    </CardTitle>
+            <CardContent>
+                <CardHeader className="flex flex-row justify-between">
+                    <CardTitle className='text-2xl'>Edit Rental Listing</CardTitle>
+                    <ActionButton href={route('admin.rentals.index')} IconNode={ArrowLeft}>Back to Rentals</ActionButton>
                 </CardHeader>
-
                 <CardContent>
-                    <form onSubmit={handleSubmit} className="space-y-6">
-                        <div className="grid gap-6 md:grid-cols-2">
-                            {/* Title */}
-                            <div>
-                                <Label>Title</Label>
-                                <Input
-                                    value={data.listing_title}
-                                    onChange={(e) =>
-                                        setData('listing_title', e.target.value)
-                                    }
-                                />
-                                <InputError message={errors.listing_title} />
+                    <form onSubmit={handleSubmit}>
+                        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+                            {/* Primary Image */}
+                            <div className="w-80 col-span-2">
+                                <div className="grid gap-2">
+                                    <Label htmlFor="primary_image_url">Image</Label>
+                                    <FileUpload
+                                        value={data.primary_image_url}
+                                        onChange={(file) => setData('primary_image_url', file as File | null)}
+                                        existingFiles={existingFiles}
+                                        onRemoveExisting={handleRemoveExisting}
+                                        accept="image/*"
+                                        maxSize={10}
+                                    />
+                                    <InputError message={errors.primary_image_url} />
+                                </div>
                             </div>
-                            <div className="grid gap-2">
-                                <Label htmlFor="primary_image_url">
-                                    Primary Listing Image
-                                </Label>
-                                <FileUpload
-                                    value={data.primary_image_url}
-                                    onChange={(file) =>
-                                        setData(
-                                            'primary_image_url',
-                                            file as File | null,
-                                        )
-                                    }
-                                    existingFiles={existingFiles}
-                                    onRemoveExisting={handleRemoveExisting}
+
+                            {/* Photo Gallery */}
+                            <div className="grid gap-2 col-span-2">
+                                <Label htmlFor="gallery_images">Photo Gallery (Optional - only upload to replace)</Label>
+                                <input
+                                    id="gallery_images"
+                                    type="file"
                                     accept="image/*"
-                                    maxSize={10}
+                                    multiple
+                                    onChange={(e) => {
+                                        if (e.target.files) {
+                                            setData(
+                                                'gallery_images',
+                                                Array.from(e.target.files),
+                                            );
+                                        }
+                                    }}
+                                    className="block w-full text-sm text-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded file:border file:border-gray-300 file:text-sm file:font-medium file:bg-gray-50 hover:file:bg-gray-100 file:transition"
                                 />
-                                <InputError
-                                    message={errors.primary_image_url}
-                                />
+                                <p className="text-xs text-gray-500 mt-1">Maximum file size: 200 MB total</p>
+                                <InputError message={errors.gallery_images} />
                             </div>
 
-                            {/* City */}
-                            <div>
-                                <Label>City</Label>
-                                <Select
-                                    value={data.city_id}
-                                    onValueChange={(v) => setData('city_id', v)}
-                                >
-                                    <SelectTrigger>
-                                        <SelectValue placeholder="Select City" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        {cities.map((city: any) => (
-                                            <SelectItem
-                                                key={city.id}
-                                                value={String(city.id)}
-                                            >
-                                                {city.name}
-                                            </SelectItem>
-                                        ))}
-                                    </SelectContent>
-                                </Select>
-                                <InputError message={errors.city_id} />
-                            </div>
-
-                            {/* user */}
-                            <div>
+                            {/* User */}
+                            <div className="grid gap-2">
                                 <Label>User</Label>
                                 <Select
                                     value={data.user_id}
                                     onValueChange={(v) => setData('user_id', v)}
                                 >
                                     <SelectTrigger>
-                                        <SelectValue placeholder="Select User" />
+                                        <SelectValue placeholder="Select a user" />
                                     </SelectTrigger>
                                     <SelectContent>
                                         {users.map((user: any) => (
@@ -242,148 +228,90 @@ export default function Edit({
                                 <InputError message={errors.user_id} />
                             </div>
 
-                            {/* Price */}
-                            <div>
-                                <Label>Purchase Price</Label>
+                            {/* Listing Title */}
+                            <div className="grid gap-2">
+                                <Label htmlFor="listing_title">Listing Title*</Label>
                                 <Input
-                                    type="number"
+                                    id="listing_title"
+                                    type="text"
+                                    value={data.listing_title}
+                                    onChange={(e) => setData('listing_title', e.target.value)}
+                                    placeholder="Enter listing title"
+                                />
+                                <InputError message={errors.listing_title} />
+                            </div>
+
+                            {/* Purchase Price */}
+                            <div className="grid gap-2">
+                                <Label htmlFor="purchase_price">Purchase Price*</Label>
+                                <Input
+                                    id="purchase_price"
+                                    type="text"
                                     value={data.purchase_price}
-                                    onChange={(e) =>
-                                        setData(
-                                            'purchase_price',
-                                            e.target.value,
-                                        )
-                                    }
+                                    onChange={(e) => setData('purchase_price', e.target.value)}
+                                    placeholder="Enter purchase price"
                                 />
                                 <InputError message={errors.purchase_price} />
                             </div>
 
-                            {/* Sort Order */}
-                            <div>
-                                <Label>Sort Order</Label>
-                                <Input
-                                    type="number"
-                                    value={data.sort_order}
-                                    onChange={(e) =>
-                                        setData('sort_order', e.target.value)
-                                    }
-                                />
-                                <InputError message={errors.sort_order} />
-                            </div>
-
-                            {/* Photo Gallery */}
+                            {/* City */}
                             <div className="grid gap-2">
-                                <Label htmlFor="gallery_images">
-                                    Photo Gallery (Optional - only upload to
-                                    replace)
-                                </Label>
-                                <input
-                                    id="gallery_images"
-                                    type="file"
-                                    accept="image/*"
-                                    multiple
-                                    onChange={(e) => {
-                                        if (e.target.files) {
-                                            setData(
-                                                'gallery_images',
-                                                Array.from(e.target.files),
-                                            );
-                                        }
-                                    }}
-                                    className="block w-full text-sm text-gray-700 file:mr-4 file:rounded file:border file:border-gray-300 file:bg-gray-50 file:px-4 file:py-2 file:text-sm file:font-medium file:transition hover:file:bg-gray-100"
-                                />
-                                <p className="text-xs text-gray-500">
-                                    Maximum file size: 200 MB total
-                                </p>
-                                <InputError message={errors.gallery_images} />
+                                <Label htmlFor="city_id">City*</Label>
+                                <Select
+                                    value={data.city_id}
+                                    onValueChange={(value) => setData('city_id', value)}
+                                >
+                                    <SelectTrigger className="datatable-select">
+                                        <SelectValue placeholder="Select city" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {cities.map((city: any) => (
+                                            <SelectItem key={city.id} value={String(city.id)}>
+                                                {city.name}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                                <InputError message={errors.city_id} />
                             </div>
 
-                            {/* Security Deposit */}
-                            <div>
-                                <Label>Security Deposit</Label>
-                                <Input
-                                    type="number"
-                                    value={data.security_deposit}
-                                    onChange={(e) =>
-                                        setData(
-                                            'security_deposit',
-                                            e.target.value,
-                                        )
-                                    }
-                                />
-                                <InputError message={errors.security_deposit} />
-                            </div>
-
-                            {/* Bedrooms */}
-                            <div>
-                                <Label>Bedrooms</Label>
-                                <Input
-                                    type="number"
-                                    value={data.bedrooms}
-                                    onChange={(e) =>
-                                        setData('bedrooms', e.target.value)
-                                    }
-                                />
-                                <InputError message={errors.bedrooms} />
-                            </div>
-
-                            {/* Bathrooms */}
-                            <div>
-                                <Label>Bathrooms</Label>
-                                <Input
-                                    type="number"
-                                    value={data.bathrooms}
-                                    onChange={(e) =>
-                                        setData('bathrooms', e.target.value)
-                                    }
-                                />
-                                <InputError message={errors.bathrooms} />
-                            </div>
-
-                            {/* Square Feet */}
-                            <div>
-                                <Label>Square Feet</Label>
-                                <Input
-                                    type="number"
-                                    value={data.square_feet}
-                                    onChange={(e) =>
-                                        setData('square_feet', e.target.value)
-                                    }
-                                />
-                                <InputError message={errors.square_feet} />
-                            </div>
-
-                            <div>
-                                <Label>Lease Length</Label>
-                                <Input
-                                    type="number"
-                                    value={data.lease_length}
-                                    onChange={(e) =>
-                                        setData('lease_length', e.target.value)
-                                    }
-                                />
-                                <InputError message={errors.lease_length} />
+                            {/* Status */}
+                            <div className="grid gap-2">
+                                <Label htmlFor="status">Status*</Label>
+                                <Select
+                                    value={data.status}
+                                    onValueChange={(value) => setData('status', value)}
+                                >
+                                    <SelectTrigger>
+                                        <SelectValue placeholder="Select status" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {Object.entries(status).map(
+                                            ([value, label]) => (
+                                                <SelectItem key={value} value={value}>
+                                                    {label}
+                                                </SelectItem>
+                                            ),
+                                        )}
+                                    </SelectContent>
+                                </Select>
+                                <InputError message={errors.status} />
                             </div>
 
                             {/* Property Type */}
-                            <div>
-                                <Label>Property Type</Label>
+                            <div className="grid gap-2">
+                                <Label htmlFor="property_type">Property Type*</Label>
                                 <Select
                                     value={data.property_type}
-                                    onValueChange={(v) =>
-                                        setData('property_type', v)
-                                    }
+                                    onValueChange={(value) => setData('property_type', value)}
                                 >
                                     <SelectTrigger>
-                                        <SelectValue placeholder="Select Type" />
+                                        <SelectValue placeholder="Select property type" />
                                     </SelectTrigger>
                                     <SelectContent>
                                         {Object.entries(propertyTypes).map(
                                             ([value, label]) => (
-                                                <SelectItem
-                                                    key={value}
-                                                    value={value}
-                                                >
+                                                <SelectItem key={value} value={value}>
                                                     {label}
                                                 </SelectItem>
                                             ),
@@ -393,180 +321,213 @@ export default function Edit({
                                 <InputError message={errors.property_type} />
                             </div>
 
-                            {/* Status */}
-                            {/* Status */}
-                            <div>
-                                <Label>Status</Label>
-                                <Select
-                                    value={data.status}
-                                    onValueChange={(v) => setData('status', v)}
-                                >
-                                    <SelectTrigger>
-                                        <SelectValue placeholder="Select Status" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        {Object.entries(status).map(
-                                            ([value, label]) => (
-                                                <SelectItem
-                                                    key={value}
-                                                    value={value}
-                                                >
-                                                    {label}
-                                                </SelectItem>
-                                            ),
-                                        )}
-                                    </SelectContent>
-                                </Select>
-                                <InputError message={errors.status} />
-                            </div>
-                        </div>
-
-                        {/* Pet Friendly */}
-                        <div className="grid gap-2">
-                            <Label>Pet Friendly*</Label>
-                            <div className="space-y-2">
-                                <label className="flex cursor-pointer items-center gap-2 font-normal">
-                                    <input
-                                        type="radio"
-                                        name="pet_friendly"
-                                        value="yes"
-                                        checked={
-                                            data.pet_friendly === 'yes' ||
-                                            data.pet_friendly === 1 ||
-                                            data.pet_friendly === true
-                                        }
-                                        onChange={(e) =>
-                                            setData(
-                                                'pet_friendly',
-                                                e.target.value,
-                                            )
-                                        }
-                                        className="text-blue-600 focus:ring-blue-500"
-                                    />
-                                    Yes
-                                </label>
-                                <label className="flex cursor-pointer items-center gap-2 font-normal">
-                                    <input
-                                        type="radio"
-                                        name="pet_friendly"
-                                        value="no"
-                                        checked={
-                                            data.pet_friendly === 'no' ||
-                                            data.pet_friendly === 0 ||
-                                            data.pet_friendly === false
-                                        }
-                                        onChange={(e) =>
-                                            setData(
-                                                'pet_friendly',
-                                                e.target.value,
-                                            )
-                                        }
-                                        className="text-blue-600 focus:ring-blue-500"
-                                    />
-                                    No
-                                </label>
-                            </div>
-                            <InputError message={errors.pet_friendly} />
-                        </div>
-
-                        {/* Parking / Garage */}
-                        <div className="grid gap-2">
-                            <Label htmlFor="parking_garage">
-                                Parking / Garage Spaces*
-                            </Label>
-                            <Input
-                                id="parking_garage"
-                                type="number"
-                                min="0"
-                                value={data.parking_garage}
-                                onChange={(e) =>
-                                    setData('parking_garage', e.target.value)
-                                }
-                                placeholder="Enter number of parking spaces"
-                            />
-                            <InputError message={errors.parking_garage} />
-                        </div>
-
-                        {/* Square Youtube Video */}
-                        <div className="col-span-2 mb-6 grid gap-2">
-                            <Label htmlFor="youtube_video_url">
-                                YouTube Video URL
-                            </Label>
-                            <Input  id="youtube_video_url" type="text" value={data.youtube_video_url}
-                                onChange={(e) =>
-                                    setData('youtube_video_url', e.target.value)
-                                }
-                                placeholder="Type YouTube Video URL"
-                            />
-                            <InputError message={errors.youtube_video_url} />
-                        </div>
-
-                        {/* Description */}
-                        <div>
-                            <Label>Description</Label>
-                            <textarea
-                                className="w-full rounded-lg border p-3"
-                                rows={5}
-                                value={data.description}
-                                onChange={(e) =>
-                                    setData('description', e.target.value)
-                                }
-                            />
-                        </div>
-
-                        {/* --- Added Facilities Section --- */}
-                        <div className="col-span-2 mb-8 grid gap-2">
-                            <div className="flex items-center justify-between">
-                                <Label className="text-base font-semibold">
-                                    Facilities
-                                </Label>
-                                <Button
-                                    type="button"
-                                    size="sm"
-                                    onClick={addNewFacility}
-                                >
-                                    + Add New
-                                </Button>
+                            {/* Sort Order */}
+                            <div className="grid gap-2">
+                                <Label htmlFor="sort_order">Sort Order</Label>
+                                <Input
+                                    id="sort_order"
+                                    type="number"
+                                    value={data.sort_order}
+                                    onChange={(e) => setData('sort_order', e.target.value)}
+                                    placeholder="Enter sort order"
+                                />
+                                <InputError message={errors.sort_order} />
                             </div>
 
-                            <div className="grid grid-cols-2 gap-4 rounded-md border bg-slate-50 p-4 md:grid-cols-3 lg:grid-cols-4">
-                                {facilities.map((facility) => (
-                                    <div
-                                        key={facility.id}
-                                        className="flex items-center space-x-2"
-                                    >
+                            {/* Bedrooms */}
+                            <div className="grid gap-2">
+                                <Label htmlFor="bedrooms">Bedrooms*</Label>
+                                <Input
+                                    id="bedrooms"
+                                    type="number"
+                                    min="0"
+                                    value={data.bedrooms}
+                                    onChange={(e) => setData('bedrooms', e.target.value)}
+                                    placeholder="Type number of bedrooms"
+                                />
+                                <InputError message={errors.bedrooms} />
+                            </div>
+
+                            {/* Bathrooms */}
+                            <div className="grid gap-2">
+                                <Label htmlFor="bathrooms">Bathrooms*</Label>
+                                <Input
+                                    id="bathrooms"
+                                    type="number"
+                                    min="0"
+                                    value={data.bathrooms}
+                                    onChange={(e) => setData('bathrooms', e.target.value)}
+                                    placeholder="Type number of bathrooms"
+                                />
+                                <InputError message={errors.bathrooms} />
+                            </div>
+
+                            {/* Square Feet */}
+                            <div className="grid gap-2">
+                                <Label htmlFor="square_feet">Square Feet*</Label>
+                                <Input
+                                    id="square_feet"
+                                    type="number"
+                                    min="0"
+                                    value={data.square_feet}
+                                    onChange={(e) => setData('square_feet', e.target.value)}
+                                    placeholder="Type square footage"
+                                />
+                                <InputError message={errors.square_feet} />
+                            </div>
+
+                            {/* Security Deposit */}
+                            <div className="grid gap-2">
+                                <Label htmlFor="security_deposit">Security Deposit</Label>
+                                <Input
+                                    id="security_deposit"
+                                    type="number"
+                                    value={data.security_deposit}
+                                    onChange={(e) => setData('security_deposit', e.target.value)}
+                                    placeholder="Enter security deposit"
+                                />
+                                <InputError message={errors.security_deposit} />
+                            </div>
+
+                            {/* Lease Length */}
+                            <div className="grid gap-2">
+                                <Label htmlFor="lease_length">Lease Length</Label>
+                                <Input
+                                    id="lease_length"
+                                    type="number"
+                                    value={data.lease_length}
+                                    onChange={(e) => setData('lease_length', e.target.value)}
+                                    placeholder="Enter lease length"
+                                />
+                                <InputError message={errors.lease_length} />
+                            </div>
+
+                            {/* Parking / Garage Spaces */}
+                            <div className="grid gap-2">
+                                <Label htmlFor="parking_garage">Parking / Garage Spaces*</Label>
+                                <Input
+                                    id="parking_garage"
+                                    type="number"
+                                    min="0"
+                                    value={data.parking_garage}
+                                    onChange={(e) => setData('parking_garage', e.target.value)}
+                                    placeholder="Enter number of parking spaces"
+                                />
+                                <InputError message={errors.parking_garage} />
+                            </div>
+
+                            {/* YouTube Video URL */}
+                            <div className="grid gap-2 col-span-2">
+                                <Label htmlFor="youtube_video_url">YouTube Video URL</Label>
+                                <Input
+                                    id="youtube_video_url"
+                                    type="text"
+                                    value={data.youtube_video_url}
+                                    onChange={(e) => setData('youtube_video_url', e.target.value)}
+                                    placeholder="Type YouTube Video URL"
+                                />
+                                <InputError message={errors.youtube_video_url} />
+                            </div>
+
+                            {/* Pet Friendly */}
+                            <div className="grid gap-2 col-span-2">
+                                <Label>Pet Friendly*</Label>
+                                <div className="space-y-2">
+                                    <label className="flex cursor-pointer items-center gap-2 font-normal">
                                         <input
-                                            type="checkbox"
-                                            id={`facility-${facility.id}`}
-                                            className="h-4 w-4 rounded border-gray-300 text-slate-800 focus:ring-slate-500"
-                                            checked={data.facilities.includes(
-                                                facility.id,
-                                            )}
-                                            onChange={() =>
-                                                handleFacilityToggle(
-                                                    facility.id,
-                                                )
+                                            type="radio"
+                                            name="pet_friendly"
+                                            value="yes"
+                                            checked={
+                                                data.pet_friendly === 'yes' ||
+                                                data.pet_friendly === 1 ||
+                                                data.pet_friendly === true
                                             }
+                                            onChange={(e) => setData('pet_friendly', e.target.value)}
+                                            className="text-blue-600 focus:ring-blue-500"
                                         />
-                                        <label
-                                            htmlFor={`facility-${facility.id}`}
-                                            className="cursor-pointer text-sm leading-none font-medium"
-                                        >
-                                            {facility.name}
-                                        </label>
-                                    </div>
-                                ))}
+                                        Yes
+                                    </label>
+                                    <label className="flex cursor-pointer items-center gap-2 font-normal">
+                                        <input
+                                            type="radio"
+                                            name="pet_friendly"
+                                            value="no"
+                                            checked={
+                                                data.pet_friendly === 'no' ||
+                                                data.pet_friendly === 0 ||
+                                                data.pet_friendly === false
+                                            }
+                                            onChange={(e) => setData('pet_friendly', e.target.value)}
+                                            className="text-blue-600 focus:ring-blue-500"
+                                        />
+                                        No
+                                    </label>
+                                </div>
+                                <InputError message={errors.pet_friendly} />
                             </div>
-                            <InputError message={errors.facilities} />
-                        </div>
-                        {/* --- End Facilities Section --- */}
 
-                        <Button disabled={processing}>
-                            {processing ? 'Updating...' : 'Update Listing'}
-                        </Button>
+                            {/* Listing Description */}
+                            <div className="grid gap-2 col-span-2">
+                                <Label htmlFor="description">Listing Description</Label>
+                                <textarea
+                                    id="description"
+                                    rows={4}
+                                    value={data.description}
+                                    onChange={(e) => setData('description', e.target.value)}
+                                    className="w-full px-4 py-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-slate-500 focus:border-transparent outline-none transition resize-none"
+                                    placeholder="Enter listing description"
+                                />
+                                <InputError message={errors.description} />
+                            </div>
+
+                            {/* Facilities Section */}
+                            <div className="grid gap-2 mb-8 col-span-2">
+                                <div className="flex items-center justify-between">
+                                    <Label className="text-base font-semibold">Facilities</Label>
+                                    <Button
+                                        type="button"
+                                        size="sm"
+                                        onClick={addNewFacility}
+                                    >
+                                        + Add New
+                                    </Button>
+                                </div>
+
+                                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 border rounded-md bg-slate-50">
+                                    {facilities.map((facility: any) => (
+                                        <div key={facility.id} className="flex items-center space-x-2">
+                                            <input
+                                                type="checkbox"
+                                                id={`facility-${facility.id}`}
+                                                className="h-4 w-4 rounded border-gray-300 text-slate-800 focus:ring-slate-500"
+                                                checked={data.facilities.includes(facility.id)}
+                                                onChange={() => handleFacilityToggle(facility.id)}
+                                            />
+                                            <label
+                                                htmlFor={`facility-${facility.id}`}
+                                                className="text-sm font-medium leading-none cursor-pointer"
+                                            >
+                                                {facility.name}
+                                            </label>
+                                        </div>
+                                    ))}
+                                </div>
+                                <InputError message={errors.facilities} />
+                            </div>
+                        </div>
+
+                        {/* Submit Button */}
+                        <button
+                            type="submit"
+                            disabled={processing}
+                            className="bg-secondary hover:bg-primary text-white px-8 py-3 rounded-md font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            {processing ? 'Updating...' : 'Update Rental Listing'}
+                        </button>
                     </form>
                 </CardContent>
-            </Card>
+            </CardContent>
         </AdminLayout>
     );
 }
