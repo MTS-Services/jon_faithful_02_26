@@ -56,7 +56,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::post('/store', 'store')->name('store');
             Route::get('/edit/{id}', 'edit')->name('edit');
             Route::post('/update/{id}', 'update')->name('update');
-            Route::get('/details/{id}', 'details')->name('details');
+            Route::get('/details/{rental}', 'details')->name('details');
             Route::get('/delete/{id}', 'delete')->name('delete');
         });
         Route::get('/external-link', [ExternalLinkSubmiition::class, 'externalLink'])->name('external-link');

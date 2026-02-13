@@ -12,9 +12,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\FoundingExternalSubmitionMail;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class RentalService
 {
+     public function __construct(protected Rental $model) {}
     /**
      * ===========================================
      * CREATE RENTAL
@@ -46,6 +48,7 @@ class RentalService
                 'primary_image_url' => $primaryImage,
                 'status'           => $validated['status'],
                 'sort_order'       => 0,
+                'youtube_video_url' => $validated['youtube_video_url'],
             ]);
 
             $this->handleGalleryImages($request, $rental);
@@ -89,6 +92,7 @@ class RentalService
                 'parking_garage'   => $validated['parking_garage'],
                 'primary_image_url' => $validated['primary_image_url'] ?? $rental->primary_image_url,
                 'status'           => $validated['status'],
+                'youtube_video_url' => $validated['youtube_video_url'],
             ]);
 
             if ($request->hasFile('gallery_images')) {
@@ -210,5 +214,48 @@ class RentalService
         ListingGallery::where('listing_id', $rental->id)
             ->where('listing_type', Rental::class)
             ->delete();
+    }
+
+
+
+
+    // ===================================================
+    // Paginated Datas
+    // ===================================================
+    public function getPaginatedDatas(int $perPage = 15, array $filters = []): LengthAwarePaginator
+    {
+        $query = $this->model->query()->with('city');
+
+        if (!empty($filters['search'])) {
+            $search = $filters['search'];
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                    ->orWhere('description', 'like', "%{$search}%");
+            });
+        }
+        if (!empty($filters['city'])) {
+            $cityIds = explode(',', $filters['city']);
+            $query->whereIn('city_id', $cityIds);
+        }
+        if (!empty($filters['price_min'])) {
+            $query->where('price', '>=', $filters['price_min']);
+        }
+        if (!empty($filters['price_max'])) {
+            $query->where('price', '<=', $filters['price_max']);
+        }
+        if (!empty($filters['bedrooms'])) {
+            $query->where('bedrooms', $filters['bedrooms']);
+        }
+        if (!empty($filters['bathrooms'])) {
+            $query->where('bathrooms', $filters['bathrooms']);
+        }
+        if (!empty($filters['square_feet'])) {
+            $query->where('square_feet', $filters['square_feet']);
+        }
+        if (!empty($filters['property_type']) && is_array($filters['property_type'])) {
+            $query->whereIn('property_type', $filters['property_type']);
+        }
+
+        return $query->paginate($perPage);
     }
 }
