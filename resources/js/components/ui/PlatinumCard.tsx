@@ -1,3 +1,4 @@
+import listing from "@/routes/admin/listing";
 import { Link } from "@inertiajs/react";
 import React from "react";
 import { FaBath, FaBed, FaClone, FaMapMarkerAlt } from "react-icons/fa";
@@ -13,7 +14,7 @@ import { FaBath, FaBed, FaClone, FaMapMarkerAlt } from "react-icons/fa";
 // };
 
 const PlatinumCard: React.FC<{ property: any }> = ({ property }) => {
-    const { title, location, sqft, beds, baths, price, img } = property;
+    const { title, location, sqft, beds, baths, price, img, listing_title } = property;
 
     return (
         <Link href={route('frontend.single-product', property.id)}>
@@ -28,7 +29,7 @@ const PlatinumCard: React.FC<{ property: any }> = ({ property }) => {
                 />
 
                 <span className="absolute top-4 left-4 bg-secondary text-white text-xs uppercase font-bold px-3 py-2.5 rounded-full">
-                    {property.listing_status}
+                    {property.listing_status_label || "For Rent"}
                 </span>
 
                 <span className="absolute top-4 right-4 bg-primary text-white text-sm font-bold px-4 py-2.5 rounded-full shadow-sm">
@@ -39,7 +40,7 @@ const PlatinumCard: React.FC<{ property: any }> = ({ property }) => {
             {/* Content */}
             <div className="p-5">
                 <h3 className="text-lg text-brand-dark font-semibold mb-4 line-clamp-1">
-                    {title}
+                    {property.title || property.listing_title}
                 </h3>
 
                 <div className="grid grid-cols-2 gap-y-3 text-sm text-gray-900">

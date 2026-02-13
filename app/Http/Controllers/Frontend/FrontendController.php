@@ -7,8 +7,10 @@ use App\Mail\ContactRealsateAgentMail;
 use App\Models\City;
 use App\Models\ContactRealsateAgent;
 use App\Models\Listing;
+use App\Models\Rental;
 use App\Models\User;
 use App\Services\ListingService;
+use App\Services\RentalService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Mail;
@@ -17,7 +19,7 @@ use Inertia\Response;
 
 class FrontendController extends Controller
 {
-     public function __construct(private ListingService $service) {}
+     public function __construct(private ListingService $service, private RentalService $rentalService) {}
 
      public function index(): Response
      {
@@ -76,9 +78,31 @@ class FrontendController extends Controller
      {
           return Inertia::render('frontend/moving-checklist');
      }
-     public function rentals(): Response
+     public function rentals(Request $request): Response
      {
-          return Inertia::render('frontend/rentals');
+
+          $filters = $request->only([
+               'search',
+               'city',
+               'price_min',
+               'price_max',
+               'bedrooms',
+               'bathrooms',
+               // 'sqft_min',
+               'square_feet',
+               'property_type'
+          ]);
+          $cities = City::all();
+
+          $rentals = $this->rentalService->getPaginatedDatas(
+               perPage: 6,
+               filters: $filters
+          );
+          return Inertia::render('frontend/rentals', [
+               'rentals' => $rentals,
+               'filters' => $filters,
+               'cities' => $cities
+          ]);
      }
      public function cityComparison(): Response
      {

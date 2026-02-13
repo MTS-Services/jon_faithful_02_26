@@ -1,4 +1,216 @@
-export default function RentalListings() {
+import { PlatinumCard } from '@/components/ui/PlatinumCard';
+import { Link, router } from '@inertiajs/react';
+import { useEffect, useState } from 'react';
+
+interface City {
+    id: number;
+    name: string;
+}
+
+interface Props {
+    rentals: any;
+    cities: City[];
+    filters?: {
+        search?: string;
+        city?: string;
+        price_min?: string;
+        price_max?: string;
+        bedrooms?: string;
+        bathrooms?: string;
+        square_feet?: string;
+        property_type?: string;
+    };
+}
+
+export default function RentalListings({ rentals, cities, filters }: Props) {
+    const [searchTerm, setSearchTerm] = useState(filters?.search || '');
+    const [selectedCities, setSelectedCities] = useState<number[]>(
+        filters?.city ? filters.city.split(',').map(Number) : [],
+    );
+    const [bedrooms, setBedrooms] = useState(filters?.bedrooms || '');
+    const [bathrooms, setBathrooms] = useState(filters?.bathrooms || '');
+    const [square_feet, setSquareFeet] = useState(filters?.square_feet || '');
+    const [property_type, setPropertyType] = useState<string[]>(
+        filters?.property_type ? filters.property_type.split(',') : [],
+    );
+    const [priceRange, setPriceRange] = useState(
+        filters?.price_max || '1000000',
+    );
+
+    // Property type options
+    const propertyTypes = [
+        { value: 'new_construction', label: 'New construction communities' },
+        { value: 'rural_properties', label: 'Rural properties & mini-farms' },
+        { value: 'single_family', label: 'Single-family homes' },
+        { value: 'townhomes_condos', label: 'Townhomes & condos' },
+    ];
+
+    // Debounce search
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            handleFilter();
+        }, 500);
+
+        return () => clearTimeout(timer);
+    }, [searchTerm]);
+
+    const handleFilter = () => {
+        const filterData: any = {};
+
+        if (searchTerm) filterData.search = searchTerm;
+        if (selectedCities.length > 0)
+            filterData.city = selectedCities.join(',');
+        if (bedrooms) filterData.bedrooms = bedrooms;
+        if (bathrooms) filterData.bathrooms = bathrooms;
+        if (square_feet) filterData.square_feet = square_feet;
+        if (property_type.length > 0)
+            filterData.property_type = property_type.join(',');
+        if (priceRange !== '1000000') filterData.price_max = priceRange;
+
+        router.get(route('frontend.rentals'), filterData, {
+            preserveState: true,
+            preserveScroll: true,
+        });
+    };
+
+    const handleCityChange = (cityId: number) => {
+        const newSelectedCities = selectedCities.includes(cityId)
+            ? selectedCities.filter((id) => id !== cityId)
+            : [...selectedCities, cityId];
+
+        setSelectedCities(newSelectedCities);
+
+        // Immediate filter on city change
+        const filterData: any = {};
+        if (searchTerm) filterData.search = searchTerm;
+        if (newSelectedCities.length > 0)
+            filterData.city = newSelectedCities.join(',');
+        if (bedrooms) filterData.bedrooms = bedrooms;
+        if (bathrooms) filterData.bathrooms = bathrooms;
+        if (square_feet) filterData.square_feet = square_feet;
+        if (property_type.length > 0)
+            filterData.property_type = property_type.join(',');
+        if (priceRange !== '1000000') filterData.price_max = priceRange;
+
+        router.get(route('frontend.rentals'), filterData, {
+            preserveState: true,
+            preserveScroll: true,
+        });
+    };
+
+    const handlePropertyTypeChange = (type: string) => {
+        const newSelectedTypes = property_type.includes(type)
+            ? property_type.filter((t) => t !== type)
+            : [...property_type, type];
+
+        setPropertyType(newSelectedTypes);
+
+        // Immediate filter on property type change
+        const filterData: any = {};
+        if (searchTerm) filterData.search = searchTerm;
+        if (selectedCities.length > 0)
+            filterData.city = selectedCities.join(',');
+        if (bedrooms) filterData.bedrooms = bedrooms;
+        if (bathrooms) filterData.bathrooms = bathrooms;
+        if (square_feet) filterData.square_feet = square_feet;
+        if (newSelectedTypes.length > 0)
+            filterData.property_type = newSelectedTypes.join(',');
+        if (priceRange !== '1000000') filterData.price_max = priceRange;
+
+        router.get(route('frontend.rentals'), filterData, {
+            preserveState: true,
+            preserveScroll: true,
+        });
+    };
+
+    const handleBedroomChange = (value: string) => {
+        setBedrooms(value);
+
+        const filterData: any = {};
+        if (searchTerm) filterData.search = searchTerm;
+        if (selectedCities.length > 0)
+            filterData.city = selectedCities.join(',');
+        if (value) filterData.bedrooms = value;
+        if (bathrooms) filterData.bathrooms = bathrooms;
+        if (square_feet) filterData.square_feet = square_feet;
+        if (property_type.length > 0)
+            filterData.property_type = property_type.join(',');
+        if (priceRange !== '1000000') filterData.price_max = priceRange;
+
+        router.get(route('frontend.rentals'), filterData, {
+            preserveState: true,
+            preserveScroll: true,
+        });
+    };
+
+    const handleBathroomChange = (value: string) => {
+        setBathrooms(value);
+
+        const filterData: any = {};
+        if (searchTerm) filterData.search = searchTerm;
+        if (selectedCities.length > 0)
+            filterData.city = selectedCities.join(',');
+        if (bedrooms) filterData.bedrooms = bedrooms;
+        if (value) filterData.bathrooms = value;
+        if (square_feet) filterData.square_feet = square_feet;
+        if (property_type.length > 0)
+            filterData.property_type = property_type.join(',');
+        if (priceRange !== '1000000') filterData.price_max = priceRange;
+
+        router.get(route('frontend.rentals'), filterData, {
+            preserveState: true,
+            preserveScroll: true,
+        });
+    };
+
+    const handleSquareFeetChange = (value: string) => {
+        setSquareFeet(value);
+
+        const filterData: any = {};
+        if (searchTerm) filterData.search = searchTerm;
+        if (selectedCities.length > 0)
+            filterData.city = selectedCities.join(',');
+        if (bedrooms) filterData.bedrooms = bedrooms;
+        if (bathrooms) filterData.bathrooms = bathrooms;
+        if (value) filterData.square_feet = value;
+        if (property_type.length > 0)
+            filterData.property_type = property_type.join(',');
+        if (priceRange !== '1000000') filterData.price_max = priceRange;
+
+        router.get(route('frontend.rentals'), filterData, {
+            preserveState: true,
+            preserveScroll: true,
+        });
+    };
+
+    const handlePriceRangeChange = (value: string) => {
+        setPriceRange(value);
+
+        const filterData: any = {};
+        if (searchTerm) filterData.search = searchTerm;
+        if (selectedCities.length > 0)
+            filterData.city = selectedCities.join(',');
+        if (bedrooms) filterData.bedrooms = bedrooms;
+        if (bathrooms) filterData.bathrooms = bathrooms;
+        if (square_feet) filterData.square_feet = square_feet;
+        if (property_type.length > 0)
+            filterData.property_type = property_type.join(',');
+        if (value !== '1000000') filterData.price_max = value;
+
+        router.get(route('frontend.rentals'), filterData, {
+            preserveState: true,
+            preserveScroll: true,
+        });
+    };
+
+    const getCityName = (cityId: number) => {
+        return cities?.find((city: any) => city.id === cityId)?.name || '';
+    };
+
+    const getPropertyTypeLabel = (type: string) => {
+        return propertyTypes.find((pt) => pt.value === type)?.label || '';
+    };
+
     return (
         <section className="mt-20 rounded-t-[100px] bg-primary-background px-4 py-12 sm:py-16 md:px-16 md:py-20 lg:py-28">
             <div className="container mx-auto">
@@ -17,6 +229,10 @@ export default function RentalListings() {
                                 <input
                                     type="text"
                                     placeholder="Search..."
+                                    value={searchTerm}
+                                    onChange={(e) =>
+                                        setSearchTerm(e.target.value)
+                                    }
                                     className="w-full rounded-md border border-primary px-4 py-3 focus:ring-1 focus:outline-none"
                                 />
                             </div>
@@ -26,41 +242,23 @@ export default function RentalListings() {
                                     Rental City
                                 </h4>
                                 <div className="space-y-2">
-                                    <label className="flex cursor-pointer items-center gap-2 font-medium">
-                                        <input
-                                            type="checkbox"
-                                            value=""
-                                            checked
-                                        />{' '}
-                                        Bristol
-                                    </label>
-                                    <label className="flex cursor-pointer items-center gap-2 font-medium">
-                                        <input type="checkbox" /> Chattanooga
-                                    </label>
-                                    <label className="flex cursor-pointer items-center gap-2 font-medium">
-                                        <input type="checkbox" /> Cookeville
-                                    </label>
-                                    <label className="flex cursor-pointer items-center gap-2 font-medium">
-                                        <input type="checkbox" /> Franklin
-                                    </label>
-                                    <label className="flex cursor-pointer items-center gap-2 font-medium">
-                                        <input type="checkbox" /> Johnson City
-                                    </label>
-                                    <label className="flex cursor-pointer items-center gap-2 font-medium">
-                                        <input type="checkbox" /> Kingsport
-                                    </label>
-                                    <label className="flex cursor-pointer items-center gap-2 font-medium">
-                                        <input type="checkbox" /> Knoxville
-                                    </label>
-                                    <label className="flex cursor-pointer items-center gap-2 font-medium">
-                                        <input type="checkbox" /> Memphis
-                                    </label>
-                                    <label className="flex cursor-pointer items-center gap-2 font-medium">
-                                        <input type="checkbox" /> Murfreesboro
-                                    </label>
-                                    <label className="flex cursor-pointer items-center gap-2 font-medium">
-                                        <input type="checkbox" /> Nashville
-                                    </label>
+                                    {cities?.map((city: any) => (
+                                        <label
+                                            key={city.id}
+                                            className="flex cursor-pointer items-center gap-2 font-medium"
+                                        >
+                                            <input
+                                                type="checkbox"
+                                                checked={selectedCities.includes(
+                                                    city.id,
+                                                )}
+                                                onChange={() =>
+                                                    handleCityChange(city.id)
+                                                }
+                                            />
+                                            {city.name}
+                                        </label>
+                                    ))}
                                 </div>
                             </div>
 
@@ -68,19 +266,54 @@ export default function RentalListings() {
                                 <h4 className="mb-3 font-montserrat font-semibold text-primary">
                                     Bedrooms
                                 </h4>
-                                <select className="w-full rounded-md border border-primary px-4 py-3">
-                                    <option>Select...</option>
-                                    <option>1+</option>
-                                    <option>2+</option>
-                                    <option>3+</option>
+                                <select
+                                    className="w-full rounded-md border border-primary px-4 py-3"
+                                    value={bedrooms}
+                                    onChange={(e) =>
+                                        handleBedroomChange(e.target.value)
+                                    }
+                                >
+                                    <option value="">Select...</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
                                 </select>
                             </div>
+
+                            <div className="rounded-xl bg-background p-4 shadow">
+                                <h4 className="mb-3 font-montserrat font-semibold text-primary">
+                                    Bathrooms
+                                </h4>
+                                <select
+                                    className="w-full rounded-md border border-primary px-4 py-3"
+                                    value={bathrooms}
+                                    onChange={(e) =>
+                                        handleBathroomChange(e.target.value)
+                                    }
+                                >
+                                    <option value="">Select...</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+
                             <div className="rounded-xl bg-background p-4 shadow">
                                 <h4 className="mb-3 font-montserrat font-semibold text-primary">
                                     Square Feet
                                 </h4>
-                                <select className="w-full rounded-md border border-primary px-4 py-3">
-                                    <option>Select...</option>
+                                <select
+                                    className="w-full rounded-md border border-primary px-4 py-3"
+                                    value={square_feet}
+                                    onChange={(e) =>
+                                        handleSquareFeetChange(e.target.value)
+                                    }
+                                >
+                                    <option value="">Select...</option>
                                     <option value="500">500</option>
                                     <option value="750">750</option>
                                     <option value="1000">1000</option>
@@ -88,570 +321,152 @@ export default function RentalListings() {
                                     <option value="2000">2000</option>
                                 </select>
                             </div>
+
                             <div className="rounded-xl bg-background p-4 shadow">
                                 <h3 className="mb-3 font-montserrat font-semibold text-primary">
                                     Property Price
                                 </h3>
                                 <div className="space-y-4">
                                     <input
-                                        type="range"
-                                        min="0"
-                                        max="1000000"
-                                        step="10000"
+                                        type="range"                                       
                                         className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-muted-foreground accent-[#858585]"
                                     />
 
                                     <div className="flex justify-between text-sm text-muted">
                                         <span>$0</span>
-                                        <span>$1,000,000</span>
+                                        <span>
+                                            $
+                                            {parseInt(
+                                                priceRange,
+                                            ).toLocaleString()}
+                                        </span>
                                     </div>
                                 </div>
                             </div>
+
                             <div className="mb-3 rounded-xl bg-background p-4 font-montserrat font-semibold text-primary shadow">
                                 <h4 className="mb-3 font-semibold">
                                     Property Type
                                 </h4>
                                 <div className="space-y-2">
-                                    <label className="flex cursor-pointer items-center gap-2 font-medium">
-                                        <input type="checkbox" /> New
-                                        construction communities
-                                    </label>
-                                    <label className="flex cursor-pointer items-center gap-2 font-medium">
-                                        <input type="checkbox" /> Rural
-                                        properties & mini-farms
-                                    </label>
-                                    <label className="flex cursor-pointer items-center gap-2 font-medium">
-                                        <input type="checkbox" /> Single-family
-                                        homes
-                                    </label>
-                                    <label className="flex cursor-pointer items-center gap-2 font-medium">
-                                        <input type="checkbox" /> Townhomes &
-                                        condos
-                                    </label>
+                                    {propertyTypes.map((type) => (
+                                        <label
+                                            key={type.value}
+                                            className="flex cursor-pointer items-center gap-2 font-medium"
+                                        >
+                                            <input
+                                                type="checkbox"
+                                                checked={property_type.includes(
+                                                    type.value,
+                                                )}
+                                                onChange={() =>
+                                                    handlePropertyTypeChange(
+                                                        type.value,
+                                                    )
+                                                }
+                                            />
+                                            {type.label}
+                                        </label>
+                                    ))}
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <div className="col-span-12 mt-6 lg:col-span-8">
-                        <div className="">
-                            <p className="mb-3 inline-block cursor-pointer rounded-full border border-primary p-4 font-montserrat font-semibold text-primary hover:border-transparent hover:bg-secondary hover:text-primary-foreground">
-                                Property City:Nashville
-                            </p>
+                        <div className="mb-4 flex flex-wrap gap-2">
+                            {searchTerm && (
+                                <span className="inline-flex items-center gap-2 rounded-full border border-primary px-4 py-2 font-montserrat font-semibold text-primary">
+                                    Search: {searchTerm}
+                                    <button
+                                        onClick={() => setSearchTerm('')}
+                                        className="hover:text-secondary"
+                                    >
+                                        ×
+                                    </button>
+                                </span>
+                            )}
+                            {selectedCities.map((cityId) => (
+                                <span
+                                    key={cityId}
+                                    className="inline-flex items-center gap-2 rounded-full border border-primary px-4 py-2 font-montserrat font-semibold text-primary"
+                                >
+                                    City: {getCityName(cityId)}
+                                    <button
+                                        onClick={() => handleCityChange(cityId)}
+                                        className="hover:text-secondary"
+                                    >
+                                        ×
+                                    </button>
+                                </span>
+                            ))}
+                            {property_type.map((type) => (
+                                <span
+                                    key={type}
+                                    className="inline-flex items-center gap-2 rounded-full border border-primary px-4 py-2 font-montserrat font-semibold text-primary"
+                                >
+                                    {getPropertyTypeLabel(type)}
+                                    <button
+                                        onClick={() =>
+                                            handlePropertyTypeChange(type)
+                                        }
+                                        className="hover:text-secondary"
+                                    >
+                                        ×
+                                    </button>
+                                </span>
+                            ))}
                         </div>
+
                         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
-                            <a href="single-product">
-                                <div className="overflow-hidden rounded-xl bg-background shadow">
-                                    <div className="relative">
-                                        <img
-                                            src="/assets/images/Modern-Farmhouse.jpg"
-                                            className="h-[250px] w-full object-cover"
-                                        />
-                                        <span className="absolute top-3 left-3 rounded-full bg-secondary p-3 font-montserrat font-semibold text-primary-foreground">
-                                            Platinum
-                                        </span>
-                                        <span className="absolute top-3 right-3 rounded-full bg-primary p-3 font-montserrat font-semibold text-primary-foreground">
-                                            $999
-                                        </span>
-                                    </div>
-
-                                    <div className="space-y-2 p-4">
-                                        <h3 className="text-lg font-medium text-primary">
-                                            Modern Home in West Knoxville
-                                        </h3>
-                                        <div className="grid grid-cols-2 gap-2">
-                                            <div className="flex gap-2">
-                                                <svg
-                                                    aria-hidden="true"
-                                                    className="e-font-icon-svg e-fas-map-marker-alt h-4 w-4"
-                                                    viewBox="0 0 384 512"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                >
-                                                    <path d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"></path>
-                                                </svg>
-                                                <p className="font-montserrat text-sm font-medium text-primary">
-                                                    {' '}
-                                                    Knoxville, TN
-                                                </p>
-                                            </div>
-
-                                            <div className="flex gap-2">
-                                                <svg
-                                                    aria-hidden="true"
-                                                    className="e-font-icon-svg e-far-clone h-4 w-4"
-                                                    viewBox="0 0 512 512"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                >
-                                                    <path d="M464 0H144c-26.51 0-48 21.49-48 48v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h320c26.51 0 48-21.49 48-48v-48h48c26.51 0 48-21.49 48-48V48c0-26.51-21.49-48-48-48zM362 464H54a6 6 0 0 1-6-6V150a6 6 0 0 1 6-6h42v224c0 26.51 21.49 48 48 48h224v42a6 6 0 0 1-6 6zm90-96H150a6 6 0 0 1-6-6V54a6 6 0 0 1 6-6h308a6 6 0 0 1 6 6v308a6 6 0 0 1-6 6z"></path>
-                                                </svg>
-                                                <p className="font-montserrat text-sm font-medium text-primary">
-                                                    {' '}
-                                                    Knoxville, TN
-                                                </p>
-                                            </div>
-                                            <div className="flex gap-2">
-                                                <svg
-                                                    aria-hidden="true"
-                                                    className="e-font-icon-svg e-fas-bed h-4 w-4"
-                                                    viewBox="0 0 640 512"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                >
-                                                    <path d="M176 256c44.11 0 80-35.89 80-80s-35.89-80-80-80-80 35.89-80 80 35.89 80 80 80zm352-128H304c-8.84 0-16 7.16-16 16v144H64V80c0-8.84-7.16-16-16-16H16C7.16 64 0 71.16 0 80v352c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16v-48h512v48c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16V240c0-61.86-50.14-112-112-112z"></path>
-                                                </svg>
-                                                <p className="font-montserrat text-sm font-medium text-primary">
-                                                    {' '}
-                                                    Knoxville, TN
-                                                </p>
-                                            </div>
-                                            <div className="flex gap-2">
-                                                <svg
-                                                    aria-hidden="true"
-                                                    className="e-font-icon-svg e-fas-bath h-4 w-4"
-                                                    viewBox="0 0 512 512"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                >
-                                                    <path d="M32,384a95.4,95.4,0,0,0,32,71.09V496a16,16,0,0,0,16,16h32a16,16,0,0,0,16-16V480H384v16a16,16,0,0,0,16,16h32a16,16,0,0,0,16-16V455.09A95.4,95.4,0,0,0,480,384V336H32ZM496,256H80V69.25a21.26,21.26,0,0,1,36.28-15l19.27,19.26c-13.13,29.88-7.61,59.11,8.62,79.73l-.17.17A16,16,0,0,0,144,176l11.31,11.31a16,16,0,0,0,22.63,0L283.31,81.94a16,16,0,0,0,0-22.63L272,48a16,16,0,0,0-22.62,0l-.17.17c-20.62-16.23-49.83-21.75-79.73-8.62L150.22,20.28A69.25,69.25,0,0,0,32,69.25V256H16A16,16,0,0,0,0,272v16a16,16,0,0,0,16,16H496a16,16,0,0,0,16-16V272A16,16,0,0,0,496,256Z"></path>
-                                                </svg>
-                                                <p className="font-montserrat text-sm font-medium text-primary">
-                                                    {' '}
-                                                    Knoxville, TN
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-
-                            <a href="single-product">
-                                <div className="overflow-hidden rounded-xl bg-background shadow">
-                                    <div className="relative">
-                                        <img
-                                            src="/assets/images/card.jpg"
-                                            className="h-[250px] w-full object-cover"
-                                        />
-                                        <span className="absolute top-3 left-3 rounded-full bg-secondary p-3 font-montserrat font-semibold text-primary-foreground">
-                                            Platinum
-                                        </span>
-                                        <span className="absolute top-3 right-3 rounded-full bg-primary p-3 font-montserrat font-semibold text-primary-foreground">
-                                            $999
-                                        </span>
-                                    </div>
-
-                                    <div className="space-y-2 p-4">
-                                        <h3 className="text-lg font-medium text-primary">
-                                            Modern Home in West Knoxville
-                                        </h3>
-                                        <div className="grid grid-cols-2 gap-2">
-                                            <div className="flex gap-2">
-                                                <svg
-                                                    aria-hidden="true"
-                                                    className="e-font-icon-svg e-fas-map-marker-alt h-4 w-4"
-                                                    viewBox="0 0 384 512"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                >
-                                                    <path d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"></path>
-                                                </svg>
-                                                <p className="font-montserrat text-sm font-medium text-primary">
-                                                    {' '}
-                                                    Knoxville, TN
-                                                </p>
-                                            </div>
-
-                                            <div className="flex gap-2">
-                                                <svg
-                                                    aria-hidden="true"
-                                                    className="e-font-icon-svg e-far-clone h-4 w-4"
-                                                    viewBox="0 0 512 512"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                >
-                                                    <path d="M464 0H144c-26.51 0-48 21.49-48 48v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h320c26.51 0 48-21.49 48-48v-48h48c26.51 0 48-21.49 48-48V48c0-26.51-21.49-48-48-48zM362 464H54a6 6 0 0 1-6-6V150a6 6 0 0 1 6-6h42v224c0 26.51 21.49 48 48 48h224v42a6 6 0 0 1-6 6zm90-96H150a6 6 0 0 1-6-6V54a6 6 0 0 1 6-6h308a6 6 0 0 1 6 6v308a6 6 0 0 1-6 6z"></path>
-                                                </svg>
-                                                <p className="font-montserrat text-sm font-medium text-primary">
-                                                    {' '}
-                                                    Knoxville, TN
-                                                </p>
-                                            </div>
-                                            <div className="flex gap-2">
-                                                <svg
-                                                    aria-hidden="true"
-                                                    className="e-font-icon-svg e-fas-bed h-4 w-4"
-                                                    viewBox="0 0 640 512"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                >
-                                                    <path d="M176 256c44.11 0 80-35.89 80-80s-35.89-80-80-80-80 35.89-80 80 35.89 80 80 80zm352-128H304c-8.84 0-16 7.16-16 16v144H64V80c0-8.84-7.16-16-16-16H16C7.16 64 0 71.16 0 80v352c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16v-48h512v48c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16V240c0-61.86-50.14-112-112-112z"></path>
-                                                </svg>
-                                                <p className="font-montserrat text-sm font-medium text-primary">
-                                                    {' '}
-                                                    Knoxville, TN
-                                                </p>
-                                            </div>
-                                            <div className="flex gap-2">
-                                                <svg
-                                                    aria-hidden="true"
-                                                    className="e-font-icon-svg e-fas-bath h-4 w-4"
-                                                    viewBox="0 0 512 512"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                >
-                                                    <path d="M32,384a95.4,95.4,0,0,0,32,71.09V496a16,16,0,0,0,16,16h32a16,16,0,0,0,16-16V480H384v16a16,16,0,0,0,16,16h32a16,16,0,0,0,16-16V455.09A95.4,95.4,0,0,0,480,384V336H32ZM496,256H80V69.25a21.26,21.26,0,0,1,36.28-15l19.27,19.26c-13.13,29.88-7.61,59.11,8.62,79.73l-.17.17A16,16,0,0,0,144,176l11.31,11.31a16,16,0,0,0,22.63,0L283.31,81.94a16,16,0,0,0,0-22.63L272,48a16,16,0,0,0-22.62,0l-.17.17c-20.62-16.23-49.83-21.75-79.73-8.62L150.22,20.28A69.25,69.25,0,0,0,32,69.25V256H16A16,16,0,0,0,0,272v16a16,16,0,0,0,16,16H496a16,16,0,0,0,16-16V272A16,16,0,0,0,496,256Z"></path>
-                                                </svg>
-                                                <p className="font-montserrat text-sm font-medium text-primary">
-                                                    {' '}
-                                                    Knoxville, TN
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-
-                            <a href="single-product">
-                                <div className="overflow-hidden rounded-xl bg-background shadow">
-                                    <div className="relative">
-                                        <img
-                                            src="/assets/images/pexels-denil-35250067-2048x1365.jpg"
-                                            className="h-[250px] w-full object-cover"
-                                        />
-                                        <span className="absolute top-3 left-3 rounded-full bg-secondary p-3 font-montserrat font-semibold text-primary-foreground">
-                                            Platinum
-                                        </span>
-                                        <span className="absolute top-3 right-3 rounded-full bg-primary p-3 font-montserrat font-semibold text-primary-foreground">
-                                            $999
-                                        </span>
-                                    </div>
-
-                                    <div className="space-y-2 p-4">
-                                        <h3 className="text-lg font-medium text-primary">
-                                            Modern Home in West Knoxville
-                                        </h3>
-                                        <div className="grid grid-cols-2 gap-2">
-                                            <div className="flex gap-2">
-                                                <svg
-                                                    aria-hidden="true"
-                                                    className="e-font-icon-svg e-fas-map-marker-alt h-4 w-4"
-                                                    viewBox="0 0 384 512"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                >
-                                                    <path d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"></path>
-                                                </svg>
-                                                <p className="font-montserrat text-sm font-medium text-primary">
-                                                    {' '}
-                                                    Knoxville, TN
-                                                </p>
-                                            </div>
-
-                                            <div className="flex gap-2">
-                                                <svg
-                                                    aria-hidden="true"
-                                                    className="e-font-icon-svg e-far-clone h-4 w-4"
-                                                    viewBox="0 0 512 512"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                >
-                                                    <path d="M464 0H144c-26.51 0-48 21.49-48 48v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h320c26.51 0 48-21.49 48-48v-48h48c26.51 0 48-21.49 48-48V48c0-26.51-21.49-48-48-48zM362 464H54a6 6 0 0 1-6-6V150a6 6 0 0 1 6-6h42v224c0 26.51 21.49 48 48 48h224v42a6 6 0 0 1-6 6zm90-96H150a6 6 0 0 1-6-6V54a6 6 0 0 1 6-6h308a6 6 0 0 1 6 6v308a6 6 0 0 1-6 6z"></path>
-                                                </svg>
-                                                <p className="font-montserrat text-sm font-medium text-primary">
-                                                    {' '}
-                                                    Knoxville, TN
-                                                </p>
-                                            </div>
-                                            <div className="flex gap-2">
-                                                <svg
-                                                    aria-hidden="true"
-                                                    className="e-font-icon-svg e-fas-bed h-4 w-4"
-                                                    viewBox="0 0 640 512"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                >
-                                                    <path d="M176 256c44.11 0 80-35.89 80-80s-35.89-80-80-80-80 35.89-80 80 35.89 80 80 80zm352-128H304c-8.84 0-16 7.16-16 16v144H64V80c0-8.84-7.16-16-16-16H16C7.16 64 0 71.16 0 80v352c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16v-48h512v48c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16V240c0-61.86-50.14-112-112-112z"></path>
-                                                </svg>
-                                                <p className="font-montserrat text-sm font-medium text-primary">
-                                                    {' '}
-                                                    Knoxville, TN
-                                                </p>
-                                            </div>
-                                            <div className="flex gap-2">
-                                                <svg
-                                                    aria-hidden="true"
-                                                    className="e-font-icon-svg e-fas-bath h-4 w-4"
-                                                    viewBox="0 0 512 512"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                >
-                                                    <path d="M32,384a95.4,95.4,0,0,0,32,71.09V496a16,16,0,0,0,16,16h32a16,16,0,0,0,16-16V480H384v16a16,16,0,0,0,16,16h32a16,16,0,0,0,16-16V455.09A95.4,95.4,0,0,0,480,384V336H32ZM496,256H80V69.25a21.26,21.26,0,0,1,36.28-15l19.27,19.26c-13.13,29.88-7.61,59.11,8.62,79.73l-.17.17A16,16,0,0,0,144,176l11.31,11.31a16,16,0,0,0,22.63,0L283.31,81.94a16,16,0,0,0,0-22.63L272,48a16,16,0,0,0-22.62,0l-.17.17c-20.62-16.23-49.83-21.75-79.73-8.62L150.22,20.28A69.25,69.25,0,0,0,32,69.25V256H16A16,16,0,0,0,0,272v16a16,16,0,0,0,16,16H496a16,16,0,0,0,16-16V272A16,16,0,0,0,496,256Z"></path>
-                                                </svg>
-                                                <p className="font-montserrat text-sm font-medium text-primary">
-                                                    {' '}
-                                                    Knoxville, TN
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-
-                            <a href="single-product">
-                                <div className="overflow-hidden rounded-xl bg-background shadow">
-                                    <div className="relative">
-                                        <img
-                                            src="/assets/images/pexels-kelly-2350459-2048x1150.jpg"
-                                            className="h-[250px] w-full object-cover"
-                                        />
-                                        <span className="absolute top-3 left-3 rounded-full bg-secondary p-3 font-montserrat font-semibold text-primary-foreground">
-                                            Platinum
-                                        </span>
-                                        <span className="absolute top-3 right-3 rounded-full bg-primary p-3 font-montserrat font-semibold text-primary-foreground">
-                                            $999
-                                        </span>
-                                    </div>
-
-                                    <div className="space-y-2 p-4">
-                                        <h3 className="text-lg font-medium text-primary">
-                                            Modern Home in West Knoxville
-                                        </h3>
-                                        <div className="grid grid-cols-2 gap-2">
-                                            <div className="flex gap-2">
-                                                <svg
-                                                    aria-hidden="true"
-                                                    className="e-font-icon-svg e-fas-map-marker-alt h-4 w-4"
-                                                    viewBox="0 0 384 512"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                >
-                                                    <path d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"></path>
-                                                </svg>
-                                                <p className="font-montserrat text-sm font-medium text-primary">
-                                                    {' '}
-                                                    Knoxville, TN
-                                                </p>
-                                            </div>
-
-                                            <div className="flex gap-2">
-                                                <svg
-                                                    aria-hidden="true"
-                                                    className="e-font-icon-svg e-far-clone h-4 w-4"
-                                                    viewBox="0 0 512 512"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                >
-                                                    <path d="M464 0H144c-26.51 0-48 21.49-48 48v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h320c26.51 0 48-21.49 48-48v-48h48c26.51 0 48-21.49 48-48V48c0-26.51-21.49-48-48-48zM362 464H54a6 6 0 0 1-6-6V150a6 6 0 0 1 6-6h42v224c0 26.51 21.49 48 48 48h224v42a6 6 0 0 1-6 6zm90-96H150a6 6 0 0 1-6-6V54a6 6 0 0 1 6-6h308a6 6 0 0 1 6 6v308a6 6 0 0 1-6 6z"></path>
-                                                </svg>
-                                                <p className="font-montserrat text-sm font-medium text-primary">
-                                                    {' '}
-                                                    Knoxville, TN
-                                                </p>
-                                            </div>
-                                            <div className="flex gap-2">
-                                                <svg
-                                                    aria-hidden="true"
-                                                    className="e-font-icon-svg e-fas-bed h-4 w-4"
-                                                    viewBox="0 0 640 512"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                >
-                                                    <path d="M176 256c44.11 0 80-35.89 80-80s-35.89-80-80-80-80 35.89-80 80 35.89 80 80 80zm352-128H304c-8.84 0-16 7.16-16 16v144H64V80c0-8.84-7.16-16-16-16H16C7.16 64 0 71.16 0 80v352c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16v-48h512v48c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16V240c0-61.86-50.14-112-112-112z"></path>
-                                                </svg>
-                                                <p className="font-montserrat text-sm font-medium text-primary">
-                                                    {' '}
-                                                    Knoxville, TN
-                                                </p>
-                                            </div>
-                                            <div className="flex gap-2">
-                                                <svg
-                                                    aria-hidden="true"
-                                                    className="e-font-icon-svg e-fas-bath h-4 w-4"
-                                                    viewBox="0 0 512 512"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                >
-                                                    <path d="M32,384a95.4,95.4,0,0,0,32,71.09V496a16,16,0,0,0,16,16h32a16,16,0,0,0,16-16V480H384v16a16,16,0,0,0,16,16h32a16,16,0,0,0,16-16V455.09A95.4,95.4,0,0,0,480,384V336H32ZM496,256H80V69.25a21.26,21.26,0,0,1,36.28-15l19.27,19.26c-13.13,29.88-7.61,59.11,8.62,79.73l-.17.17A16,16,0,0,0,144,176l11.31,11.31a16,16,0,0,0,22.63,0L283.31,81.94a16,16,0,0,0,0-22.63L272,48a16,16,0,0,0-22.62,0l-.17.17c-20.62-16.23-49.83-21.75-79.73-8.62L150.22,20.28A69.25,69.25,0,0,0,32,69.25V256H16A16,16,0,0,0,0,272v16a16,16,0,0,0,16,16H496a16,16,0,0,0,16-16V272A16,16,0,0,0,496,256Z"></path>
-                                                </svg>
-                                                <p className="font-montserrat text-sm font-medium text-primary">
-                                                    {' '}
-                                                    Knoxville, TN
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="single-product">
-                                <div className="overflow-hidden rounded-xl bg-background shadow">
-                                    <div className="relative">
-                                        <img
-                                            src="/assets/images/LymanEstate-scaled-1-2048x1433.jpg"
-                                            className="h-[250px] w-full object-cover"
-                                        />
-                                        <span className="absolute top-3 left-3 rounded-full bg-secondary p-3 font-montserrat font-semibold text-primary-foreground">
-                                            Platinum
-                                        </span>
-                                        <span className="absolute top-3 right-3 rounded-full bg-primary p-3 font-montserrat font-semibold text-primary-foreground">
-                                            $999
-                                        </span>
-                                    </div>
-
-                                    <div className="space-y-2 p-4">
-                                        <h3 className="text-lg font-medium text-primary">
-                                            Modern Home in West Knoxville
-                                        </h3>
-                                        <div className="grid grid-cols-2 gap-2">
-                                            <div className="flex gap-2">
-                                                <svg
-                                                    aria-hidden="true"
-                                                    className="e-font-icon-svg e-fas-map-marker-alt h-4 w-4"
-                                                    viewBox="0 0 384 512"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                >
-                                                    <path d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"></path>
-                                                </svg>
-                                                <p className="font-montserrat text-sm font-medium text-primary">
-                                                    {' '}
-                                                    Knoxville, TN
-                                                </p>
-                                            </div>
-
-                                            <div className="flex gap-2">
-                                                <svg
-                                                    aria-hidden="true"
-                                                    className="e-font-icon-svg e-far-clone h-4 w-4"
-                                                    viewBox="0 0 512 512"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                >
-                                                    <path d="M464 0H144c-26.51 0-48 21.49-48 48v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h320c26.51 0 48-21.49 48-48v-48h48c26.51 0 48-21.49 48-48V48c0-26.51-21.49-48-48-48zM362 464H54a6 6 0 0 1-6-6V150a6 6 0 0 1 6-6h42v224c0 26.51 21.49 48 48 48h224v42a6 6 0 0 1-6 6zm90-96H150a6 6 0 0 1-6-6V54a6 6 0 0 1 6-6h308a6 6 0 0 1 6 6v308a6 6 0 0 1-6 6z"></path>
-                                                </svg>
-                                                <p className="font-montserrat text-sm font-medium text-primary">
-                                                    {' '}
-                                                    Knoxville, TN
-                                                </p>
-                                            </div>
-                                            <div className="flex gap-2">
-                                                <svg
-                                                    aria-hidden="true"
-                                                    className="e-font-icon-svg e-fas-bed h-4 w-4"
-                                                    viewBox="0 0 640 512"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                >
-                                                    <path d="M176 256c44.11 0 80-35.89 80-80s-35.89-80-80-80-80 35.89-80 80 35.89 80 80 80zm352-128H304c-8.84 0-16 7.16-16 16v144H64V80c0-8.84-7.16-16-16-16H16C7.16 64 0 71.16 0 80v352c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16v-48h512v48c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16V240c0-61.86-50.14-112-112-112z"></path>
-                                                </svg>
-                                                <p className="font-montserrat text-sm font-medium text-primary">
-                                                    {' '}
-                                                    Knoxville, TN
-                                                </p>
-                                            </div>
-                                            <div className="flex gap-2">
-                                                <svg
-                                                    aria-hidden="true"
-                                                    className="e-font-icon-svg e-fas-bath h-4 w-4"
-                                                    viewBox="0 0 512 512"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                >
-                                                    <path d="M32,384a95.4,95.4,0,0,0,32,71.09V496a16,16,0,0,0,16,16h32a16,16,0,0,0,16-16V480H384v16a16,16,0,0,0,16,16h32a16,16,0,0,0,16-16V455.09A95.4,95.4,0,0,0,480,384V336H32ZM496,256H80V69.25a21.26,21.26,0,0,1,36.28-15l19.27,19.26c-13.13,29.88-7.61,59.11,8.62,79.73l-.17.17A16,16,0,0,0,144,176l11.31,11.31a16,16,0,0,0,22.63,0L283.31,81.94a16,16,0,0,0,0-22.63L272,48a16,16,0,0,0-22.62,0l-.17.17c-20.62-16.23-49.83-21.75-79.73-8.62L150.22,20.28A69.25,69.25,0,0,0,32,69.25V256H16A16,16,0,0,0,0,272v16a16,16,0,0,0,16,16H496a16,16,0,0,0,16-16V272A16,16,0,0,0,496,256Z"></path>
-                                                </svg>
-                                                <p className="font-montserrat text-sm font-medium text-primary">
-                                                    {' '}
-                                                    Knoxville, TN
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-
-                            <a href="single-product">
-                                <div className="overflow-hidden rounded-xl bg-background shadow">
-                                    <div className="relative">
-                                        <img
-                                            src="/assets/images/Your-Guide-to-Building-a-Home-in-a-Luxury-Gated-Community.jpg"
-                                            className="h-[250px] w-full object-cover"
-                                        />
-                                        <span className="absolute top-3 left-3 rounded-full bg-secondary p-3 font-montserrat font-semibold text-primary-foreground">
-                                            Platinum
-                                        </span>
-                                        <span className="absolute top-3 right-3 rounded-full bg-primary p-3 font-montserrat font-semibold text-primary-foreground">
-                                            $999
-                                        </span>
-                                    </div>
-
-                                    <div className="space-y-2 p-4">
-                                        <h3 className="text-lg font-medium text-primary">
-                                            Modern Home in West Knoxville
-                                        </h3>
-                                        <div className="grid grid-cols-2 gap-2">
-                                            <div className="flex gap-2">
-                                                <svg
-                                                    aria-hidden="true"
-                                                    className="e-font-icon-svg e-fas-map-marker-alt h-4 w-4"
-                                                    viewBox="0 0 384 512"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                >
-                                                    <path d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"></path>
-                                                </svg>
-                                                <p className="font-montserrat text-sm font-medium text-primary">
-                                                    {' '}
-                                                    Knoxville, TN
-                                                </p>
-                                            </div>
-
-                                            <div className="flex gap-2">
-                                                <svg
-                                                    aria-hidden="true"
-                                                    className="e-font-icon-svg e-far-clone h-4 w-4"
-                                                    viewBox="0 0 512 512"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                >
-                                                    <path d="M464 0H144c-26.51 0-48 21.49-48 48v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h320c26.51 0 48-21.49 48-48v-48h48c26.51 0 48-21.49 48-48V48c0-26.51-21.49-48-48-48zM362 464H54a6 6 0 0 1-6-6V150a6 6 0 0 1 6-6h42v224c0 26.51 21.49 48 48 48h224v42a6 6 0 0 1-6 6zm90-96H150a6 6 0 0 1-6-6V54a6 6 0 0 1 6-6h308a6 6 0 0 1 6 6v308a6 6 0 0 1-6 6z"></path>
-                                                </svg>
-                                                <p className="font-montserrat text-sm font-medium text-primary">
-                                                    {' '}
-                                                    Knoxville, TN
-                                                </p>
-                                            </div>
-                                            <div className="flex gap-2">
-                                                <svg
-                                                    aria-hidden="true"
-                                                    className="e-font-icon-svg e-fas-bed h-4 w-4"
-                                                    viewBox="0 0 640 512"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                >
-                                                    <path d="M176 256c44.11 0 80-35.89 80-80s-35.89-80-80-80-80 35.89-80 80 35.89 80 80 80zm352-128H304c-8.84 0-16 7.16-16 16v144H64V80c0-8.84-7.16-16-16-16H16C7.16 64 0 71.16 0 80v352c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16v-48h512v48c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16V240c0-61.86-50.14-112-112-112z"></path>
-                                                </svg>
-                                                <p className="font-montserrat text-sm font-medium text-primary">
-                                                    {' '}
-                                                    Knoxville, TN
-                                                </p>
-                                            </div>
-                                            <div className="flex gap-2">
-                                                <svg
-                                                    aria-hidden="true"
-                                                    className="e-font-icon-svg e-fas-bath h-4 w-4"
-                                                    viewBox="0 0 512 512"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                >
-                                                    <path d="M32,384a95.4,95.4,0,0,0,32,71.09V496a16,16,0,0,0,16,16h32a16,16,0,0,0,16-16V480H384v16a16,16,0,0,0,16,16h32a16,16,0,0,0,16-16V455.09A95.4,95.4,0,0,0,480,384V336H32ZM496,256H80V69.25a21.26,21.26,0,0,1,36.28-15l19.27,19.26c-13.13,29.88-7.61,59.11,8.62,79.73l-.17.17A16,16,0,0,0,144,176l11.31,11.31a16,16,0,0,0,22.63,0L283.31,81.94a16,16,0,0,0,0-22.63L272,48a16,16,0,0,0-22.62,0l-.17.17c-20.62-16.23-49.83-21.75-79.73-8.62L150.22,20.28A69.25,69.25,0,0,0,32,69.25V256H16A16,16,0,0,0,0,272v16a16,16,0,0,0,16,16H496a16,16,0,0,0,16-16V272A16,16,0,0,0,496,256Z"></path>
-                                                </svg>
-                                                <p className="font-montserrat text-sm font-medium text-primary">
-                                                    {' '}
-                                                    Knoxville, TN
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
+                            {rentals?.data?.map((rental: any) => (
+                                <PlatinumCard
+                                    key={rental.id}
+                                    property={rental}
+                                />
+                            ))}
                         </div>
-                        <div className="mt-5 flex items-center space-x-1">
-                            <button className="rounded bg-secondary px-4 py-2 text-primary-foreground">
-                                1
-                            </button>
 
-                            <button className="rounded bg-primary px-4 py-2 text-primary-foreground hover:bg-secondary">
-                                2
-                            </button>
-                            <button className="rounded bg-primary px-4 py-2 text-primary-foreground hover:bg-secondary">
-                                3
-                            </button>
-                            <button className="rounded bg-primary px-4 py-2 text-primary-foreground hover:bg-secondary">
-                                4
-                            </button>
-                            <button className="rounded bg-primary px-4 py-2 text-primary-foreground hover:bg-secondary">
-                                5
-                            </button>
+                        {rentals?.links && rentals.links.length > 0 && (
+                            <div className="mt-10 flex items-center justify-center space-x-1">
+                                {rentals.links.map(
+                                    (link: any, index: number) => {
+                                        const isPrevious =
+                                            link.label.includes('Previous') ||
+                                            link.label.includes('&laquo;');
+                                        const isNext =
+                                            link.label.includes('Next') ||
+                                            link.label.includes('&raquo;');
 
-                            <button className="rounded bg-primary px-4 py-2 text-primary-foreground hover:bg-secondary">
-                                Next
-                            </button>
-                        </div>
+                                        let displayLabel = link.label;
+                                        if (isPrevious)
+                                            displayLabel = 'Previous';
+                                        if (isNext) displayLabel = 'Next';
+
+                                        return (
+                                            <Link
+                                                key={index}
+                                                href={link.url || '#'}
+                                                preserveScroll
+                                                disabled={!link.url}
+                                                className={`rounded px-4 py-2 transition-colors ${
+                                                    link.active
+                                                        ? 'bg-secondary text-primary-foreground'
+                                                        : 'bg-primary text-primary-foreground hover:bg-secondary'
+                                                } ${!link.url ? 'cursor-not-allowed opacity-50' : ''}`}
+                                            >
+                                                {isPrevious || isNext
+                                                    ? displayLabel
+                                                    : link.label.replace(
+                                                          /&laquo;|&raquo;/g,
+                                                          '',
+                                                      )}
+                                            </Link>
+                                        );
+                                    },
+                                )}
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

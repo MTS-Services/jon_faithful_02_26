@@ -11,9 +11,9 @@ enum ListingStatus: string
     public function label(): string
     {
         return match ($this) {
-            self::BASIC => 'Basic Property Listing',
-            self::FEATURE => 'Feature Property Listing',
-            self::PLATINUM => 'Platinum Property Listing',
+            self::BASIC => 'Basic',
+            self::FEATURE => 'Feature',
+            self::PLATINUM => 'Platinum',
         };
     }
 }
