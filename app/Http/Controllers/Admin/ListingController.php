@@ -33,7 +33,7 @@ class ListingController extends Controller
     {
         $queryBody = Listing::query();
         $result = $this->dataTableService->process($queryBody, request(), [
-            'searchable' => ['title',],
+            'searchable' => ['title'],
             'sortable' => ['id', 'title', 'created_at'],
         ]);
         return Inertia::render('admin/listings/index', [
