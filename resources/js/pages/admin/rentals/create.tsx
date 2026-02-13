@@ -31,10 +31,11 @@ interface FormData {
     pet_friendly?: string;
     parking_garage?: string;
     primary_image_url: File | null;
+    gallery_images: File | null;
     status: string;
 }
 
-export default function Create({ cities, propertyTypes }: any) {
+export default function Create({ cities, propertyTypes, users }: any) {
     const { data, setData, post, processing, errors } = useForm<FormData>({
         listing_title: '',
         description: '',
@@ -47,6 +48,7 @@ export default function Create({ cities, propertyTypes }: any) {
         sort_order: '0',
         status: '1',
         primary_image_url: null,
+        gallery_images: null,
     });
 
     function handleSubmit(e: React.FormEvent) {
@@ -60,7 +62,7 @@ export default function Create({ cities, propertyTypes }: any) {
 
             <Card>
                 <CardHeader>
-                    <CardTitle className="text-2xl">Create Listing</CardTitle>
+                    <CardTitle className="text-2xl">Create Rental Listing</CardTitle>
                 </CardHeader>
 
                 <CardContent>
@@ -76,6 +78,24 @@ export default function Create({ cities, propertyTypes }: any) {
                                     }
                                 />
                                 <InputError message={errors.listing_title} />
+                            </div>
+
+                            {/* Image */}
+                            <div>
+                                <Label>Primary Image</Label>
+                                <FileUpload
+                                    value={data.primary_image_url}
+                                    onChange={(file) =>
+                                        setData(
+                                            'primary_image_url',
+                                            file as File,
+                                        )
+                                    }
+                                    accept="image/*"
+                                />
+                                <InputError
+                                    message={errors.primary_image_url}
+                                />
                             </div>
 
                             {/* City */}
@@ -101,6 +121,29 @@ export default function Create({ cities, propertyTypes }: any) {
                                 <InputError message={errors.city_id} />
                             </div>
 
+                            {/* user */}
+                            <div>
+                                <Label>User</Label>
+                                <Select
+                                    onValueChange={(v) => setData('user_id', v)}
+                                >
+                                    <SelectTrigger>
+                                        <SelectValue placeholder="Select City" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {users.map((user: any) => (
+                                            <SelectItem
+                                                key={user.id}
+                                                value={String(user.id)}
+                                            >
+                                                {user.name}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                                <InputError message={errors.user_id} />
+                            </div>
+
                             {/* Price */}
                             <div>
                                 <Label>Purchase Price</Label>
@@ -114,6 +157,7 @@ export default function Create({ cities, propertyTypes }: any) {
                                         )
                                     }
                                 />
+                                <InputError message={errors.purchase_price} />
                             </div>
 
                             {/* Sort Order */}
@@ -126,6 +170,49 @@ export default function Create({ cities, propertyTypes }: any) {
                                         setData('sort_order', e.target.value)
                                     }
                                 />
+                                <InputError message={errors.sort_order} />
+                            </div>
+
+                            {/* Photo Gallery */}
+                            <div className="grid gap-2">
+                                <Label htmlFor="gallery_images">
+                                    Photo Gallery*
+                                </Label>
+                                <input
+                                    id="gallery_images"
+                                    type="file"
+                                    accept="image/*"
+                                    multiple
+                                    onChange={(e) => {
+                                        if (e.target.files) {
+                                            setData(
+                                                'gallery_images',
+                                                Array.from(e.target.files),
+                                            );
+                                        }
+                                    }}
+                                    className="block w-full text-sm text-gray-700 file:mr-4 file:rounded file:border file:border-gray-300 file:bg-gray-50 file:px-4 file:py-2 file:text-sm file:font-medium file:transition hover:file:bg-gray-100"
+                                />
+                                <p className="text-xs text-gray-500">
+                                    Maximum file size: 200 MB total
+                                </p>
+                                <InputError message={errors.gallery_images} />
+                            </div>
+
+                            {/* Security Deposit */}
+                            <div>
+                                <Label>Security Deposit</Label>
+                                <Input
+                                    type="number"
+                                    value={data.security_deposit}
+                                    onChange={(e) =>
+                                        setData(
+                                            'security_deposit',
+                                            e.target.value,
+                                        )
+                                    }
+                                />
+                                <InputError message={errors.security_deposit} />
                             </div>
 
                             {/* Bedrooms */}
@@ -138,6 +225,7 @@ export default function Create({ cities, propertyTypes }: any) {
                                         setData('bedrooms', e.target.value)
                                     }
                                 />
+                                <InputError message={errors.bedrooms} />
                             </div>
 
                             {/* Bathrooms */}
@@ -150,6 +238,7 @@ export default function Create({ cities, propertyTypes }: any) {
                                         setData('bathrooms', e.target.value)
                                     }
                                 />
+                                <InputError message={errors.bathrooms} />
                             </div>
 
                             {/* Square Feet */}
@@ -162,15 +251,26 @@ export default function Create({ cities, propertyTypes }: any) {
                                         setData('square_feet', e.target.value)
                                     }
                                 />
+                                <InputError message={errors.square_feet} />
+                            </div>
+
+                            <div>
+                                <Label>Lease Length</Label>
+                                <Input
+                                    type="number"
+                                    value={data.lease_length}
+                                    onChange={(e) =>
+                                        setData('lease_length', e.target.value)
+                                    }
+                                />
+                                <InputError message={errors.lease_length} />
                             </div>
 
                             {/* Listing Status */}
-                            {/* <div>
+                            <div>
                                 <Label>Listing Status</Label>
                                 <Select
-                                    onValueChange={(v) =>
-                                        setData('listing_status', v)
-                                    }
+                                    onValueChange={(v) => setData('status', v)}
                                 >
                                     <SelectTrigger>
                                         <SelectValue placeholder="For Sale / Rent" />
@@ -184,7 +284,7 @@ export default function Create({ cities, propertyTypes }: any) {
                                         </SelectItem>
                                     </SelectContent>
                                 </Select>
-                            </div> */}
+                            </div>
 
                             {/* Property Type */}
                             <div>
@@ -210,6 +310,7 @@ export default function Create({ cities, propertyTypes }: any) {
                                         )}
                                     </SelectContent>
                                 </Select>
+                                <InputError message={errors.property_type} />
                             </div>
 
                             {/* Status */}
@@ -231,25 +332,66 @@ export default function Create({ cities, propertyTypes }: any) {
                                         </SelectItem>
                                     </SelectContent>
                                 </Select>
+                                <InputError message={errors.status} />
                             </div>
+                        </div>
 
-                            {/* Image */}
-                            <div>
-                                <Label>Primary Image</Label>
-                                <FileUpload
-                                    value={data.primary_image_url}
-                                    onChange={(file) =>
-                                        setData(
-                                            'primary_image_url',
-                                            file as File,
-                                        )
-                                    }
-                                    accept="image/*"
-                                />
-                                <InputError
-                                    message={errors.primary_image_url}
-                                />
+                        {/* Pet Friendly */}
+                        <div className="grid gap-2">
+                            <Label>Pet Friendly*</Label>
+                            <div className="space-y-2">
+                                <label className="flex cursor-pointer items-center gap-2 font-normal">
+                                    <input
+                                        type="radio"
+                                        name="pet_friendly"
+                                        value="yes"
+                                        checked={data.pet_friendly === 'yes'}
+                                        onChange={(e) =>
+                                            setData(
+                                                'pet_friendly',
+                                                e.target.value,
+                                            )
+                                        }
+                                        className="text-blue-600 focus:ring-blue-500"
+                                    />
+                                    Yes
+                                </label>
+                                <label className="flex cursor-pointer items-center gap-2 font-normal">
+                                    <input
+                                        type="radio"
+                                        name="pet_friendly"
+                                        value="no"
+                                        checked={data.pet_friendly === 'no'}
+                                        onChange={(e) =>
+                                            setData(
+                                                'pet_friendly',
+                                                e.target.value,
+                                            )
+                                        }
+                                        className="text-blue-600 focus:ring-blue-500"
+                                    />
+                                    No
+                                </label>
                             </div>
+                            <InputError message={errors.pet_friendly} />
+                        </div>
+
+                        {/* Parking / Garage */}
+                        <div className="grid gap-2">
+                            <Label htmlFor="parking_garage">
+                                Parking / Garage Spaces*
+                            </Label>
+                            <Input
+                                id="parking_garage"
+                                type="number"
+                                min="0"
+                                value={data.parking_garage}
+                                onChange={(e) =>
+                                    setData('parking_garage', e.target.value)
+                                }
+                                placeholder="Enter number of parking spaces"
+                            />
+                            <InputError message={errors.parking_garage} />
                         </div>
 
                         {/* Description */}
