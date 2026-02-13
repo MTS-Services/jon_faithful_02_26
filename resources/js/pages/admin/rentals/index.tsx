@@ -10,7 +10,7 @@ import {
     PaginationData,
 } from '@/types/data-table.types';
 import { Head, Link, router } from '@inertiajs/react';
-import { SquarePen } from 'lucide-react';
+import { Pencil, SquarePen, Trash2 } from 'lucide-react';
 
 interface Props {
     rentals: Rental[];
@@ -129,6 +129,22 @@ export default function Index({
             icon: <SquarePen />,
             onClick: (item) => {
                 router.visit(route('admin.rentals.details', item?.id));
+            },
+        },
+        {
+            label: 'Edit',
+            icon: <Pencil className="h-4 w-4" />,
+            onClick: (item) => {
+                router.visit(route('admin.rentals.edit', item?.id));
+            },
+        },
+        {
+            label: 'Delete',
+            icon: <Trash2 className="h-4 w-4" />,
+            onClick: (item) => {
+                if (confirm(`Are you sure you want to delete ${item.listing_title}?`)) {
+                    router.visit(route('admin.rentals.delete', item?.id));
+                }
             },
         },
     ];
