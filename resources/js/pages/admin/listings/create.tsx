@@ -10,10 +10,16 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import AdminLayout from '@/layouts/admin-layout';
 import { Head, Link, router, useForm } from '@inertiajs/react';
 import { ArrowLeft } from 'lucide-react';
-import { FormEvent } from 'react';
 import { toast } from 'sonner';
+import { FormEvent, useState } from 'react'; // Added useState
+import axios from 'axios'; // Ensure axios is imported for adding new facilities
 
 interface City {
+    id: number;
+    name: string;
+}
+
+interface Facility {
     id: number;
     name: string;
 }
@@ -25,11 +31,15 @@ interface PropertyOption {
 
 interface Props {
     cities: City[];
+    facilities: Facility[]; // Added facilities to props
     propertyTypes: PropertyOption[];
     propertyStatuses: PropertyOption[];
 }
 
-export default function Create({ cities, propertyTypes, propertyStatuses }: Props) {
+export default function Create({ cities, facilities: initialFacilities, propertyTypes, propertyStatuses }: Props) {
+
+    // Maintain a local state for facilities to allow "Add New" without refresh
+    const [facilities, setFacilities] = useState(initialFacilities);
 
     const { data, setData, post, processing, errors, reset } = useForm({
         title: '',
@@ -43,29 +53,8 @@ export default function Create({ cities, propertyTypes, propertyStatuses }: Prop
         square_feet: '',
         primary_image_url: null as File | null,
         gallery_images: [] as File[],
+        facilities: [] as number[], // Added facilities array to form data
     });
-
-    const { data: linkData, setData: setLinkData, post: postLink, processing: linkProcessing, errors: linkErrors } = useForm({
-        name: '',
-        email: '',
-        external_link: '',
-    });
-
-    const handleSubmit = (e: FormEvent) => {
-        e.preventDefault();
-        console.log(data);
-        post(route('admin.listing.store'), {
-            onSuccess: () => {
-                console.log(data);
-                reset();
-                toast.success('Listing created successfully.');
-            },
-            onError: () => {
-                console.log(data);
-                toast.error('Failed to create listing.');
-            },
-        });
-    };
 
     const handlePrimaryImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
@@ -79,6 +68,43 @@ export default function Create({ cities, propertyTypes, propertyStatuses }: Prop
         }
     };
 
+    const addNewFacility = async () => {
+        const name = prompt('Enter new facility name:');
+        if (!name) return;
+
+        try {
+            const res = await axios.post(route('admin.listing.facilities.store'), { name });
+            setFacilities([...facilities, res.data]);
+            toast.success('Facility added successfully.');
+        } catch (err: any) {
+            toast.error(err.response?.data?.message || 'Failed to add facility');
+        }
+    };
+
+    const handleSubmit = (e: FormEvent) => {
+        e.preventDefault();
+        post(route('admin.listing.store'), {
+            onSuccess: () => {
+                reset();
+                toast.success('Listing created successfully.');
+            },
+            onError: () => {
+                toast.error('Failed to create listing.');
+            },
+        });
+    };
+
+    const handleFacilityToggle = (id: number) => {
+        const current = [...data.facilities];
+        const index = current.indexOf(id);
+        if (index > -1) {
+            current.splice(index, 1);
+        } else {
+            current.push(id);
+        }
+        setData('facilities', current);
+    };
+
     return (
         <AdminLayout activeSlug="admin-users">
             <Head title="Create User" />
@@ -90,19 +116,9 @@ export default function Create({ cities, propertyTypes, propertyStatuses }: Prop
                 </CardHeader>
                 <CardContent>
                     <form onSubmit={handleSubmit}>
+                        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
                             {/* Listing Title */}
-                            <div className="grid gap-2 mb-6">
-                                <Label htmlFor="title">Listing Title*</Label>
-                                <Input
-                                    id="title"
-                                    type="text"
-                                    value={data.title}
-                                    onChange={(e) => setData('title', e.target.value)}
-                                    placeholder="Enter listing title"
-                                />
-                                <InputError message={errors.title} />
-                            </div>
-                            <div className="mb-6 w-80">
+                            <div className="mb-6 w-80 col-span-2">
                                 <div className="grid gap-2">
                                     <Label htmlFor="primary_image_url">Image</Label>
                                     <FileUpload
@@ -114,36 +130,8 @@ export default function Create({ cities, propertyTypes, propertyStatuses }: Prop
                                     <InputError message={errors.primary_image_url} />
                                 </div>
                             </div>
-
-                            {/* Listing Description */}
-                            <div className="grid gap-2 mb-6">
-                                <Label htmlFor="description">Listing Description*</Label>
-                                <textarea
-                                    id="description"
-                                    rows={4}
-                                    value={data.description}
-                                    onChange={(e) => setData('description', e.target.value)}
-                                    className="w-full px-4 py-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-slate-500 focus:border-transparent outline-none transition resize-none"
-                                    placeholder="Enter listing description"
-                                />
-                                <InputError message={errors.description} />
-                            </div>
-
-                            {/* Purchase Price */}
-                            <div className="grid gap-2 mb-6">
-                                <Label htmlFor="purchase_price">Purchase Price*</Label>
-                                <Input
-                                    id="purchase_price"
-                                    type="text"
-                                    value={data.purchase_price}
-                                    onChange={(e) => setData('purchase_price', e.target.value)}
-                                    placeholder="Enter purchase price"
-                                />
-                                <InputError message={errors.purchase_price} />
-                            </div>
-
                             {/* Photo Gallery */}
-                            <div className="mb-6">
+                            <div className="grid gap-2 mb-6 col-span-2">
                                 <Label htmlFor="gallery_images">Photo Gallery*</Label>
                                 <input
                                     id="gallery_images"
@@ -156,7 +144,30 @@ export default function Create({ cities, propertyTypes, propertyStatuses }: Prop
                                 <p className="text-xs text-gray-500 mt-1">Maximum file size: 25 MB</p>
                                 <InputError message={errors.gallery_images} />
                             </div>
-
+                            {/* Listing Title */}
+                            <div className="grid gap-2 mb-6">
+                                <Label htmlFor="title">Listing Title*</Label>
+                                <Input
+                                    id="title"
+                                    type="text"
+                                    value={data.title}
+                                    onChange={(e) => setData('title', e.target.value)}
+                                    placeholder="Enter listing title"
+                                />
+                                <InputError message={errors.title} />
+                            </div>
+                            {/* Purchase Price */}
+                            <div className="grid gap-2 mb-6">
+                                <Label htmlFor="purchase_price">Purchase Price*</Label>
+                                <Input
+                                    id="purchase_price"
+                                    type="text"
+                                    value={data.purchase_price}
+                                    onChange={(e) => setData('purchase_price', e.target.value)}
+                                    placeholder="Enter purchase price"
+                                />
+                                <InputError message={errors.purchase_price} />
+                            </div>
                             {/* City */}
                             <div className="grid gap-2 mb-6">
                                 <Label htmlFor="city_id">City*</Label>
@@ -262,15 +273,66 @@ export default function Create({ cities, propertyTypes, propertyStatuses }: Prop
                                 <InputError message={errors.square_feet} />
                             </div>
 
-                            {/* Submit Button */}
-                            <button
-                                type="submit"
-                                disabled={processing}
-                                className="bg-slate-800 hover:bg-slate-700 text-white px-8 py-3 rounded-md font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                            >
-                                {processing ? 'Submitting...' : 'Submit Listing for Review'}
-                            </button>
-                        </form>
+                            {/* Listing Description */}
+                            <div className="grid gap-2 mb-6 col-span-2">
+                                <Label htmlFor="description">Listing Description*</Label>
+                                <textarea
+                                    id="description"
+                                    rows={4}
+                                    value={data.description}
+                                    onChange={(e) => setData('description', e.target.value)}
+                                    className="w-full px-4 py-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-slate-500 focus:border-transparent outline-none transition resize-none"
+                                    placeholder="Enter listing description"
+                                />
+                                <InputError message={errors.description} />
+                            </div>
+
+                            {/* --- Added Facilities Section --- */}
+                            <div className="grid gap-2 mb-8 col-span-2">
+                                <div className="flex items-center justify-between">
+                                    <Label className="text-base font-semibold">Facilities</Label>
+                                    <Button
+                                        type="button"
+                                        size="sm"
+                                        onClick={addNewFacility}
+                                    >
+                                        + Add New
+                                    </Button>
+                                </div>
+
+                                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 border rounded-md bg-slate-50">
+                                    {facilities.map((facility) => (
+                                        <div key={facility.id} className="flex items-center space-x-2">
+                                            <input
+                                                type="checkbox"
+                                                id={`facility-${facility.id}`}
+                                                className="h-4 w-4 rounded border-gray-300 text-slate-800 focus:ring-slate-500"
+                                                checked={data.facilities.includes(facility.id)}
+                                                onChange={() => handleFacilityToggle(facility.id)}
+                                            />
+                                            <label
+                                                htmlFor={`facility-${facility.id}`}
+                                                className="text-sm font-medium leading-none cursor-pointer"
+                                            >
+                                                {facility.name}
+                                            </label>
+                                        </div>
+                                    ))}
+                                </div>
+                                <InputError message={errors.facilities} />
+                            </div>
+                            {/* --- End Facilities Section --- */}
+                        </div>
+
+                        {/* Submit Button */}
+                        <button
+                            type="submit"
+                            disabled={processing}
+                            className="bg-secondary hover:bg-primary text-white px-8 py-3 rounded-md font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            {processing ? 'Submitting...' : 'Submit Listing for Review'}
+                        </button>
+                    </form>
                 </CardContent>
             </CardContent>
         </AdminLayout>

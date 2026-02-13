@@ -30,6 +30,7 @@ return new class extends Migration
             $table->integer('square_feet');
 
             $table->string('primary_image_url', 1000)->nullable();
+            $table->string('youtube_video_url', 1000)->nullable();
             $table->string('status')->default(ActiveInactive::INACTIVE->value);
 
             // Foreign Keys
