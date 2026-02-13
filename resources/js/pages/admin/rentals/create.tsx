@@ -13,7 +13,9 @@ import {
 } from '@/components/ui/select';
 import AdminLayout from '@/layouts/admin-layout';
 import { Head, useForm } from '@inertiajs/react';
-import React from 'react';
+import axios from 'axios';
+import React, { useState } from 'react';
+import { toast } from 'sonner';
 
 interface FormData {
     user_id?: string | number;
@@ -33,9 +35,19 @@ interface FormData {
     primary_image_url: File | null;
     gallery_images: File | null;
     status: string;
+    facilities: number[];
 }
 
-export default function Create({ cities, propertyTypes, users, status }: any) {
+export default function Create({
+    cities,
+    propertyTypes,
+    users,
+    status,
+    facilities: initialFacilities,
+}: any) {
+    // Maintain a local state for facilities to allow "Add New" without refresh
+    const [facilities, setFacilities] = useState(initialFacilities);
+
     const { data, setData, post, processing, errors } = useForm<FormData>({
         listing_title: '',
         description: '',
@@ -49,7 +61,37 @@ export default function Create({ cities, propertyTypes, users, status }: any) {
         status: '',
         primary_image_url: null,
         gallery_images: null,
+        facilities: [],
     });
+
+    const addNewFacility = async () => {
+        const name = prompt('Enter new facility name:');
+        if (!name) return;
+
+        try {
+            const res = await axios.post(
+                route('admin.listing.facilities.store'),
+                { name },
+            );
+            setFacilities([...facilities, res.data]);
+            toast.success('Facility added successfully.');
+        } catch (err: any) {
+            toast.error(
+                err.response?.data?.message || 'Failed to add facility',
+            );
+        }
+    };
+
+    const handleFacilityToggle = (id: number) => {
+        const current = [...data.facilities];
+        const index = current.indexOf(id);
+        if (index > -1) {
+            current.splice(index, 1);
+        } else {
+            current.push(id);
+        }
+        setData('facilities', current);
+    };
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
@@ -57,7 +99,7 @@ export default function Create({ cities, propertyTypes, users, status }: any) {
     }
 
     return (
-        <AdminLayout activeSlug="admin-listings">
+        <AdminLayout activeSlug="rentals">
             <Head title="Create Listing" />
 
             <Card>
@@ -299,9 +341,7 @@ export default function Create({ cities, propertyTypes, users, status }: any) {
                             <div>
                                 <Label>Status</Label>
                                 <Select
-                                    onValueChange={(v) =>
-                                        setData('status', v)
-                                    }
+                                    onValueChange={(v) => setData('status', v)}
                                 >
                                     <SelectTrigger>
                                         <SelectValue placeholder="Status" />
@@ -393,6 +433,53 @@ export default function Create({ cities, propertyTypes, users, status }: any) {
                                 }
                             />
                         </div>
+
+                        {/* --- Added Facilities Section --- */}
+                        <div className="col-span-2 mb-8 grid gap-2">
+                            <div className="flex items-center justify-between">
+                                <Label className="text-base font-semibold">
+                                    Facilities
+                                </Label>
+                                <Button
+                                    type="button"
+                                    size="sm"
+                                    onClick={addNewFacility}
+                                >
+                                    + Add New
+                                </Button>
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-4 rounded-md border bg-slate-50 p-4 md:grid-cols-3 lg:grid-cols-4">
+                                {facilities.map((facility) => (
+                                    <div
+                                        key={facility.id}
+                                        className="flex items-center space-x-2"
+                                    >
+                                        <input
+                                            type="checkbox"
+                                            id={`facility-${facility.id}`}
+                                            className="h-4 w-4 rounded border-gray-300 text-slate-800 focus:ring-slate-500"
+                                            checked={data.facilities.includes(
+                                                facility.id,
+                                            )}
+                                            onChange={() =>
+                                                handleFacilityToggle(
+                                                    facility.id,
+                                                )
+                                            }
+                                        />
+                                        <label
+                                            htmlFor={`facility-${facility.id}`}
+                                            className="cursor-pointer text-sm leading-none font-medium"
+                                        >
+                                            {facility.name}
+                                        </label>
+                                    </div>
+                                ))}
+                            </div>
+                            <InputError message={errors.facilities} />
+                        </div>
+                        {/* --- End Facilities Section --- */}
 
                         <Button disabled={processing}>
                             {processing ? 'Creating...' : 'Create Listing'}

@@ -13,7 +13,9 @@ import {
 } from '@/components/ui/select';
 import AdminLayout from '@/layouts/admin-layout';
 import { Head, useForm } from '@inertiajs/react';
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { toast } from 'sonner';
 
 interface FormData {
     user_id?: string | number;
@@ -33,6 +35,7 @@ interface FormData {
     primary_image_url: File | null;
     gallery_images: File | null;
     status: string;
+    facilities: number[];
 }
 
 export default function Edit({
@@ -41,7 +44,9 @@ export default function Edit({
     propertyTypes,
     users,
     status,
+    facilities: initialFacilities,
 }: any) {
+    const [facilities, setFacilities] = useState(initialFacilities);
     const { data, setData, post, processing, errors } = useForm<FormData>({
         listing_title: rental.listing_title || '',
         description: rental.description || '',
@@ -63,6 +68,7 @@ export default function Edit({
         parking_garage: rental.parking_garage || '',
         primary_image_url: null,
         gallery_images: null,
+        facilities: rental.facilities?.map(f => f.id) || [],
     });
 
     const [existingFiles, setExistingFiles] = useState<any[]>([]);
@@ -100,6 +106,35 @@ export default function Edit({
         }
     };
 
+    const addNewFacility = async () => {
+        const name = prompt('Enter new facility name:');
+        if (!name) return;
+
+        try {
+            const res = await axios.post(
+                route('admin.listing.facilities.store'),
+                { name },
+            );
+            setFacilities([...facilities, res.data]);
+            toast.success('Facility added successfully.');
+        } catch (err: any) {
+            toast.error(
+                err.response?.data?.message || 'Failed to add facility',
+            );
+        }
+    };
+
+    const handleFacilityToggle = (id: number) => {
+        const current = [...data.facilities];
+        const index = current.indexOf(id);
+        if (index > -1) {
+            current.splice(index, 1);
+        } else {
+            current.push(id);
+        }
+        setData('facilities', current);
+    };
+
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
 
@@ -111,7 +146,7 @@ export default function Edit({
     }
 
     return (
-        <AdminLayout activeSlug="admin-listings">
+        <AdminLayout activeSlug="rentals">
             <Head title="Edit Listing" />
 
             <Card>
@@ -135,32 +170,6 @@ export default function Edit({
                                 />
                                 <InputError message={errors.listing_title} />
                             </div>
-
-                            {/* Image */}
-                            {/* <div>
-                                <Label>Primary Image</Label>
-                                <FileUpload
-                                    value={data.primary_image_url}
-                                    onChange={(file) =>
-                                        setData(
-                                            'primary_image_url',
-                                            file as File,
-                                        )
-                                    }
-                                    accept="image/*"
-                                />
-                                {rental.primary_image_url && (
-                                    <img
-                                        src={rental.primary_image_url}
-                                        alt="Current"
-                                        className="mt-2 h-20 w-20 rounded object-cover"
-                                    />
-                                )}
-                                <InputError
-                                    message={errors.primary_image_url}
-                                />
-                            </div> */}
-
                             <div className="grid gap-2">
                                 <Label htmlFor="primary_image_url">
                                     Primary Listing Image
@@ -488,6 +497,53 @@ export default function Edit({
                                 }
                             />
                         </div>
+
+                        {/* --- Added Facilities Section --- */}
+                        <div className="col-span-2 mb-8 grid gap-2">
+                            <div className="flex items-center justify-between">
+                                <Label className="text-base font-semibold">
+                                    Facilities
+                                </Label>
+                                <Button
+                                    type="button"
+                                    size="sm"
+                                    onClick={addNewFacility}
+                                >
+                                    + Add New
+                                </Button>
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-4 rounded-md border bg-slate-50 p-4 md:grid-cols-3 lg:grid-cols-4">
+                                {facilities.map((facility) => (
+                                    <div
+                                        key={facility.id}
+                                        className="flex items-center space-x-2"
+                                    >
+                                        <input
+                                            type="checkbox"
+                                            id={`facility-${facility.id}`}
+                                            className="h-4 w-4 rounded border-gray-300 text-slate-800 focus:ring-slate-500"
+                                            checked={data.facilities.includes(
+                                                facility.id,
+                                            )}
+                                            onChange={() =>
+                                                handleFacilityToggle(
+                                                    facility.id,
+                                                )
+                                            }
+                                        />
+                                        <label
+                                            htmlFor={`facility-${facility.id}`}
+                                            className="cursor-pointer text-sm leading-none font-medium"
+                                        >
+                                            {facility.name}
+                                        </label>
+                                    </div>
+                                ))}
+                            </div>
+                            <InputError message={errors.facilities} />
+                        </div>
+                        {/* --- End Facilities Section --- */}
 
                         <Button disabled={processing}>
                             {processing ? 'Updating...' : 'Update Listing'}

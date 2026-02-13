@@ -1,19 +1,17 @@
-import React from 'react'
-import { ActionButton } from '@/components/ui/action-button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import AdminLayout from '@/layouts/admin-layout'
-import { Rental } from '@/types'
-import { Head } from '@inertiajs/react'
-import { ArrowLeft, SquarePen } from 'lucide-react'
-import { index } from '@/actions/App/Http/Controllers/Admin/RentalController'
-import { Badge } from '@/components/ui/badge'
+import { index } from '@/actions/App/Http/Controllers/Admin/RentalController';
+import { ActionButton } from '@/components/ui/action-button';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import AdminLayout from '@/layouts/admin-layout';
+import { Rental } from '@/types';
+import { Head } from '@inertiajs/react';
+import { ArrowLeft } from 'lucide-react';
 
 interface Props {
-    rental: Rental
+    rental: Rental;
 }
 
 export default function View({ rental }: Props) {
-
     return (
         <AdminLayout activeSlug={'rentals'}>
             <Head title="Rental Details" />
@@ -32,7 +30,6 @@ export default function View({ rental }: Props) {
                 </div>
 
                 <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-
                     {/* LEFT SIDE */}
                     <div className="space-y-6 lg:col-span-2">
                         {/* Title */}
@@ -53,15 +50,14 @@ export default function View({ rental }: Props) {
                                 <CardTitle>Description</CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <p className="text-muted-foreground whitespace-pre-line">
+                                <p className="whitespace-pre-line text-muted-foreground">
                                     {rental.description ?? 'N/A'}
                                 </p>
                             </CardContent>
                         </Card>
 
                         {/* Property Info Grid */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
+                        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                             <Card>
                                 <CardHeader>
                                     <CardTitle>Rent Price</CardTitle>
@@ -147,52 +143,102 @@ export default function View({ rental }: Props) {
                                     </p>
                                 </CardContent>
                             </Card>
-
                         </div>
-
                     </div>
 
                     {/* RIGHT SIDE */}
                     <div className="space-y-6">
-
                         <Card>
                             <CardHeader>
                                 <CardTitle>Status & Insights</CardTitle>
                             </CardHeader>
 
                             <CardContent className="space-y-4">
-
                                 <div>
-                                    <p className="text-sm text-muted-foreground">Status</p>
-                                    <Badge variant={rental.status === 'active' ? 'default' : 'destructive'}>
+                                    <p className="text-sm text-muted-foreground">
+                                        Status
+                                    </p>
+                                    <Badge
+                                        variant={
+                                            rental.status === 'active'
+                                                ? 'default'
+                                                : 'destructive'
+                                        }
+                                    >
                                         {rental.status}
                                     </Badge>
                                 </div>
 
                                 <div>
-                                    <p className="text-sm text-muted-foreground">Pet Friendly</p>
-                                    <Badge variant={rental.pet_friendly ? 'default' : 'destructive'}>
+                                    <p className="text-sm text-muted-foreground">
+                                        Pet Friendly
+                                    </p>
+                                    <Badge
+                                        variant={
+                                            rental.pet_friendly
+                                                ? 'default'
+                                                : 'destructive'
+                                        }
+                                    >
                                         {rental.pet_friendly ? 'Yes' : 'No'}
                                     </Badge>
                                 </div>
 
                                 <div>
-                                    <p className="text-sm text-muted-foreground">Created At</p>
+                                    <p className="text-sm text-muted-foreground">
+                                        Created At
+                                    </p>
                                     <p className="font-medium">
-                                        {rental.created_at ? new Date(rental.created_at).toLocaleString() : 'N/A'}
+                                        {rental.created_at
+                                            ? new Date(
+                                                  rental.created_at,
+                                              ).toLocaleString()
+                                            : 'N/A'}
                                     </p>
                                 </div>
 
                                 <div>
-                                    <p className="text-sm text-muted-foreground">Updated At</p>
+                                    <p className="text-sm text-muted-foreground">
+                                        Updated At
+                                    </p>
                                     <p className="font-medium">
-                                        {rental.updated_at ? new Date(rental.updated_at).toLocaleString() : 'N/A'}
+                                        {rental.updated_at
+                                            ? new Date(
+                                                  rental.updated_at,
+                                              ).toLocaleString()
+                                            : 'N/A'}
                                     </p>
                                 </div>
-
                             </CardContent>
                         </Card>
 
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Facilities</CardTitle>
+                            </CardHeader>
+
+                            <CardContent className="space-y-4">
+                                {/* <div>
+                                    <p className="text-sm text-muted-foreground">Wifi</p>
+                                </div> */}
+
+                                {rental.facilities &&
+                                rental.facilities.length > 0 ? (
+                                    rental.facilities.map((facility: any) => (
+                                        <Badge
+                                            key={facility.id}
+                                            className="mr-2 mb-2"
+                                        >
+                                            {facility.name}
+                                        </Badge>
+                                    ))
+                                ) : (
+                                    <p className="text-muted-foreground">
+                                        No facilities available
+                                    </p>
+                                )}
+                            </CardContent>
+                        </Card>
                     </div>
                 </div>
 
@@ -203,11 +249,10 @@ export default function View({ rental }: Props) {
                     </CardHeader>
 
                     <CardContent className="space-y-4">
-
                         {/* Primary Image */}
                         {rental.primary_image_url && (
                             <div>
-                                <p className="text-sm text-muted-foreground mb-2">
+                                <p className="mb-2 text-sm text-muted-foreground">
                                     Primary Image
                                 </p>
                                 <img
@@ -221,20 +266,24 @@ export default function View({ rental }: Props) {
                         {/* Gallery Images */}
                         {rental.galleries && rental.galleries.length > 0 ? (
                             <div>
-                                <p className="text-sm text-muted-foreground mb-3">
+                                <p className="mb-3 text-sm text-muted-foreground">
                                     Gallery Images
                                 </p>
 
-                                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                                    {rental.galleries.map((image: any) => (
-                                        console.log(image),
-                                        <img
-                                            key={image.id}
-                                            src={image.image_url}
-                                            alt="gallery-image"
-                                            className="w-full h-40 object-cover rounded shadow"
-                                        />
-                                    ))}
+                                <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+                                    {rental.galleries.map(
+                                        (image: any) => (
+                                            console.log(image),
+                                            (
+                                                <img
+                                                    key={image.id}
+                                                    src={image.image_url}
+                                                    alt="gallery-image"
+                                                    className="h-40 w-full rounded object-cover shadow"
+                                                />
+                                            )
+                                        ),
+                                    )}
                                 </div>
                             </div>
                         ) : (
@@ -242,10 +291,9 @@ export default function View({ rental }: Props) {
                                 No gallery images available
                             </p>
                         )}
-
                     </CardContent>
                 </Card>
             </div>
         </AdminLayout>
-    )
+    );
 }
