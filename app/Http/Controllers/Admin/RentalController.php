@@ -40,9 +40,12 @@ class RentalController extends Controller
             'sortOrder' => $result['sort_order']
         ]);
     }
-    public function details($id): Response
+
+    public function details(Rental $rental): Response
     {
-        $rental = Rental::findOrFail($id)->load('galleries', 'facilities');
+        $rental->load(['galleries', 'facilities']);
+
+
         return Inertia::render('admin/rentals/view', [
             'rental' => $rental
         ]);
@@ -91,6 +94,7 @@ class RentalController extends Controller
             'status' => 'required|string',
             'facilities' => ['nullable', 'array'],
             'facilities.*' => ['exists:facilities,id'],
+            'youtube_video_url' => ['nullable', 'url'],
         ]);
 
         // Use RentalService to create the rental
@@ -148,12 +152,13 @@ class RentalController extends Controller
             'status' => 'required|string',
             'facilities' => ['nullable', 'array'],
             'facilities.*' => ['exists:facilities,id'],
+            'youtube_video_url' => ['nullable', 'url'],
         ]);
 
 
         $rental = Rental::findOrFail($id);
 
-       $rentalUpdated = $this->rentalService->updateRental($rental, $validated, $request);
+        $rentalUpdated = $this->rentalService->updateRental($rental, $validated, $request);
 
         if ($request->has('facilities')) {
             $rentalUpdated->facilities()->sync($request->input('facilities', []));

@@ -1,3 +1,4 @@
+import { CardContent } from '@/components/ui/card';
 import { useForm } from '@inertiajs/react';
 import { useState } from 'react';
 
@@ -30,6 +31,24 @@ export default function Gallery({ listing }: any) {
     ];
 
     const [selectedImage, setSelectedImage] = useState(images[0]);
+
+    const facilities = listing.facilities ?? [];
+
+    const half = Math.ceil(facilities.length / 2);
+    const leftFacilities = facilities.slice(0, half);
+    const rightFacilities = facilities.slice(half);
+
+    const getEmbedUrl = (url: string | undefined) => {
+        if (!url) return null;
+        const regExp =
+            /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+        const match = url.match(regExp);
+        return match && match[2].length === 11
+            ? `https://www.youtube.com/embed/${match[2]}`
+            : null;
+    };
+
+    const embedUrl = getEmbedUrl(listing.youtube_video_url);
 
     return (
         <div className="container mx-auto mt-10 px-4 md:mt-20">
@@ -118,14 +137,14 @@ export default function Gallery({ listing }: any) {
             </div>
             <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
                 <div className="space-y-8 lg:col-span-2">
-                    <div className="px-4">
+                    {/* <div className="px-4">
                         <h2 className="mb-3 text-xl font-semibold text-text-primary md:mb-5 md:text-2xl">
                             Ericgarcia
                         </h2>
                         <p className="text-base font-medium text-text-primary md:text-lg">
                             Realsate Agents
                         </p>
-                    </div>
+                    </div> */}
 
                     <div className="flex flex-wrap items-center justify-between gap-4 border-b px-4 pb-4 text-sm font-semibold text-muted-foreground">
                         <div className="flex items-center gap-2">
@@ -194,152 +213,48 @@ export default function Gallery({ listing }: any) {
                             Facilities
                         </h3>
                         <div className="grid grid-cols-1 gap-y-2 text-sm text-text-muted sm:grid-cols-2">
+                            {/* LEFT COLUMN */}
                             <div className="space-y-2">
-                                <div className="flex items-center">
-                                    <svg
-                                        className="mr-2 inline-block h-4 w-4 flex-shrink-0 text-primary"
-                                        viewBox="0 0 512 512"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="currentColor"
+                                {leftFacilities.map((facility: any) => (
+                                    <div
+                                        key={facility.id}
+                                        className="flex items-center"
                                     >
-                                        <path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
-                                    </svg>
-                                    <p className="font-montserrat text-sm font-semibold text-secondary-foreground md:text-base">
-                                        Wi-Fi
-                                    </p>
-                                </div>
-                                <div className="flex items-center">
-                                    <svg
-                                        className="mr-2 inline-block h-4 w-4 flex-shrink-0 text-primary"
-                                        viewBox="0 0 512 512"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="currentColor"
-                                    >
-                                        <path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
-                                    </svg>
-                                    <p className="font-montserrat text-sm font-semibold text-secondary-foreground md:text-base">
-                                        Dining Area
-                                    </p>
-                                </div>
-                                <div className="flex items-center">
-                                    <svg
-                                        className="mr-2 inline-block h-4 w-4 flex-shrink-0 text-primary"
-                                        viewBox="0 0 512 512"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="currentColor"
-                                    >
-                                        <path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
-                                    </svg>
-                                    <p className="font-montserrat text-sm font-semibold text-secondary-foreground md:text-base">
-                                        Car rental
-                                    </p>
-                                </div>
-                                <div className="flex items-center">
-                                    <svg
-                                        className="mr-2 inline-block h-4 w-4 flex-shrink-0 text-primary"
-                                        viewBox="0 0 512 512"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="currentColor"
-                                    >
-                                        <path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
-                                    </svg>
-                                    <p className="font-montserrat text-sm font-semibold text-secondary-foreground md:text-base">
-                                        Laundry service
-                                    </p>
-                                </div>
-                                <div className="flex items-center">
-                                    <svg
-                                        className="mr-2 inline-block h-4 w-4 flex-shrink-0 text-primary"
-                                        viewBox="0 0 512 512"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="currentColor"
-                                    >
-                                        <path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
-                                    </svg>
-                                    <p className="font-montserrat text-sm font-semibold text-secondary-foreground md:text-base">
-                                        Car rental
-                                    </p>
-                                </div>
-                                <div className="flex items-center">
-                                    <svg
-                                        className="mr-2 inline-block h-4 w-4 flex-shrink-0 text-primary"
-                                        viewBox="0 0 512 512"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="currentColor"
-                                    >
-                                        <path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
-                                    </svg>
-                                    <p className="font-montserrat text-sm font-semibold text-secondary-foreground md:text-base">
-                                        Laundry service
-                                    </p>
-                                </div>
+                                        <svg
+                                            className="mr-2 inline-block h-4 w-4 flex-shrink-0 text-primary"
+                                            viewBox="0 0 512 512"
+                                            fill="currentColor"
+                                        >
+                                            <path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
+                                        </svg>
+
+                                        <p className="font-montserrat text-sm font-semibold text-secondary-foreground md:text-base">
+                                            {facility.name}
+                                        </p>
+                                    </div>
+                                ))}
                             </div>
+
+                            {/* RIGHT COLUMN */}
                             <div className="space-y-2">
-                                <div className="flex items-center">
-                                    <svg
-                                        className="mr-2 inline-block h-4 w-4 flex-shrink-0 text-primary"
-                                        viewBox="0 0 512 512"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="currentColor"
+                                {rightFacilities.map((facility: any) => (
+                                    <div
+                                        key={facility.id}
+                                        className="flex items-center"
                                     >
-                                        <path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
-                                    </svg>
-                                    <p className="font-montserrat text-sm font-semibold text-secondary-foreground md:text-base">
-                                        Meeting facilities
-                                    </p>
-                                </div>
-                                <div className="flex items-center">
-                                    <svg
-                                        className="mr-2 inline-block h-4 w-4 flex-shrink-0 text-primary"
-                                        viewBox="0 0 512 512"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="currentColor"
-                                    >
-                                        <path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
-                                    </svg>
-                                    <p className="font-montserrat text-sm font-semibold text-secondary-foreground md:text-base">
-                                        24-Hour doctor
-                                    </p>
-                                </div>
-                                <div className="flex items-center">
-                                    <svg
-                                        className="mr-2 inline-block h-4 w-4 flex-shrink-0 text-primary"
-                                        viewBox="0 0 512 512"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="currentColor"
-                                    >
-                                        <path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
-                                    </svg>
-                                    <p className="font-montserrat text-sm font-semibold text-secondary-foreground md:text-base">
-                                        Airport transfers
-                                    </p>
-                                </div>
-                                <div className="flex items-center">
-                                    <svg
-                                        className="mr-2 inline-block h-4 w-4 flex-shrink-0 text-primary"
-                                        viewBox="0 0 512 512"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="currentColor"
-                                    >
-                                        <path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
-                                    </svg>
-                                    <p className="font-montserrat text-sm font-semibold text-secondary-foreground md:text-base">
-                                        24-Hour security
-                                    </p>
-                                </div>
-                                <div className="flex items-center">
-                                    <svg
-                                        className="mr-2 inline-block h-4 w-4 flex-shrink-0 text-primary"
-                                        viewBox="0 0 512 512"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="currentColor"
-                                    >
-                                        <path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
-                                    </svg>
-                                    <p className="font-montserrat text-sm font-semibold text-secondary-foreground md:text-base">
-                                        Catering service
-                                    </p>
-                                </div>
+                                        <svg
+                                            className="mr-2 inline-block h-4 w-4 flex-shrink-0 text-primary"
+                                            viewBox="0 0 512 512"
+                                            fill="currentColor"
+                                        >
+                                            <path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
+                                        </svg>
+
+                                        <p className="font-montserrat text-sm font-semibold text-secondary-foreground md:text-base">
+                                            {facility.name}
+                                        </p>
+                                    </div>
+                                ))}
                             </div>
                         </div>
                     </div>
@@ -347,31 +262,29 @@ export default function Gallery({ listing }: any) {
                         <h3 className="mb-4 font-montserrat text-xl font-semibold text-secondary-foreground md:text-[25px]">
                             More About Property
                         </h3>
-                        <div className="group relative overflow-hidden rounded-xl shadow-lg">
-                            <div className="relative overflow-hidden rounded-xl shadow-lg">
-                                <iframe
-                                    className="h-[250px] w-full sm:h-[300px] md:h-[400px]"
-                                    src="https://www.youtube.com/embed/VAEC_N3zPVU?si=4LgkqzHJnkV2PhDZ"
-                                    title="YouTube video"
-                                    frameBorder={0}
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowFullScreen
-                                ></iframe>
-                            </div>
-
-                            {/* <div className="absolute inset-0 flex items-center justify-center bg-foreground/30">
-                                <div className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-red-600 transition-transform hover:scale-110 md:h-16 md:w-16">
-                                    <svg
-                                        className="h-6 w-6 fill-current text-primary-foreground md:h-8 md:w-8"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path d="M8 5v14l11-7z" />
-                                    </svg>
+                        <CardContent>
+                            {embedUrl ? (
+                                <div className="aspect-video w-full">
+                                    <iframe
+                                        className="h-full w-full rounded-md shadow-sm"
+                                        src={embedUrl}
+                                        title="YouTube video player"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                    ></iframe>
                                 </div>
-                            </div> */}
-                            <div className="absolute bottom-2 left-2 text-base font-bold text-primary-foreground drop-shadow-md md:bottom-4 md:left-4 md:text-xl">
-                                THE DREAM LIFE
-                            </div>
+                            ) : (
+                                <a
+                                    href={listing.youtube_video_url}
+                                    target="_blank"
+                                    className="text-blue-600 underline"
+                                >
+                                    Watch Video on YouTube
+                                </a>
+                            )}
+                        </CardContent>
+                        <div className="absolute bottom-2 left-2 text-base font-bold text-primary-foreground drop-shadow-md md:bottom-4 md:left-4 md:text-xl">
+                            THE DREAM LIFE
                         </div>
                     </div>
                 </div>
