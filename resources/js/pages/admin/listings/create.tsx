@@ -79,7 +79,7 @@ export default function Create({ cities, facilities: initialFacilities, property
         if (!name) return;
 
         try {
-            const res = await axios.post(route('admin.listing.facilities.store'), { name });
+            const res = await axios.post(route('admin.facilities.store'), { name });
             setFacilities([...facilities, res.data]);
             toast.success('Facility added successfully.');
         } catch (err: any) {

@@ -125,7 +125,7 @@ export default function Edit({ listing, cities, facilities: initialFacilities, p
         const name = prompt('Enter new facility name:');
         if (!name) return;
         try {
-            const res = await axios.post(route('admin.listing.facilities.store'), { name });
+            const res = await axios.post(route('admin.facilities.store'), { name });
             setFacilities([...facilities, res.data]);
             // Auto-check the new facility
             setData('facilities', [...data.facilities, res.data.id]);
