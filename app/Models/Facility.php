@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Facility extends Model
 {
     protected $fillable = [
+        'sort_order',
         'name',
         'slug',
-        'sort_order'
     ];
 
     public function listings()

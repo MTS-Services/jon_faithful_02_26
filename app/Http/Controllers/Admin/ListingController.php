@@ -12,12 +12,15 @@ use App\Enums\ListingProperty;
 use App\Services\DataTableService;
 use App\Services\ListingHomeService;
 use App\Http\Controllers\Controller;
+use App\Models\Facility;
+use Illuminate\Support\Str;
 
 class ListingController extends Controller
 {
     protected DataTableService $dataTableService;
     protected ListingHomeService $listingService;
-    public function __construct(DataTableService $dataTableService, ListingHomeService $listingService) {
+    public function __construct(DataTableService $dataTableService, ListingHomeService $listingService)
+    {
         $this->dataTableService = $dataTableService;
         $this->listingService = $listingService;
     }
@@ -49,9 +52,11 @@ class ListingController extends Controller
     public function create(): Response
     {
         $cities = City::all(['id', 'name']);
+        $facilities = Facility::all(['id', 'name']);
 
         return Inertia::render('admin/listings/create', [
             'cities' => $cities,
+            'facilities' => $facilities,
             'propertyTypes' => collect(ListingProperty::cases())->map(fn($type) => [
                 'value' => $type->value,
                 'label' => $type->label(),
@@ -62,6 +67,9 @@ class ListingController extends Controller
             ])
         ]);
     }
+
+    // Admin/ListingController.php
+
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -74,16 +82,39 @@ class ListingController extends Controller
             'bedrooms' => ['required', 'integer', 'min:0'],
             'bathrooms' => ['required', 'integer', 'min:0'],
             'square_feet' => ['required', 'integer', 'min:0'],
-            'primary_image_url' => ['nullable', 'image', 'max:10240'], // 10MB max
-            'gallery_images.*' => ['nullable', 'image', 'max:25600'], // 25MB max per image
+            'primary_image_url' => ['nullable', 'image', 'max:10240'],
+            'gallery_images.*' => ['nullable', 'image', 'max:25600'],
+            'facilities' => ['nullable', 'array'],
+            'facilities.*' => ['exists:facilities,id'],
         ]);
+        $validated['user_id'] = 1;
 
-        $this->listingService->createListing($validated, $request);
+        $listing = $this->listingService->createListing($validated, $request);
+
+        // Using sync ensures the pivot table is updated correctly
+        if ($request->has('facilities')) {
+            $listing->facilities()->sync($request->input('facilities', []));
+        }
 
         return redirect()
             ->route('admin.listing.index')
             ->with('success', 'Listing submitted successfully');
     }
+
+    public function storeFacility(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255', 'unique:facilities,name'],
+        ]);
+
+        $facility = Facility::create([
+            'name' => $validated['name'],
+            'slug' => Str::slug($validated['name']), // Added slug generation
+        ]);
+
+        return response()->json($facility);
+    }
+
     public function edit(Listing $listing): Response
     {
         return Inertia::render('admin/listings/edit', [

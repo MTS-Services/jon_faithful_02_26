@@ -27,7 +27,7 @@ class ListingHomeService
             $primaryImage = $this->handlePrimaryImage($request);
 
             $listing = Listing::create([
-                'user_id'          => 1,
+                'user_id'          => $validated['user_id'] ?? auth()->id(),
                 'city_id'          => $validated['city_id'],
                 'title'            => $validated['title'],
                 'description'      => $validated['description'],
