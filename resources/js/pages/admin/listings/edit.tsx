@@ -1,19 +1,19 @@
-import { index, store } from '@/actions/App/Http/Controllers/Admin/ListingController';
-import FileUpload from '@/components/file-upload';
-import InputError from '@/components/input-error';
-import { ActionButton } from '@/components/ui/action-button';
-import { Button } from '@/components/ui/button';
-import { CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import AdminLayout from '@/layouts/admin-layout';
-import { Head, Link, router, useForm } from '@inertiajs/react';
-import { ArrowLeft } from 'lucide-react';
-import { toast } from 'sonner';
-import { FormEvent, useState } from 'react'; // Added useState
-import axios from 'axios'; // Ensure axios is imported for adding new facilities
-import { stat } from 'fs';
+import FileUpload from "@/components/file-upload";
+import InputError from "@/components/input-error";
+import { ActionButton } from "@/components/ui/action-button";
+import { Button } from "@/components/ui/button";
+import { CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import AdminLayout from "@/layouts/admin-layout";
+import { Head, useForm } from "@inertiajs/react";
+import { ArrowLeft } from "lucide-react";
+import { FormEvent, useEffect, useState } from "react";
+import { toast } from "sonner";
+import axios from 'axios';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+
+
 
 interface City {
     id: number;
@@ -32,70 +32,77 @@ interface PropertyOption {
 
 interface Props {
     cities: City[];
-    facilities: Facility[]; // Added facilities to props
+    facilities: Facility[];
     propertyTypes: PropertyOption[];
     propertyStatuses: PropertyOption[];
-    statuses: PropertyOption[];
+}
+interface ListingData extends Props {
+    listing: any; // Ideally create a full Listing interface
 }
 
-export default function Create({ cities, facilities: initialFacilities, propertyTypes, propertyStatuses, statuses }: Props) {
+export default function Edit({ listing, cities, facilities: initialFacilities, propertyTypes, propertyStatuses }: ListingData) {
 
-    // Maintain a local state for facilities to allow "Add New" without refresh
     const [facilities, setFacilities] = useState(initialFacilities);
 
-    const { data, setData, post, processing, errors, reset } = useForm({
-        title: '',
-        description: '',
-        purchase_price: '',
-        city_id: '',
-        listing_status: propertyStatuses[0]?.value || '',
-        property_type: propertyTypes[0]?.value || '',
-        status: statuses[0]?.value || '',
-        bedrooms: '',
-        bathrooms: '',
-        square_feet: '',
-        youtube_video_url: '',
-        primary_image_url: null as File | null,
+    const { data, setData, post, processing, errors } = useForm({
+        _method: 'PUT', // Required for Inertia/Laravel when sending files via POST
+        title: listing.title || '',
+        description: listing.description || '',
+        purchase_price: listing.purchase_price || '',
+        city_id: String(listing.city_id) || '',
+        listing_status: listing.listing_status || '',
+        property_type: listing.property_type || '',
+        bedrooms: listing.bedrooms || '',
+        bathrooms: listing.bathrooms || '',
+        square_feet: listing.square_feet || '',
+        youtube_video_url: listing.youtube_video_url || '',
+        primary_image_url: null as File | null, // Keep null unless user uploads new
         gallery_images: [] as File[],
-        facilities: [] as number[], // Added facilities array to form data
+        facilities: listing.facilities || [], // These are IDs from the controller
     });
 
-    const handlePrimaryImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files[0]) {
-            setData('primary_image_url', e.target.files[0]);
-        }
+    const handleSubmit = (e: FormEvent) => {
+        e.preventDefault();
+
+        // Use post with _method: 'PUT' because standard PUT doesn't support Multipart/Form-Data (files)
+        post(route('admin.listing.update', listing.id), {
+            onSuccess: () => toast.success('Listing updated successfully.'),
+            onError: () => toast.error('Failed to update listing.'),
+        });
     };
 
+    const [existingFiles, setExistingFiles] = useState<any[]>([]);
+    useEffect(() => {
+        if (data) {
+            setData({
+                ...data,
+                _method: 'PUT',
+            });
+
+            // Update existing files whenever information changes
+            if (listing.primary_image_url) {
+                setExistingFiles([{
+                    id: listing.id,
+                    url: listing.image_url,
+                    name: listing.primary_image_url,
+                    path: listing.primary_image_url,
+                    mime_type: 'image/*'
+                }]);
+            } else {
+                setExistingFiles([]);
+            }
+        }
+    }, [listing]);
+
+    const handleRemoveExisting = () => {
+        if (confirm('Are you sure you want to remove this file? You must upload a new file to save the changes.')) {
+            setExistingFiles([]);
+        }
+    };
     const handleGalleryImagesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
             setData('gallery_images', Array.from(e.target.files));
         }
-    };
-
-    const addNewFacility = async () => {
-        const name = prompt('Enter new facility name:');
-        if (!name) return;
-
-        try {
-            const res = await axios.post(route('admin.listing.facilities.store'), { name });
-            setFacilities([...facilities, res.data]);
-            toast.success('Facility added successfully.');
-        } catch (err: any) {
-            toast.error(err.response?.data?.message || 'Failed to add facility');
-        }
-    };
-
-    const handleSubmit = (e: FormEvent) => {
-        e.preventDefault();
-        post(route('admin.listing.store'), {
-            onSuccess: () => {
-                reset();
-                toast.success('Listing created successfully.');
-            },
-            onError: () => {
-                toast.error('Failed to create listing.');
-            },
-        });
     };
 
     const handleFacilityToggle = (id: number) => {
@@ -109,25 +116,41 @@ export default function Create({ cities, facilities: initialFacilities, property
         setData('facilities', current);
     };
 
+    const addNewFacility = async () => {
+        const name = prompt('Enter new facility name:');
+        if (!name) return;
+        try {
+            const res = await axios.post(route('admin.listing.facilities.store'), { name });
+            setFacilities([...facilities, res.data]);
+            // Auto-check the new facility
+            setData('facilities', [...data.facilities, res.data.id]);
+            toast.success('Facility added.');
+        } catch (err: any) {
+            toast.error(err.response?.data?.message || 'Error adding facility');
+        }
+    };
+
     return (
         <AdminLayout activeSlug="listings">
-            <Head title="Create User" />
+            <Head title={`Edit - ${listing.title}`} />
 
             <CardContent>
                 <CardHeader className="flex flex-row justify-between">
-                    <CardTitle className='text-2xl'>Create New User</CardTitle>
-                    <ActionButton href={index.url()} IconNode={ArrowLeft}>Back to Listings</ActionButton>
+                    <CardTitle className='text-2xl'>Edit Listing: {listing.title}</CardTitle>
+                    <ActionButton href={route('admin.listing.index')} IconNode={ArrowLeft}>Back</ActionButton>
                 </CardHeader>
                 <CardContent>
                     <form onSubmit={handleSubmit}>
                         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
                             {/* Listing Title */}
-                            <div className="w-80 col-span-2">
+                            <div className="mb-6 w-80 col-span-2">
                                 <div className="grid gap-2">
                                     <Label htmlFor="primary_image_url">Image</Label>
                                     <FileUpload
                                         value={data.primary_image_url}
                                         onChange={(file) => setData('primary_image_url', file as File | null)}
+                                        existingFiles={existingFiles}
+                                        onRemoveExisting={handleRemoveExisting}
                                         accept="image/*"
                                         maxSize={10}
                                     />
@@ -135,7 +158,7 @@ export default function Create({ cities, facilities: initialFacilities, property
                                 </div>
                             </div>
                             {/* Photo Gallery */}
-                            <div className="grid gap-2 col-span-2">
+                            <div className="grid gap-2 mb-6 col-span-2">
                                 <Label htmlFor="gallery_images">Photo Gallery*</Label>
                                 <input
                                     id="gallery_images"
@@ -149,7 +172,7 @@ export default function Create({ cities, facilities: initialFacilities, property
                                 <InputError message={errors.gallery_images} />
                             </div>
                             {/* Listing Title */}
-                            <div className="grid gap-2">
+                            <div className="grid gap-2 mb-6">
                                 <Label htmlFor="title">Listing Title*</Label>
                                 <Input
                                     id="title"
@@ -161,7 +184,7 @@ export default function Create({ cities, facilities: initialFacilities, property
                                 <InputError message={errors.title} />
                             </div>
                             {/* Purchase Price */}
-                            <div className="grid gap-2">
+                            <div className="grid gap-2 mb-6">
                                 <Label htmlFor="purchase_price">Purchase Price*</Label>
                                 <Input
                                     id="purchase_price"
@@ -173,7 +196,7 @@ export default function Create({ cities, facilities: initialFacilities, property
                                 <InputError message={errors.purchase_price} />
                             </div>
                             {/* City */}
-                            <div className="grid gap-2">
+                            <div className="grid gap-2 mb-6">
                                 <Label htmlFor="city_id">City*</Label>
                                 <Select
                                     value={data.city_id}
@@ -194,27 +217,7 @@ export default function Create({ cities, facilities: initialFacilities, property
                             </div>
 
                             {/* Listing Status */}
-                            <div className="grid gap-2">
-                                <Label htmlFor="status">Status*</Label>
-                                <Select
-                                    value={data.status}
-                                    onValueChange={(value) => setData('status', value)}
-                                >
-                                    <SelectTrigger>
-                                        <SelectValue placeholder="Select status" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        {statuses.map((status) => (
-                                            <SelectItem key={status.value} value={status.value}>
-                                                {status.label}
-                                            </SelectItem>
-                                        ))}
-                                    </SelectContent>
-                                </Select>
-                                <InputError message={errors.status} />
-                            </div>
-                            {/* Listing Status */}
-                            <div className="grid gap-2">
+                            <div className="grid gap-2 mb-6">
                                 <Label htmlFor="listing_status">Listing Status*</Label>
                                 <Select
                                     value={data.listing_status}
@@ -235,7 +238,7 @@ export default function Create({ cities, facilities: initialFacilities, property
                             </div>
 
                             {/* Property Type */}
-                            <div className="grid gap-2">
+                            <div className="grid gap-2 mb-6">
                                 <Label htmlFor="property_type">Property Type*</Label>
                                 <Select
                                     value={data.property_type}
@@ -256,7 +259,7 @@ export default function Create({ cities, facilities: initialFacilities, property
                             </div>
 
                             {/* Bedrooms */}
-                            <div className="grid gap-2">
+                            <div className="grid gap-2 mb-6">
                                 <Label htmlFor="bedrooms">Bedrooms*</Label>
                                 <Input
                                     id="bedrooms"
@@ -270,7 +273,7 @@ export default function Create({ cities, facilities: initialFacilities, property
                             </div>
 
                             {/* Bathrooms */}
-                            <div className="grid gap-2">
+                            <div className="grid gap-2 mb-6">
                                 <Label htmlFor="bathrooms">Bathrooms*</Label>
                                 <Input
                                     id="bathrooms"
@@ -284,7 +287,7 @@ export default function Create({ cities, facilities: initialFacilities, property
                             </div>
 
                             {/* Square Feet */}
-                            <div className="grid gap-2">
+                            <div className="grid gap-2 mb-8">
                                 <Label htmlFor="square_feet">Square Feet*</Label>
                                 <Input
                                     id="square_feet"
@@ -297,7 +300,7 @@ export default function Create({ cities, facilities: initialFacilities, property
                                 <InputError message={errors.square_feet} />
                             </div>
                             {/* Square Youtube Video */}
-                            <div className="grid gap-2 col-span-2">
+                            <div className="grid gap-2 mb-6 col-span-2">
                                 <Label htmlFor="youtube_video_url">YouTube Video URL</Label>
                                 <Input
                                     id="youtube_video_url"
@@ -310,7 +313,7 @@ export default function Create({ cities, facilities: initialFacilities, property
                             </div>
 
                             {/* Listing Description */}
-                            <div className="grid gap-2 col-span-2">
+                            <div className="grid gap-2 mb-6 col-span-2">
                                 <Label htmlFor="description">Listing Description*</Label>
                                 <textarea
                                     id="description"
@@ -323,50 +326,35 @@ export default function Create({ cities, facilities: initialFacilities, property
                                 <InputError message={errors.description} />
                             </div>
 
-                            {/* --- Added Facilities Section --- */}
+                            {/* Facilities Section */}
                             <div className="grid gap-2 mb-8 col-span-2">
                                 <div className="flex items-center justify-between">
                                     <Label className="text-base font-semibold">Facilities</Label>
-                                    <Button
-                                        type="button"
-                                        size="sm"
-                                        onClick={addNewFacility}
-                                    >
-                                        + Add New
-                                    </Button>
+                                    <Button type="button" size="sm" onClick={addNewFacility}>+ Add New</Button>
                                 </div>
-
                                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 border rounded-md bg-slate-50">
-                                    {facilities.map((facility) => (
-                                        <div key={facility.id} className="flex items-center space-x-2">
+                                    {facilities.map((f) => (
+                                        <div key={f.id} className="flex items-center space-x-2">
                                             <input
                                                 type="checkbox"
-                                                id={`facility-${facility.id}`}
-                                                className="h-4 w-4 rounded border-gray-300 text-slate-800 focus:ring-slate-500"
-                                                checked={data.facilities.includes(facility.id)}
-                                                onChange={() => handleFacilityToggle(facility.id)}
+                                                id={`facility-${f.id}`}
+                                                className="h-4 w-4 rounded border-gray-300 text-slate-800"
+                                                checked={data.facilities.includes(f.id)}
+                                                onChange={() => handleFacilityToggle(f.id)}
                                             />
-                                            <label
-                                                htmlFor={`facility-${facility.id}`}
-                                                className="text-sm font-medium leading-none cursor-pointer"
-                                            >
-                                                {facility.name}
-                                            </label>
+                                            <label htmlFor={`facility-${f.id}`} className="text-sm cursor-pointer">{f.name}</label>
                                         </div>
                                     ))}
                                 </div>
-                                <InputError message={errors.facilities} />
                             </div>
-                            {/* --- End Facilities Section --- */}
                         </div>
 
-                        {/* Submit Button */}
                         <button
                             type="submit"
                             disabled={processing}
-                            className="bg-secondary hover:bg-primary text-white px-8 py-3 rounded-md font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="bg-slate-800 hover:bg-slate-700 text-white px-8 py-3 rounded-md font-medium disabled:opacity-50"
                         >
-                            {processing ? 'Submitting...' : 'Submit Listing for Review'}
+                            {processing ? 'Saving...' : 'Update Listing'}
                         </button>
                     </form>
                 </CardContent>

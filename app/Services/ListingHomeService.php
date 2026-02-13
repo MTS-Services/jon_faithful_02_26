@@ -38,7 +38,6 @@ class ListingHomeService
                 'bathrooms'        => $validated['bathrooms'],
                 'square_feet'      => $validated['square_feet'],
                 'primary_image_url' => $primaryImage,
-                'status'           => ActiveInactive::INACTIVE->value,
                 'sort_order'       => 0,
             ]);
 
