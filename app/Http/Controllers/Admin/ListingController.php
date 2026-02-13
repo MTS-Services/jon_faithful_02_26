@@ -3,19 +3,21 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Enums\ActiveInactive;
-use App\Models\City;
-use Inertia\Inertia;
-use Inertia\Response;
-use App\Models\Listing;
-use App\Enums\ListingStatus;
-use Illuminate\Http\Request;
 use App\Enums\ListingProperty;
+use App\Enums\ListingStatus;
+use App\Http\Controllers\Controller;
+use App\Models\City;
+use App\Models\Facility;
+use App\Models\Listing;
+use App\Models\User;
 use App\Services\DataTableService;
 use App\Services\ListingHomeService;
-use App\Http\Controllers\Controller;
-use App\Models\Facility;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Enum;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class ListingController extends Controller
 {
@@ -56,8 +58,10 @@ class ListingController extends Controller
     {
         $cities = City::all(['id', 'name']);
         $facilities = Facility::all(['id', 'name']);
+        $users = User::where('is_verified', true)->where('status', ActiveInactive::ACTIVE)->get();
 
         return Inertia::render('admin/listings/create', [
+            'users' => $users,
             'cities' => $cities,
             'facilities' => $facilities,
             'propertyTypes' => collect(ListingProperty::cases())->map(fn($type) => [
@@ -81,9 +85,10 @@ class ListingController extends Controller
     {
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:500'],
-            'description' => ['required', 'string'],
+            'description' => ['nullable', 'string'],
             'purchase_price' => ['required', 'numeric', 'min:0'],
             'city_id' => ['required', 'exists:cities,id'],
+            'user_id' => ['required', 'exists:users,id'],
             'listing_status' => ['required', new Enum(ListingStatus::class)],
             'property_type' => ['required', new Enum(ListingProperty::class)],
             'status' => ['required', new Enum(ActiveInactive::class)],
@@ -96,7 +101,6 @@ class ListingController extends Controller
             'facilities' => ['nullable', 'array'],
             'facilities.*' => ['exists:facilities,id'],
         ]);
-        $validated['user_id'] = 1;
         $validated['status'] = $validated['status'] ?? ActiveInactive::ACTIVE->value;
 
 
@@ -131,8 +135,10 @@ class ListingController extends Controller
         // Load the existing facility IDs for this listing
         $listing->load('facilities');
         $currentFacilityIds = $listing->facilities->pluck('id')->toArray();
+        $users = User::where('is_verified', true)->where('status', ActiveInactive::ACTIVE)->get();
 
         return Inertia::render('admin/listings/edit', [
+            'users' => $users,
             'listing' => [
                 ...$listing->toArray(),
                 'facilities' => $currentFacilityIds // Pass just IDs for the form
@@ -146,7 +152,11 @@ class ListingController extends Controller
             'propertyStatuses' => collect(ListingStatus::cases())->map(fn($status) => [
                 'value' => $status->value,
                 'label' => $status->label(),
-            ])
+            ]),
+            'statuses' => collect(ActiveInactive::cases())->map(fn($status) => [
+                'value' => $status->value,
+                'label' => $status->label(),
+            ]),
         ]);
     }
 
@@ -154,20 +164,22 @@ class ListingController extends Controller
     {
         // Use the same validation logic as store, but allow for image updates
         $validated = $request->validate([
-            'title'             => 'required|string|max:255',
-            'description'       => ['required', 'string'],
-            'purchase_price'    => ['required', 'numeric', 'min:0'],
-            'city_id'           => ['required', 'exists:cities,id'],
-            'listing_status'    => ['required', 'string'],
-            'property_type'     => ['required', 'string'],
-            'bedrooms'          => ['required', 'integer', 'min:0'],
-            'bathrooms'         => ['required', 'integer', 'min:0'],
-            'square_feet'       => ['required', 'integer', 'min:0'],
+            'title' => ['required', 'string', 'max:500'],
+            'description' => ['nullable', 'string'],
+            'purchase_price' => ['required', 'numeric', 'min:0'],
+            'city_id' => ['required', 'exists:cities,id'],
+            'user_id' => ['required', 'exists:users,id'],
+            'listing_status' => ['required', new Enum(ListingStatus::class)],
+            'property_type' => ['required', new Enum(ListingProperty::class)],
+            'status' => ['required', new Enum(ActiveInactive::class)],
+            'bedrooms' => ['required', 'integer', 'min:0'],
+            'bathrooms' => ['required', 'integer', 'min:0'],
+            'square_feet' => ['required', 'integer', 'min:0'],
             'primary_image_url' => ['nullable', 'image', 'max:10240'],
             'youtube_video_url' => ['nullable', 'url'],
-            'gallery_images.*'  => ['nullable', 'image', 'max:25600'],
-            'facilities'        => ['nullable', 'array'],
-            'facilities'        => 'nullable|array',
+            'gallery_images.*' => ['nullable', 'image', 'max:25600'],
+            'facilities' => ['nullable', 'array'],
+            'facilities.*' => ['exists:facilities,id'],
         ]);
 
         $listing = $this->listingService->updateListing($listing, $validated, $request);
@@ -179,10 +191,24 @@ class ListingController extends Controller
 
         return redirect()->route('admin.listing.index')->with('success', 'Listing updated.');
     }
-    public function delete(Listing $listing): Response
+    public function delete(Listing $listing)
     {
-        return Inertia::render('admin/listings/delete', [
-            'listing' => $listing
-        ]);
+        try {
+            if ($listing) {
+                abort(404);
+            }
+            if ($listing->primary_image_url) {
+                Storage::disk('public')->delete($listing->primary_image_url);
+            }
+            if ($listing->gallery_images) {
+                foreach ($listing->gallery_images as $image) {
+                    Storage::disk('public')->delete($image);
+                }
+            }
+            $this->listingService->delete($listing);
+            return redirect()->route('admin.listing.index')->with('success', 'Listing deleted successfully.');
+        } catch (\Exception $e) {
+            return redirect()->route('admin.listing.index')->with('error', 'Failed to delete listing.');
+        }
     }
 }

@@ -31,18 +31,21 @@ interface PropertyOption {
 }
 
 interface Props {
+    users: any;
     cities: City[];
     facilities: Facility[];
     propertyTypes: PropertyOption[];
     propertyStatuses: PropertyOption[];
+    statuses: PropertyOption[];
 }
 interface ListingData extends Props {
     listing: any; // Ideally create a full Listing interface
 }
 
-export default function Edit({ listing, cities, facilities: initialFacilities, propertyTypes, propertyStatuses }: ListingData) {
+export default function Edit({ listing, cities, facilities: initialFacilities, propertyTypes, propertyStatuses, statuses, users }: ListingData) {
 
     const [facilities, setFacilities] = useState(initialFacilities);
+    console.log(listing.user_id);
 
     const { data, setData, post, processing, errors } = useForm({
         _method: 'PUT', // Required for Inertia/Laravel when sending files via POST
@@ -50,7 +53,9 @@ export default function Edit({ listing, cities, facilities: initialFacilities, p
         description: listing.description || '',
         purchase_price: listing.purchase_price || '',
         city_id: String(listing.city_id) || '',
+        user_id: String(listing.user_id) || '',
         listing_status: listing.listing_status || '',
+        status: listing.status || '',
         property_type: listing.property_type || '',
         bedrooms: listing.bedrooms || '',
         bathrooms: listing.bathrooms || '',
@@ -171,6 +176,29 @@ export default function Edit({ listing, cities, facilities: initialFacilities, p
                                 <p className="text-xs text-gray-500 mt-1">Maximum file size: 25 MB</p>
                                 <InputError message={errors.gallery_images} />
                             </div>
+                            {/* user */}
+                            <div className="grid gap-2">
+                                <Label>User</Label>
+                                <Select
+                                    value={data.user_id}
+                                    onValueChange={(value) => setData('user_id', value)}
+                                >
+                                    <SelectTrigger>
+                                        <SelectValue placeholder="Select a user" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {users.map((user: any) => (
+                                            <SelectItem
+                                                key={user.id}
+                                                value={String(user.id)}
+                                            >
+                                                {user.name}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                                <InputError message={errors.user_id} />
+                            </div>
                             {/* Listing Title */}
                             <div className="grid gap-2 mb-6">
                                 <Label htmlFor="title">Listing Title*</Label>
@@ -214,6 +242,27 @@ export default function Edit({ listing, cities, facilities: initialFacilities, p
                                     </SelectContent>
                                 </Select>
                                 <InputError message={errors.city_id} />
+                            </div>
+
+                            {/* Listing Status */}
+                            <div className="grid gap-2">
+                                <Label htmlFor="status">Status*</Label>
+                                <Select
+                                    value={data.status}
+                                    onValueChange={(value) => setData('status', value)}
+                                >
+                                    <SelectTrigger>
+                                        <SelectValue placeholder="Select status" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {statuses.map((status) => (
+                                            <SelectItem key={status.value} value={status.value}>
+                                                {status.label}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                                <InputError message={errors.status} />
                             </div>
 
                             {/* Listing Status */}
