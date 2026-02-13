@@ -22,6 +22,7 @@ class Listing extends Model
         'bathrooms',
         'square_feet',
         'primary_image_url',
+        'youtube_video_url',
         'status',
     ];
 
@@ -55,6 +56,12 @@ class Listing extends Model
     {
         return $this->belongsTo(City::class);
     }
+
+    public function facilities()
+    {
+        return $this->morphToMany(Facility::class, 'facilityable');
+    }
+
 
     /* ---------------- Scopes ---------------- */
 

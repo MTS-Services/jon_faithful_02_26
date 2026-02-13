@@ -2,12 +2,14 @@
 
 namespace Database\Seeders;
 
-use App\Models\City;
-use App\Models\User;
-use App\Models\Rental;
 use App\Enums\ActiveInactive;
 use App\Enums\RentalProperty;
+use App\Models\City;
+use App\Models\Facility;
+use App\Models\Rental;
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Arr;
 
 class RentalSeeder extends Seeder
 {
@@ -18,6 +20,13 @@ class RentalSeeder extends Seeder
 
         if (!$user || !$city) {
             $this->command->warn('Users or Cities table is empty. RentalSeeder skipped.');
+            return;
+        }
+
+        $facilityIds = Facility::pluck('id')->toArray();
+
+        if (empty($facilityIds)) {
+            $this->command->warn('Facilities table is empty. Please seed facilities first.');
             return;
         }
 
@@ -53,7 +62,7 @@ class RentalSeeder extends Seeder
         ];
 
         foreach ($rentals as $data) {
-            Rental::updateOrCreate(
+            $rental = Rental::updateOrCreate(
                 [
                     'listing_title' => $data['listing_title'],
                     'city_id'       => $city->id,
@@ -61,10 +70,18 @@ class RentalSeeder extends Seeder
                 array_merge($data, [
                     'user_id'           => $user->id,
                     'city_id'           => $city->id,
-                    'primary_image_url' => 'https://via.placeholder.com/1200x800',
+                    'primary_image_url' => 'https://placehold.net/400x400.png',
                     'status'            => ActiveInactive::ACTIVE->value,
                 ])
             );
+            $randomFacilities = Arr::random(
+                $facilityIds,
+                min(rand(2, 3), count($facilityIds))
+            );
+
+            $rental->facilities()->sync((array) $randomFacilities);
         }
+
+        $this->command->info('Rentals table seeded successfully.');
     }
 }
