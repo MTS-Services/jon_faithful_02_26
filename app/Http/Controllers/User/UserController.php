@@ -30,6 +30,7 @@ class UserController extends Controller
         ]);
     }
 
+
     public function accountSettingsUpdate(Request $request): RedirectResponse
     {
         try {
