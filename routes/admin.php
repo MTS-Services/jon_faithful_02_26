@@ -16,6 +16,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/register', [AdminAuthController::class, 'register'])->name('register');
         Route::post('/register', [AdminAuthController::class, 'registerStore'])->name('register.post');
     });
+    Route::post('/facilities', [ListingController::class, 'storeFacility'])->name('facilities.store');
 
     Route::middleware('admin')->group(function () {
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
@@ -48,7 +49,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::put('/update-listing-home/{listing}', 'update')->name('update');
             Route::get('/delete-listing-home/{listing}', 'delete')->name('delete');
             // Facilities
-            Route::post('/admin/facilities', [ListingController::class, 'storeFacility'])->name('facilities.store');
 
         });
         Route::prefix('rentals')->as('rentals.')->controller(RentalController::class)->group(function () {
