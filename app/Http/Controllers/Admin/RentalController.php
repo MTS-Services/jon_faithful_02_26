@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\ActiveInactive;
 use App\Enums\RentalProperty;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -10,12 +11,13 @@ use Illuminate\Http\Request;
 use App\Services\DataTableService;
 use App\Http\Controllers\Controller;
 use App\Models\City;
+use App\Models\User;
 use App\Services\RentalService;
 
 class RentalController extends Controller
 {
     public function __construct(
-        protected DataTableService $dataTableService, 
+        protected DataTableService $dataTableService,
         protected RentalService $rentalService
     ) {}
 
@@ -46,48 +48,109 @@ class RentalController extends Controller
     }
 
 
-public function create(): Response
-{
-    $cities = City::all();
+    public function create(): Response
+    {
+        $cities = City::all();
+        $users = User::all();
 
-    // Get enum values as key => label
-    $propertyTypes = collect(RentalProperty::cases())
-        ->mapWithKeys(fn($type) => [$type->value => $type->label()]);
+        // Get enum values as key => label
+        $propertyTypes = collect(RentalProperty::cases())
+            ->mapWithKeys(fn($type) => [$type->value => $type->label()]);
+        $status = collect(ActiveInactive::cases())
+            ->mapWithKeys(fn($status) => [$status->value => $status->label()]);
 
-    return Inertia::render('admin/rentals/create', [
-        'cities' => $cities,
-        'propertyTypes' => $propertyTypes,
-    ]);
-}
+        return Inertia::render('admin/rentals/create', [
+            'cities' => $cities,
+            'propertyTypes' => $propertyTypes,
+            'users' => $users,
+            'status' => $status
+        ]);
+    }
 
-public function store(Request $request)
+    public function store(Request $request)
     {
         // Validate the request
-        // $validated = $request->validate([
-        //     'listing_title'    => 'required|string|max:255',
-        //     'description'      => 'required|string',
-        //     'purchase_price'   => 'required|numeric',
-        //     'property_type'    => 'required|string',
-        //     'security_deposit' => 'nullable|numeric',
-        //     'lease_length'     => 'nullable|string',
-        //     'bedrooms'         => 'nullable|numeric',
-        //     'bathrooms'        => 'nullable|numeric',
-        //     'square_feet'      => 'nullable|numeric',
-        //     'pet_friendly'     => 'nullable|string',
-        //     'parking_garage'   => 'nullable|string',
-        //     'city_id'          => 'required|exists:cities,id',
-        //     'primary_image_url'=> 'nullable|file|image|max:5120', // 5MB max
-        //     'gallery_images.*' => 'nullable|file|image|max:5120',
-        // ]);
+        $validated = $request->validate([
+            'listing_title'    => 'required|string|max:255',
+            'description'      => 'required|string',
+            'purchase_price'   => 'required|numeric',
+            'property_type'    => 'required|string',
+            'security_deposit' => 'nullable|numeric',
+            'lease_length'     => 'nullable|string',
+            'bedrooms'         => 'nullable|numeric',
+            'bathrooms'        => 'nullable|numeric',
+            'square_feet'      => 'nullable|numeric',
+            'pet_friendly'     => 'nullable|string',
+            'parking_garage'   => 'nullable|string',
+            'city_id'          => 'required|exists:cities,id',
+            'primary_image_url' => 'nullable|file|image|max:5120', // 5MB max
+            'gallery_images.*' => 'nullable|file|image|max:5120',
+            'status' => 'required|string',
+        ]);
 
         // Use RentalService to create the rental
-        $rental = $this->rentalService->createRental($request->all(), $request);
+        $rental = $this->rentalService->createRental($request->all(), $request, $validated);
 
         // Redirect back to the rentals index or wherever you want
         return redirect()->route('admin.rentals.index')
             ->with('success', 'Rental created successfully!');
     }
 
+    public function edit($id)
+    {
+        $rental = Rental::findOrFail($id);
+        $cities = City::all();
+        $users = User::all();
+        $propertyTypes = collect(RentalProperty::cases())
+            ->mapWithKeys(fn($type) => [$type->value => $type->label()]);
+        $status = collect(ActiveInactive::cases())
+            ->mapWithKeys(fn($status) => [$status->value => $status->label()]);
 
-    
+        return Inertia::render('admin/rentals/edit', [
+            'rental' => $rental,
+            'cities' => $cities,
+            'users' => $users,
+            'propertyTypes' => $propertyTypes,
+            'status' => $status
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'user_id'          => 'required|exists:users,id',
+            'listing_title'    => 'required|string|max:255',
+            'description'      => 'required|string',
+            'purchase_price'   => 'required|numeric',
+            'property_type'    => 'required|string',
+            'security_deposit' => 'nullable|numeric',
+            'lease_length'     => 'nullable|string',
+            'bedrooms'         => 'nullable|numeric',
+            'bathrooms'        => 'nullable|numeric',
+            'square_feet'      => 'nullable|numeric',
+            'pet_friendly'     => 'nullable|string',
+            'parking_garage'   => 'nullable|string',
+            'city_id'          => 'required|exists:cities,id',
+            'primary_image_url' => 'nullable|file|image|max:5120',
+            'gallery_images.*' => 'nullable|file|image|max:5120',
+            'status' => 'required|string',
+        ]);
+
+
+        $rental = Rental::findOrFail($id);
+
+        $this->rentalService->updateRental($rental, $validated, $request);
+
+        return redirect()->route('admin.rentals.index')
+            ->with('success', 'Rental updated successfully!');
+    }
+
+
+    public function delete($id)
+    {
+        $rental = Rental::findOrFail($id);
+        $this->rentalService->deleteRental($rental);
+        return redirect()->route('admin.rentals.index')
+            ->with('success', 'Rental deleted successfully!');
+    }
 }

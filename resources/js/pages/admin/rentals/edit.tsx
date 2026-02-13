@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/select';
 import AdminLayout from '@/layouts/admin-layout';
 import { Head, useForm } from '@inertiajs/react';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface FormData {
     user_id?: string | number;
@@ -35,35 +35,89 @@ interface FormData {
     status: string;
 }
 
-export default function Create({ cities, propertyTypes, users, status }: any) {
+export default function Edit({
+    rental,
+    cities,
+    propertyTypes,
+    users,
+    status,
+}: any) {
     const { data, setData, post, processing, errors } = useForm<FormData>({
-        listing_title: '',
-        description: '',
-        purchase_price: '',
-        property_type: '',
-        bedrooms: '',
-        bathrooms: '',
-        square_feet: '',
-        city_id: '',
-        sort_order: '0',
-        status: '',
+        listing_title: rental.listing_title || '',
+        description: rental.description || '',
+        purchase_price: rental.purchase_price || '',
+        property_type: rental.property_type || '',
+        bedrooms: rental.bedrooms || '',
+        bathrooms: rental.bathrooms || '',
+        square_feet: rental.square_feet || '',
+        city_id: String(rental.city_id || ''),
+        user_id: String(rental.user_id || ''),
+        sort_order: String(rental.sort_order || '0'),
+        status: rental.status || '',
+        security_deposit: rental.security_deposit || '',
+        lease_length: rental.lease_length || '',
+        pet_friendly:
+            rental.pet_friendly === 1 || rental.pet_friendly === true
+                ? 'yes'
+                : 'no',
+        parking_garage: rental.parking_garage || '',
         primary_image_url: null,
         gallery_images: null,
     });
 
+    const [existingFiles, setExistingFiles] = useState<any[]>([]);
+    useEffect(() => {
+        if (data) {
+            setData({
+                ...data,
+                // _method: 'PUT',
+            });
+
+            // Update existing files whenever information changes
+            if (rental.primary_image_url) {
+                setExistingFiles([
+                    {
+                        id: rental.id,
+                        url: rental.image_url,
+                        name: rental.primary_image_url,
+                        path: rental.primary_image_url,
+                        mime_type: 'image/*',
+                    },
+                ]);
+            } else {
+                setExistingFiles([]);
+            }
+        }
+    }, [rental]);
+
+    const handleRemoveExisting = () => {
+        if (
+            confirm(
+                'Are you sure you want to remove this file? You must upload a new file to save the changes.',
+            )
+        ) {
+            setExistingFiles([]);
+        }
+    };
+
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
-        post(route('admin.rentals.store'));
+
+        post(route('admin.rentals.update', rental.id), {
+            forceFormData: true,
+            preserveScroll: true,
+            // _method: 'put',
+        });
     }
 
     return (
         <AdminLayout activeSlug="admin-listings">
-            <Head title="Create Listing" />
+            <Head title="Edit Listing" />
 
             <Card>
                 <CardHeader>
                     <CardTitle className="text-2xl">
-                        Create Rental Listing
+                        Edit Rental Listing
                     </CardTitle>
                 </CardHeader>
 
@@ -83,7 +137,7 @@ export default function Create({ cities, propertyTypes, users, status }: any) {
                             </div>
 
                             {/* Image */}
-                            <div>
+                            {/* <div>
                                 <Label>Primary Image</Label>
                                 <FileUpload
                                     value={data.primary_image_url}
@@ -95,6 +149,35 @@ export default function Create({ cities, propertyTypes, users, status }: any) {
                                     }
                                     accept="image/*"
                                 />
+                                {rental.primary_image_url && (
+                                    <img
+                                        src={rental.primary_image_url}
+                                        alt="Current"
+                                        className="mt-2 h-20 w-20 rounded object-cover"
+                                    />
+                                )}
+                                <InputError
+                                    message={errors.primary_image_url}
+                                />
+                            </div> */}
+
+                            <div className="grid gap-2">
+                                <Label htmlFor="primary_image_url">
+                                    Primary Listing Image
+                                </Label>
+                                <FileUpload
+                                    value={data.primary_image_url}
+                                    onChange={(file) =>
+                                        setData(
+                                            'primary_image_url',
+                                            file as File | null,
+                                        )
+                                    }
+                                    existingFiles={existingFiles}
+                                    onRemoveExisting={handleRemoveExisting}
+                                    accept="image/*"
+                                    maxSize={10}
+                                />
                                 <InputError
                                     message={errors.primary_image_url}
                                 />
@@ -104,6 +187,7 @@ export default function Create({ cities, propertyTypes, users, status }: any) {
                             <div>
                                 <Label>City</Label>
                                 <Select
+                                    value={data.city_id}
                                     onValueChange={(v) => setData('city_id', v)}
                                 >
                                     <SelectTrigger>
@@ -127,10 +211,11 @@ export default function Create({ cities, propertyTypes, users, status }: any) {
                             <div>
                                 <Label>User</Label>
                                 <Select
+                                    value={data.user_id}
                                     onValueChange={(v) => setData('user_id', v)}
                                 >
                                     <SelectTrigger>
-                                        <SelectValue placeholder="Select City" />
+                                        <SelectValue placeholder="Select User" />
                                     </SelectTrigger>
                                     <SelectContent>
                                         {users.map((user: any) => (
@@ -178,7 +263,8 @@ export default function Create({ cities, propertyTypes, users, status }: any) {
                             {/* Photo Gallery */}
                             <div className="grid gap-2">
                                 <Label htmlFor="gallery_images">
-                                    Photo Gallery*
+                                    Photo Gallery (Optional - only upload to
+                                    replace)
                                 </Label>
                                 <input
                                     id="gallery_images"
@@ -272,6 +358,7 @@ export default function Create({ cities, propertyTypes, users, status }: any) {
                             <div>
                                 <Label>Property Type</Label>
                                 <Select
+                                    value={data.property_type}
                                     onValueChange={(v) =>
                                         setData('property_type', v)
                                     }
@@ -296,15 +383,15 @@ export default function Create({ cities, propertyTypes, users, status }: any) {
                             </div>
 
                             {/* Status */}
+                            {/* Status */}
                             <div>
                                 <Label>Status</Label>
                                 <Select
-                                    onValueChange={(v) =>
-                                        setData('status', v)
-                                    }
+                                    value={data.status}
+                                    onValueChange={(v) => setData('status', v)}
                                 >
                                     <SelectTrigger>
-                                        <SelectValue placeholder="Status" />
+                                        <SelectValue placeholder="Select Status" />
                                     </SelectTrigger>
                                     <SelectContent>
                                         {Object.entries(status).map(
@@ -319,7 +406,7 @@ export default function Create({ cities, propertyTypes, users, status }: any) {
                                         )}
                                     </SelectContent>
                                 </Select>
-                                <InputError message={errors.property_type} />
+                                <InputError message={errors.status} />
                             </div>
                         </div>
 
@@ -332,7 +419,11 @@ export default function Create({ cities, propertyTypes, users, status }: any) {
                                         type="radio"
                                         name="pet_friendly"
                                         value="yes"
-                                        checked={data.pet_friendly === 'yes'}
+                                        checked={
+                                            data.pet_friendly === 'yes' ||
+                                            data.pet_friendly === 1 ||
+                                            data.pet_friendly === true
+                                        }
                                         onChange={(e) =>
                                             setData(
                                                 'pet_friendly',
@@ -348,7 +439,11 @@ export default function Create({ cities, propertyTypes, users, status }: any) {
                                         type="radio"
                                         name="pet_friendly"
                                         value="no"
-                                        checked={data.pet_friendly === 'no'}
+                                        checked={
+                                            data.pet_friendly === 'no' ||
+                                            data.pet_friendly === 0 ||
+                                            data.pet_friendly === false
+                                        }
                                         onChange={(e) =>
                                             setData(
                                                 'pet_friendly',
@@ -395,7 +490,7 @@ export default function Create({ cities, propertyTypes, users, status }: any) {
                         </div>
 
                         <Button disabled={processing}>
-                            {processing ? 'Creating...' : 'Create Listing'}
+                            {processing ? 'Updating...' : 'Update Listing'}
                         </Button>
                     </form>
                 </CardContent>

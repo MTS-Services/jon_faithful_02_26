@@ -26,13 +26,8 @@ class RentalService
 
             $primaryImage = $this->handlePrimaryImage($request);
 
-            $user_id = $userId ?? auth()->id();
-            $propertyType = match ($validated['property_type']) {
-                'house' => RentalProperty::SINGLE_FAMILY_HOME,
-                'apartment' => RentalProperty::APARTMENT,
-                'condo' => RentalProperty::CONDO,
-                'townhome' => RentalProperty::TOWNHOME,
-            };
+            $user_id = $validated['user_id'];
+
 
             $rental = Rental::create([
                 'user_id'          => $user_id,
@@ -40,7 +35,7 @@ class RentalService
                 'listing_title'    => $validated['listing_title'],
                 'description'      => $validated['description'],
                 'purchase_price'   => $validated['purchase_price'],
-                'property_type' => $propertyType->value,
+                'property_type' => $validated['property_type'],
                 'security_deposit' => $validated['security_deposit'],
                 'lease_length'     => $validated['lease_length'],
                 'bedrooms'         => $validated['bedrooms'],
@@ -49,7 +44,7 @@ class RentalService
                 'pet_friendly'     => $validated['pet_friendly'] === 'yes',
                 'parking_garage'   => $validated['parking_garage'],
                 'primary_image_url' => $primaryImage,
-                'status'           => ActiveInactive::INACTIVE->value,
+                'status'           => $validated['status'],
                 'sort_order'       => 0,
             ]);
 
@@ -93,6 +88,7 @@ class RentalService
                 'pet_friendly'     => $validated['pet_friendly'],
                 'parking_garage'   => $validated['parking_garage'],
                 'primary_image_url' => $validated['primary_image_url'] ?? $rental->primary_image_url,
+                'status'           => $validated['status'],
             ]);
 
             if ($request->hasFile('gallery_images')) {
