@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             AdminSeeder::class,
             CitySeeder::class,
+            FacilitySeeder::class,
             ListingSeeder::class,
             RentalSeeder::class,
         ]);

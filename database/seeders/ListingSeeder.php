@@ -6,9 +6,11 @@ use Illuminate\Database\Seeder;
 use App\Models\Listing;
 use App\Models\User;
 use App\Models\City;
+use App\Models\Facility;
 use App\Enums\ActiveInactive;
 use App\Enums\ListingProperty;
 use App\Enums\ListingStatus;
+use Illuminate\Support\Arr;
 
 class ListingSeeder extends Seeder
 {
@@ -19,6 +21,13 @@ class ListingSeeder extends Seeder
 
         if (!$user || !$city) {
             $this->command->warn('Users or Cities table is empty. ListingSeeder skipped.');
+            return;
+        }
+
+        $facilityIds = Facility::pluck('id')->toArray();
+
+        if (empty($facilityIds)) {
+            $this->command->warn('Facilities table is empty. Please seed facilities first.');
             return;
         }
 
@@ -45,55 +54,11 @@ class ListingSeeder extends Seeder
                 'square_feet'     => 950,
                 'sort_order'      => 2,
             ],
-            [
-                'title'           => 'Luxury Apartment for ',
-                'description'     => 'City-view apartment with modern amenities.',
-                'purchase_price'  => 2200,
-                'listing_status'  => ListingStatus::FEATURE->value,
-                'property_type'   => ListingProperty::SINGLE->value,
-                'bedrooms'        => 2,
-                'bathrooms'       => 1,
-                'square_feet'     => 950,
-                'sort_order'      => 2,
-            ],
-            [
-                'title'           => 'Luxury Apartment  Rent',
-                'description'     => 'City-view apartment with modern amenities.',
-                'purchase_price'  => 2200,
-                'listing_status'  => ListingStatus::FEATURE->value,
-                'property_type'   => ListingProperty::SINGLE->value,
-                'bedrooms'        => 2,
-                'bathrooms'       => 1,
-                'square_feet'     => 950,
-                'sort_order'      => 2,
-            ],
-            [
-                'title'           => 'Luxury  for Rent',
-                'description'     => 'City-view apartment with modern amenities.',
-                'purchase_price'  => 2200,
-                'listing_status'  => ListingStatus::FEATURE->value,
-                'property_type'   => ListingProperty::SINGLE->value,
-                'bedrooms'        => 2,
-                'bathrooms'       => 1,
-                'square_feet'     => 950,
-                'sort_order'      => 2,
-            ],
-            [
-                'title'           => ' Apartment for Rent',
-                'description'     => 'City-view apartment with modern amenities.',
-                'purchase_price'  => 2200,
-                'listing_status'  => ListingStatus::FEATURE->value,
-                'property_type'   => ListingProperty::SINGLE->value,
-                'bedrooms'        => 2,
-                'bathrooms'       => 1,
-                'square_feet'     => 950,
-                'sort_order'      => 2,
-            ],
-            
         ];
 
         foreach ($listings as $data) {
-            Listing::updateOrCreate(
+
+            $listing = Listing::updateOrCreate(
                 [
                     'title'   => $data['title'],
                     'city_id' => $city->id,
@@ -101,10 +66,25 @@ class ListingSeeder extends Seeder
                 array_merge($data, [
                     'user_id'           => $user->id,
                     'city_id'           => $city->id,
-                    'primary_image_url' => 'https://via.placeholder.com/1200x800',
+                    'primary_image_url' => 'https://placehold.net/400x400.png',
                     'status'            => ActiveInactive::ACTIVE->value,
                 ])
             );
+
+            /*
+             |----------------------------------------
+             | Attach Random Facilities (2-3 ta)
+             |----------------------------------------
+             */
+
+            $randomFacilities = Arr::random(
+                $facilityIds,
+                min(rand(2, 3), count($facilityIds))
+            );
+
+            $listing->facilities()->sync((array) $randomFacilities);
         }
+
+        $this->command->info('ListingSeeder completed successfully.');
     }
 }

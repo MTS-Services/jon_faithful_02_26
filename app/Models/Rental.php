@@ -57,6 +57,12 @@ class Rental extends Model
         return $this->belongsTo(City::class);
     }
 
+    public function facilities()
+    {
+        return $this->morphToMany(Facility::class, 'facilityable');
+    }
+
+
     /* ---------------- Scopes ---------------- */
 
     public function scopeActive($query)
