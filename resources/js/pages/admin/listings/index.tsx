@@ -18,6 +18,7 @@ interface Props {
   search: string
   sortBy: string
   sortOrder: 'asc' | 'desc'
+  users: { id: number; name: string }[]
 }
 
 export default function Index({
@@ -28,6 +29,7 @@ export default function Index({
   search,
   sortBy,
   sortOrder,
+  users,
 }: Props) {
 
   const {
@@ -139,12 +141,12 @@ export default function Index({
     <AdminLayout activeSlug="listings">
       <Head title="Listing Homes" />
 
-     <div className="flex justify-between items-center">
-       <h2 className="text-3xl font-bold text-slate-900 mb-6">
-        Listing Homes
-      </h2>
-      <ActionButton href={route('admin.listing.create')} IconNode={Plus} >Create</ActionButton>
-     </div>
+      <div className="flex justify-between items-center">
+        <h2 className="text-3xl font-bold text-slate-900 mb-6">
+          Listing Homes
+        </h2>
+        <ActionButton href={route('admin.listing.create')} IconNode={Plus} >Create</ActionButton>
+      </div>
 
       <div className="mx-auto">
         <DataTable
@@ -154,6 +156,37 @@ export default function Index({
           offset={offset}
           showNumbering={true}
           actions={actions}
+          // filters={[
+          //   {
+          //     key: 'user_id',
+          //     label: 'User',
+          //     type: 'select',
+          //     options: users.map(u => ({
+          //       label: u.name,
+          //       value: u.id,
+          //     })),
+          //   },
+          //   {
+          //     key: 'listing_status',
+          //     label: 'Listing Status',
+          //     type: 'select',
+          //     options: [
+          //       { label: 'Sale', value: 'sale' },
+          //       { label: 'Rent', value: 'rent' },
+          //     ],
+          //   },
+          //   {
+          //     key: 'property_type',
+          //     label: 'Property Type',
+          //     type: 'select',
+          //     options: [
+          //       { label: 'House', value: 'house' },
+          //       { label: 'Apartment', value: 'apartment' },
+          //       { label: 'Villa', value: 'villa' },
+          //     ],
+          //   },
+          // ]}
+
           onSearch={handleSearch}
           onFilterChange={handleFilterChange}
           onSort={handleSort}
