@@ -16,7 +16,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class RentalService
 {
-     public function __construct(protected Rental $model) {}
+    public function __construct(protected Rental $model) {}
     /**
      * ===========================================
      * CREATE RENTAL
@@ -93,6 +93,8 @@ class RentalService
                 'primary_image_url' => $validated['primary_image_url'] ?? $rental->primary_image_url,
                 'status'           => $validated['status'],
                 'youtube_video_url' => $validated['youtube_video_url'],
+                'facilities' => ['nullable', 'array'],
+                'facilities.*' => ['integer', 'exists:facilities,id'],
             ]);
 
             if ($request->hasFile('gallery_images')) {

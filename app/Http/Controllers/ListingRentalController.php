@@ -59,6 +59,7 @@ class ListingRentalController extends Controller
     }
     public function storeListing(Request $request)
     {
+
         $validated = $request->validate([
             'listing_title' => ['required', 'string', 'max:500'],
             'description' => ['required', 'string'],
@@ -81,7 +82,12 @@ class ListingRentalController extends Controller
 
         $validated['status'] = ActiveInactive::ACTIVE->value;
 
-        $this->rentalService->createRental($validated, $request);
+        $rental = $this->rentalService->createRental($validated, $request);
+
+        // Using sync ensures the pivot table is updated correctly
+        if ($request->has('facilities')) {
+            $rental->facilities()->sync($request->input('facilities', []));
+        }
 
         return redirect()
             ->route('user.listings-rentals')
@@ -110,13 +116,16 @@ class ListingRentalController extends Controller
     public function editListing(Request $request, $id): Response
     {
         $rental = Rental::where('user_id', $request->user()->id)
+            ->with('facilities')
             ->findOrFail($id);
 
         $cities = City::all(['id', 'name']);
+        $facilities = Facility::all();
 
         return Inertia::render('user/listings-rentals/edit-listing-rental', [
             'rental' => $rental,
             'cities' => $cities,
+            'facilities' => $facilities,
             'propertyTypes' => collect(RentalProperty::cases())
                 ->map(fn($type) => [
                     'value' => $type->value,
@@ -151,7 +160,15 @@ class ListingRentalController extends Controller
         ]);
 
         $validated['status'] = ActiveInactive::ACTIVE->value;
-        $this->rentalService->updateRental($rental, $validated, $request);
+        $updatedRental = $this->rentalService->updateRental($rental, $validated, $request);
+
+
+        // Using sync ensures the pivot table is updated correctly
+        if ($request->has('facilities')) {
+            $updatedRental->facilities()->sync($request->input('facilities', []));
+        }
+
+
 
         return redirect()
             ->route('user.listings-rentals')
