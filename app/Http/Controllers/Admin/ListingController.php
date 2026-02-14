@@ -33,7 +33,7 @@ class ListingController extends Controller
     {
         $queryBody = Listing::query();
         $result = $this->dataTableService->process($queryBody, request(), [
-            'searchable' => ['title',],
+            'searchable' => ['title'],
             'sortable' => ['id', 'title', 'created_at'],
         ]);
         return Inertia::render('admin/listings/index', [
@@ -205,7 +205,7 @@ class ListingController extends Controller
                     Storage::disk('public')->delete($image);
                 }
             }
-            $this->listingService->delete($listing);
+            $listing->delete();
             return redirect()->route('admin.listing.index')->with('success', 'Listing deleted successfully.');
         } catch (\Exception $e) {
             return redirect()->route('admin.listing.index')->with('error', 'Failed to delete listing.');

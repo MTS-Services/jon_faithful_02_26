@@ -71,19 +71,19 @@ export default function ExternalLink({
             sortable: true,
             render: (item) => <div className="text-gray-600">{new Date(item.created_at).toLocaleString()}</div>,
         },
-        {
-            key: 'updated_at',
-            label: 'Updated',
-            sortable: true,
-            render: (item) => <div className="text-gray-600">{new Date(item.updated_at).toLocaleString()}</div>,
-        },
+        // {
+        //     key: 'updated_at',
+        //     label: 'Updated',
+        //     sortable: true,
+        //     render: (item) => <div className="text-gray-600">{new Date(item.updated_at).toLocaleString()}</div>,
+        // },
     ];
 
     // No per-item actions for now (controller routes not implemented reliably).
     const actions: ActionConfig<ExternalListingSubmission>[] = [];
 
     return (
-        <AdminLayout activeSlug="externa-lLinks">
+        <AdminLayout activeSlug="externa-links">
             <Head title="externalLinks" />
             <h2 className="text-3xl font-bold text-slate-900 mb-6">External Links Listing</h2>
 
