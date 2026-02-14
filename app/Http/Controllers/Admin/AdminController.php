@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use App\Models\User;
+use App\Models\Listing;
+use App\Models\Rental;
+use App\Enums\UserType;
 use App\Services\DataTableService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -16,7 +20,35 @@ class AdminController extends Controller
 
     public function dashboard(): Response
     {
-        return Inertia::render('admin/dashboard');
+        $stats = [
+            'users' => User::count(),
+            'listings' => Listing::count(),
+            'rentals' => Rental::count(),
+            'users_last_7_days' => User::where('created_at', '>=', now()->subDays(7))->count(),
+        ];
+
+        $recentListings = Listing::latest()->limit(5)->get(['id', 'title', 'created_at']);
+
+        // user type counts
+        $counts = User::selectRaw('user_type, count(*) as cnt')->groupBy('user_type')->pluck('cnt', 'user_type')->toArray();
+
+        $userTypeCounts = [];
+        foreach (UserType::cases() as $type) {
+            $value = $type->value;
+            $userTypeCounts[$value] = [
+                'label' => $type->label(),
+                'count' => $counts[$value] ?? 0,
+            ];
+        }
+
+        $recentRentals = Rental::with('user:id,name')->latest()->limit(5)->get(['id', 'listing_title', 'created_at', 'user_id']);
+
+        return Inertia::render('admin/dashboard', [
+            'stats' => $stats,
+            'recentListings' => $recentListings,
+            'userTypeCounts' => $userTypeCounts,
+            'recentRentals' => $recentRentals,
+        ]);
     }
 
     public function index(): Response
