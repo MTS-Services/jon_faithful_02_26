@@ -1,8 +1,8 @@
-import React from 'react';
+import { ActionButton } from '@/components/ui/action-button';
+import { Button } from '@/components/ui/button';
 import UserDashboardLayout from '@/layouts/user-dashboard-layout';
 import { Link } from '@inertiajs/react';
-import { Button } from '@/components/ui/button';
-import { ActionButton } from '@/components/ui/action-button';
+import React from 'react';
 import { Trash } from 'lucide-react';
 
 
@@ -39,7 +39,7 @@ export default function Listings({ rentals }: Props) {
 
                         <div className="p-2">
                             <h2 className="text-1xl font-semibold text-gray-700 mb-2">
-                                {rental.title}
+                                {rental.title || rental.listing_title}
                             </h2>
 
                             <div className="grid grid-cols-2 gap-y-5 text-gray-800">

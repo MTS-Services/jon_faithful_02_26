@@ -79,7 +79,6 @@ class ListingRentalController extends Controller
             'facilities.*' => ['integer', 'exists:facilities,id'],
         ]);
 
-        // Status validation এর বাইরে set করুন
         $validated['status'] = ActiveInactive::ACTIVE->value;
 
         $this->rentalService->createRental($validated, $request);
