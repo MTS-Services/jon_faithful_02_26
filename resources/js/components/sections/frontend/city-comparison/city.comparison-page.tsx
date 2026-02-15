@@ -466,12 +466,12 @@ export default function CityComparisonPage() {
                                 once they're confident in their location.
                             </p>
                             <div className="flex flex-wrap gap-4 pt-4">
-                                <a href="#"
+                                <a href={route('frontend.homesForSale')}
                                     className="inline-flex items-center justify-center px-6 py-3 bg-primary text-white font-medium rounded-full hover:bg-secondary transition-all text-sm whitespace-nowrap">
                                     Browse Homes for Sale in Tennessee
                                 </a>
 
-                                <a href="#"
+                                <a href={route('frontend.rentals')}
                                     className="inline-flex items-center justify-center px-6 py-3 bg-secondary text-white font-medium rounded-full hover:bg-primary transition-all text-sm whitespace-nowrap">
                                     Browse Rentals in Tennessee
                                 </a>
@@ -505,7 +505,7 @@ export default function CityComparisonPage() {
                             className="px-8 py-4 bg-secondary hover:bg-primary text-white rounded-full font-semibold transition-all shadow-lg text-center whitespace-nowrap">
                             Explore Tennessee Cities
                         </a>
-                        <a href="#"
+                        <a href={route('frontend.tennessee-relocation')}
                             className="px-8 py-4 bg-secondary hover:bg-primary text-white rounded-full font-semibold transition-all shadow-lg text-center whitespace-nowrap">
                             Get the Tennessee Relocation Guide
                         </a>
