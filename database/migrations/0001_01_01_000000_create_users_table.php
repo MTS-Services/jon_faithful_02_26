@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\ActiveInactive;
+use App\Enums\LicenseVerificationStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -26,6 +27,7 @@ return new class extends Migration
             $table->string('status')->default(ActiveInactive::ACTIVE->value);
             $table->string('user_type');
             $table->boolean('is_verified')->default(false);
+            $table->string('license_verification_status')->default(LicenseVerificationStatus::PENDING->value);
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

@@ -202,4 +202,14 @@ class UserController extends Controller
 
         return redirect()->route('admin.um.user.pending-verification');
     }
+
+    public function licenseVerify(Request $request, $id, $status)
+    {
+        $user = User::findOrFail($id);
+        $user->update([
+            'license_verification_status' => $status,
+        ]);
+
+        return back();
+    }
 }

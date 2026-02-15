@@ -25,6 +25,7 @@ class User extends Authenticatable
         'license_number',
         'image',
         'is_verified',
+        'license_verification_status',
     ];
 
     protected $hidden = [
