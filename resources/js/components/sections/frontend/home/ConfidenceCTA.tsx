@@ -21,7 +21,7 @@ const ConfidenceCTA: React.FC = () => {
                             Explore Cities <span className="ml-2">➔</span>
                         </a>
                         <a
-                            href="#"
+                            href={route('frontend.homesForSale')}
                             className="w-full sm:w-auto bg-white hover:bg-secondary text-primary hover:text-white px-8 py-3 rounded-full text-lg font-medium transition-all duration-300 flex items-center justify-center shadow-lg"
                         >
                             Search Homes <span className="ml-2">➔</span>

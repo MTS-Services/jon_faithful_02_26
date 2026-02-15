@@ -1,16 +1,55 @@
 import React from 'react';
 
 const cities = [
-  { name: 'Nashville', desc: 'Music City, job growth, entertainment, and culture.', img: 'assets/images/home/Nashville_-Tennessee_-USA-scaled.jpeg', span: 'col-span-1' },
-  { name: 'Knoxville', desc: 'Affordable living, outdoor lifestyle, strong community.', img: 'assets/images/home/433f6d07f4eddc16bb67cef36ed22504-p_e.jpg', span: 'md:col-span-2' },
-  { name: 'Chattanooga', desc: 'Scenic beauty, technology growth, walkable downtown.', img: 'assets/images/home/dream-homes-hero.jpg', span: 'md:col-span-2' },
-  { name: 'Johnson City', desc: 'Mountain living, healthcare hub, quality of life.', img: 'assets/images/home/29941-1.jpeg', span: 'col-span-1' },
-  { name: 'Franklin', desc: 'Top-rated schools, historic charm, upscale homes.', img: 'assets/images/home/Custom-Built-Homes.webp', isSidebar: true },
-  { name: 'Memphis', desc: 'Culture, food scene, affordability, and opportunity.', img: 'assets/images/home/LymanEstate-scaled-2.jpg', isSidebar: true },
+  { 
+    name: 'Nashville', 
+    desc: 'Music City, job growth, entertainment, and culture.', 
+    img: 'assets/images/home/Nashville_-Tennessee_-USA-scaled.jpeg', 
+    span: 'col-span-1', 
+    route: '/living-in-nashville'
+  },
+  { 
+    name: 'Knoxville', 
+    desc: 'Affordable living, outdoor lifestyle, strong community.', 
+    img: 'assets/images/home/433f6d07f4eddc16bb67cef36ed22504-p_e.jpg', 
+    span: 'md:col-span-2',
+    route: '/living-in-knoxville'
+  },
+  { 
+    name: 'Chattanooga', 
+    desc: 'Scenic beauty, technology growth, walkable downtown.', 
+    img: 'assets/images/home/dream-homes-hero.jpg', 
+    span: 'md:col-span-2',
+    route: '/chattanooga'
+  },
+  { 
+    name: 'Johnson City', 
+    desc: 'Mountain living, healthcare hub, quality of life.', 
+    img: 'assets/images/home/29941-1.jpeg', 
+    span: 'col-span-1',
+    route: '/living-in-johnson-city'
+  },
+  { 
+    name: 'Franklin', 
+    desc: 'Top-rated schools, historic charm, upscale homes.', 
+    img: 'assets/images/home/Custom-Built-Homes.webp', 
+    isSidebar: true,
+    route: '/living-in-franklin'
+  },
+  { 
+    name: 'Memphis', 
+    desc: 'Culture, food scene, affordability, and opportunity.', 
+    img: 'assets/images/home/LymanEstate-scaled-2.jpg', 
+    isSidebar: true,
+    route: '/living-in-memphis'
+  },
 ];
 
 const CityCard = ({ city }: { city: typeof cities[0] }) => (
-  <div className={`bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition duration-300 group cursor-pointer ${city.span || ''}`}>
+  <a 
+    href={city.route} // সরাসরি URL
+    className={`bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition duration-300 group cursor-pointer block ${city.span || ''}`}
+  >
     <div className="h-80 overflow-hidden relative">
       <img src={city.img} className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-all duration-300" alt={city.name} />
       <div className="absolute inset-0 bg-gradient-to-t from-black/0 to-transparent group-hover:from-black/60 transition-all duration-700 flex flex-col items-center justify-center translate-y-4 group-hover:translate-y-0 transition-all duration-500">
@@ -18,7 +57,7 @@ const CityCard = ({ city }: { city: typeof cities[0] }) => (
         <p className="text-white/80 text-center px-4 opacity-0 group-hover:opacity-100 transition-opacity">{city.desc}</p>
       </div>
     </div>
-  </div>
+  </a>
 );
 
 const BestCities: React.FC = () => {
@@ -28,7 +67,7 @@ const BestCities: React.FC = () => {
         <div className="text-center mb-12">
           <h2 className="text-3xl lg:text-4xl font-bold text-primary mb-4">Best Cities to Live in Tennessee</h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Every city in Tennessee offers something unique. Whether you want urban energy or mountain views, there’s a place for you.
+            Every city in Tennessee offers something unique. Whether you want urban energy or mountain views, there's a place for you.
           </p>
         </div>
 
@@ -42,7 +81,7 @@ const BestCities: React.FC = () => {
         </div>
 
         <div className="mt-12 text-center">
-          <a href={route('frontend.city-comparison')} className="bg-primary hover:bg-secondary text-white px-8 py-5 rounded-full font-medium transition inline-flex items-center">
+          <a href="/city-comparison" className="bg-primary hover:bg-secondary text-white px-8 py-5 rounded-full font-medium transition inline-flex items-center">
             View all Tennessee city guides
           </a>
         </div>
