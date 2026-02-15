@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\ActiveInactive;
+use App\Enums\ExternalListingType;
 use App\Enums\ListingProperty;
 use App\Enums\ListingStatus;
 use App\Mail\FoundingExternalSubmitionMail;
@@ -87,13 +88,13 @@ class ListingHomeController extends Controller
             $listing->facilities()->sync($request->input('facilities', []));
         }
 
-        $listing->load('facilities');
+        $listing->load('facilities', 'city');
         // 🔹 Send mail to user
         Mail::to($listing->user->email)
             ->send(new ListingSubmittedUserMail($listing));
 
         // 🔹 Send mail to admin
-        Mail::to(config('mail.MAIL_FROM_ADDRESS')) // or hardcode admin email
+        Mail::to(config('mail.from.address')) // or hardcode admin email
             ->send(new ListingSubmittedAdminMail($listing));
 
         return redirect()
@@ -107,6 +108,9 @@ class ListingHomeController extends Controller
             'email' => ['required', 'email', 'max:255'],
             'external_link' => ['required', 'url', 'max:1000'],
         ]);
+        
+        $validated['user_id'] = $request->user()->id;
+        $validated['external_listing_type'] = ExternalListingType::LISTING->value;
 
         $this->listingService->submitExternalListing($validated);
 
@@ -170,6 +174,15 @@ class ListingHomeController extends Controller
         }
 
         $this->listingService->updateListing($listing, $validated, $request);
+
+        $listing->load('facilities', 'city');
+        // 🔹 Send mail to user
+        Mail::to($listing->user->email)
+            ->send(new ListingSubmittedUserMail($listing, false));
+
+        // 🔹 Send mail to admin
+        Mail::to(config('mail.from.address')) // or hardcode admin email
+            ->send(new ListingSubmittedAdminMail($listing, false));
 
         return redirect()
             ->route('user.dashboard')

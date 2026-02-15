@@ -19,7 +19,7 @@
     </ul>
 
     <p>
-        👉 <a href="{{ config('app.url') }}/admin/listings/submissions">
+        <a href="{{ config('app.url') }}/admin/listings/submissions">
             Review in Admin Dashboard
         </a>
     </p>
