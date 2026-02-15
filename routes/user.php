@@ -30,7 +30,7 @@ Route::prefix('account')->name('user.')->group(function () {
         Route::post('/add-listing-home', 'addListingLinkStore')->name('add-listing-link-store');
         Route::get('/edit-listing-home/{id}', 'editListing')->name('edit-listing-home');
         Route::put('/edit-listing-home/{id}', 'updateListing')->name('update-listing-home');
-        Route::get('/delete-listing-home', 'deleteListing')->name('delete-listing-home');
+        Route::delete('/delete-listing-home/{id}', 'deleteListing')->name('delete-listing-home');
     });
     Route::middleware(['auth'])->controller(ListingRentalController::class)->group(function () {
         Route::get('/listings-rentals', 'listings')->name('listings-rentals');
@@ -39,6 +39,6 @@ Route::prefix('account')->name('user.')->group(function () {
         Route::post('/add-listing-home', 'storeLinkListing')->name('add-rental-link-store');
         Route::get('/edit-listing-rental/{id}', 'editListing')->name('edit-listing-rental');
         Route::put('/edit-listing-rental/{id}', 'updateListing')->name('update-listing-rental');
-        Route::get('/delete-listing-rental/{id}', 'deleteListing')->name('delete-listing-rental');
+        Route::delete('/delete-listing-rental/{id}', 'deleteListing')->name('delete-listing-rental');
     });
 });
