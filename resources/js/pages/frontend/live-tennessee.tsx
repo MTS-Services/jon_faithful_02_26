@@ -64,7 +64,7 @@ const tabs = [
         imageUrl: '/assets/images/Beautiful_home_exterior.jpeg',
         cta: {
             label: 'Homes for Sale',
-            href: '/chattanooga-homes-for-sale',
+            href: '/homes-for-sale',
             icon: '',
         },
     },

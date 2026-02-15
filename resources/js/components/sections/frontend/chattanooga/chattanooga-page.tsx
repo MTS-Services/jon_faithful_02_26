@@ -1,10 +1,10 @@
 import { ArrowRightIcon } from 'lucide-react';
 import CallToActionSection from '../cities/callTo-action-section';
+import FinalInfoSection from '../cities/final-info-section';
 import InfoTabsSection from '../cities/info-tabs-section';
 import MoveLocationSection from '../cities/move-location-section';
 import NeighborhoodsSection from '../cities/neighborhoods-section';
 import WhyMoveSection from '../cities/why-move';
-import FinalInfoSection from '../cities/final-info-section';
 
 // WHY MOVE DATA
 const whyMoveData = {
@@ -145,7 +145,7 @@ const tabs = [
         imageUrl: '/assets/images/Beautiful_home_exterior.jpeg',
         cta: {
             label: 'Homes for Sale',
-            href: '/chattanooga-homes-for-sale',
+            href: '/homes-for-sale',
             icon: <ArrowRightIcon className="h-4 w-4" />,
         },
     },
@@ -158,7 +158,7 @@ export default function ChattanoogaPage() {
 
             {/* COST OF LIVING SECTION */}
             <div className="container mx-auto px-4 py-16 lg:px-16">
-                <h2 className="mb-6 text-center text-xl md:text-2xl lg:text-4xl font-bold">
+                <h2 className="mb-6 text-center text-xl font-bold md:text-2xl lg:text-4xl">
                     Cost of Living in Chattanooga
                 </h2>
                 <p className="mb-10 text-center text-gray-600">
@@ -184,7 +184,7 @@ export default function ChattanoogaPage() {
             </div>
             <div className="bg-primary py-16">
                 <div className="container mx-auto px-4 lg:px-16">
-                    <h2 className="mb-6 text-center text-xl md:text-2xl lg:text-4xl font-bold text-primary-foreground">
+                    <h2 className="mb-6 text-center text-xl font-bold text-primary-foreground md:text-2xl lg:text-4xl">
                         Best Neighborhoods in Chattanooga
                     </h2>
                     <div className="grid grid-cols-1 gap-6 md:grid-cols-5">

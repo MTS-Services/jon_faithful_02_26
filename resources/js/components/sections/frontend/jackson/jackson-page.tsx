@@ -133,7 +133,7 @@ const tabs = [
         imageUrl: '/assets/images/CityHall-18-2048x1357 (1).webp',
         cta: {
             label: 'Homes for Sale',
-            href: '/chattanooga-homes-for-sale',
+            href: '/homes-for-sale',
             icon: '',
         },
     },
