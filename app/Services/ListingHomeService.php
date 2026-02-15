@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\FoundingExternalSubmitionMail;
 use Illuminate\Support\Facades\DB;
+use Termwind\Components\Li;
 
 class ListingHomeService
 {
@@ -176,5 +177,16 @@ class ListingHomeService
         ListingGallery::where('listing_id', $listing->id)
             ->where('listing_type', Listing::class)
             ->delete();
+    }
+
+        public function deleteListing(Listing $listing): void
+    {
+        DB::transaction(function () use ($listing) {
+
+            $this->deletePrimaryImage($listing);
+            $this->deleteGalleryImages($listing);
+
+            $listing->delete();
+        });
     }
 }

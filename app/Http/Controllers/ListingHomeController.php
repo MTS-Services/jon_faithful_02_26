@@ -177,8 +177,15 @@ class ListingHomeController extends Controller
     }
 
 
-    public function deleteListing(): Response
+    public function deleteListing(Request $request, $id)
     {
-        return Inertia::render('user/listings-homes/delete-listing-home');
+        $listing = Listing::where('user_id', $request->user()->id)->findOrFail($id);
+
+        $this->listingService->deleteListing($listing);
+
+        return redirect()
+            ->route('user.dashboard')
+            ->with('success', 'Listing deleted successfully.');
     }
+    
 }
