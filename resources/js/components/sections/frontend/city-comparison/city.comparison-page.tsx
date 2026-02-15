@@ -466,7 +466,7 @@ export default function CityComparisonPage() {
                                 once they're confident in their location.
                             </p>
                             <div className="flex flex-wrap gap-4 pt-4">
-                                <a href={route('frontend.homesForSale')}
+                                <a href={route('frontend.home-for-sale')}
                                     className="inline-flex items-center justify-center px-6 py-3 bg-primary text-white font-medium rounded-full hover:bg-secondary transition-all text-sm whitespace-nowrap">
                                     Browse Homes for Sale in Tennessee
                                 </a>

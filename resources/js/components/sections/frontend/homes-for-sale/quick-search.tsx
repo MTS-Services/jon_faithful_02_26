@@ -38,7 +38,7 @@ export default function QuickSearch({ listings, cities }: any) {
         if (property_type.length > 0)
             filterData.property_type = property_type.join(',');
 
-        router.get(route('frontend.homesForSale'), filterData, {
+        router.get(route('frontend.home-for-sale'), filterData, {
             preserveState: true,
             preserveScroll: true,
         });
@@ -62,7 +62,7 @@ export default function QuickSearch({ listings, cities }: any) {
         if (property_type.length > 0)
             filterData.property_type = property_type.join(',');
 
-        router.get(route('frontend.homesForSale'), filterData, {
+        router.get(route('frontend.home-for-sale'), filterData, {
             preserveState: true,
             preserveScroll: true,
         });
@@ -86,7 +86,7 @@ export default function QuickSearch({ listings, cities }: any) {
         if (newSelectedTypes.length > 0)
             filterData.property_type = newSelectedTypes.join(',');
 
-        router.get(route('frontend.homesForSale'), filterData, {
+        router.get(route('frontend.home-for-sale'), filterData, {
             preserveState: true,
             preserveScroll: true,
         });
@@ -105,7 +105,7 @@ export default function QuickSearch({ listings, cities }: any) {
         if (property_type.length > 0)
             filterData.property_type = property_type.join(',');
 
-        router.get(route('frontend.homesForSale'), filterData, {
+        router.get(route('frontend.home-for-sale'), filterData, {
             preserveState: true,
             preserveScroll: true,
         });
@@ -124,7 +124,7 @@ export default function QuickSearch({ listings, cities }: any) {
         if (property_type.length > 0)
             filterData.property_type = property_type.join(',');
 
-        router.get(route('frontend.homesForSale'), filterData, {
+        router.get(route('frontend.home-for-sale'), filterData, {
             preserveState: true,
             preserveScroll: true,
         });
@@ -143,7 +143,7 @@ export default function QuickSearch({ listings, cities }: any) {
         if (property_type.length > 0)
             filterData.property_type = property_type.join(',');
 
-        router.get(route('frontend.homesForSale'), filterData, {
+        router.get(route('frontend.home-for-sale'), filterData, {
             preserveState: true,
             preserveScroll: true,
         });
