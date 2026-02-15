@@ -38,7 +38,7 @@ class ListingController extends Controller
         $query = Listing::query()->with(['user']);
 
         $result = $this->dataTableService->process($query, request(), [
-            'searchable' => ['title'], // keep this or extend if needed
+            'searchable' => ['title', 'description'],
 
             'filterable' => [
                 'user_id',

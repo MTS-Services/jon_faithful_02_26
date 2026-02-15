@@ -16,7 +16,7 @@ class ExternalLinkSubmiition extends Controller
     {
         $queryBody =  ExternalListingSubmission::query();
         $result = $this->dataTableService->process($queryBody, request(), [
-            'searchable' => ['name', 'email'],
+            'searchable' => ['name', 'email', 'external_link'],
             'sortable' => ['id', 'name', 'email', 'created_at'],
         ]);
         return Inertia::render(
