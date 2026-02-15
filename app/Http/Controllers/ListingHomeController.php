@@ -93,7 +93,7 @@ class ListingHomeController extends Controller
             ->send(new ListingSubmittedUserMail($listing));
 
         // 🔹 Send mail to admin
-        Mail::to('info@whytennessee.com') // or hardcode admin email
+        Mail::to(config('mail.MAIL_FROM_ADDRESS')) // or hardcode admin email
             ->send(new ListingSubmittedAdminMail($listing));
 
         return redirect()

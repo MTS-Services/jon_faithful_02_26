@@ -6,6 +6,8 @@ use App\Enums\ActiveInactive;
 use App\Enums\ListingProperty;
 use App\Enums\ListingStatus;
 use App\Http\Controllers\Controller;
+use App\Mail\ListingSubmittedAdminMail;
+use App\Mail\ListingSubmittedUserMail;
 use App\Models\City;
 use App\Models\Facility;
 use App\Models\Listing;
@@ -13,6 +15,7 @@ use App\Models\User;
 use App\Services\DataTableService;
 use App\Services\ListingHomeService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Enum;
@@ -31,11 +34,33 @@ class ListingController extends Controller
 
     public function index(): Response
     {
-        $queryBody = Listing::query();
-        $result = $this->dataTableService->process($queryBody, request(), [
-            'searchable' => ['title'],
-            'sortable' => ['id', 'title', 'created_at'],
+        $query = Listing::query()->with(['user']);
+
+        $result = $this->dataTableService->process($query, request(), [
+            'searchable' => ['title'], // keep this or extend if needed
+
+            'filterable' => [
+                'user_id',
+                'listing_status',
+                'property_type',
+            ],
+
+            'sortable' => [
+                'id',
+                'title',
+                'purchase_price',
+                'bedrooms',
+                'bathrooms',
+                'square_feet',
+                'listing_status',
+                'property_type',
+                'status',
+                'created_at',
+            ],
         ]);
+
+        $users = User::where('is_verified', true)->where('status', ActiveInactive::ACTIVE)->get();
+
         return Inertia::render('admin/listings/index', [
             'listings' => $result['data'],
             'pagination' => $result['pagination'],
@@ -43,9 +68,11 @@ class ListingController extends Controller
             'filters' => $result['filters'],
             'search' => $result['search'],
             'sortBy' => $result['sort_by'],
-            'sortOrder' => $result['sort_order']
+            'sortOrder' => $result['sort_order'],
+            'users' => $users
         ]);
     }
+
     public function details(Listing $listing): Response
     {
         $listing->load(['galleries', 'facilities']);
@@ -111,6 +138,14 @@ class ListingController extends Controller
             $listing->facilities()->sync($request->input('facilities', []));
         }
 
+        $listing->load('facilities', 'city');
+        // 🔹 Send mail to user
+        Mail::to($listing->user->email)
+            ->send(new ListingSubmittedUserMail($listing, true));
+
+        // 🔹 Send mail to admin
+        Mail::to(config('mail.from.address')) // or hardcode admin email
+            ->send(new ListingSubmittedAdminMail($listing, true));
         return redirect()
             ->route('admin.listing.index')
             ->with('success', 'Listing submitted successfully');
@@ -188,6 +223,15 @@ class ListingController extends Controller
         if ($request->has('facilities')) {
             $listing->facilities()->sync($request->facilities);
         }
+
+        $listing->load('facilities', 'city');
+        // 🔹 Send mail to user
+        Mail::to($listing->user->email)
+            ->send(new ListingSubmittedUserMail($listing, false));
+
+        // 🔹 Send mail to admin
+        Mail::to(config('mail.from.address')) // or hardcode admin email
+            ->send(new ListingSubmittedAdminMail($listing, false));
 
         return redirect()->route('admin.listing.index')->with('success', 'Listing updated.');
     }

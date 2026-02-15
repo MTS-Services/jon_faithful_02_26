@@ -80,7 +80,7 @@
             <h2>New Registration Pending Review</h2>
         </div>
 
-        <p>Hi Admin,</p>
+        <p>Hi {{ config('mail.from.name') }},</p>
 
         <p>A new user has registered as a <strong>Founding Partner</strong> on <strong>WhyTennessee.com</strong> and is
             currently awaiting approval.</p>
@@ -100,7 +100,7 @@
 
         <div class="footer">
             <p>Regards,<br>
-                <strong>WhyTennessee System</strong><br>
+                <strong>{{ config('mail.from.name') }},</strong><br>
                 <em>Automated Notification — Please do not reply directly to this email.</em>
             </p>
         </div>

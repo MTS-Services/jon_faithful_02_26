@@ -26,38 +26,10 @@
 
     <p>
         Regards,<br>
-        WhyTennessee System
+        {{ config('mail.from.name') }}
     </p>
 
 
-
-
-
-
-    Booking:
-    <iframe src="https://app.centralexecutivetransfers.co.uk/booking?site_key=7e3f3d3085b900d598bc40543d611575"
-        id="eto-iframe-booking" allow="geolocation" width="100%" height="250" scrolling="no" frameborder="0"
-        style="width:1px; min-width:100%; border: 0;"></iframe>
-    <script src="https://app.centralexecutivetransfers.co.uk/assets/plugins/iframe-resizer/iframeResizer.min.js"></script>
-    <script>
-        iFrameResize({
-            log: false,
-            targetOrigin: '*',
-            checkOrigin: false
-        }, "iframe#eto-iframe- booking");
-    </script>
-    My account:
-    <iframe src="https://app.centralexecutivetransfers.co.uk/customer?site_key=7e3f3d3085b900d598bc40543d611575"
-        id="eto-iframe-customer" allow="geolocation" width="100%" height="250" scrolling="no" frameborder="0"
-        style="width:1px; min-width:100%; border:0;"></iframe>
-    <script src="https://app.centralexecutivetransfers.co.uk/assets/plugins/iframe-resizer/iframeResizer.min.js"></script>
-    <script>
-        iFrameResize({
-            log: false,
-            targetOrigin: '*',
-            checkOrigin: false
-        }, "iframe#eto-iframe- customer");
-    </script>
 
 </body>
 
