@@ -1,6 +1,7 @@
 import { PlatinumCard } from '@/components/ui/PlatinumCard';
 import FrontendLayout from '@/layouts/frontend-layout';
 import { useForm, usePage } from '@inertiajs/react';
+import { toast } from 'sonner';
 
 export default function UserDetails({ listings }: any) {
     const { user } = usePage().props as any;
@@ -16,11 +17,11 @@ export default function UserDetails({ listings }: any) {
         e.preventDefault();
         post(route('frontend.user-contact'), {
             onSuccess: () => {
-                alert('Request sent successfully!');
                 reset('name', 'email', 'message');
+                toast.success('Mail sent successfully!');
             },
             onError: (response) => {
-                console.log(response);
+                toast.error('Failed to send mail.');
             },
         });
     };
