@@ -2,10 +2,10 @@ import React from 'react'
 import { Head, Link, router } from '@inertiajs/react'
 import AdminLayout from '@/layouts/admin-layout'
 import { DataTable } from '@/components/ui/data-table'
-import { useDataTable } from '@/hooks/use-data-table'
+import { useDataTable } from '@/hooks/use-data-table';
 import { PaginationData, ColumnConfig, ActionConfig } from '@/types/data-table.types'
 import { Badge } from '@/components/ui/badge'
-import { Listing } from '@/types'
+import { Listing } from '@/types/model'
 import { Eye, Pencil, Plus, Trash2 } from 'lucide-react'
 import { ActionButton } from '@/components/ui/action-button'
 import { Button } from '@/components/ui/button'
@@ -21,7 +21,7 @@ interface Props {
   users: { id: number; name: string }[]
 }
 
-export default function Index({
+export default function index({
   listings,
   pagination,
   offset,
@@ -39,7 +39,7 @@ export default function Index({
     handleSort,
     handlePerPageChange,
     handlePageChange,
-  } = useDataTable()
+  } = useDataTable();
 
   const columns: ColumnConfig<Listing>[] = [
     {
@@ -160,7 +160,6 @@ export default function Index({
           //   {
           //     key: 'user_id',
           //     label: 'User',
-          //     type: 'select',
           //     options: users.map(u => ({
           //       label: u.name,
           //       value: u.id,
@@ -169,7 +168,6 @@ export default function Index({
           //   {
           //     key: 'listing_status',
           //     label: 'Listing Status',
-          //     type: 'select',
           //     options: [
           //       { label: 'Sale', value: 'sale' },
           //       { label: 'Rent', value: 'rent' },
@@ -178,7 +176,6 @@ export default function Index({
           //   {
           //     key: 'property_type',
           //     label: 'Property Type',
-          //     type: 'select',
           //     options: [
           //       { label: 'House', value: 'house' },
           //       { label: 'Apartment', value: 'apartment' },
