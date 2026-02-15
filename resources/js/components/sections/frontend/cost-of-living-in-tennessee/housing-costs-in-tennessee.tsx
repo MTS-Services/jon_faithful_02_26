@@ -120,7 +120,7 @@ export default function HousingCostsInTennessee() {
                     <div className="mt-5">
                         <div className="mb-5">
                             <a
-                                href={route('frontend.homesForSale')}
+                                href={route('frontend.home-for-sale')}
                                 className="inline-block rounded-lg bg-[#1e3a62] px-8 py-3 font-medium text-white transition-colors hover:bg-secondary hover:text-primary"
                             >
                                 Browse Homes for Sale in Tennessee

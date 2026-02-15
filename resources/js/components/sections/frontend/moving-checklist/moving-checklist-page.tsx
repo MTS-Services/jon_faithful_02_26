@@ -217,7 +217,7 @@ const MovingChecklistPage = () => {
                                     </ul>
 
                                     <div className="flex flex-wrap gap-4 pt-4">
-                                        <a href={route('frontend.homesForSale')}
+                                        <a href={route('frontend.home-for-sale')}
                                             className="inline-flex items-center justify-center px-6 py-3 bg-[#243c64] text-white font-medium rounded-full hover:bg-opacity-90 transition-all text-sm whitespace-nowrap">
                                             Browse Homes for Sale in Tennessee
                                         </a>
@@ -677,7 +677,7 @@ const MovingChecklistPage = () => {
                                 Explore Tennessee Rentals
                             </a>
 
-                            <a href={route('frontend.homesForSale')}
+                            <a href={route('frontend.home-for-sale')}
                                 className="bg-primary hover:bg-secondary text-white py-4 px-8 rounded-full font-medium transition-colors text-center shadow-sm">
                                 Browse Homes for Sale in Tennessee
                             </a>

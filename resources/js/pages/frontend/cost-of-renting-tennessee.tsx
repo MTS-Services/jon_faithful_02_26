@@ -107,7 +107,7 @@ const TennesseeRentPage = () => {
               </span></span>3-bedroom: $1,400 – $2,000</li>
             </ul>
             <div className="flex flex-col md:flex-row gap-4">
-              <a href={route('frontend.homesForSale')} className="bg-primary text-white px-6 py-3 rounded font-medium hover:bg-secondary transition">Browse Homes for Sale in Tennessee→</a>
+              <a href={route('frontend.home-for-sale')} className="bg-primary text-white px-6 py-3 rounded font-medium hover:bg-secondary transition">Browse Homes for Sale in Tennessee→</a>
               <a href= {route('frontend.rentals')}className="border-2 border-primary text-primary px-6 py-3 rounded font-medium hover:bg-secondary hover:text-white hover:border-secondary transition">Browse Rentals in Tennessee →</a>
             </div>
           </div>

@@ -426,7 +426,7 @@ export default function LiveTennessee() {
             </svg>
           </a>
           
-          <a href={route('frontend.homesForSale')} className="inline-flex items-center justify-center bg-white text-black font-semibold py-4 px-8 rounded-full hover:bg-secondary transition-colors">
+          <a href={route('frontend.home-for-sale')} className="inline-flex items-center justify-center bg-white text-black font-semibold py-4 px-8 rounded-full hover:bg-secondary transition-colors">
             Search Homes for Sale in Tennessee
             <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none" />

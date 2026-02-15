@@ -18,7 +18,7 @@ const exploreCitiesData = [
         city: 'Homes for Sale',
         desc: 'Discover properties across Tennessee',
         button: 'View Homes →',
-         href: route('frontend.homesForSale'),
+         href: route('frontend.home-for-sale'),
     },
     {
         icon: MapPin,
@@ -519,7 +519,7 @@ const RentingBuy = () => {
                             </div>
 
                             <a
-                                href={route('frontend.homesForSale')}
+                                href={route('frontend.home-for-sale')}
                                 className="text-md mt-auto w-full rounded bg-primary py-3 text-center font-bold text-white hover:bg-primary"
                             >
                                 View Homes for Sale in Tennessee →
