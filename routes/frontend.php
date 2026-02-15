@@ -38,4 +38,5 @@ Route::name('frontend.')->controller(FrontendController::class)->group(function 
     Route::get('/pros-cons-living-in-tennessee', 'prosConsTennessee')->name('pros-cons-tennessee');
     Route::get('/user-details/{id}', 'userDetails')->name('user-details');
     Route::post('/submit-request', 'submitRequest')->name('submit-request');
+    Route::post('/user-contact', 'userContact')->name('user-contact');
 });

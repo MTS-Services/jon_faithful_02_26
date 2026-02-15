@@ -16,7 +16,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class RentalService
 {
-     public function __construct(protected Rental $model) {}
+    public function __construct(protected Rental $model) {}
     /**
      * ===========================================
      * CREATE RENTAL
@@ -28,7 +28,7 @@ class RentalService
 
             $primaryImage = $this->handlePrimaryImage($request);
 
-            $user_id = $validated['user_id'];
+            $user_id = $validated['user_id'] ?? auth()->id();
 
 
             $rental = Rental::create([
@@ -91,8 +91,9 @@ class RentalService
                 'pet_friendly'     => $validated['pet_friendly'],
                 'parking_garage'   => $validated['parking_garage'],
                 'primary_image_url' => $validated['primary_image_url'] ?? $rental->primary_image_url,
-                'status'           => $validated['status'],
                 'youtube_video_url' => $validated['youtube_video_url'],
+                'facilities' => ['nullable', 'array'],
+                'facilities.*' => ['integer', 'exists:facilities,id'],
             ]);
 
             if ($request->hasFile('gallery_images')) {
@@ -224,7 +225,10 @@ class RentalService
     // ===================================================
     public function getPaginatedDatas(int $perPage = 15, array $filters = []): LengthAwarePaginator
     {
-        $query = $this->model->query()->with('city');
+        $query = $this->model
+        ->query()
+        ->with('city')
+        ->active();
 
         if (!empty($filters['search'])) {
             $search = $filters['search'];

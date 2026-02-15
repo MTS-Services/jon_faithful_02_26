@@ -1,9 +1,29 @@
 import { PlatinumCard } from '@/components/ui/PlatinumCard';
 import FrontendLayout from '@/layouts/frontend-layout';
-import { usePage } from '@inertiajs/react';
+import { useForm, usePage } from '@inertiajs/react';
 
 export default function UserDetails({ listings }: any) {
     const { user } = usePage().props as any;
+
+    const { data, setData, post, processing, errors, reset } = useForm({
+        name: '',
+        email: '',
+        message: '',
+        user_id: user.id,
+    });
+
+    const useContact = (e: React.FormEvent) => {
+        e.preventDefault();
+        post(route('frontend.user-contact'), {
+            onSuccess: () => {
+                alert('Request sent successfully!');
+                reset('name', 'email', 'message');
+            },
+            onError: (response) => {
+                console.log(response);
+            },
+        });
+    };
 
     return (
         <FrontendLayout>
@@ -70,7 +90,10 @@ export default function UserDetails({ listings }: any) {
                                 <div className="rounded-t-md bg-black py-3 text-center text-lg font-bold text-white">
                                     Contact: {user.name}
                                 </div>
-                                <form className="space-y-4">
+                                <form
+                                    onSubmit={useContact}
+                                    className="space-y-4"
+                                >
                                     <div>
                                         <label className="mt-2 mb-1 block text-sm font-medium text-gray-700">
                                             Name
@@ -79,6 +102,10 @@ export default function UserDetails({ listings }: any) {
                                             type="text"
                                             placeholder="Name"
                                             className="w-full rounded border border-gray-300 p-2 outline-none focus:ring-1"
+                                            value={data.name}
+                                            onChange={(e) =>
+                                                setData('name', e.target.value)
+                                            }
                                         />
                                     </div>
                                     <div>
@@ -89,6 +116,10 @@ export default function UserDetails({ listings }: any) {
                                             type="email"
                                             placeholder="Email"
                                             className="w-full rounded border border-gray-300 p-2 outline-none focus:ring-1"
+                                            value={data.email}
+                                            onChange={(e) =>
+                                                setData('email', e.target.value)
+                                            }
                                         />
                                     </div>
                                     <div>
@@ -99,13 +130,17 @@ export default function UserDetails({ listings }: any) {
                                             rows={4}
                                             placeholder="Message"
                                             className="w-full resize-none rounded border border-gray-300 p-2 outline-none focus:ring-1"
+                                            value={data.message}
+                                            onChange={(e) =>
+                                                setData('message', e.target.value)
+                                            }
                                         ></textarea>
                                     </div>
                                     <button
                                         type="submit"
-                                        className="w-full rounded bg-[#1e3a5f] py-3 font-semibold text-white transition-colors hover:bg-[#152d47]"
+                                        className="w-full rounded bg-[#1e3a5f] py-3 font-semibold text-white transition-colors hover:bg-[#152d47] cursor-pointer"
                                     >
-                                        Send
+                                        {processing ? 'Sending...' : 'Send'}
                                     </button>
                                 </form>
                             </div>

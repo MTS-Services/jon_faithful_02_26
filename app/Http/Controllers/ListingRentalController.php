@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ActiveInactive;
 use App\Models\City;
 use Inertia\Inertia;
 use Inertia\Response;
 use App\Models\Rental;
 use Illuminate\Http\Request;
 use App\Enums\RentalProperty;
+use App\Models\Facility;
 use App\Services\RentalService;
+use Illuminate\Validation\Rules\Enum;
 
 class ListingRentalController extends Controller
 {
@@ -40,17 +43,23 @@ class ListingRentalController extends Controller
     public function addListing(): Response
     {
         $cities = City::all(['id', 'name']);
+        $facilities = Facility::all();
 
         return Inertia::render('user/listings-rentals/add-listing-rental', [
             'cities' => $cities,
-            'propertyTypes' => collect(RentalProperty::cases())->map(fn($type) => [
-                'value' => $type->value,
-                'label' => $type->label(),
-            ]),
+            'facilities' => $facilities,
+            'propertyTypes' => collect(RentalProperty::cases())
+                ->map(fn($type) => [
+                    'value' => $type->value,
+                    'label' => $type->label(),
+                ])
+                ->values()
+                ->toArray(),
         ]);
     }
     public function storeListing(Request $request)
     {
+
         $validated = $request->validate([
             'listing_title' => ['required', 'string', 'max:500'],
             'description' => ['required', 'string'],
@@ -64,11 +73,21 @@ class ListingRentalController extends Controller
             'square_feet' => ['required', 'integer', 'min:0'],
             'pet_friendly' => ['required', 'in:yes,no'],
             'parking_garage' => ['required', 'integer', 'min:0'],
-            'primary_image_url' => ['nullable', 'image', 'max:10240'], // 10MB max
-            'gallery_images.*' => ['nullable', 'image', 'max:51200'], // 50MB max per image
+            'primary_image_url' => ['nullable', 'image', 'max:10240'],
+            'gallery_images.*' => ['nullable', 'image', 'max:51200'],
+            'youtube_video_url' => ['nullable', 'url'],
+            'facilities' => ['nullable', 'array'],
+            'facilities.*' => ['integer', 'exists:facilities,id'],
         ]);
 
-        $this->rentalService->createRental($validated, $request);
+        $validated['status'] = ActiveInactive::ACTIVE->value;
+
+        $rental = $this->rentalService->createRental($validated, $request);
+
+        // Using sync ensures the pivot table is updated correctly
+        if ($request->has('facilities')) {
+            $rental->facilities()->sync($request->input('facilities', []));
+        }
 
         return redirect()
             ->route('user.listings-rentals')
@@ -97,17 +116,23 @@ class ListingRentalController extends Controller
     public function editListing(Request $request, $id): Response
     {
         $rental = Rental::where('user_id', $request->user()->id)
+            ->with('facilities')
             ->findOrFail($id);
 
         $cities = City::all(['id', 'name']);
+        $facilities = Facility::all();
 
         return Inertia::render('user/listings-rentals/edit-listing-rental', [
             'rental' => $rental,
             'cities' => $cities,
-            'propertyTypes' => collect(RentalProperty::cases())->map(fn($type) => [
-                'value' => $type->value,
-                'label' => $type->label(),
-            ]),
+            'facilities' => $facilities,
+            'propertyTypes' => collect(RentalProperty::cases())
+                ->map(fn($type) => [
+                    'value' => $type->value,
+                    'label' => $type->label(),
+                ])
+                ->values()
+                ->toArray(),
         ]);
     }
 
@@ -130,9 +155,16 @@ class ListingRentalController extends Controller
             'parking_garage' => ['required', 'integer', 'min:0'],
             'primary_image_url' => ['nullable', 'image', 'max:10240'], // 10MB max
             'gallery_images.*' => ['nullable', 'image', 'max:51200'], // 50MB max per image
+            'youtube_video_url' => ['nullable', 'url'],
+            'facilities' => ['nullable', 'array'],
+            'facilities.*' => ['exists:facilities,id'],
         ]);
 
-        $this->rentalService->updateRental($rental, $validated, $request);
+
+        $rental = $this->rentalService->updateRental($rental, $validated, $request);
+
+        $rental->facilities()->sync($validated['facilities'] ?? []);
+
 
         return redirect()
             ->route('user.listings-rentals')
