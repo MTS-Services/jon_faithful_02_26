@@ -22,6 +22,7 @@ class UserSeeder extends Seeder
                     'user_type' => UserType::BOTH,
                     'email' => 'user@dev.com',
                     'password' => Hash::make('user@dev.com'),
+                    'is_verified' => true
                 ],
                 [
                     'username' => 'manager',
@@ -29,6 +30,7 @@ class UserSeeder extends Seeder
                     'user_type' => UserType::PROPERTY_OWNER,
                     'email' => 'manager@dev.com',
                     'password' => Hash::make('manager@dev.com'),
+                    'is_verified' => true
                 ],
                 [
                     'username' => 'realtor',
@@ -36,6 +38,7 @@ class UserSeeder extends Seeder
                     'user_type' => UserType::REALTOR,
                     'email' => 'realtor@dev.com',
                     'password' => Hash::make('realtor@dev.com'),
+                    'is_verified' => true
                 ],
                 [
                     'username' => 'realtor&Rentals',
@@ -43,6 +46,7 @@ class UserSeeder extends Seeder
                     'user_type' => UserType::BOTH,
                     'email' => 'realtor&rentals@dev.com',
                     'password' => Hash::make('realtor&rentals@dev.com'),
+                    'is_verified' => true
                 ]
             ]
         );

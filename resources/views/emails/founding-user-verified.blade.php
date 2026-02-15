@@ -69,7 +69,7 @@
                             <br><br>
 
                             Welcome aboard,<br>
-                            <strong>Jon Mills</strong><br>
+                            <strong>{{ config('mail.from.name') }}</strong><br>
                             Founder, WhyTennessee.com
                         </td>
                     </tr>
@@ -78,7 +78,7 @@
 
                 <!-- Footer note -->
                 <div style="margin-top:20px; font-size:12px; color:#9ca3af;">
-                    © {{ date('Y') }} WhyTennessee.com. All rights reserved.
+                    © {{ date('Y') }} {{ config('app.name') }}. All rights reserved.
                 </div>
 
             </td>

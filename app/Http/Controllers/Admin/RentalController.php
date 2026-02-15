@@ -4,16 +4,19 @@ namespace App\Http\Controllers\Admin;
 
 use App\Enums\ActiveInactive;
 use App\Enums\RentalProperty;
-use Inertia\Inertia;
-use Inertia\Response;
-use App\Models\Rental;
-use Illuminate\Http\Request;
-use App\Services\DataTableService;
 use App\Http\Controllers\Controller;
+use App\Mail\Rentals\RentalSubmittedAdmin;
+use App\Mail\Rentals\RentalSubmittedUser;
 use App\Models\City;
 use App\Models\Facility;
+use App\Models\Rental;
 use App\Models\User;
+use App\Services\DataTableService;
 use App\Services\RentalService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class RentalController extends Controller
 {
@@ -105,6 +108,9 @@ class RentalController extends Controller
             $rental->facilities()->sync($request->input('facilities', []));
         }
 
+        Mail::to(config('mail.from.address'))->send(new RentalSubmittedAdmin($rental));
+        Mail::to($rental->user->email)->send(new RentalSubmittedUser($rental));
+
         // Redirect back to the rentals index or wherever you want
         return redirect()->route('admin.rentals.index')
             ->with('success', 'Rental created successfully!');
@@ -163,6 +169,9 @@ class RentalController extends Controller
         if ($request->has('facilities')) {
             $rentalUpdated->facilities()->sync($request->input('facilities', []));
         }
+
+        Mail::to(config('mail.from.address'))->send(new RentalSubmittedAdmin($rental, false));
+        Mail::to($rental->user->email)->send(new RentalSubmittedUser($rental, false));
 
         return redirect()->route('admin.rentals.index')
             ->with('success', 'Rental updated successfully!');

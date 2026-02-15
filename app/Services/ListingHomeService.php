@@ -96,7 +96,7 @@ class ListingHomeService
             'external_link' => $validated['external_link'],
         ]);
 
-        Mail::to('info@whytennessee.com')
+        Mail::to(config('mail.from.address'))
             ->send(new FoundingExternalSubmitionMail($submission));
 
         return $submission;

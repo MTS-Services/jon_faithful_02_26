@@ -135,7 +135,7 @@ class RentalService
             'external_link' => $validated['external_link'],
         ]);
 
-        Mail::to('info@whytennessee.com')
+        Mail::to(config('mail.from.address'))
             ->queue(new FoundingExternalSubmitionMail($submission)); // queued for production
 
         return $submission;

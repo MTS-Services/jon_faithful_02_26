@@ -118,8 +118,8 @@
             <p>Thanks for being part of the early WhyTennessee community.</p>
 
             <div class="signature">
-                <strong>Jon Mills</strong><br>
-                Founder, WhyTennessee.com
+                <strong>{{ config('mail.from.name') }}</strong><br>
+                Founder, {{ config('app.name') }}
             </div>
         </div>
     </div>
