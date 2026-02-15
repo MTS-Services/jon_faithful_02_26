@@ -110,18 +110,6 @@ class FrontendController extends Controller
      {
           return Inertia::render('frontend/city-comparison');
      }
-     // public function realEstateAgents(): Response
-     // {
-     //      $owners =  User::where('user_type', 'property_owner')->get();
-     //      $realtors =  User::where('user_type', 'realtor')->get();
-     //      $boths =  User::where('user_type', 'both')->get();
-
-     //      return Inertia::render('frontend/real-estate-agents', [
-     //           'owners' => $owners,
-     //           'realtors' => $realtors,
-     //           'boths' => $boths
-     //      ]);
-     // }
      public function realEstateAgents(): Response
      {
           // Get users and encrypt their IDs
@@ -330,5 +318,10 @@ class FrontendController extends Controller
           Mail::to($user->email)->send(new UserContactMail($mailData));
 
           return back()->with('success', 'Request sent successfully!');
+     }
+
+     public function getInTouch(): Response
+     {
+          return Inertia::render('frontend/get-in-touch');
      }
 }

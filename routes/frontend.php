@@ -13,7 +13,7 @@ Route::name('frontend.')->controller(FrontendController::class)->group(function 
     Route::get('/chattanooga', 'livingInChattanooga')->name('livingInChattanooga');
     Route::get('/homes-for-sale', 'homesForSale')->name('homesForSale');
     Route::get('/moving-checklist', 'movingChecklist')->name('movingChecklist');
-    Route::get('/city-comparison', 'cityComparison')->name('cityComparison');
+    Route::get('/city-comparison', 'cityComparison')->name('city-comparison');
     Route::get('/real-estate-agents', 'realEstateAgents')->name('realEstateAgents');
     Route::get('/rentals', 'rentals')->name('rentals');
     Route::get('/why-tennessee', 'whyTennessee')->name('why-tennessee');
@@ -39,4 +39,5 @@ Route::name('frontend.')->controller(FrontendController::class)->group(function 
     Route::get('/user-details/{id}', 'userDetails')->name('user-details');
     Route::post('/submit-request', 'submitRequest')->name('submit-request');
     Route::post('/user-contact', 'userContact')->name('user-contact');
+    Route::get('get-in-touch', 'getInTouch')->name('get-in-touch');
 });

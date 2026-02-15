@@ -21,9 +21,9 @@ class ListingService
     public function getPaginatedDatas(int $perPage = 15, array $filters = []): LengthAwarePaginator
     {
         $query = $this->model
-        ->query()
-        ->with('city')
-        ->active();
+            ->query()
+            ->with('city')
+            ->active();
 
         if (!empty($filters['search'])) {
             $search = $filters['search'];
@@ -51,8 +51,9 @@ class ListingService
         if (!empty($filters['square_feet'])) {
             $query->where('square_feet', $filters['square_feet']);
         }
-        if (!empty($filters['property_type']) && is_array($filters['property_type'])) {
-            $query->whereIn('property_type', $filters['property_type']);
+        if (!empty($filters['property_type'])) {
+            $propertyTypes = explode(',', $filters['property_type']);
+            $query->whereIn('property_type', $propertyTypes);
         }
 
         return $query->paginate($perPage);

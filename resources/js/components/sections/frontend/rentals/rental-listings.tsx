@@ -39,10 +39,10 @@ export default function RentalListings({ rentals, cities, filters }: Props) {
 
     // Property type options
     const propertyTypes = [
-        { value: 'new_construction', label: 'New construction communities' },
-        { value: 'rural_properties', label: 'Rural properties & mini-farms' },
-        { value: 'single_family', label: 'Single-family homes' },
-        { value: 'townhomes_condos', label: 'Townhomes & condos' },
+        { value: 'apartment', label: 'Apartments' },
+        { value: 'condo', label: 'Condos' },
+        { value: 'single_family_home', label: 'Single-family homes' },
+        { value: 'townhome', label: 'Townhomes' },
     ];
 
     // Debounce search
