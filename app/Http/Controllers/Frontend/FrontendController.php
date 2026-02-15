@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Mail\ContactRealsateAgentMail;
+use App\Mail\UserContactMail;
 use App\Models\City;
 use App\Models\ContactRealsateAgent;
 use App\Models\Listing;
 use App\Models\Rental;
 use App\Models\User;
+use App\Models\UserContact;
 use App\Services\ListingService;
 use App\Services\RentalService;
 use Illuminate\Http\Request;
@@ -297,5 +299,36 @@ class FrontendController extends Controller
           Mail::to($owner->email)->send(new ContactRealsateAgentMail($data));
 
           return redirect()->back()->with('success', 'Request sent!');
+     }
+
+
+     public function userContact(Request $request)
+     {
+          $data = $request->validate([
+               'name'     => 'required|string|max:255',
+               'email'    => 'required|email',
+               'message'  => 'required|string',
+               'user_id' => 'required|exists:users,id',
+          ]);
+          $user = User::findOrFail($data['user_id']);
+
+          UserContact::create([
+               'name'     => $data['name'],
+               'email'    => $data['email'],
+               'message'  => $data['message'],
+               'user_id' => $data['user_id'],
+          ]);
+
+          $mailData = [
+               'name'  => $data['name'],
+               'email' => $data['email'],
+               'message_body'  => $data['message'],
+               'user_name'    => $user->name,
+          ];
+
+
+          Mail::to($user->email)->send(new UserContactMail($mailData));
+
+          return back()->with('success', 'Request sent successfully!');
      }
 }
