@@ -14,10 +14,14 @@ class ListingSubmittedUserMail extends Mailable
     use Queueable, SerializesModels;
 
     public $listing;
+    public $isNew;
+    public $subject;
 
-    public function __construct($listing)
+    public function __construct($listing, $isNew = true)
     {
         $this->listing = $listing;
+        $this->isNew = $isNew;
+        $this->subject = $this->isNew ? 'Listing Submission Received' : 'Listing Information Updated';
     }
 
     /**
@@ -26,7 +30,7 @@ class ListingSubmittedUserMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Listing Submitted User Mail',
+            subject: $this->subject,
         );
     }
 

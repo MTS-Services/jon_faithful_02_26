@@ -1,27 +1,26 @@
 <?php
 
-namespace App\Mail;
+namespace App\Mail\Rentals;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class ListingSubmittedAdminMail extends Mailable
+class RentalSubmittedUser extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $listing;
+    public $rental;
     public $isNew;
     public $subject;
 
-    public function __construct($listing, $isNew = true)
+    public function __construct($rental, $isNew = true)
     {
-        $this->listing = $listing;
+        $this->rental = $rental;
         $this->isNew = $isNew;
-        $this->subject = $this->isNew ? 'Listing Submission Received' : 'Listing Information Updated';
+        $this->subject = $this->isNew ? 'Rental Submission Received' : 'Rental Information Updated';
     }
 
     /**
@@ -40,7 +39,7 @@ class ListingSubmittedAdminMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.listings.admin',
+            view: 'emails.rentals.user_confirmation',
         );
     }
 

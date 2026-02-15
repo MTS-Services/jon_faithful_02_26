@@ -83,7 +83,7 @@ class UserAuthController extends Controller
         if ($user->email) {
             Mail::to($user->email)->later(now()->addSeconds(5), new FoundingPartnerRegistrationMail($user));
         }
-        Mail::to('info@whytennessee.com')->send(new FoundingAdminRegistrationMail($user));
+        Mail::to(config('mail.from.address'))->send(new FoundingAdminRegistrationMail($user));
         Auth::login($user);
 
         return redirect()->route('user.pending-verification');
