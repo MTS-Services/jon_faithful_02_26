@@ -87,13 +87,13 @@ class ListingHomeController extends Controller
             $listing->facilities()->sync($request->input('facilities', []));
         }
 
-        $listing->load('facilities');
+        $listing->load('facilities', 'city');
         // 🔹 Send mail to user
         Mail::to($listing->user->email)
             ->send(new ListingSubmittedUserMail($listing));
 
         // 🔹 Send mail to admin
-        Mail::to(config('mail.MAIL_FROM_ADDRESS')) // or hardcode admin email
+        Mail::to(config('mail.from.address')) // or hardcode admin email
             ->send(new ListingSubmittedAdminMail($listing));
 
         return redirect()
@@ -170,6 +170,15 @@ class ListingHomeController extends Controller
         }
 
         $this->listingService->updateListing($listing, $validated, $request);
+
+        $listing->load('facilities', 'city');
+        // 🔹 Send mail to user
+        Mail::to($listing->user->email)
+            ->send(new ListingSubmittedUserMail($listing, false));
+
+        // 🔹 Send mail to admin
+        Mail::to(config('mail.from.address')) // or hardcode admin email
+            ->send(new ListingSubmittedAdminMail($listing, false));
 
         return redirect()
             ->route('user.dashboard')
