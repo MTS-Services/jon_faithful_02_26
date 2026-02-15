@@ -239,9 +239,9 @@ export default function MovingTennesseeRentingPage() {
                         </ul>
                         <p className="text-slate-600 text-md mb-6 max-w-md">Many renters choose single-family homes to experience neighborhoods before buying.</p>
 
-                        <button className="bg-primary text-white px-8 py-4 rounded-full text-sm font-bold flex items-center gap-2 hover:bg-[#152a50]">
+                        <a href={route('frontend.movingChecklist')} className="bg-primary w-fit text-white px-8 py-4 rounded-full text-sm font-bold flex items-center gap-2 hover:bg-[#152a50]">
                             Read MORE <ArrowRight size={14} />
-                        </button>
+                        </a>
                     </div>
                 </div>
             </section>
@@ -476,17 +476,17 @@ export default function MovingTennesseeRentingPage() {
                 <p className="text-slate-600 text-md mb-8">Ready to start your move?</p>
 
                 <div className="flex flex-wrap justify-center gap-4">
-                    <button className="bg-primary text-white px-6 py-5 rounded-full text-md font-bold flex items-center gap-2 hover:bg-secondary">
+                    <a href={route('frontend.city-comparison')} className="bg-primary text-white px-6 py-5 rounded-full text-md font-bold flex items-center gap-2 hover:bg-secondary">
                         Browse Tennessee rental listings <ArrowRight size={14} />
-                    </button>
-                    <button className="bg-primary text-white px-6 py-5 rounded-full text-md font-bold flex items-center gap-2 hover:bg-secondary">
+                    </a>
+                    <a href={route('frontend.city-comparison')} className="bg-primary text-white px-6 py-5 rounded-full text-md font-bold flex items-center gap-2 hover:bg-secondary">
                         Explore city and neighborhood guides <ArrowRight size={14} />
-                    </button>
+                    </a>
                 </div>
                 <div className="mt-4 flex justify-center">
-                    <button className="bg-primary text-white px-6 py-5 rounded-full text-md font-bold flex items-center gap-2 hover:bg-secondary">
+                    <a href={route('frontend.realEstateAgents')} className="bg-primary text-white px-6 py-5 rounded-full text-md font-bold flex items-center gap-2 hover:bg-secondary">
                         Connect with trusted local real estate professionals <ArrowRight size={14} />
-                    </button>
+                    </a>
                 </div>
 
                 <p className="mt-8 text-md text-black/50">WhyTennessee.com is built to help you relocate smarter — whether you rent first or buy right away.</p>

@@ -136,7 +136,7 @@ const tabs = [
         imageUrl: '/assets/images/Traditional-style-home-2048x1366.jpeg',
         cta: {
             label: 'Homes for Sale',
-            href: '/chattanooga-homes-for-sale',
+            href: '/homes-for-sale',
             icon: '',
         },
     },

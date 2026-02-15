@@ -40,8 +40,8 @@ export default function FinalInfoSection({property}: {property: property}) {
                         ))}
                     </div>
 
-                    <a className="flex justify-center items-center gap-2 bg-slate-900 text-white py-4 rounded-xl p-3 sm:p-auto">
-                        See Best Places in Tennessee <HiArrowRight />
+                    <a href={route('frontend.livetennessee')} className="flex justify-center items-center gap-2 bg-slate-900 text-white py-4 rounded-xl p-3 sm:p-auto">
+                       See Best Places in Tennessee  <HiArrowRight />
                     </a>
                 </div>
             </div>

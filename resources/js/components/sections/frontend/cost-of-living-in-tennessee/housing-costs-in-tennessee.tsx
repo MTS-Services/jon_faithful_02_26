@@ -118,15 +118,22 @@ export default function HousingCostsInTennessee() {
                         </div>
                     </div>
                     <div className="mt-5">
-                        <div className="">
-                            <button className="rounded-lg bg-[#1e3a62] px-8 py-3 font-medium text-white hover:text-primary transition-colors hover:bg-secondary cursor-pointer">
+                        <div className="mb-5">
+                            <a
+                                href={route('frontend.homesForSale')}
+                                className="inline-block rounded-lg bg-[#1e3a62] px-8 py-3 font-medium text-white transition-colors hover:bg-secondary hover:text-primary"
+                            >
                                 Browse Homes for Sale in Tennessee
-                            </button>
+                            </a>
                         </div>
+
                         <div className="mt-5">
-                            <button className="rounded-lg bg-[#1e3a62] px-8 py-3 font-medium text-white hover:text-primary transition-colors hover:bg-secondary cursor-pointer">
+                            <a
+                                href={route('frontend.rentals')}
+                                className="inline-block rounded-lg bg-[#1e3a62] px-8 py-3 font-medium text-white transition-colors hover:bg-secondary hover:text-primary"
+                            >
                                 Browse Rentals in Tennessee
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>

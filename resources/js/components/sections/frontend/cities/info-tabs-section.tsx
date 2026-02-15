@@ -9,6 +9,7 @@ interface TabContent {
     items: string[];
     footer: string;
     imageUrl: string;
+    videoUrl?: string;
     cta?: {
         label: string;
         href: string;
@@ -28,7 +29,7 @@ export default function InfoTabsSection({ tabs }: { tabs: TabContent[] }) {
                         <button
                             key={tab.id}
                             onClick={() => setActiveTab(tab.id)}
-                            className={`rounded-full px-3 py-2 font-medium sm:font-bold transition sm:px-4 sm:py-3 md:px-6 md:py-5 ${
+                            className={`rounded-full px-3 py-2 font-medium transition sm:px-4 sm:py-3 sm:font-bold md:px-6 md:py-5 ${
                                 activeTab === tab.id
                                     ? 'scale-105 bg-secondary text-white'
                                     : 'bg-slate-800 text-white hover:bg-secondary'
@@ -45,11 +46,28 @@ export default function InfoTabsSection({ tabs }: { tabs: TabContent[] }) {
                         key={tab.id}
                         className={`${activeTab === tab.id ? 'grid' : 'hidden'} items-center gap-12 md:grid-cols-2`}
                     >
-                        <img
+                        {/* <img
                             src={tab.imageUrl}
                             alt={tab.title}
                             className="h-96 w-full rounded-2xl object-cover shadow-2xl"
-                        />
+                        /> */}
+                        {/* MEDIA SECTION */}
+                        {tab.videoUrl ? (
+                            <video
+                                src={tab.videoUrl}
+                                controls
+                                autoPlay
+                                muted
+                                loop
+                                className="h-full w-full  object-cover shadow-2xl"
+                            />
+                        ) : tab.imageUrl ? (
+                            <img
+                                src={tab.imageUrl}
+                                alt={tab.title}
+                                className="h-96 w-full rounded-2xl object-cover shadow-2xl"
+                            />
+                        ) : null}
 
                         <div>
                             <h2 className="mb-6 text-4xl font-bold">

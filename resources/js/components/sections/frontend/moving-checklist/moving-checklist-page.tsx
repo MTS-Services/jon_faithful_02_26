@@ -217,12 +217,12 @@ const MovingChecklistPage = () => {
                                     </ul>
 
                                     <div className="flex flex-wrap gap-4 pt-4">
-                                        <a href="#"
+                                        <a href={route('frontend.homesForSale')}
                                             className="inline-flex items-center justify-center px-6 py-3 bg-[#243c64] text-white font-medium rounded-full hover:bg-opacity-90 transition-all text-sm whitespace-nowrap">
                                             Browse Homes for Sale in Tennessee
                                         </a>
 
-                                        <a href="#"
+                                        <a href={route('frontend.rentals')}
                                             className="inline-flex items-center justify-center px-6 py-3 bg-[#c9973d] text-white font-medium rounded-full hover:bg-opacity-90 transition-all text-sm whitespace-nowrap">
                                             Browse Rentals in Tennessee
                                         </a>
@@ -667,17 +667,17 @@ const MovingChecklistPage = () => {
 
                         <div className="flex flex-col gap-4 w-full md:w-auto min-w-[320px]">
 
-                            <a href="#"
+                            <a href={route('frontend.city-comparison')}
                                 className="bg-primary hover:bg-secondary text-white py-4 px-8 rounded-full font-medium transition-colors text-center shadow-sm">
                                 Compare Tennessee Cities
                             </a>
 
-                            <a href="#"
+                            <a href={route('frontend.movingChecklist')}
                                 className="bg-secondary hover:bg-primary text-white py-4 px-8 rounded-full font-medium transition-colors text-center shadow-sm">
                                 Explore Tennessee Rentals
                             </a>
 
-                            <a href="#"
+                            <a href={route('frontend.homesForSale')}
                                 className="bg-primary hover:bg-secondary text-white py-4 px-8 rounded-full font-medium transition-colors text-center shadow-sm">
                                 Browse Homes for Sale in Tennessee
                             </a>
