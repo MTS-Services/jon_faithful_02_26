@@ -75,6 +75,7 @@ export interface ExternalListingSubmission {
     name: string;
     email: string;
     external_link: string;
+    external_listing_type: string;
     created_at: string;
     updated_at: string;
 }

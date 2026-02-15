@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ExternalListingType;
 use Illuminate\Database\Eloquent\Model;
 
 class ExternalListingSubmission extends Model
@@ -10,8 +11,7 @@ class ExternalListingSubmission extends Model
 
     protected $fillable = [
         'user_id',
-        // 'listing_id',
-        // 'listing_type',
+        'external_listing_type',
         'name',
         'email',
         'external_link',
@@ -19,6 +19,7 @@ class ExternalListingSubmission extends Model
 
     protected $casts = [
         'user_id'    => 'integer',
+        'external_listing_type' => ExternalListingType::class,
     ];
 
     /* ---------------- Relationships ---------------- */
@@ -27,12 +28,4 @@ class ExternalListingSubmission extends Model
     {
         return $this->belongsTo(User::class);
     }
-
-    /**
-     * Polymorphic relation to Listing / Rental
-     */
-    // public function listing()
-    // {
-    //     return $this->morphTo(null, 'listing_type', 'listing_id');
-    // }
 }

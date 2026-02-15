@@ -28,7 +28,7 @@ class RentalService
 
             $primaryImage = $this->handlePrimaryImage($request);
 
-            $user_id = $validated['user_id'] ?? auth()->id();
+            $user_id = $validated['user_id'] ?? $request->user()->id;
 
 
             $rental = Rental::create([
@@ -129,10 +129,11 @@ class RentalService
     public function submitExternalRental(array $validated): ExternalListingSubmission
     {
         $submission = ExternalListingSubmission::create([
-            'user_id'      => auth()->id(),
+            'user_id'      => $validated['user_id'],
             'name'         => $validated['name'],
             'email'        => $validated['email'],
             'external_link' => $validated['external_link'],
+            'external_listing_type' => $validated['external_listing_type'],
         ]);
 
         Mail::to(config('mail.from.address'))

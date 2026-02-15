@@ -13,15 +13,18 @@ return new class extends Migration
     {
         Schema::create('external_listing_submissions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
 
-            // $table->string('listing_id');
-            // $table->string('listing_type');
+            $table->unsignedBigInteger('user_id');
+            $table->string('external_listing_type');
             $table->string('name');
             $table->string('email');
             $table->string('external_link');
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
+
             $table->timestamps();
         });
     }

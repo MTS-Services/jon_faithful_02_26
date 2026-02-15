@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\ActiveInactive;
+use App\Enums\ExternalListingType;
 use App\Enums\RentalProperty;
 use App\Mail\Rentals\RentalSubmittedAdmin;
 use App\Mail\Rentals\RentalSubmittedUser;
@@ -107,6 +108,9 @@ class ListingRentalController extends Controller
             'email' => ['required', 'email', 'max:255'],
             'external_link' => ['required', 'url', 'max:1000'],
         ]);
+    
+        $validated['user_id'] = $request->user()->id;
+        $validated['external_listing_type'] = ExternalListingType::RENTAL->value;
 
         $this->rentalService->submitExternalRental($validated);
 
