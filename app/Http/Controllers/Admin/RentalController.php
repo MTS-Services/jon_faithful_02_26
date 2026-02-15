@@ -58,7 +58,7 @@ class RentalController extends Controller
     public function create(): Response
     {
         $cities = City::all();
-        $users = User::all();
+        $users = User::where('is_verified', true)->where('status', ActiveInactive::ACTIVE)->get();
         $facilities = Facility::all();
 
         // Get enum values as key => label
@@ -120,7 +120,7 @@ class RentalController extends Controller
     {
         $rental = Rental::with('facilities')->findOrFail($id);
         $cities = City::all();
-        $users = User::all();
+        $users = User::where('is_verified', true)->where('status', ActiveInactive::ACTIVE)->get();
         $facilities = Facility::all();
         $propertyTypes = collect(RentalProperty::cases())
             ->mapWithKeys(fn($type) => [$type->value => $type->label()]);
