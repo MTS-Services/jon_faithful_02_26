@@ -1,6 +1,6 @@
 import React from 'react';
 import { Head, router, Link } from '@inertiajs/react';
-import { Pencil, Trash2, Eye } from 'lucide-react';
+import { Pencil, Trash2, Eye, ShieldCheck } from 'lucide-react';
 import AdminLayout from '@/layouts/admin-layout';
 import { DataTable } from '@/components/ui/data-table';
 import { useDataTable } from '@/hooks/use-data-table';
@@ -8,6 +8,7 @@ import { PaginationData, ColumnConfig, ActionConfig } from '@/types/data-table.t
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { User } from '@/types';
+import { UserVerificationModal } from '@/components/ui/user-verification-modal';
 
 
 interface Props {
@@ -37,6 +38,9 @@ export default function index({
     handlePerPageChange,
     handlePageChange,
   } = useDataTable();
+
+  const [selectedUser, setSelectedUser] = React.useState<User | null>(null);
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
 
   const USER_TYPE_LABELS: Record<string, string> = {
     property_owner: 'Property Owner / Manager',
@@ -136,6 +140,14 @@ export default function index({
       },
     },
     {
+      label: 'Verify License',
+      icon: <ShieldCheck className="h-4 w-4" />, // ShieldCheck icon import korun
+      onClick: (user) => {
+        setSelectedUser(user);
+        setIsModalOpen(true);
+      },
+    },
+    {
       label: 'Delete',
       icon: <Trash2 className="h-4 w-4" />,
       onClick: (user) => {
@@ -158,26 +170,6 @@ export default function index({
       </div>
 
       <div className="mx-auto">
-        {/* <DataTable
-          data={users}
-          columns={columns}
-          pagination={pagination}
-          offset={offset}
-          showNumbering={true}
-          actions={actions}
-          onSearch={handleSearch}
-          onFilterChange={handleFilterChange}
-          onSort={handleSort}
-          onPerPageChange={handlePerPageChange}
-          onPageChange={handlePageChange}
-          searchValue={search}
-          filterValues={filters}
-          sortBy={sortBy}
-          sortOrder={sortOrder}
-          isLoading={isLoading}
-          emptyMessage="No users found"
-          searchPlaceholder="Search users by name, email..."
-        /> */}
         <DataTable
           data={users}
           columns={columns}
@@ -216,6 +208,12 @@ export default function index({
           isLoading={isLoading}
           emptyMessage="No users found"
           searchPlaceholder="Search users by name, email..."
+        />
+
+        <UserVerificationModal
+          user={selectedUser}
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
         />
 
       </div>

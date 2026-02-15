@@ -14,9 +14,12 @@ class LoginController extends Controller
 {
     public function showLogin(Request $request)
     {
-        return Inertia::render('auth/login', [
-            'userType' => $request->query('type'),
-        ]);
+        $userType = $request->query('type');
+        if ($userType) {
+            return Inertia::render('auth/login', [
+                'userType' => $userType,
+            ]);
+        };
     }
     public function store(Request $request)
     {
@@ -37,14 +40,14 @@ class LoginController extends Controller
 
         $user = Auth::user();
 
-        // // Check user type
-        // if ($user->user_type->value !== $request->user_type) {
-        //     Auth::logout();
+        // Check user type
+        if ($user->user_type->value !== $request->user_type) {
+            Auth::logout();
 
-        //     throw ValidationException::withMessages([
-        //         'email' => 'Invalid account type for this login.',
-        //     ]);
-        // }
+            throw ValidationException::withMessages([
+                'email' => 'Invalid account type for this login.',
+            ]);
+        }
 
         $request->session()->regenerate();
 

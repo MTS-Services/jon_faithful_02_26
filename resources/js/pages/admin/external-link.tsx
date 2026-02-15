@@ -6,6 +6,8 @@ import { useDataTable } from '@/hooks/use-data-table';
 import { PaginationData, ColumnConfig, ActionConfig } from '@/types/data-table.types';
 import { Badge } from '@/components/ui/badge';
 import { ExternalListingSubmission } from '@/types';
+import { Value } from '@radix-ui/react-select';
+import listing from '@/routes/admin/listing';
 
 
 interface Props {
@@ -36,6 +38,11 @@ export default function ExternalLink({
         handlePageChange,
     } = useDataTable();
 
+    const LISTING_TYPE_LABEL: Record<string, string> = {
+        listing: 'Listing',
+        rental: 'Rental',
+    }
+
     const columns: ColumnConfig<ExternalListingSubmission>[] = [
         // {
         //     key: 'user_id.user.name',
@@ -54,6 +61,12 @@ export default function ExternalLink({
             label: 'Email',
             sortable: true,
             render: (item) => <div className="text-gray-600">{item.email}</div>,
+        },
+        {
+            key: 'external_listing_type',
+            label: 'Type',
+            sortable: true,
+            render: (item) => <div className={`font-medium text-gray-900`}>{LISTING_TYPE_LABEL[item.external_listing_type]}</div>,
         },
         {
             key: 'external_link',

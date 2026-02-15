@@ -66,6 +66,9 @@ export interface User {
     all_permissions?: string[];
     created_at: string;
     updated_at: string;
+    brokerage_name?: string;
+    license_number?: string;
+    license_verification_status?: string;
     [key: string]: unknown;
 }
 
@@ -75,6 +78,7 @@ export interface ExternalListingSubmission {
     name: string;
     email: string;
     external_link: string;
+    external_listing_type: string;
     created_at: string;
     updated_at: string;
 }
@@ -92,26 +96,6 @@ export interface NavItemProps {
 export interface DropdownPosition {
     top: number;
     left: number;
-}
-
-export interface Listing {
-    id: number
-    user_id: number
-    city_id: number
-    title: string
-    description: string | null
-    purchase_price: number | null
-    listing_status: string
-    property_type: string
-    bedrooms: number
-    bathrooms: number
-    square_feet: number
-    primary_image_url: string | null
-    image_url: string[]
-    status: string
-    created_at: string
-    updated_at: string
-    galleries?: ListingGallery[]
 }
 
 export interface Rental {

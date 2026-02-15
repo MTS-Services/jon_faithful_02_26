@@ -30,8 +30,8 @@ class RentalController extends Controller
     {
         $queryBody = Rental::query();
         $result = $this->dataTableService->process($queryBody, request(), [
-            'searchable' => ['title',],
-            'sortable' => ['id', 'title', 'created_at'],
+            'searchable' => ['listing_title', 'description'],
+            'sortable' => ['id', 'listing_title', 'created_at'],
         ]);
         return Inertia::render('admin/rentals/index', [
             'rentals' => $result['data'],

@@ -15,6 +15,7 @@ use App\Models\User;
 use App\Services\DataTableService;
 use App\Services\ListingHomeService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -37,7 +38,7 @@ class ListingController extends Controller
         $query = Listing::query()->with(['user']);
 
         $result = $this->dataTableService->process($query, request(), [
-            'searchable' => ['title'], // keep this or extend if needed
+            'searchable' => ['title', 'description'],
 
             'filterable' => [
                 'user_id',
@@ -59,6 +60,7 @@ class ListingController extends Controller
             ],
         ]);
 
+        Log::info($result);
         $users = User::where('is_verified', true)->where('status', ActiveInactive::ACTIVE)->get();
 
         return Inertia::render('admin/listings/index', [

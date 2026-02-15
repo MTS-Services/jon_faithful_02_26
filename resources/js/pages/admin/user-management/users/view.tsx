@@ -95,6 +95,14 @@ export default function View({ user }: User | any) {
                                 <p className="text-muted-foreground">{(user as any).license_number ?? 'N/A'}</p>
                             </CardContent>
                         </Card>
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>License Verification Status</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-muted-foreground">{(user as any).license_verification_status ?? 'N/A'}</p>
+                            </CardContent>
+                        </Card>
                     </div>
 
                     {/* Right Column */}

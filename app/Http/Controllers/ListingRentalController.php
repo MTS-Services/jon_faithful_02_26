@@ -3,15 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Enums\ActiveInactive;
+use App\Enums\ExternalListingType;
+use App\Enums\RentalProperty;
+use App\Mail\Rentals\RentalSubmittedAdmin;
+use App\Mail\Rentals\RentalSubmittedUser;
 use App\Models\City;
+use App\Models\Facility;
+use App\Models\Rental;
+use App\Services\RentalService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Validation\Rules\Enum;
 use Inertia\Inertia;
 use Inertia\Response;
-use App\Models\Rental;
-use Illuminate\Http\Request;
-use App\Enums\RentalProperty;
-use App\Models\Facility;
-use App\Services\RentalService;
-use Illuminate\Validation\Rules\Enum;
 
 class ListingRentalController extends Controller
 {
@@ -80,7 +84,7 @@ class ListingRentalController extends Controller
             'facilities.*' => ['integer', 'exists:facilities,id'],
         ]);
 
-        $validated['status'] = ActiveInactive::ACTIVE->value;
+        $validated['status'] = ActiveInactive::INACTIVE->value;
 
         $rental = $this->rentalService->createRental($validated, $request);
 
@@ -88,6 +92,9 @@ class ListingRentalController extends Controller
         if ($request->has('facilities')) {
             $rental->facilities()->sync($request->input('facilities', []));
         }
+
+        Mail::to(config('mail.from.address'))->send(new RentalSubmittedAdmin($rental));
+        Mail::to($rental->user->email)->send(new RentalSubmittedUser($rental));
 
         return redirect()
             ->route('user.listings-rentals')
@@ -101,6 +108,9 @@ class ListingRentalController extends Controller
             'email' => ['required', 'email', 'max:255'],
             'external_link' => ['required', 'url', 'max:1000'],
         ]);
+
+        $validated['user_id'] = $request->user()->id;
+        $validated['external_listing_type'] = ExternalListingType::RENTAL->value;
 
         $this->rentalService->submitExternalRental($validated);
 
@@ -165,6 +175,8 @@ class ListingRentalController extends Controller
 
         $rental->facilities()->sync($validated['facilities'] ?? []);
 
+        Mail::to(config('mail.from.address'))->send(new RentalSubmittedAdmin($rental, false));
+        Mail::to($rental->user->email)->send(new RentalSubmittedUser($rental, false));
 
         return redirect()
             ->route('user.listings-rentals')

@@ -91,10 +91,11 @@ class ListingHomeService
     public function submitExternalListing(array $validated): ExternalListingSubmission
     {
         $submission = ExternalListingSubmission::create([
-            'user_id'      => auth()->id(),
+            'user_id'      => $validated['user_id'],
             'name'         => $validated['name'],
             'email'        => $validated['email'],
             'external_link' => $validated['external_link'],
+            'external_listing_type' => $validated['external_listing_type'],
         ]);
 
         Mail::to(config('mail.from.address'))

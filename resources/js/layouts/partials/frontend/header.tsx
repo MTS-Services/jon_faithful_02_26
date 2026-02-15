@@ -118,8 +118,8 @@ const FrontendHeader: React.FC = () => {
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex space-x-8 items-center h-full">
               <a href="/" className="text-muted-foreground hover:text-secondary font-medium transition-colors">Home</a>
-              <a href="homes-for-sale" className="text-muted-foreground hover:text-secondary font-medium transition-colors">Homes for Sale</a>
-              <a href="rentals" className="text-muted-foreground hover:text-secondary font-medium transition-colors">Rentals</a>
+              <a href={route('frontend.home-for-sale')} className="text-muted-foreground hover:text-secondary font-medium transition-colors">Homes for Sale</a>
+              <a href={route('frontend.rentals')} className="text-muted-foreground hover:text-secondary font-medium transition-colors">Rentals</a>
 
               {/* Cities Dropdown */}
               <div className="relative group h-full flex items-center">
