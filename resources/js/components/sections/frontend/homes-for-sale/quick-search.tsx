@@ -12,10 +12,9 @@ export default function QuickSearch({ listings, cities }: any) {
 
     // Property type options
     const propertyTypes = [
-        { value: 'new_construction', label: 'New construction communities' },
-        { value: 'rural_properties', label: 'Rural properties & mini-farms' },
-        { value: 'single_family', label: 'Single-family homes' },
-        { value: 'townhomes_condos', label: 'Townhomes & condos' }
+        { value: 'rural_properties_and_mini_farms', label: 'Rural properties & mini-farms' },
+        { value: 'single_properties_homes', label: 'Single properties & homes' },
+        { value: 'towndhomes_and_condos', label: 'Townhomes & condos' },
     ];
 
     // Debounce search

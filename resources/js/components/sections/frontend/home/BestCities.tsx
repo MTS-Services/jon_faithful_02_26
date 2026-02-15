@@ -42,7 +42,7 @@ const BestCities: React.FC = () => {
         </div>
 
         <div className="mt-12 text-center">
-          <a href="#" className="bg-primary hover:bg-secondary text-white px-8 py-5 rounded-full font-medium transition inline-flex items-center">
+          <a href={route('frontend.city-comparison')} className="bg-primary hover:bg-secondary text-white px-8 py-5 rounded-full font-medium transition inline-flex items-center">
             View all Tennessee city guides
           </a>
         </div>

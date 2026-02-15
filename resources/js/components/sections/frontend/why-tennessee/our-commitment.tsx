@@ -63,10 +63,10 @@ export default function OurCommitment() {
                 We measure success by the confidence our clients feel in every decision they make.
             </p>
             <div className="mt-5">
-                <button
+                <a href={route('frontend.get-in-touch')}
                     className="inline-block text-background font-montserrat font-normal py-4 px-10 rounded-full bg-primary hover:bg-primary/80 transition-colors duration-300 shadow-xl">
                     Contact us
-                </button>
+                </a>
             </div>
         </div>
 
