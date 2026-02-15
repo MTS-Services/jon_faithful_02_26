@@ -135,7 +135,7 @@ const tabs = [
         imageUrl: '/assets/images/Best_Memphis_Neighborhoods_Harbor_Town.jpg',
         cta: {
             label: 'Homes for Sale',
-            href: '/chattanooga-homes-for-sale',
+            href: '/homes-for-sale',
             icon: '',
         },
     },

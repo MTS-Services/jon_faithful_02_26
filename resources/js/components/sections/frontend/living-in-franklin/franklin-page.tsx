@@ -143,7 +143,7 @@ const tabs = [
             '/assets/images/Home_and_healthy_front_yard_during_late_spring_season1-2048x1560.jpeg',
         cta: {
             label: 'Homes for Sale',
-            href: '/chattanooga-homes-for-sale',
+            href: '/homes-for-sale',
             icon: '',
         },
     },

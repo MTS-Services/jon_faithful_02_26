@@ -136,7 +136,7 @@ const tabs = [
             '/assets/images/Four_young_friends_playing_with_a_dog__spending_time_together_on_a_porch_of_a_country_house_on_the_evening1-2048x1366.jpeg',
         cta: {
             label: 'Homes for Sale',
-            href: '/chattanooga-homes-for-sale',
+            href: '/homes-for-sale',
             icon: '',
         },
     },

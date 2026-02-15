@@ -139,8 +139,8 @@ const tabs = [
             'https://whytennessee.com/wp-content/uploads/2025/12/pexels-lebele-11935244-scaled.jpg',
 
         cta: {
-            label: 'Learn More',
-            href: '/chattanooga-homes-for-sale',
+            label: 'Homes for Sale',
+            href: '/homes-for-sale',
             icon: <ArrowRightIcon className="h-4 w-4" />,
         },
     },

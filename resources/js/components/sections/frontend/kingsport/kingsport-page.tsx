@@ -135,7 +135,7 @@ const tabs = [
             '/assets/images/Beautiful_Home_Exterior1-2048x1493.jpeg',
         cta: {
             label: 'Homes for Sale',
-            href: '/chattanooga-homes-for-sale',
+            href: '/homes-for-sale',
             icon: '',
         },
     },

@@ -47,9 +47,9 @@ export default function CostOfRentingByRegion() {
                         </div>
                     </div>
 
-                    <button className="mt-8 bg-[#1e3a62] text-white py-3 px-6 rounded-md font-medium hover:bg-[#152a47] transition-all self-start">
+                    <a href={route('frontend.rentals')} className="mt-8 bg-[#1e3a62] text-white py-3 px-6 rounded-md font-medium hover:bg-[#152a47] transition-all self-start">
                         Explore East Tennessee Cities
-                    </button>
+                    </a>
                 </div>
 
                 {/* Middle Tennessee Card */}
@@ -76,9 +76,9 @@ export default function CostOfRentingByRegion() {
                         </div>
                     </div>
 
-                    <button className="mt-8 bg-[#1e3a62] text-white py-3 px-6 rounded-md font-medium hover:bg-[#152a47] transition-all self-start">
+                    <a href={route('frontend.rentals')} className="mt-8 bg-[#1e3a62] text-white py-3 px-6 rounded-md font-medium hover:bg-[#152a47] transition-all self-start">
                         Explore Middle Tennessee Cities
-                    </button>
+                    </a>
                 </div>
 
                 {/* West Tennessee Card */}
@@ -105,9 +105,9 @@ export default function CostOfRentingByRegion() {
                         </div>
                     </div>
 
-                    <button className="mt-8 bg-[#1e3a62] text-white py-3 px-6 rounded-md font-medium hover:bg-[#152a47] transition-all self-start">
+                    <a href={route('frontend.rentals')} className="mt-8 bg-[#1e3a62] text-white py-3 px-6 rounded-md font-medium hover:bg-[#152a47] transition-all self-start">
                         Explore West Tennessee Cities
-                    </button>
+                    </a>
                 </div>
 
             </div>

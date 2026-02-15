@@ -96,34 +96,23 @@ const RelocationGuides = () => {
         },
         {
             title: "Pros and Cons of Living in Tennessee",
-            image: "https://whytennessee.com/wp-content/uploads/2025/12/riverfront_lg.jpg",
+            image: "assets/images/riverfront_lg.jpg",
             description: "Tennessee offers affordable living, no state income tax, and beautiful scenery, but hot summers and limited public transport can be challenging.",
-            link: "live-tennessee"
-        },
-        {
-            title: "Tennessee Moving Checklist",
-            image: "assets/images/home/27-PB10401-1.jpg",
-            description: "Plan your move to Tennessee with ease: pack essentials, update your address, transfer utilities, and explore your new community.",
-            link: "https://whytennessee.com/moving-to-tennessee-checklist/"
-        },
-        {
-            title: "Cost of Living in Tennessee",
-            image: "assets/images/home/Real-estate-concept-business.jpeg",
-            description: "",
             link: "pros-cons-living-in-tennessee"
         },
         {
             title: "Tennessee Moving Checklist",
             image: "assets/images/home/27-PB10401-1.jpg",
             description: "Plan your move to Tennessee with ease: pack essentials, update your address, transfer utilities, and explore your new community.",
-            link: "https://whytennessee.com/moving-to-tennessee-checklist/"
+            link: "moving-checklist"
         },
         {
             title: "Cost of Living in Tennessee",
             image: "assets/images/home/Real-estate-concept-business.jpeg",
             description: "",
-            link: "https://whytennessee.com/cost-of-living-in-tennessee/"
+            link: "cost-of-living-in-tennessee"
         },
+
     ];
 
     return (

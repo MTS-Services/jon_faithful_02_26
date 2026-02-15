@@ -134,7 +134,7 @@ const tabs = [
         imageUrl: '/assets/images/apartment-building-in-sunny-day-2048x1363.jpeg',
         cta: {
             label: 'Homes for Sale',
-            href: '/chattanooga-homes-for-sale',
+            href: '/homes-for-sale',
             icon: '',
         },
     },
