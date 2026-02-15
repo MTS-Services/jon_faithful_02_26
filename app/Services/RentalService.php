@@ -91,7 +91,6 @@ class RentalService
                 'pet_friendly'     => $validated['pet_friendly'],
                 'parking_garage'   => $validated['parking_garage'],
                 'primary_image_url' => $validated['primary_image_url'] ?? $rental->primary_image_url,
-                'status'           => $validated['status'],
                 'youtube_video_url' => $validated['youtube_video_url'],
                 'facilities' => ['nullable', 'array'],
                 'facilities.*' => ['integer', 'exists:facilities,id'],

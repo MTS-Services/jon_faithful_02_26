@@ -147,6 +147,7 @@ export default function EditListingRental({
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         post(route('user.update-listing-rental', rental.id), {
+            forceFormData: true, 
             onSuccess: () => {
                 toast.success('Rental listing updated successfully.');
             },

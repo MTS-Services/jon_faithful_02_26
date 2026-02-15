@@ -155,19 +155,15 @@ class ListingRentalController extends Controller
             'parking_garage' => ['required', 'integer', 'min:0'],
             'primary_image_url' => ['nullable', 'image', 'max:10240'], // 10MB max
             'gallery_images.*' => ['nullable', 'image', 'max:51200'], // 50MB max per image
-            'status' => ['required', new Enum(ActiveInactive::class)],
             'youtube_video_url' => ['nullable', 'url'],
+            'facilities' => ['nullable', 'array'],
+            'facilities.*' => ['exists:facilities,id'],
         ]);
 
-        $validated['status'] = ActiveInactive::ACTIVE->value;
-        $updatedRental = $this->rentalService->updateRental($rental, $validated, $request);
 
+        $rental = $this->rentalService->updateRental($rental, $validated, $request);
 
-        // Using sync ensures the pivot table is updated correctly
-        if ($request->has('facilities')) {
-            $updatedRental->facilities()->sync($request->input('facilities', []));
-        }
-
+        $rental->facilities()->sync($validated['facilities'] ?? []);
 
 
         return redirect()
