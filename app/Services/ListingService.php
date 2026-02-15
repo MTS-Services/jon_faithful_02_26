@@ -20,7 +20,10 @@ class ListingService
 
     public function getPaginatedDatas(int $perPage = 15, array $filters = []): LengthAwarePaginator
     {
-        $query = $this->model->query()->with('city');
+        $query = $this->model
+        ->query()
+        ->with('city')
+        ->active();
 
         if (!empty($filters['search'])) {
             $search = $filters['search'];
