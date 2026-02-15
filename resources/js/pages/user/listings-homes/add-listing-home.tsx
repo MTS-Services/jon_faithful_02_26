@@ -64,7 +64,6 @@ export default function AddListingHome({ cities, facilities: initialFacilities, 
         console.log(data);
         post(route('user.store-listing-home'), {
             onSuccess: () => {
-                console.log(data);
                 reset();
                 toast.success('Listing created successfully.');
             },
