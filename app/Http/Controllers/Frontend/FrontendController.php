@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Enums\InterestedIn;
 use App\Http\Controllers\Controller;
 use App\Mail\ContactRealsateAgentMail;
+use App\Mail\ContactSubmissionMail;
 use App\Mail\UserContactMail;
 use App\Models\City;
 use App\Models\ContactRealsateAgent;
+use App\Models\ContactUs;
 use App\Models\Listing;
 use App\Models\Rental;
 use App\Models\User;
@@ -322,6 +325,42 @@ class FrontendController extends Controller
 
      public function getInTouch(): Response
      {
-          return Inertia::render('frontend/get-in-touch');
+          $cities = City::all();
+          return Inertia::render('frontend/get-in-touch', [
+               'cities' => $cities,
+               'interested_in_options' => collect(InterestedIn::cases())->map(fn($status) => [
+                    'value' => $status->value,
+                    'label' => $status->label(),
+               ])
+          ]);
      }
+     public function submitGetInTouch(Request $request)
+     {
+        $validated = $request->validate([
+            'full_name'      => ['required', 'string', 'max:255'],
+            'phone_number'   => ['required', 'string', 'max:20'],
+            'email'          => ['required', 'email', 'max:255'],
+            'interested_in'  => ['required', 'string'],
+            'city_id'        => ['required', 'exists:cities,id'],
+            'message'        => ['required', 'string'],
+            'is_confirmed'   => ['accepted'],
+        ]);
+
+        $city = City::find($validated['city_id']);
+
+        $contact = ContactUs::create([
+            'full_name'      => $validated['full_name'],
+            'phone_number'   => $validated['phone_number'],
+            'email'          => $validated['email'],
+            'interested_in'  => $validated['interested_in'],
+            'city_id'        => $validated['city_id'],
+            'message'        => $validated['message'],
+            'is_confirmed'   => true,
+        ]);
+
+        Mail::to(config('mail.from.address')) // or your admin email
+            ->send(new ContactSubmissionMail($contact, $city));
+            
+        return back()->with('success', 'Your message has been sent successfully!');
+    }
 }
