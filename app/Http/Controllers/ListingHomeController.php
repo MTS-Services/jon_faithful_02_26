@@ -79,7 +79,7 @@ class ListingHomeController extends Controller
         ]);
 
         $validated['user_id'] = $request->user()->id;
-        $validated['status'] = ActiveInactive::ACTIVE->value;
+        $validated['status'] = ActiveInactive::INACTIVE->value;
 
         $listing = $this->listingService->createListing($validated, $request);
 

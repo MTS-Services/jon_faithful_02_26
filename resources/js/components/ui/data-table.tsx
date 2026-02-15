@@ -164,7 +164,7 @@ export function DataTable<T extends Record<string, unknown>>({
         <div className="datatable-container">
             {/* Header Section */}
             <div className="datatable-header">
-                <div className="datatable-header-left">
+                <div className="flex flex-wrap items-center gap-2">
                     {/* Search */}
                     <div className="datatable-search-wrapper">
                         <Search className="datatable-search-icon" />
@@ -184,10 +184,29 @@ export function DataTable<T extends Record<string, unknown>>({
                             </button>
                         )}
                     </div>
+                    {/* Per Page */}
+                    <div className="datatable-perpage">
+                        <span className="datatable-perpage-label">Show</span>
+                        <Select
+                            value={String(pagination.per_page)}
+                            onValueChange={(value) => onPerPageChange && onPerPageChange(Number(value))}
+                        >
+                            <SelectTrigger className="datatable-select-small">
+                                <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                                {[5, 10, 15, 30, 50, 100].map((value) => (
+                                    <SelectItem key={value} value={String(value)}>
+                                        {value}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                    </div>
 
                     {/* Filters */}
                     {filters.length > 0 && (
-                        <div className="datatable-filters mt-4">
+                        <div className="datatable-filters">
                             {filters.map((filter) => (
                                 <div key={filter.key} className="datatable-filter-item">
                                     <Select
@@ -217,26 +236,6 @@ export function DataTable<T extends Record<string, unknown>>({
                             ))}
                         </div>
                     )}
-                </div>
-
-                {/* Per Page */}
-                <div className="datatable-perpage">
-                    <span className="datatable-perpage-label">Show</span>
-                    <Select
-                        value={String(pagination.per_page)}
-                        onValueChange={(value) => onPerPageChange && onPerPageChange(Number(value))}
-                    >
-                        <SelectTrigger className="datatable-select-small">
-                            <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                            {[5, 10, 15, 30, 50, 100].map((value) => (
-                                <SelectItem key={value} value={String(value)}>
-                                    {value}
-                                </SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
                 </div>
             </div>
 

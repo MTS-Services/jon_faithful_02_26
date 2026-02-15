@@ -84,7 +84,7 @@ class ListingRentalController extends Controller
             'facilities.*' => ['integer', 'exists:facilities,id'],
         ]);
 
-        $validated['status'] = ActiveInactive::ACTIVE->value;
+        $validated['status'] = ActiveInactive::INACTIVE->value;
 
         $rental = $this->rentalService->createRental($validated, $request);
 
@@ -108,7 +108,7 @@ class ListingRentalController extends Controller
             'email' => ['required', 'email', 'max:255'],
             'external_link' => ['required', 'url', 'max:1000'],
         ]);
-    
+
         $validated['user_id'] = $request->user()->id;
         $validated['external_listing_type'] = ExternalListingType::RENTAL->value;
 

@@ -66,6 +66,9 @@ export interface User {
     all_permissions?: string[];
     created_at: string;
     updated_at: string;
+    brokerage_name?: string;
+    license_number?: string;
+    license_verification_status?: string;
     [key: string]: unknown;
 }
 

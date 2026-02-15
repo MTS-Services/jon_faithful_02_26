@@ -39,7 +39,7 @@ class UserController extends Controller
             // Validate the request
             $validated = $request->validate([
                 'name' => ['required', 'string', 'max:255'],
-                'phone' => ['required', 'string', 'max:20'],
+                'phone' => ['nullable', 'string', 'max:20'],
                 'your_self' => ['nullable', 'string'],
                 'brokerage_name' => ['nullable', 'string', 'max:255'],
                 'license_number' => ['nullable', 'string', 'max:255'],
@@ -67,13 +67,13 @@ class UserController extends Controller
             }
 
             if ($request->hasFile('image')) {
-                if ($user->image && Storage::disk('public')->exists('user_images/'.$user->image)) {
-                    Storage::disk('public')->delete('user_images/'.$user->image);
+                if ($user->image && Storage::disk('public')->exists('user_images/' . $user->image)) {
+                    Storage::disk('public')->delete('user_images/' . $user->image);
                 }
 
                 // Store new image
                 $file = $request->file('image');
-                $imageName = time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
+                $imageName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
                 $file->storeAs('user_images', $imageName, 'public');
 
                 $validated['image'] = $imageName;
@@ -95,8 +95,14 @@ class UserController extends Controller
             return back()->with('error', 'Something went wrong. Please try again.');
         }
     }
-     public function licenceVerificationStatus(): Response
+    public function licenceVerificationStatus(Request $request): Response
     {
-        return Inertia::render('user/licence-verification-status');
+        return Inertia::render('user/licence-verification-status', [
+            'user' => [
+                'license_verification_status' => $request->user()->license_verification_status,
+                'license_number' => $request->user()->license_number,
+                'updated_at' => $request->user()->updated_at,
+            ]
+        ]);
     }
 }
