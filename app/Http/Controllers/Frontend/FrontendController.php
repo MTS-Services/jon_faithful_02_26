@@ -319,4 +319,9 @@ class FrontendController extends Controller
 
           return back()->with('success', 'Request sent successfully!');
      }
+
+     public function getInTouch(): Response
+     {
+          return Inertia::render('frontend/get-in-touch');
+     }
 }
