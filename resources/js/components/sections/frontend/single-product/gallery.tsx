@@ -1,6 +1,7 @@
 import { CardContent } from '@/components/ui/card';
 import { useForm } from '@inertiajs/react';
 import { useState } from 'react';
+import { toast } from 'sonner';
 
 export default function Gallery({ listing }: any) {
     const { data, setData, post, processing, reset } = useForm({
@@ -14,11 +15,12 @@ export default function Gallery({ listing }: any) {
         e.preventDefault();
         post(route('frontend.submit-request'), {
             onSuccess: () => {
-                alert('Request sent successfully!');
+                // alert('Request sent successfully!');
                 reset('name', 'email', 'phone');
+                toast.success('Request sent successfully!');
             },
             onError: (response) => {
-                console.log(response);
+                toast.error('Failed to send request.');
             },
         });
     };
@@ -355,9 +357,10 @@ export default function Gallery({ listing }: any) {
                             <button
                                 type="submit"
                                 disabled={processing}
-                                className="w-full rounded-md bg-primary py-3 font-bold text-primary-foreground transition-colors hover:bg-primary/80"
+                                className="w-full rounded-md bg-primary py-3 font-bold text-primary-foreground transition-colors hover:bg-primary/80 cursor-pointer"
                             >
-                                Submit Request
+                                {/* Submit Request */}
+                                 {processing ? 'Submit Request...' : 'Submit Request'}
                             </button>
                         </form>
                     </div>
