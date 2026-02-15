@@ -82,18 +82,26 @@ export default function Sidebar() {
                 </div>
 
                 <nav className="space-y-2 p-4 pt-0">
-                    {/* Homes */}
-                    <NavItem
-                        href="/account/listings-homes"
-                        label="Listings (Homes)"
-                    />
-                    <NavItem
-                        href="/account/add-listing-home"
-                        label="Add New Listing (Homes)"
-                    />
+
                     {/* <NavItem href='/account/edit-listing-home' label="Edit Listing (Homes)" /> */}
+                    {userType == 'both' || userType == 'realtor' ? (
+                        <>
+                            {/* Homes */}
+                            <NavItem
+                                href="/account/listings-homes"
+                                label="Listings (Homes)"
+                            />
+                            <NavItem
+                                href="/account/add-listing-home"
+                                label="Add New Listing (Homes)"
+                            />
+                        </>
+                    ) : (
+                        <></>
+                    )}
                     {userType == 'both' || userType == 'property_owner' ? (
                         <>
+                            {/* Rental */}
                             <NavItem
                                 href="/account/listings-rentals"
                                 label="Listings (Rental)"
@@ -102,14 +110,10 @@ export default function Sidebar() {
                                 href="/account/add-listing-rental"
                                 label="Add New Listing "
                             />
-                            {/* <NavItem href='/account/edit-listing-rental' label="Edit Listing" /> */}
                         </>
                     ) : (
                         <></>
                     )}
-
-                    {/* Rental */}
-
                     {/* Account */}
                     <NavItem
                         href="/account/account-settings"
