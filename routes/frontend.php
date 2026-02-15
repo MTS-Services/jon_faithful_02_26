@@ -40,4 +40,6 @@ Route::name('frontend.')->controller(FrontendController::class)->group(function 
     Route::post('/submit-request', 'submitRequest')->name('submit-request');
     Route::post('/user-contact', 'userContact')->name('user-contact');
     Route::get('get-in-touch', 'getInTouch')->name('get-in-touch');
+    Route::post('/contact-submit', 'submitGetInTouch')->name('contact.submit');
+
 });
