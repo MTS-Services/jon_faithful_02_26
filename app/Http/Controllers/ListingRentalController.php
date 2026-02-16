@@ -13,19 +13,18 @@ use App\Models\Rental;
 use App\Services\RentalService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Validation\Rules\Enum;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class ListingRentalController extends Controller
 {
-
     protected $rentalService;
 
     public function __construct(RentalService $rentalService)
     {
         $this->rentalService = $rentalService;
     }
+
     /**
      * Display a listing of user's rental listings
      */
@@ -37,7 +36,7 @@ class ListingRentalController extends Controller
             ->paginate(10);
 
         return Inertia::render('user/listings-rentals/listings', [
-            'rentals' => $rentals
+            'rentals' => $rentals,
         ]);
     }
 
@@ -53,7 +52,7 @@ class ListingRentalController extends Controller
             'cities' => $cities,
             'facilities' => $facilities,
             'propertyTypes' => collect(RentalProperty::cases())
-                ->map(fn($type) => [
+                ->map(fn ($type) => [
                     'value' => $type->value,
                     'label' => $type->label(),
                 ])
@@ -61,6 +60,7 @@ class ListingRentalController extends Controller
                 ->toArray(),
         ]);
     }
+
     public function storeListing(Request $request)
     {
 
@@ -93,8 +93,8 @@ class ListingRentalController extends Controller
             $rental->facilities()->sync($request->input('facilities', []));
         }
 
-        Mail::to(config('mail.from.address'))->send(new RentalSubmittedAdmin($rental));
-        Mail::to($rental->user->email)->send(new RentalSubmittedUser($rental));
+        // Mail::to($rental->user->email)->send(new RentalSubmittedUser($rental));
+        // Mail::to(config('mail.from.address'))->later(now()->addSeconds(2), new RentalSubmittedAdmin($rental));
 
         return redirect()
             ->route('user.listings-rentals')
@@ -119,7 +119,6 @@ class ListingRentalController extends Controller
             ->with('success', 'External rental listing link submitted successfully.');
     }
 
-
     /**
      * Show the form for editing the specified rental listing
      */
@@ -137,7 +136,7 @@ class ListingRentalController extends Controller
             'cities' => $cities,
             'facilities' => $facilities,
             'propertyTypes' => collect(RentalProperty::cases())
-                ->map(fn($type) => [
+                ->map(fn ($type) => [
                     'value' => $type->value,
                     'label' => $type->label(),
                 ])
@@ -170,19 +169,17 @@ class ListingRentalController extends Controller
             'facilities.*' => ['exists:facilities,id'],
         ]);
 
-
         $rental = $this->rentalService->updateRental($rental, $validated, $request);
 
         $rental->facilities()->sync($validated['facilities'] ?? []);
 
-        Mail::to(config('mail.from.address'))->send(new RentalSubmittedAdmin($rental, false));
-        Mail::to($rental->user->email)->send(new RentalSubmittedUser($rental, false));
+        // Mail::to(config('mail.from.address'))->send(new RentalSubmittedAdmin($rental, false));
+        // Mail::to($rental->user->email)->later(now()->addSeconds(2), new RentalSubmittedUser($rental, false));
 
         return redirect()
             ->route('user.listings-rentals')
             ->with('success', 'Rental listing updated successfully.');
     }
-
 
     /**
      * Delete the specified rental listing

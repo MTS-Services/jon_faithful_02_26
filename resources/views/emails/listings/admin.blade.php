@@ -98,7 +98,7 @@
             </p>
 
             <div class="btn-container">
-                <a href="{{ url('/admin/listings/details/' . $listing->id) }}" class="btn">Review Listing</a>
+                <a href="{{ url('/admin/listing/homes-details/' . $listing->id) }}" class="btn">Review Listing</a>
             </div>
         </div>
     </div>
