@@ -1,136 +1,3 @@
-{{-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f7f9;
-            margin: 0;
-            padding: 0;
-            -webkit-font-smoothing: antialiased;
-        }
-        .container {
-            max-width: 600px;
-            margin: 40px auto;
-            background-color: #ffffff;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-        }
-        .header {
-            background-color: #1e3a5f;
-            padding: 30px;
-            text-align: center;
-            color: #ffffff;
-        }
-        .header h2 {
-            margin: 0;
-            font-size: 24px;
-            letter-spacing: 1px;
-        }
-        .content {
-            padding: 30px;
-        }
-        .info-card {
-            background-color: #f8fafc;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-        .info-row {
-            display: flex;
-            margin-bottom: 12px;
-            border-bottom: 1px solid #edf2f7;
-            padding-bottom: 8px;
-        }
-        .info-row:last-child {
-            border-bottom: none;
-        }
-        .label {
-            width: 120px;
-            font-weight: 600;
-            color: #64748b;
-            font-size: 14px;
-        }
-        .value {
-            color: #1e293b;
-            font-weight: 500;
-            font-size: 15px;
-        }
-        .price-tag {
-            display: inline-block;
-            background-color: #dcfce7;
-            color: #166534;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-weight: bold;
-        }
-        .footer {
-            background-color: #f1f5f9;
-            padding: 20px;
-            text-align: center;
-            color: #94a3b8;
-            font-size: 12px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h2>New Property Request</h2>
-        </div>
-
-        <div class="content">
-            <p style="color: #475569; font-size: 16px;">Hello,</p>
-            <p style="color: #475569; font-size: 14px; margin-bottom: 25px;">You have received a new property inquiry. Here are the details:</p>
-
-            <div class="info-card">
-                <div class="info-row">
-                    <div class="label">Name</div>
-                    <div class="value">{{ $data['name'] }}</div>
-                </div>
-                <div class="info-row">
-                    <div class="label">Email</div>
-                    <div class="value"><a href="mailto:{{ $data['email'] }}" style="color: #2563eb; text-decoration: none;">{{ $data['email'] }}</a></div>
-                </div>
-                <div class="info-row">
-                    <div class="label">Phone</div>
-                    <div class="value">{{ $data['phone'] }}</div>
-                </div>
-                <div class="info-row">
-                    <div class="label">Property</div>
-                    <div class="value" style="color: #1e3a5f;">{{ $data['listing_title'] }}</div>
-                </div>
-                <div class="info-row" style="margin-top: 10px; border: none;">
-                    <div class="label">Proposed Price</div>
-                    <div class="value"><span class="price-tag">{{ $data['purchase_price'] }}</span></div>
-                </div>
-            </div>
-
-            <div style="text-align: center; margin-top: 30px;">
-                <a href="#" style="background-color: #1e3a5f; color: white; padding: 12px 25px; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 14px;">View Details in Dashboard</a>
-            </div>
-        </div>
-
-        <div class="footer">
-            <p>This is an automated notification from your Real Estate Portal.</p>
-            <p>&copy; 2024 Your Brand Name. All rights reserved.</p>
-        </div>
-    </div>
-</body>
-</html> --}}
-
-
-
-
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -174,7 +41,7 @@
         }
 
         h1 {
-            color: #0056b3;
+            color: #b8912a;
             font-size: 24px;
             margin-top: 0;
         }
@@ -187,12 +54,12 @@
             background: #f0f7ff;
             padding: 25px;
             border-radius: 8px;
-            border-left: 5px solid #0056b3;
+            border-left: 5px solid #b8912a;
         }
 
         .next-steps h3 {
             margin-top: 0;
-            color: #0056b3;
+            color: #b8912a;
         }
 
         .next-steps ul {
@@ -232,7 +99,7 @@
             <ul>
                 <li><strong>Name:</strong> {{ $data['name'] }}</li>
                 <li><strong>Email:</strong> <a href="mailto:{{ $data['email'] }}"
-                        style="color: #2563eb; text-decoration: none;">{{ $data['email'] }}</a></li>
+                        style="color: #b8912a; text-decoration: none;">{{ $data['email'] }}</a></li>
                 <li><strong>Phone:</strong>{{ $data['phone'] }}</li>
                 <li><strong>Property:</strong>{{ $data['listing_title'] }}</li>
                 <li><strong>Price:</strong>{{ $data['purchase_price'] }}</li>

@@ -44,7 +44,7 @@
                     <tr>
                         <td style="padding:30px 0; text-align:center;">
                             <a href="{{ config('app.url') }}/login"
-                                style="background:#2563eb; color:#ffffff; padding:12px 28px; text-decoration:none; border-radius:4px; font-weight:600; display:inline-block;">
+                                style="background:#b8912a; color:#ffffff; padding:12px 28px; text-decoration:none; border-radius:4px; font-weight:600; display:inline-block;">
                                 Log in to Your Dashboard
                             </a>
                         </td>
