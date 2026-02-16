@@ -1,3 +1,4 @@
+import { useForm } from '@inertiajs/react';
 import React from 'react';
 import {
     FaArrowCircleRight,
@@ -8,6 +9,7 @@ import {
     FaTwitter,
 } from 'react-icons/fa';
 import { FaAddressBook } from 'react-icons/fa6'; // For the address book variation
+import { toast } from 'sonner';
 
 const FrontendFooter: React.FC = () => {
     const quickLinks = [
@@ -39,6 +41,25 @@ const FrontendFooter: React.FC = () => {
         { name: 'Chattanooga', href: route('frontend.livingInChattanooga') },
     ];
 
+    // inside component top
+    const { data, setData, post, processing, errors, reset } = useForm({
+        email: '',
+    });
+
+    const submitNewsletter = (e: React.FormEvent) => {
+        e.preventDefault();
+
+        post(route('frontend.newsletter.submit'), {
+            onSuccess: () => {
+                reset();
+                toast.success('Newsletter subscribed successfully.');
+            },
+            onError: () => {
+                toast.error('Failed to subscribe to newsletter.');
+            },
+        });
+    };
+
     return (
         <footer className="border-t border-gray-200 bg-white pt-16 pb-8">
             <div className="container mx-auto px-6">
@@ -65,9 +86,8 @@ const FrontendFooter: React.FC = () => {
                             Quick Links
                         </h3>
 
-
-                            <div className="space-y-3 text-sm text-gray-600">
-                                <div className="block md:grid grid-cols-2 gap-1.5">
+                        <div className="space-y-3 text-sm text-gray-600">
+                            <div className="block grid-cols-2 gap-1.5 md:grid">
                                 {quickLinks.map((link) => (
                                     <div className="" key={link.name}>
                                         <a
@@ -79,9 +99,8 @@ const FrontendFooter: React.FC = () => {
                                         </a>
                                     </div>
                                 ))}
-                                </div>
-
                             </div>
+                        </div>
                     </div>
 
                     {/* Information Section */}
@@ -119,7 +138,7 @@ const FrontendFooter: React.FC = () => {
                         <h3 className="mb-6 text-lg font-bold text-primary">
                             Newsletter
                         </h3>
-                        <form
+                        {/* <form
                             className="flex flex-col space-y-3"
                             onSubmit={(e) => e.preventDefault()}
                         >
@@ -130,6 +149,34 @@ const FrontendFooter: React.FC = () => {
                             />
                             <button className="rounded bg-primary px-4 py-2 text-sm font-medium text-white transition hover:bg-black">
                                 Submit
+                            </button>
+                        </form> */}
+                        <form
+                            className="flex flex-col space-y-3"
+                            onSubmit={submitNewsletter}
+                        >
+                            <input
+                                type="email"
+                                value={data.email}
+                                onChange={(e) =>
+                                    setData('email', e.target.value)
+                                }
+                                placeholder="Email"
+                                className="w-full rounded border border-gray-300 bg-white px-4 py-2 text-sm transition focus:border-primary focus:outline-none"
+                            />
+
+                            {errors.email && (
+                                <span className="text-xs text-red-500">
+                                    {errors.email}
+                                </span>
+                            )}
+
+                            <button
+                                type="submit"
+                                disabled={processing}
+                                className="rounded bg-primary px-4 py-2 text-sm font-medium text-white transition hover:bg-black disabled:opacity-50 cursor-pointer"
+                            >
+                                {processing ? 'Sending...' : 'Submit'}
                             </button>
                         </form>
 

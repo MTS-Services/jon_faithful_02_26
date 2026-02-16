@@ -7,10 +7,12 @@ use App\Http\Controllers\Controller;
 use App\Mail\ContactRealsateAgentMail;
 use App\Mail\ContactSubmissionMail;
 use App\Mail\UserContactMail;
+use App\Mail\NewsletterMail;
 use App\Models\City;
 use App\Models\ContactRealsateAgent;
 use App\Models\ContactUs;
 use App\Models\Listing;
+use App\Models\Newsletter;
 use App\Models\Rental;
 use App\Models\User;
 use App\Models\UserContact;
@@ -367,5 +369,22 @@ class FrontendController extends Controller
     public function listRentalProperty(): Response
     {
         return Inertia::render('frontend/list-rental-property');
+    }
+
+    public function submitNewsletter(Request $request)
+    {
+        $validated = $request->validate([
+            'email'          => ['required', 'email', 'max:255'],
+        ]);
+
+        $newsletter = Newsletter::create([
+            'email'          => $validated['email'],
+            
+        ]);
+
+        Mail::to(config('mail.from.address'))
+            ->send(new NewsletterMail($newsletter));
+
+        return back()->with('success', 'Your email has been sent successfully!');
     }
 }
