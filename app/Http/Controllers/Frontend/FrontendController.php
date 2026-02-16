@@ -363,4 +363,9 @@ class FrontendController extends Controller
             
         return back()->with('success', 'Your message has been sent successfully!');
     }
+
+    public function listRentalProperty(): Response
+    {
+        return Inertia::render('frontend/list-rental-property');
+    }
 }

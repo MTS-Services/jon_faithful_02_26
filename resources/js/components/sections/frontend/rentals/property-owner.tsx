@@ -20,7 +20,7 @@ export default function PropertyOwner() {
                         If you have rentals available and want to reach people actively moving to Tennessee:
                     </p>
 
-                    <a href="#"
+                    <a href={route('frontend.list-rental-property')}
                         className="inline-block text-text-primary-foreground font-montserrat font-medium py-4 px-10 rounded-full bg-primary hover:bg-primary/80 transition-colors duration-300 shadow-xl">
                         List a Rental Property
                     </a>
