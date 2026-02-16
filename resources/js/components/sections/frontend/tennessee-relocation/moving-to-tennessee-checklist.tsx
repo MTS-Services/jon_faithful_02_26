@@ -53,7 +53,7 @@ export default function MovingToTennesseeChecklist() {
 
           
                 <div>
-                    <a href="#"
+                    <a href={route('frontend.movingChecklist')}
                         className="inline-block bg-primary text-background text-sm font-semibold tracking-wide px-8 py-3.5 rounded-full hover:bg-primary/80 transition-colors duration-200">
                         Read MORE &nbsp;→
                     </a>
