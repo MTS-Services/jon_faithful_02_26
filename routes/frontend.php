@@ -42,5 +42,7 @@ Route::name('frontend.')->controller(FrontendController::class)->group(function 
     Route::get('get-in-touch', 'getInTouch')->name('get-in-touch');
     Route::post('/contact-submit', 'submitGetInTouch')->name('contact.submit');
     Route::get('/list-rental-property', 'listRentalProperty')->name('list-rental-property');
+    Route::post('/newsletter-submit', 'submitNewsletter')->name('newsletter.submit');
+
 
 });
