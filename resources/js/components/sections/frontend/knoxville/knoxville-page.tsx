@@ -37,7 +37,7 @@ const locationData = {
         '2.5 hours from Nashville',
         '4 hours from Atlanta',
     ],
-    mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d51457.1062024796!2d-82.22271618683415!3d36.588667533816285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8850702df2f8f8b3%3A0x64e8e04e9c71c4c9!2sBristol%2C%20TN!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus',
+    mapUrl: 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d413381.9169633572!2d-83.92534!3d35.958069!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x885c162246ce42a9%3A0x7bea92dac4f534c5!2sKnoxville%2C%20TN!5e0!3m2!1sen!2sus!4v1771221283007!5m2!1sen!2sus',
     conclusion: 'Its central location makes it ideal for outdoor lovers and frequent travelers.',
 };
 

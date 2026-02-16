@@ -38,7 +38,7 @@ const locationData = {
         '2 hours to Atlanta',
         'Easy access to Alabama and Georgia',
     ],
-    mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d51457.1062024796!2d-82.22271618683415!3d36.588667533816285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8850702df2f8f8b3%3A0x64e8e04e9c71c4c9!2sBristol%2C%20TN!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus',
+    mapUrl: 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d418104.00558382407!2d-85.3093995!3d35.0457984!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x886060408a83e785%3A0x2471261f898728aa!2sChattanooga%2C%20TN%2C%20USA!5e0!3m2!1sen!2sbd!4v1771221011449!5m2!1sen!2sbd',
     conclusion: 'Easy access to Alabama and Georgia',
 };
 

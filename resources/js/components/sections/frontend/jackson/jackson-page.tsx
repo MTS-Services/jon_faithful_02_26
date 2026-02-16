@@ -35,7 +35,7 @@ const locationData = {
         '2 hours west of Nashville',
         'Easy access to major highways (I-40, US-45)',
     ],
-    mapUrl: 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d206841.30668053022!2d-86.839022!3d35.900577!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x886378e0e0f94935%3A0xf7addba980fa8da1!2sFranklin%2C%20TN!5e0!3m2!1sen!2sus!4v1770177569364!5m2!1sen!2sus',
+    mapUrl: 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d431622.59727360535!2d-90.205926!3d32.310469!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86282b7f90741b21%3A0x713cde441f038a0!2sJackson%2C%20MS!5e0!3m2!1sen!2sus!4v1771221468063!5m2!1sen!2sus',
     conclusion:
         'Its central location makes it convenient for travel, work, and regional commuting.',
 };

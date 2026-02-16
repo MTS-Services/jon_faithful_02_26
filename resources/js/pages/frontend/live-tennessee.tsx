@@ -250,7 +250,7 @@ export default function LiveTennessee() {
                 href={route('frontend.livingInFranklin')}
                 className="inline-block bg-chart-2 text-white px-10 py-4 rounded-full font-semibold hover:bg-slate-700 transition-all duration-300 shadow-xl hover:shadow-2xl"
               >
-                Explore Living in Nashville
+                Explore Living in Franklin
               </a>
             </div>
           </div>
