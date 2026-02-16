@@ -45,7 +45,7 @@ const locationData = {
         '3 hours to Knoxville',
         'Central access to most of the Southeast',
     ],
-    mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d51457.1062024796!2d-82.22271618683415!3d36.588667533816285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8850702df2f8f8b3%3A0x64e8e04e9c71c4c9!2sBristol%2C%20TN!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus',
+    mapUrl: 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d412223.05814771564!2d-86.784002!3d36.178899!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8864ec3213eb903d%3A0x7d3fb9d0a1e9daa0!2sNashville%2C%20TN!5e0!3m2!1sen!2sus!4v1771221202435!5m2!1sen!2sus',
     conclusion:
         'Nashville’s location makes it ideal for business travel and regional commuting.',
 };

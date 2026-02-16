@@ -36,7 +36,7 @@ const locationData = {
         '1.5 hours to Knoxville',
         '1.5 hours to Chattanooga',
     ],
-    mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d51457.1062024796!2d-82.22271618683415!3d36.588667533816285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8850702df2f8f8b3%3A0x64e8e04e9c71c4c9!2sBristol%2C%20TN!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus',
+    mapUrl: 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d412552.9512243097!2d-85.544589!3d36.116154!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x886718a70cf14c59%3A0x2f4ecce7ea405e1d!2sCookeville%2C%20TN!5e0!3m2!1sen!2sus!4v1771221104094!5m2!1sen!2sus',
     conclusion:
         'Its central location offers access to larger cities while maintaining a quieter lifestyle.',
 };
