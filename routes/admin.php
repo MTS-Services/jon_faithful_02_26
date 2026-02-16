@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ListingController;
 use App\Http\Controllers\Admin\AdminAuthController;
+use App\Http\Controllers\Admin\ContactUsController;
 use App\Http\Controllers\Admin\ExternalLinkSubmiition;
 use App\Http\Controllers\Admin\RentalController;
 use App\Http\Controllers\Admin\UserManagement\UserController;
@@ -61,5 +62,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/delete/{id}', 'delete')->name('delete');
         });
         Route::get('/external-link', [ExternalLinkSubmiition::class, 'externalLink'])->name('external-link');
+
+        Route::prefix('contact')->as('contact.')->controller(ContactUsController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            // Route::get('/details/{contact}', 'show')->name('details');
+            Route::get('/delete/{contact}', 'delete')->name('delete');
+        });
     });
 });

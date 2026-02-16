@@ -41,7 +41,7 @@
         }
 
         h1 {
-            color: #0056b3;
+            color: #b8912a;
             font-size: 24px;
             margin-top: 0;
         }
@@ -54,12 +54,12 @@
             background: #f0f7ff;
             padding: 25px;
             border-radius: 8px;
-            border-left: 5px solid #0056b3;
+            border-left: 5px solid #b8912a;
         }
 
         .next-steps h3 {
             margin-top: 0;
-            color: #0056b3;
+            color: #b8912a;
         }
 
         .next-steps ul {

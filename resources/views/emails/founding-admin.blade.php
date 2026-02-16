@@ -25,13 +25,13 @@
         }
 
         .header {
-            border-bottom: 2px solid #0056b3;
+            border-bottom: 2px solid #b8912a;
             padding-bottom: 10px;
             margin-bottom: 20px;
         }
 
         .header h2 {
-            color: #0056b3;
+            color: #b8912a;
             margin: 0;
         }
 
@@ -40,7 +40,7 @@
             padding: 20px;
             border-radius: 5px;
             margin: 20px 0;
-            border-left: 4px solid #0056b3;
+            border-left: 4px solid #b8912a;
         }
 
         .details-box ul {
@@ -56,7 +56,7 @@
         .btn {
             display: inline-block;
             padding: 12px 25px;
-            background-color: #0056b3;
+            background-color: #b8912a;
             color: #ffffff !important;
             text-decoration: none;
             border-radius: 5px;
