@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\ListingController;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\ContactUsController;
 use App\Http\Controllers\Admin\ExternalLinkSubmiition;
+use App\Http\Controllers\Admin\NewsletterController;
 use App\Http\Controllers\Admin\RentalController;
 use App\Http\Controllers\Admin\UserManagement\UserController;
 
@@ -67,6 +68,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/', 'index')->name('index');
             // Route::get('/details/{contact}', 'show')->name('details');
             Route::get('/delete/{contact}', 'delete')->name('delete');
+        });
+
+        Route::prefix('newsletter')->as('newsletter.')->controller(NewsletterController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/delete/{newsletter}', 'delete')->name('delete');
         });
     });
 });

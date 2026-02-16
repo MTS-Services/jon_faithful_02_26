@@ -65,6 +65,13 @@ const adminNavItems: NavItemType[] = [
         permission: 'view analytics',
         slug: 'contact-us', 
     },
+    {
+        title: 'Newsletter',
+        href: route('admin.newsletter.index'),
+        icon: BarChart,
+        permission: 'view analytics',
+        slug: 'newsletter', 
+    },
 ];
 
 interface AdminSidebarProps {
