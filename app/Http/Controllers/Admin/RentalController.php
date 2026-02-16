@@ -108,8 +108,8 @@ class RentalController extends Controller
             $rental->facilities()->sync($request->input('facilities', []));
         }
 
-        Mail::to(config('mail.from.address'))->send(new RentalSubmittedAdmin($rental));
-        Mail::to($rental->user->email)->send(new RentalSubmittedUser($rental));
+        // Mail::to(config('mail.from.address'))->send(new RentalSubmittedAdmin($rental));
+        // Mail::to($rental->user->email)->send(new RentalSubmittedUser($rental));
 
         // Redirect back to the rentals index or wherever you want
         return redirect()->route('admin.rentals.index')
@@ -170,8 +170,8 @@ class RentalController extends Controller
             $rentalUpdated->facilities()->sync($request->input('facilities', []));
         }
 
-        Mail::to(config('mail.from.address'))->send(new RentalSubmittedAdmin($rental, false));
-        Mail::to($rental->user->email)->send(new RentalSubmittedUser($rental, false));
+        // Mail::to(config('mail.from.address'))->send(new RentalSubmittedAdmin($rental, false));
+        // Mail::to($rental->user->email)->send(new RentalSubmittedUser($rental, false));
 
         return redirect()->route('admin.rentals.index')
             ->with('success', 'Rental updated successfully!');

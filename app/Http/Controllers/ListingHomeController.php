@@ -6,40 +6,33 @@ use App\Enums\ActiveInactive;
 use App\Enums\ExternalListingType;
 use App\Enums\ListingProperty;
 use App\Enums\ListingStatus;
-use App\Mail\FoundingExternalSubmitionMail;
-use App\Mail\ListingSubmittedAdminMail;
-use App\Mail\ListingSubmittedUserMail;
 use App\Models\City;
-use App\Models\ExternalListingSubmission;
 use App\Models\Facility;
 use App\Models\Listing;
-use App\Models\ListingGallery;
 use App\Services\ListingHomeService;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Enum;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class ListingHomeController extends Controller
 {
-
     protected $listingService;
 
     public function __construct(ListingHomeService $listingService)
     {
         $this->listingService = $listingService;
     }
+
     public function listings(Request $request): Response
     {
         $listing = Listing::where('user_id', $request->user()->id)->with('city')->paginate(10);
+
         return Inertia::render('user/listings-homes/listings', [
-            'listings' => $listing
+            'listings' => $listing,
         ]);
     }
+
     public function addListing(): Response
     {
         $cities = City::all(['id', 'name']);
@@ -48,14 +41,14 @@ class ListingHomeController extends Controller
         return Inertia::render('user/listings-homes/add-listing-home', [
             'cities' => $cities,
             'facilities' => $facilities,
-            'propertyTypes' => collect(ListingProperty::cases())->map(fn($type) => [
+            'propertyTypes' => collect(ListingProperty::cases())->map(fn ($type) => [
                 'value' => $type->value,
                 'label' => $type->label(),
             ]),
-            'propertyStatuses' => collect(ListingStatus::cases())->map(fn($status) => [
+            'propertyStatuses' => collect(ListingStatus::cases())->map(fn ($status) => [
                 'value' => $status->value,
                 'label' => $status->label(),
-            ])
+            ]),
         ]);
     }
 
@@ -89,18 +82,12 @@ class ListingHomeController extends Controller
         }
 
         $listing->load('facilities', 'city');
-        // 🔹 Send mail to user
-        Mail::to($listing->user->email)
-            ->send(new ListingSubmittedUserMail($listing));
-
-        // 🔹 Send mail to admin
-        Mail::to(config('mail.from.address')) // or hardcode admin email
-            ->send(new ListingSubmittedAdminMail($listing));
 
         return redirect()
             ->route('user.dashboard')
             ->with('success', 'Listing submitted successfully and is pending review.');
     }
+
     public function addListingLinkStore(Request $request)
     {
         $validated = $request->validate([
@@ -108,7 +95,7 @@ class ListingHomeController extends Controller
             'email' => ['required', 'email', 'max:255'],
             'external_link' => ['required', 'url', 'max:1000'],
         ]);
-        
+
         $validated['user_id'] = $request->user()->id;
         $validated['external_listing_type'] = ExternalListingType::LISTING->value;
 
@@ -129,18 +116,18 @@ class ListingHomeController extends Controller
         return Inertia::render('user/listings-homes/edit-listing-home', [
             'listing' => [
                 ...$listing->toArray(),
-                'facilities' => $currentFacilityIds
+                'facilities' => $currentFacilityIds,
             ],
             'cities' => $cities,
             'facilities' => Facility::all(['id', 'name']),
-            'propertyTypes' => collect(ListingProperty::cases())->map(fn($type) => [
+            'propertyTypes' => collect(ListingProperty::cases())->map(fn ($type) => [
                 'value' => $type->value,
                 'label' => $type->label(),
             ]),
-            'propertyStatuses' => collect(ListingStatus::cases())->map(fn($status) => [
+            'propertyStatuses' => collect(ListingStatus::cases())->map(fn ($status) => [
                 'value' => $status->value,
                 'label' => $status->label(),
-            ])
+            ]),
         ]);
     }
 
@@ -173,22 +160,12 @@ class ListingHomeController extends Controller
             $listing->facilities()->sync($request->input('facilities', []));
         }
 
-        $this->listingService->updateListing($listing, $validated, $request);
-
         $listing->load('facilities', 'city');
-        // 🔹 Send mail to user
-        Mail::to($listing->user->email)
-            ->send(new ListingSubmittedUserMail($listing, false));
-
-        // 🔹 Send mail to admin
-        Mail::to(config('mail.from.address')) // or hardcode admin email
-            ->send(new ListingSubmittedAdminMail($listing, false));
 
         return redirect()
             ->route('user.dashboard')
             ->with('success', 'Listing updated successfully.');
     }
-
 
     public function deleteListing(Request $request, $id)
     {
@@ -200,5 +177,4 @@ class ListingHomeController extends Controller
             ->route('user.dashboard')
             ->with('success', 'Listing deleted successfully.');
     }
-    
 }

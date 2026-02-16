@@ -19,8 +19,11 @@ class LoginController extends Controller
             return Inertia::render('auth/login', [
                 'userType' => $userType,
             ]);
-        };
+        } else {
+            return redirect(route('user.choose'));
+        }
     }
+
     public function store(Request $request)
     {
         $request->validate([
