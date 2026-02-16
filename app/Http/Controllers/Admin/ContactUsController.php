@@ -16,8 +16,8 @@ class ContactUsController extends Controller
         $query = ContactUs::query();
 
         $result = $this->dataTableService->process($query, request(), [
-            'searchable' => ['name', 'email'],
-            'sortable' => ['id', 'name', 'email', 'created_at'],
+            'searchable' => ['full_name', 'email'],
+            'sortable' => ['id', 'full_name', 'email', 'created_at'],
         ]);
 
         return Inertia::render('admin/contact-us/index', [
@@ -29,6 +29,18 @@ class ContactUsController extends Controller
             'sortBy' => $result['sort_by'],
             'sortOrder' => $result['sort_order'],
         ]);
-        
+    }
+    // public function show(ContactUs $contact): Response
+    // {
+    //     return Inertia::render('admin/contact-us/show', [
+    //         'contact' => $contact,
+    //     ]);
+    // }
+    public function delete(ContactUs $contact)
+    {
+        if ($contact) {
+            $contact->delete();
+        }
+        return back();
     }
 }

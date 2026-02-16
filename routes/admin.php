@@ -65,6 +65,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::prefix('contact')->as('contact.')->controller(ContactUsController::class)->group(function () {
             Route::get('/', 'index')->name('index');
+            // Route::get('/details/{contact}', 'show')->name('details');
+            Route::get('/delete/{contact}', 'delete')->name('delete');
         });
     });
 });

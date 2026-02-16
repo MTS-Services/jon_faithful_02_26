@@ -63,17 +63,17 @@ export default function Index({ contacts, pagination, offset, filters, search, s
   ];
 
   const actions: ActionConfig<Contact>[] = [
-    {
-      label: 'View',
-      icon: <Eye className="h-4 w-4" />,
-      onClick: (c) => router.visit(route('admin.contact.view', c?.id)),
-    },
+    // {
+    //   label: 'View',
+    //   icon: <Eye className="h-4 w-4" />,
+    //   onClick: (c) => router.visit(route('admin.contact.view', c?.id)),
+    // },
     {
       label: 'Delete',
       icon: <Trash2 className="h-4 w-4" />,
       onClick: (c) => {
         if (confirm(`Are you sure you want to delete contact from ${c.name}?`)) {
-          router.visit(route('admin.contact.destroy', c?.id));
+          router.visit(route('admin.contact.delete', c?.id));
         }
       },
       variant: 'destructive',
