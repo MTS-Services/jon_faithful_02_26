@@ -6,8 +6,6 @@ use App\Enums\ActiveInactive;
 use App\Enums\ListingProperty;
 use App\Enums\ListingStatus;
 use App\Http\Controllers\Controller;
-use App\Mail\ListingSubmittedAdminMail;
-use App\Mail\ListingSubmittedUserMail;
 use App\Models\City;
 use App\Models\Facility;
 use App\Models\Listing;
@@ -139,15 +137,7 @@ class ListingController extends Controller
         if ($request->has('facilities')) {
             $listing->facilities()->sync($request->input('facilities', []));
         }
-
-        $listing->load('facilities', 'city');
-        // 🔹 Send mail to user
-        Mail::to($listing->user->email)
-            ->send(new ListingSubmittedUserMail($listing, true));
-
-        // 🔹 Send mail to admin
-        Mail::to(config('mail.from.address')) // or hardcode admin email
-            ->send(new ListingSubmittedAdminMail($listing, true));
+        
         return redirect()
             ->route('admin.listing.index')
             ->with('success', 'Listing submitted successfully');
@@ -223,24 +213,15 @@ class ListingController extends Controller
 
         // Sync facilities (this removes old ones and adds new ones automatically)
         if ($request->has('facilities')) {
-            $listing->facilities()->sync($request->facilities);
+            $listing->facilities()->sync($request->input('facilities', []));
         }
-
-        $listing->load('facilities', 'city');
-        // 🔹 Send mail to user
-        Mail::to($listing->user->email)
-            ->send(new ListingSubmittedUserMail($listing, false));
-
-        // 🔹 Send mail to admin
-        Mail::to(config('mail.from.address')) // or hardcode admin email
-            ->send(new ListingSubmittedAdminMail($listing, false));
 
         return redirect()->route('admin.listing.index')->with('success', 'Listing updated.');
     }
     public function delete(Listing $listing)
     {
         try {
-            if ($listing) {
+            if (! $listing) {
                 abort(404);
             }
             if ($listing->primary_image_url) {
@@ -252,6 +233,7 @@ class ListingController extends Controller
                 }
             }
             $listing->delete();
+
             return redirect()->route('admin.listing.index')->with('success', 'Listing deleted successfully.');
         } catch (\Exception $e) {
             return redirect()->route('admin.listing.index')->with('error', 'Failed to delete listing.');

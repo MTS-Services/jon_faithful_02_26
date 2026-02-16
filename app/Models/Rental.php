@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\ActiveInactive;
 use App\Enums\RentalProperty;
+use App\Jobs\SendRentalNotificationJob;
 use Illuminate\Database\Eloquent\Model;
 
 class Rental extends Model
@@ -36,6 +37,21 @@ class Rental extends Model
         'status'         => ActiveInactive::class,
         'property_type'  => RentalProperty::class,
     ];
+
+    /* ---------------- Boot Methods ---------------- */
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::created(function (self $rental) {
+            SendRentalNotificationJob::dispatch($rental, true);
+        });
+
+        static::updated(function (self $rental) {
+            SendRentalNotificationJob::dispatch($rental, false);
+        });
+    }
 
     /* ---------------- Relationships ---------------- */
 

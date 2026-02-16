@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\ActiveInactive;
 use App\Enums\ListingProperty;
 use App\Enums\ListingStatus;
+use App\Jobs\SendListingNotificationJob;
 use Illuminate\Database\Eloquent\Model;
 
 class Listing extends Model
@@ -28,13 +29,28 @@ class Listing extends Model
 
     protected $casts = [
         'purchase_price' => 'decimal:2',
-        'bedrooms'       => 'integer',
-        'bathrooms'      => 'integer',
-        'square_feet'    => 'integer',
-        'status'         => ActiveInactive::class,
+        'bedrooms' => 'integer',
+        'bathrooms' => 'integer',
+        'square_feet' => 'integer',
+        'status' => ActiveInactive::class,
         'listing_status' => ListingStatus::class,
-        'property_type'  => ListingProperty::class,
+        'property_type' => ListingProperty::class,
     ];
+
+    /* ---------------- Boot Methods ---------------- */
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::created(function (self $listing) {
+            SendListingNotificationJob::dispatch($listing, true);
+        });
+
+        static::updated(function (self $listing) {
+            SendListingNotificationJob::dispatch($listing, false);
+        });
+    }
 
     /* ---------------- Relationships ---------------- */
 
@@ -47,6 +63,7 @@ class Listing extends Model
             'listing_id'
         );
     }
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -62,7 +79,6 @@ class Listing extends Model
         return $this->morphToMany(Facility::class, 'facilityable');
     }
 
-
     /* ---------------- Scopes ---------------- */
 
     public function scopeActive($query)
@@ -71,17 +87,18 @@ class Listing extends Model
     }
 
     protected $appends = ['image_url', 'listing_status_label'];
+
     public function getImageUrlAttribute()
     {
         if (filter_var($this->primary_image_url, FILTER_VALIDATE_URL)) {
             return $this->primary_image_url;
         }
-        if (!$this->primary_image_url) {
+        if (! $this->primary_image_url) {
             return asset('no-image.png');
         }
-        return asset('storage/listings/primary/' . $this->primary_image_url);
-    }
 
+        return asset('storage/listings/primary/'.$this->primary_image_url);
+    }
 
     public function getListingStatusLabelAttribute(): string
     {
