@@ -16,15 +16,27 @@ const FrontendFooter: React.FC = () => {
             href: route('frontend.movingChecklist'),
         },
         {
+            name: 'Renting & Buying',
+            href: route('frontend.rentingTennessee'),
+        },
+        {
             name: 'Relocation Guide',
             href: route('frontend.tennessee-relocation'),
+        },
+        {
+            name: 'List a Property',
+            href: route('frontend.list-rental-property'),
         },
         {
             name: 'Cost of Living',
             href: route('frontend.cost-of-renting-tennessee'),
         },
+        {
+            name: 'Nashville',
+            href: route('frontend.livingInNashville'),
+        },
         { name: 'Best Places to Live', href: route('frontend.livetennessee') },
-        { name: 'Renting & Buying', href: route('frontend.rentingTennessee') },
+        { name: 'Chattanooga', href: route('frontend.livingInChattanooga') },
     ];
 
     return (
@@ -53,19 +65,23 @@ const FrontendFooter: React.FC = () => {
                             Quick Links
                         </h3>
 
-                        <ul className="space-y-3 text-sm text-gray-600">
-                            {quickLinks.map((link) => (
-                                <li key={link.name}>
-                                    <a
-                                        href={link.href}
-                                        className="group flex items-center transition hover:text-black"
-                                    >
-                                        <FaArrowCircleRight className="mr-2 text-gray-400 transition-colors group-hover:text-primary" />
-                                        {link.name}
-                                    </a>
-                                </li>
-                            ))}
-                        </ul>
+
+                            <div className="space-y-3 text-sm text-gray-600">
+                                <div className="block md:grid grid-cols-2 gap-1.5">
+                                {quickLinks.map((link) => (
+                                    <div className="" key={link.name}>
+                                        <a
+                                            href={link.href}
+                                            className="group flex items-center transition hover:text-black"
+                                        >
+                                            <FaArrowCircleRight className="mr-2 text-gray-400 transition-colors group-hover:text-primary" />
+                                            {link.name}
+                                        </a>
+                                    </div>
+                                ))}
+                                </div>
+
+                            </div>
                     </div>
 
                     {/* Information Section */}
@@ -119,9 +135,18 @@ const FrontendFooter: React.FC = () => {
 
                         {/* Social Icons */}
                         <div className="mt-4 flex space-x-3">
-                            <SocialLink href="https://www.facebook.com/share/1AFnVNHKu9/?mibextid=wwXIfr%20%20" Icon={FaFacebookF} />
-                            <SocialLink href="https://x.com/whytennessee" Icon={FaTwitter} />
-                            <SocialLink href="https://www.instagram.com/whytennessee" Icon={FaInstagram} />
+                            <SocialLink
+                                href="https://www.facebook.com/share/1AFnVNHKu9/?mibextid=wwXIfr%20%20"
+                                Icon={FaFacebookF}
+                            />
+                            <SocialLink
+                                href="https://x.com/whytennessee"
+                                Icon={FaTwitter}
+                            />
+                            <SocialLink
+                                href="https://www.instagram.com/whytennessee"
+                                Icon={FaInstagram}
+                            />
                         </div>
                     </div>
                 </div>
@@ -151,7 +176,8 @@ const SocialLink: React.FC<{ href: string; Icon: React.ElementType }> = ({
 }) => (
     <a
         href={href}
-        className="group flex h-8 w-8 items-center justify-center rounded-full bg-primary shadow-sm transition-all duration-300 hover:bg-secondary" target="_blank"
+        className="group flex h-8 w-8 items-center justify-center rounded-full bg-primary shadow-sm transition-all duration-300 hover:bg-secondary"
+        target="_blank"
     >
         <Icon className="h-4 w-4 text-white transition-all duration-300" />
     </a>
