@@ -56,7 +56,14 @@ const adminNavItems: NavItemType[] = [
         href: route('admin.external-link'),
         icon: BarChart,
         permission: 'view analytics',
-        slug: 'externa-links', // ✅ fixed slug typo
+        slug: 'externa-links', 
+    },
+    {
+        title: 'Contact Us',
+        href: route('admin.contact.index'),
+        icon: BarChart,
+        permission: 'view analytics',
+        slug: 'contact-us', 
     },
 ];
 
