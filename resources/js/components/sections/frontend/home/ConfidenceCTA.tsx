@@ -15,7 +15,7 @@ const ConfidenceCTA: React.FC = () => {
                     </div>
                     <div className="flex flex-col sm:flex-row justify-center md:justify-end items-center gap-4">
                         <a
-                            href="#"
+                            href={route('frontend.city-comparison')}
                             className="w-full sm:w-auto bg-white hover:bg-secondary text-primary hover:text-white px-8 py-3 rounded-full text-lg font-medium transition-all duration-300 flex items-center justify-center shadow-lg"
                         >
                             Explore Cities <span className="ml-2">➔</span>

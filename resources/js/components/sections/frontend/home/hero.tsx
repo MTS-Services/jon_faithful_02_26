@@ -54,7 +54,7 @@ const Hero: React.FC = () => {
         {/* Buttons */}
         <div className="flex flex-col sm:flex-row justify-start gap-4">
           <a
-            href="#cities"
+            href={route('frontend.city-comparison')}
             className="bg-primary hover:bg-secondary text-white px-8 py-3 rounded-full text-lg font-medium transition flex items-center justify-center"
           >
             Explore Tennessee Cities
