@@ -92,8 +92,32 @@ export default function ExternalLink({
         // },
     ];
 
-    // No per-item actions for now (controller routes not implemented reliably).
-    const actions: ActionConfig<ExternalListingSubmission>[] = [];
+    type ListingType = 'listing' | 'rental';
+
+    const LISTING_TYPE_LABELS: Record<ListingType, string> = {
+        listing: 'Add Listing',
+        rental: 'Add Rental',
+    };
+
+    const CREATE_ROUTES: Record<ListingType, string> = {
+        listing: 'admin.listing.create',
+        rental: 'admin.rentals.create',
+    };
+
+
+
+    const actions: ActionConfig<ExternalListingSubmission>[] = [
+        {
+            label: (item) =>
+                LISTING_TYPE_LABELS[item.external_listing_type as ListingType] ?? 'Add Listing',
+            onClick: (item) => {
+                const routeName = CREATE_ROUTES[item.external_listing_type as ListingType] ?? 'admin.rentals.create';
+                router.visit(route(routeName, item.user_id));
+            },
+        },
+    ];
+
+
 
     return (
         <AdminLayout activeSlug="externa-links">

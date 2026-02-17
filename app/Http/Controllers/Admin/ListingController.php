@@ -81,14 +81,19 @@ class ListingController extends Controller
             'listing' => $listing
         ]);
     }
-    public function create(): Response
+    public function create($user_id = null): Response
     {
         $cities = City::all(['id', 'name']);
         $facilities = Facility::all(['id', 'name']);
-        $users = User::where('is_verified', true)->where('status', ActiveInactive::ACTIVE)->get();
+        if ($user_id) {
+            $users = User::where('is_verified', true)->where('status', ActiveInactive::ACTIVE)->where('id', $user_id)->get();
+        } else {
+            $users = User::where('is_verified', true)->where('status', ActiveInactive::ACTIVE)->get();
+        }
 
         return Inertia::render('admin/listings/create', [
             'users' => $users,
+            'selectedUserId' => $user_id ? (int) $user_id : null,
             'cities' => $cities,
             'facilities' => $facilities,
             'propertyTypes' => collect(ListingProperty::cases())->map(fn($type) => [
@@ -137,7 +142,7 @@ class ListingController extends Controller
         if ($request->has('facilities')) {
             $listing->facilities()->sync($request->input('facilities', []));
         }
-        
+
         return redirect()
             ->route('admin.listing.index')
             ->with('success', 'Listing submitted successfully');
