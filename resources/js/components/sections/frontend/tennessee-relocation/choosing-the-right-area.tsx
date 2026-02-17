@@ -4,7 +4,7 @@ export default function ChoosingTheRightArea() {
   return (
         <div className="bg-primary py-16 px-6 border-t border-primary font-montserrat">
         <div className="max-w-7xl mx-auto text-center">
-            <h2 className="text-primary-foreground text-3xl md:text-4xl font-bold font-montserrat mb-12">Choosing the Right Area in
+            <h2 className="text-primary-foreground text-3xl md:text-4xl lg:text-[42px] font-bold font-montserrat mb-12">Choosing the Right Area in
                 Tennessee</h2>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -103,8 +103,7 @@ export default function ChoosingTheRightArea() {
                 </div>
                 <div className="bg-background p-8 rounded-2xl text-left shadow-sm">
                     <h3 className="text-2xl font-semibold text-secondary-foreground font-montserrat mb-4">West Tennessee</h3>
-                    <p className="text-base font-normal text-secondary-foreground font-montserrat mb-4">Cities: Nashville, Franklin,
-                        Murfreesboro, Clarksville, Cookeville</p>
+                    <p className="text-base font-normal text-secondary-foreground font-montserrat mb-4">Cities: Memphis, Jackson</p>
                     <p className="text-base font-normal text-secondary-foreground font-montserrat">Best for:</p>
                     <div className="space-y-3">
                         <div className="flex items-start gap-3 text-base font-normal text-secondary-foreground font-montserrat">
