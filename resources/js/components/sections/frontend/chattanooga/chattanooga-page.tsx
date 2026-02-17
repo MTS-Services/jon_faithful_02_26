@@ -64,8 +64,8 @@ const neighborhoods = [
         name: 'Signal Mountain',
         features: [
             'Mountain views',
-            'Highly rated schools Quiet, upscale',
-            'neighborhoods',
+            'Highly rated schools',
+            'Quiet, upscale neighborhoods',
         ],
     },
     {

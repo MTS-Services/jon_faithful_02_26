@@ -27,6 +27,7 @@ export default function LivingInChattanooga() {
                         relocating to Tennessee.
                     </>
                 }
+                 width="max-w-2xl"
             />
             <ChattanoogaPage />
         </FrontendLayout>
