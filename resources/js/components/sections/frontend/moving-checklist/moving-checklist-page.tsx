@@ -1,3 +1,4 @@
+import { Link } from '@inertiajs/react';
 import React, { useState } from 'react';
 import { FaArrowAltCircleRight } from 'react-icons/fa';
 import { HiArrowRight } from 'react-icons/hi';
@@ -6,9 +7,9 @@ interface TabContent {
     id: string;
     label: string;
     title: string;
-    intro: string;
+    intro: string | null;
     items: string[];
-    footer: string;
+    footer: string | null;
     imageUrl: string;
     cta?: {
         label: string;
@@ -22,71 +23,46 @@ const MovingChecklistPage = () => {
     const tabs: TabContent[] = [
         {
             id: "tab1",
-            label: "Schools & Education",
-            title: "Schools & Education",
-            intro: "Bristol offers:",
+            label: "Change Your Address",
+            title: "Change Your Address",
+            imageUrl: "/assets/images/moving-checklist/Downtown-Nashville-timelaps-1-2048x1366.jpeg",
+            intro: null,
             items: [
-                "Public schools serving the city",
-                "Private school options nearby",
-                "Access to Northeast State Community College and ETSU",
+                "Submit USPS address change",
+                "Update banks, credit cards, subscriptions",
+                "Notify insurance providers",
             ],
-            footer: "Education options support families relocating to the area.",
-            imageUrl:
-                "https://whytennessee.com/wp-content/uploads/2026/01/Be_focus_and_patient_while_teaching_new_things1-scaled.jpeg",
+            footer: null,
         },
         {
             id: "tab2",
-            label: "Healthcare & Employment",
-            title: "Healthcare & Employment",
-            intro:
-                "Bristol residents benefit from regional healthcare and employment opportunities, including:",
+            label: "Transfer Utilities & Services",
+            title: "Transfer Utilities & Services",
+            imageUrl: "/assets/images/moving-checklist/pexels-denil-33476066-scaled-1.webp",
+            intro: "Before moving day, schedule activation or transfer for:",
             items: [
-                "Medical centers throughout the Tri-Cities",
-                "Manufacturing and industrial employers",
-                "Tourism & speedway-related jobs",
+                "Electricity",
+                "Waterr",
+                "Gash",
+                "Internet",
+                "Trash Service",
             ],
-            footer: "Healthcare and regional employers provide stable job options.",
-            imageUrl:
-                "https://whytennessee.com/wp-content/uploads/2026/01/Cropped-shot-of-diverse-coworkers-working-together-in-boardroom_-brainstorming_-discussing-and-analyzing-and-planning-business-strategy-scaled.jpeg",
+            footer: null,
         },
         {
             id: "tab3",
-            label: "Things to Do in Bristol",
-            title: "Things to Do in Bristol",
-            intro: "Bristol offers a variety of activities for residents:",
+            label: "Begin Packing Strategically",
+            title: "Begin Packing Strategically",
+            imageUrl: "/assets/images/moving-checklist/Lookout-Mountain-with-Smooth-Water-Flowing-in-Chatanooga-Tennessee.jpeg",
+            intro: null,
             items: [
-                "Bristol Motor Speedway events",
-                "Birthplace of Country Music Museum",
-                "Local festivals & live music",
-                "Outdoor recreation & parks",
+                "Declutter before packing",
+                "Label boxes by room",
+                "Separate essentials for first week",
             ],
-            footer:
-                "Bristol combines culture, history, and outdoor access in a small-city setting.",
-            imageUrl:
-                "https://whytennessee.com/wp-content/uploads/2026/01/Bristol_Motor_Speedway_Preparing_For_The_Speedway_Classic_2025_Between_The_Atlanta_Braves_and_the_Cincinnati_Reds1-scaled.jpeg",
-        },
-        {
-            id: "tab4",
-            label: "Homes for Sale in Bristol",
-            title: "Homes for Sale in Bristol",
-            intro: "Bristol’s housing market includes:",
-            items: [
-                "Affordable single-family homes",
-                "Historic properties",
-                "Newer subdivisions",
-                "Rural homes with acreage",
-            ],
-            footer:
-                "Homes in Bristol are often priced lower than surrounding cities, making it a great option for first-time buyers and retirees.",
-            imageUrl:
-                "https://whytennessee.com/wp-content/uploads/2025/12/pexels-lebele-11935244-scaled.jpg",
-            cta: {
-                label: "Homes for Sale",
-                href: "/homes-for-sale",
-            },
-        },
+            footer: null,
+        }
     ];
-
 
     return (
         <>
@@ -96,7 +72,7 @@ const MovingChecklistPage = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
 
                         <div className="space-y-6">
-                            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
+                            <h1 className="text-xl md:text-2xl lg:text-4xl font-bold text-gray-900 leading-tight">
                                 Research Tennessee Cities & Regions
                             </h1>
 
@@ -104,7 +80,7 @@ const MovingChecklistPage = () => {
                                 Tennessee offers a wide range of lifestyles, from fast-growing cities to quiet mountain towns.
                             </p>
 
-                            <ul className="space-y-4 text-gray-700">
+                            <ul className="space-y-1 text-gray-700">
                                 <li className="flex items-center gap-2">
                                     <span className="flex-shrink-0">
                                         <svg
@@ -167,7 +143,7 @@ const MovingChecklistPage = () => {
                             </div>
 
                             <div className="order-1 lg:order-2 space-y-6">
-                                <h2 className="text-3xl lg:text-4xl font-semibold text-gray-900">
+                                <h2 className="text-xl md:text-2xl lg:text-4xl font-semibold text-gray-900">
                                     Decide Whether to Rent or Buy
                                 </h2>
 
@@ -175,9 +151,9 @@ const MovingChecklistPage = () => {
                                     Many people moving to Tennessee choose to rent first while learning the area.
                                 </p>
 
-                                <div className="w-full md:w-1/2 space-y-6">
+                                <div className="w-full space-y-6">
 
-                                    <ul className="space-y-2 text-gray-800">
+                                    <ul className="space-y-1 text-gray-800">
                                         <li className="flex items-center gap-2">
                                             <span className="flex-shrink-0">
                                                 <svg
@@ -216,7 +192,7 @@ const MovingChecklistPage = () => {
                                         </li>
                                     </ul>
 
-                                    <div className="flex flex-wrap gap-4 pt-4">
+                                    <div className="flex flex-wrap gap-4 pt-4 w-full md:w-1/2">
                                         <a href={route('frontend.home-for-sale')}
                                             className="inline-flex items-center justify-center px-6 py-3 bg-[#243c64] text-white font-medium rounded-full hover:bg-opacity-90 transition-all text-sm whitespace-nowrap">
                                             Browse Homes for Sale in Tennessee
@@ -235,8 +211,8 @@ const MovingChecklistPage = () => {
                 </section>
 
                 <section className="bg-gray-50 py-16 px-4">
-                    <div className="max-w-7xl mx-auto">
-                        <h2 className="text-4xl font-bold text-gray-900 mb-10 text-left">
+                    <div className="container mx-auto">
+                        <h2 className="text-xl md:text-2xl lg:text-4xl font-bold text-gray-900 mb-10 text-left">
                             Set a Moving Budget
                         </h2>
 
@@ -253,7 +229,7 @@ const MovingChecklistPage = () => {
                                     <circle cx="7" cy="18" r="2" />
                                     <circle cx="17" cy="18" r="2" />
                                 </svg>
-                                <p className="text-md font-bold text-gray-800 leading-tight">Moving company or truck rental</p>
+                                <p className="text-lg font-medium text-gray-800 leading-tight">Moving company or truck rental</p>
                             </div>
 
                             <div
@@ -266,7 +242,7 @@ const MovingChecklistPage = () => {
                                         d="m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-5.4a2 2 0 0 0-3-2.7L15 13" />
                                     <path d="M11 5h2a2 2 0 1 0 0-4h-3a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2Z" />
                                 </svg>
-                                <p className="text-md font-bold text-gray-800 leading-tight">Security deposits or down payment</p>
+                                <p className="text-lg font-medium text-gray-800 leading-tight">Security deposits or down payment</p>
                             </div>
 
                             <div
@@ -279,7 +255,7 @@ const MovingChecklistPage = () => {
                                     <path d="M12 12v5" />
                                     <path d="M9 15h6" />
                                 </svg>
-                                <p className="text-md font-bold text-gray-800 leading-tight">First month's rent or closing costs</p>
+                                <p className="text-lg font-medium text-gray-800 leading-tight">First month's rent or closing costs</p>
                             </div>
 
                             <div
@@ -289,7 +265,7 @@ const MovingChecklistPage = () => {
                                     className="mb-6">
                                     <path d="M13 2 L3 14h9l-1 8 10-12h-9l1-8z" fill="currentColor" />
                                 </svg>
-                                <p className="text-md font-bold text-gray-800 leading-tight">Utility setup fees</p>
+                                <p className="text-lg font-medium text-gray-800 leading-tight">Utility setup fees</p>
                             </div>
 
                             <div
@@ -319,11 +295,11 @@ const MovingChecklistPage = () => {
                         60 Days Before Moving
                     </h2>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-7xl w-full">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 container w-full">
 
-                        <div className="bg-white rounded-xl p-8 shadow-lg">
-                            <h3 className="text-[#2d3748] text-xl font-bold mb-6">Secure Housing</h3>
-                            <ul className="space-y-4 text-[#4a5568] text-sm leading-relaxed">
+                        <div className="bg-white rounded-xl p-6 shadow-2xl">
+                            <h3 className="text-primary text-2xl font-semibold mb-6">Secure Housing</h3>
+                            <ul className="space-y-1 text-primary text-lg leading-relaxed">
                                 <li className="flex items-start">
                                     <svg className="w-4 h-4 mt-1 mr-3 flex-shrink-0" fill="none" stroke="black" viewBox="0 0 24 24"
                                         stroke-width="3">
@@ -348,9 +324,9 @@ const MovingChecklistPage = () => {
                             </ul>
                         </div>
 
-                        <div className="bg-white rounded-xl p-8 shadow-lg">
-                            <h3 className="text-[#2d3748] text-xl font-bold mb-6">Hire a Moving Company</h3>
-                            <ul className="space-y-4 text-[#4a5568] text-sm leading-relaxed">
+                        <div className="bg-white rounded-xl p-6 shadow-2xl">
+                            <h3 className="text-primary text-2xl font-semibold mb-6">Hire a Moving Company</h3>
+                            <ul className="space-y-1 text-primary text-lg leading-relaxed">
                                 <li className="flex items-start">
                                     <svg className="w-4 h-4 mt-1 mr-3 flex-shrink-0" fill="none" stroke="black" viewBox="0 0 24 24"
                                         stroke-width="3">
@@ -375,9 +351,9 @@ const MovingChecklistPage = () => {
                             </ul>
                         </div>
 
-                        <div className="bg-white rounded-xl p-8 shadow-lg">
-                            <h3 className="text-[#2d3748] text-xl font-bold mb-6">Notify Employers & Schools</h3>
-                            <ul className="space-y-4 text-[#4a5568] text-sm leading-relaxed">
+                        <div className="bg-white rounded-xl p-6 shadow-2xl">
+                            <h3 className="text-primary text-2xl font-semibold mb-6">Notify Employers & Schools</h3>
+                            <ul className="space-y-1 text-primary text-lg leading-relaxed">
                                 <li className="flex items-start">
                                     <svg className="w-4 h-4 mt-1 mr-3 flex-shrink-0" fill="none" stroke="black" viewBox="0 0 24 24"
                                         stroke-width="3">
@@ -407,7 +383,7 @@ const MovingChecklistPage = () => {
 
                 {/* TABS SECTION */}
                 <section className="py-16 bg-white">
-                    <div className="max-w-7xl mx-auto px-6">
+                    <div className="container mx-auto px-4">
                         <div className="flex flex-wrap justify-center gap-4 mb-12">
                             {tabs.map((tab) => (
                                 <button
@@ -452,16 +428,16 @@ const MovingChecklistPage = () => {
                 <div className="space-y-20 bg-gray-100 font-sans">
 
                     <section className="bg-primary py-20 px-6">
-                        <div className="max-w-7xl mx-auto">
+                        <div className="container mx-auto">
                             <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-12">2 Weeks Before Moving</h2>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center text-white">
                                 <div className="flex flex-col md:flex-row items-center md:items-center gap-6">
-                                    <img src="https://images.unsplash.com/photo-1449034446853-66c86144b0ad?q=80&w=400&auto=format&fit=crop"
+                                    <img src="/assets/images/moving-checklist/pexels-kelly-2350459-2048x1150.jpg"
                                         alt="Nashville" className="w-72 h-72 rounded-xl object-cover" />
                                     <div>
-                                        <h3 className="text-xl font-bold mb-4">Confirm Final Details</h3>
-                                        <ul className="space-y-2 text-sm list-disc list-inside opacity-90">
+                                        <h3 className="text-2xl font-bold mb-4">Confirm Final Details</h3>
+                                        <ul className="space-y-1 text-md list-disc list-inside opacity-90">
                                             <li>Reconfirm moving company date and time</li>
                                             <li>Review lease or closing paperwork</li>
                                             <li>Schedule final walkthroughs</li>
@@ -470,11 +446,11 @@ const MovingChecklistPage = () => {
                                 </div>
 
                                 <div className="flex flex-col md:flex-row items-center md:items-center gap-6">
-                                    <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=400&auto=format&fit=crop"
+                                    <img src="/assets/images/moving-checklist/3630.jpg"
                                         alt="Documents" className="w-72 h-72 rounded-xl object-cover" />
                                     <div>
-                                        <h3 className="text-xl font-bold mb-4">Prepare Important Documents</h3>
-                                        <ul className="space-y-2 text-sm list-disc list-inside opacity-90">
+                                        <h3 className="text-2xl font-bold mb-4">Prepare Important Documents</h3>
+                                        <ul className="space-y-1 text-md list-disc list-inside opacity-90">
                                             <li>Driver's License</li>
                                             <li>Social Security card</li>
                                             <li>Birth certificates</li>
@@ -490,21 +466,21 @@ const MovingChecklistPage = () => {
                 </div>
 
 
-                <section className="bg-[#EEF4FB] font-sans ">
+                <section className="bg-[#eef4fb57] font-sans ">
 
                     <div className={`relative py-20 px-4 bg-cover bg-center`}
-                        style={{ backgroundImage: "linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('https://images.unsplash.com/photo-1470219556762-1771e7f9427d?q=80&w=2000')" }}>
+                        style={{ backgroundImage: "linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url('https://images.unsplash.com/photo-1470219556762-1771e7f9427d?q=80&w=2000')" }}>
 
-                        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
 
-                            <div className="bg-white/80 backdrop-blur-md p-8 rounded-2xl shadow-xl border border-white">
-                                <h2 className="text-3xl font-bold text-gray-800 mb-2">Moving Week</h2>
+                            <div className="bg-white/50 backdrop-blur-md p-8 rounded-2xl shadow-xl border border-gray-200">
+                                <h2 className="text-xl md:text-2xl lg:text-4xl font-semibold text-gray-800 mb-2">Moving Week</h2>
 
                                 <div className="mb-8">
-                                    <h3 className="text-xl font-bold text-gray-700 mb-3">Pack an Essentials Box</h3>
+                                    <h3 className="text-2xl font-semibold text-gray-700 mb-3">Pack an Essentials Box</h3>
                                     <p className="text-sm text-gray-600 mb-4">Keep these items with you during the move for easy access:
                                     </p>
-                                    <ul className="space-y-2 text-sm text-gray-700 list-disc pl-5">
+                                    <ul className="space-y-1 text-md text-gray-700 list-disc pl-5">
                                         <li>Toiletries and personal hygiene items</li>
                                         <li>Phone chargers and power banks</li>
                                         <li>Medications and prescriptions</li>
@@ -516,9 +492,9 @@ const MovingChecklistPage = () => {
                                 </div>
 
                                 <div>
-                                    <h3 className="text-xl font-bold text-gray-700 mb-3">Inspect Your New Home</h3>
+                                    <h3 className="text-xl md:text-2xl font-semibold text-gray-700 mb-3">Inspect Your New Home</h3>
                                     <p className="text-sm text-gray-600 mb-4">Before unloading, do a quick walkthrough:</p>
-                                    <ul className="space-y-2 text-sm text-gray-700 list-disc pl-5">
+                                    <ul className="space-y-1 text-md text-gray-700 list-disc pl-5">
                                         <li>Take photos of the home's condition</li>
                                         <li>Confirm all utilities are active (electric, water, gas, internet)</li>
                                         <li>Test locks, smoke detectors, and carbon monoxide alarms</li>
@@ -533,31 +509,31 @@ const MovingChecklistPage = () => {
                                 </div>
                             </div>
 
-                            <div className="bg-white/80 backdrop-blur-md p-8 py-10 rounded-2xl shadow-xl border border-white flex flex-col items-start justify-center">
-                                <h2 className="text-3xl font-bold text-gray-800 mb-6">After You Arrive in Tennessee</h2>
+                            <div className="bg-white/50 backdrop-blur-md p-8 py-10 rounded-2xl shadow-xl border border-gray-200 flex flex-col items-start justify-center">
+                                <h2 className="text-xl md:text-2xl lg:text-4xl font-semibold text-gray-800 mb-3">After You Arrive in Tennessee</h2>
 
                                 <div className="mb-8">
-                                    <h3 className="text-xl font-bold text-gray-700 mb-3">Update Driver's License & Vehicle Registration
+                                    <h3 className="text-2xl font-semibold text-gray-700 mb-3">Update Driver's License & Vehicle Registration
                                     </h3>
-                                    <p className="text-sm text-gray-600 mb-4">Tennessee requires new residents to:</p>
-                                    <ul className="space-y-2 text-sm text-gray-700 list-disc pl-5 mb-4">
+                                    <p className="text-md text-gray-600 mb-4">Tennessee requires new residents to:</p>
+                                    <ul className="space-y-1 text-md text-gray-700 list-disc pl-5 mb-4">
                                         <li>Get a Tennessee driver's license</li>
                                         <li>Register vehicles and update plates</li>
                                     </ul>
-                                    <p className="text-sm font-medium text-gray-800">Visit a local Tennessee DMV within the required
+                                    <p className="text-md text-gray-800">Visit a local Tennessee DMV within the required
                                         timeframe.</p>
                                 </div>
 
                                 <div className="mb-8">
-                                    <h3 className="text-xl font-bold text-gray-700 mb-3">Register to Vote</h3>
+                                    <h3 className="text-xl md:text-2xl  font-semibold text-gray-700 mb-3">Register to Vote</h3>
                                     <ul className="space-y-2 text-sm text-gray-700 list-disc pl-5">
                                         <li>Update voter registration with your new address</li>
                                     </ul>
                                 </div>
 
                                 <div>
-                                    <h3 className="text-xl font-bold text-gray-700 mb-3">Get Familiar With Your Area</h3>
-                                    <ul className="space-y-2 text-sm text-gray-700 list-disc pl-5">
+                                    <h3 className="text-xl md:text-2xl  font-semibold text-gray-700 mb-3">Get Familiar With Your Area</h3>
+                                    <ul className="space-y-1 text-md text-gray-700 list-disc pl-5">
                                         <li>Locate grocery stores, pharmacies, hospitals</li>
                                         <li>Explore parks, restaurants, and neighborhoods</li>
                                         <li>Meet neighbors and join local groups</li>
@@ -573,8 +549,8 @@ const MovingChecklistPage = () => {
                     <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
                         <div className="flex flex-col md:flex-row gap-10 items-center">
                             <div className="flex-1">
-                                <h2 className="text-3xl font-semibold mb-6">Ongoing Tasks After Your Move</h2>
-                                <ul className="text-gray-700 font-medium">
+                                <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-gray-800 mb-6">Ongoing Tasks After Your Move</h2>
+                                <ul className="space-y-2 text-gray-700 font-medium">
                                     <li className="flex items-center gap-2">
                                         <span className="flex-shrink-0">
                                             <svg aria-hidden="true" className="w-2 h-2 fill-current text-black" viewBox="0 0 512 512">
@@ -606,8 +582,8 @@ const MovingChecklistPage = () => {
                         </div>
                         <div className="flex flex-col md:flex-row gap-10 items-center">
                             <div className="flex-1 order-2 md:order-1">
-                                <h2 className="text-3xl font-bold mb-6">Helpful Moving Tips for Tennessee</h2>
-                                <ul className="text-gray-700 font-medium text-right md:text-left">
+                                <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-gray-800 mb-6">Helpful Moving Tips for Tennessee</h2>
+                                <ul className="space-y-2 text-gray-700 font-medium text-right md:text-left">
                                     <li className="flex items-center gap-2">
                                         <span className="flex-shrink-0">
                                             <svg aria-hidden="true" className="w-2 h-2 fill-current text-black" viewBox="0 0 512 512">
@@ -654,10 +630,10 @@ const MovingChecklistPage = () => {
 
 
                 <section className="bg-[#fcfaf2] py-20 px-6">
-                    <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-12">
+                    <div className="container mx-auto flex flex-col md:flex-row items-center justify-start gap-16">
 
-                        <div className="text-center md:text-left">
-                            <h2 className="text-[#333333] text-4xl md:text-5xl font-semibold mb-4 tracking-tight">
+                        <div className="w-full md:w-1/2 text-center md:text-left">
+                            <h2 className="text-[#333333] text-xl md:text-2xl lg:text-4xl font-semibold mb-4 tracking-tight">
                                 Start Your Tennessee Search
                             </h2>
                             <p className="text-[#333333] text-xl opacity-90">
@@ -665,23 +641,23 @@ const MovingChecklistPage = () => {
                             </p>
                         </div>
 
-                        <div className="flex flex-col gap-4 w-full md:w-auto min-w-[320px]">
+                        <div className="w-full md:w-auto min-w-[320px]">
+                            <div className="flex flex-wrap gap-4">
+                                <Link href={route('frontend.city-comparison')}
+                                    className="bg-primary hover:bg-secondary text-white py-4 px-8 rounded-full font-medium transition-colors text-center shadow-sm">
+                                    Compare Tennessee Cities
+                                </Link>
 
-                            <a href={route('frontend.city-comparison')}
-                                className="bg-primary hover:bg-secondary text-white py-4 px-8 rounded-full font-medium transition-colors text-center shadow-sm">
-                                Compare Tennessee Cities
-                            </a>
+                                <Link href={route('frontend.movingChecklist')}
+                                    className="bg-secondary hover:bg-primary text-white py-4 px-8 rounded-full font-medium transition-colors text-center shadow-sm">
+                                    Explore Tennessee Rentals
+                                </Link>
 
-                            <a href={route('frontend.movingChecklist')}
-                                className="bg-secondary hover:bg-primary text-white py-4 px-8 rounded-full font-medium transition-colors text-center shadow-sm">
-                                Explore Tennessee Rentals
-                            </a>
-
-                            <a href={route('frontend.home-for-sale')}
-                                className="bg-primary hover:bg-secondary text-white py-4 px-8 rounded-full font-medium transition-colors text-center shadow-sm">
-                                Browse Homes for Sale in Tennessee
-                            </a>
-
+                                <Link href={route('frontend.home-for-sale')}
+                                    className="bg-primary hover:bg-secondary text-white py-4 px-8 rounded-full font-medium transition-colors text-center shadow-sm">
+                                    Browse Homes for Sale in Tennessee
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 </section>
