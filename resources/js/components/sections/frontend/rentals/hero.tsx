@@ -13,12 +13,12 @@ export default function Hero() {
             <div className="text-center text-primary-foreground">
                 <div className="max-w-4xl mx-auto">
                     <h2
-                        className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-montserrat font-semibold uppercase mb-6 leading-tight">
-                        Rentals in Tennessee
+                        className="text-3xl sm:text-4xl md:text-[50px] font-montserrat font-semibold uppercase mb-6 leading-tight">
+                        Rentals in Tennesse
                     </h2>
 
                     <div className="flex items-center gap-3 justify-center text-sm md:text-base font-medium">
-                        <span className="hover:text-muted-foreground transition-colors cursor-pointer">Home</span>
+                        <span className="">Home</span>
 
                         <svg aria-hidden="true" className="w-4 h-4 fill-current text-primary-foreground/80" viewBox="0 0 448 512"
                             xmlns="http://www.w3.org/2000/svg">

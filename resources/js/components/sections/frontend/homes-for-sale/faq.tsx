@@ -76,11 +76,7 @@ export default function FAQ() {
                         </svg>
                     </summary>
                     <div className="bg-[#faf7ef] px-6 pb-5 text-gray-200 text-base">
-                        <p className=" text-primary mt-2">Yes, Tennessee offers relatively affordable housing compared to
-                            many other states. The median
-                            Absolutely. Many buyers purchase homes while relocating from other states. Local agents can
-                            provide virtual tours, video walk-throughs, and help you manage inspections, paperwork, and
-                            closing remotely.</p>
+                        <p className=" text-primary mt-2">Absolutely. Many buyers purchase homes while relocating from other states. Local agents can provide virtual tours, video walk-throughs, and help you manage inspections, paperwork, and closing remotely.</p>
                         <div className="border mt-4"></div>
                     </div>
                 </details>

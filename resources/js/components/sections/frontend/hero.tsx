@@ -15,6 +15,7 @@ interface HeroProps {
     slideInterval?: number;
     height?: string;
     className?: string;
+    width?: string;
 }
 
 const Hero: React.FC<HeroProps> = ({
@@ -26,7 +27,8 @@ const Hero: React.FC<HeroProps> = ({
     autoSlide = true,
     slideInterval = 5000,
     height = "h-[500px]",
-    className = "text-2xl md:text-3xl lg:text-5xl font-bold mb-6 leading-tight max-w-5xl",
+    className = "text-2xl md:text-3xl lg:text-5xl font-semibold mb-6 leading-tight max-w-5xl",
+    width = "max-w-4xl",
 }) => {
     const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -53,7 +55,7 @@ const Hero: React.FC<HeroProps> = ({
                         aria-hidden={index !== currentSlide}
                     />
                 ))}
-                <div className="absolute inset-0 bg-black/40 z-10" />
+                <div className="absolute inset-0 bg-black/65 z-10" />
             </div>
 
             {/* Content */}
@@ -69,7 +71,7 @@ const Hero: React.FC<HeroProps> = ({
                 </h1>
 
                 {description && (
-                    <p className="text-md md:text-xl max-w-4xl mb-10 text-gray-100 font-light">
+                    <p className={`text-sm md:text-base ${width} mb-10 text-gray-100 font-light`}>
                         {description}
                     </p>
                 )}

@@ -158,11 +158,11 @@ export default function QuickSearch({ listings, cities }: any) {
     };
 
     return (
-        <div className="container mx-auto mt-20 px-4 py-12 sm:py-16 md:px-16 md:py-20 lg:py-28">
+        <div className="container mx-auto px-4 py-12 sm:py-16 md:px-16 md:py-20 lg:py-28">
             <h2 className="text-center font-montserrat text-2xl font-semibold text-text-secondary-foreground sm:text-3xl md:text-4xl lg:text-[42px]">
                 Quick Search
             </h2>
-            <div className="mx-auto mt-6 w-full sm:w-4/5 md:mt-8 md:w-2/3 lg:max-w-[40%]">
+            <div className="mx-auto mt-4 w-full sm:w-4/5 md:mt-6 md:w-2/3 lg:max-w-[45%]">
                 <p className="text-center font-montserrat text-sm leading-relaxed font-normal text-text-secondary-foreground sm:text-base md:text-base lg:text-base">
                     Use the filters below to explore Tennessee homes for sale.
                     Narrow your search by city, price range, bedrooms,
@@ -312,7 +312,7 @@ export default function QuickSearch({ listings, cities }: any) {
                     </div>
                 </div>
 
-                <div className="col-span-12 mt-6 lg:col-span-8">
+                <div className="col-span-12 mt-2 lg:col-span-8">
                     <div className="mb-4 flex flex-wrap gap-2">
                         {searchTerm && (
                             <span className="inline-flex items-center gap-2 rounded-full border border-primary px-4 py-2 font-montserrat font-semibold text-primary">

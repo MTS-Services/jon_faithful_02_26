@@ -21,13 +21,13 @@ export default function FindThePerfectPlace() {
                 Find the Perfect Place to Rent in Tennessee
             </h2>
 
-            <p className="text-base font-medium text-text-muted mb-6">
+            <p className="text-lg font-medium text-[#333] mb-6">
                 Whether you’re relocating to Tennessee, moving for work, or exploring a new city, our rental listings
                 make it easy to find the right place to call home. Browse available houses, apartments, condos, and
                 townhomes for rent across Tennessee’s most popular cities and communities.
             </p>
 
-            <p className="text-base font-medium text-text-muted">
+            <p className="text-lg font-medium text-[#333]">
                 Our platform is designed to help you compare options, narrow your search, and discover rentals that
                 match your lifestyle, budget, and location preferences — all in one place.
             </p>

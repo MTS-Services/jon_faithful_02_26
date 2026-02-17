@@ -27,7 +27,7 @@ export default function VideoTabsSection({ tabs }: { tabs: TabContent[] }) {
                     <button
                         key={tab.id}
                         onClick={() => setActiveTab(tab.id)}
-                        className={`rounded-full px-6 py-3 font-medium transition ${
+                        className={`rounded-full px-8 py-4 font-medium transition ${
                             activeTab === tab.id
                                 ? 'bg-[#2c4a6b] text-white'
                                 : 'bg-white text-gray-700 hover:bg-gray-100'
@@ -37,7 +37,7 @@ export default function VideoTabsSection({ tabs }: { tabs: TabContent[] }) {
                     </button>
                 ))}
             </div>
-            <div className="mx-auto max-w-7xl bg-white px-6 py-4">
+            <div className="mx-auto max-w-7xl bg-white p-3 rounded-lg">
                 {/* Tab Content */}
                 {tabs.map((tab) => (
                     <div
@@ -52,7 +52,7 @@ export default function VideoTabsSection({ tabs }: { tabs: TabContent[] }) {
                                 autoPlay
                                 muted
                                 loop
-                                className="h-full w-full rounded-lg object-cover shadow-lg"
+                                className="h-full w-full object-cover shadow-lg"
                             />
                         ) : tab.imageUrl ? (
                             <img
@@ -63,7 +63,7 @@ export default function VideoTabsSection({ tabs }: { tabs: TabContent[] }) {
                         ) : null}
 
                         <div>
-                            <h2 className="mb-4 text-3xl font-semibold text-gray-900">
+                            <h2 className="mb-4 text-2xl font-medium text-gray-900">
                                 {tab.title}
                             </h2>
                             <p className="mb-6 text-base text-gray-700">
