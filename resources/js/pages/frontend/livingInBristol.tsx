@@ -19,12 +19,10 @@ export default function LivingInBristol() {
                 }
                 description={
                     <>
-                        Homes, Cost of Living, Neighborhoods & Small-Town Charm. Bristol, Tennessee is a unique and affordable
-                        city in the Tri-Cities region of Northeast Tennessee, known for its rich music history, low cost of
-                        living, and strong community feel. Famous for being the “Birthplace of Country Music,” Bristol offers
-                        small-town charm with access to modern amenities.
+                        Homes, Cost of Living, Neighborhoods & Small-Town Charm Bristol, Tennessee is a unique and affordable city in the Tri-Cities region of Northeast Tennessee, known for its rich music history, low cost of living, and strong community feel. Famous for being the “Birthplace of Country Music,” Bristol offers small-town charm with access to modern amenities.
                     </>
                 }
+                width="max-w-2xl"
             />
             <BristolPage />
         </FrontendLayout>
