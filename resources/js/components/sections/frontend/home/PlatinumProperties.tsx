@@ -5,16 +5,14 @@ import React from 'react';
 const PlatinumProperties: React.FC<{ listings: any }> = ({ listings }) => {
     return (
         <section className="bg-white py-20">
-            <div className="container mx-auto px-6">
-                <h2 className="mb-3 text-3xl font-bold text-primary">
+            <div className="container mx-auto px-4">
+                <h2 className="mb-3 text-3xl font-bold text-primary text-center">
                     Our Platinum Property For Sale
                 </h2>
 
-                <p className="mb-8 max-w-2xl text-gray-600">
-                    An exclusive collection of luxury homes in Tennessee.
-                </p>
+                <p className="mb-4 max-w-xl text-gray-600 mx-auto text-center">An exclusive collection of luxury homes in Tennessee’s most prestigious and desirable communities.</p>
 
-                <div className="mb-10 h-1 w-20 bg-gray-200"></div>
+                <div className="mb-10 h-0.5 w-xs bg-gray-800 mx-auto"></div>
 
                 <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
                     {listings?.data?.map((listing: any) => (

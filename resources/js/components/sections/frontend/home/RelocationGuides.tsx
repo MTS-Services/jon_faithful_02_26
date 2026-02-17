@@ -69,8 +69,8 @@ const FlipCard: React.FC<CardProps> = ({ title, image, description, link }) => {
 
                 {/* Back Side */}
                 <div className="absolute inset-0 h-full w-full rounded-xl bg-primary p-6 text-white [backface-visibility:hidden] [transform:rotateY(180deg)] flex flex-col justify-center">
-                    <h3 className="mb-3 text-xl font-bold">{title}</h3>
-                    <p className="text-sm leading-relaxed">{description}</p>
+                    <h3 className="mb-3 text-xl font-bold text-center">{title}</h3>
+                    <p className="text-sm leading-relaxed text-center">{description}</p>
 
                     {/* clickable */}
                     <a
@@ -89,9 +89,15 @@ const FlipCard: React.FC<CardProps> = ({ title, image, description, link }) => {
 const RelocationGuides = () => {
     const guides = [
         {
+            title: "Cost of Living in Tennessee",
+            image: "assets/images/home/Real-estate-concept-business.jpeg",
+            description: "Tennessee is known for its affordable housing, lower taxes, and overall cost of living that makes relocation more affordable.",
+            link: "cost-of-living-in-tennessee"
+        },
+        {
             title: "Best Places to Live in Tennessee",
             image: "assets/images/home/1764027945756-524499646-Waterfront-Home.avif",
-            description: "",
+            description: "Tennessee offers vibrant cities, charming towns, and scenic beauty with great schools, jobs, and welcoming communities.",
             link: "live-tennessee"
         },
         {
@@ -106,18 +112,11 @@ const RelocationGuides = () => {
             description: "Plan your move to Tennessee with ease: pack essentials, update your address, transfer utilities, and explore your new community.",
             link: "moving-checklist"
         },
-        {
-            title: "Cost of Living in Tennessee",
-            image: "assets/images/home/Real-estate-concept-business.jpeg",
-            description: "",
-            link: "cost-of-living-in-tennessee"
-        },
-
     ];
 
     return (
         <section className="py-20 bg-white">
-            <div className="max-w-7xl mx-auto px-6">
+            <div className="container mx-auto px-4">
                 <Swiper
                     slidesPerView={1.1}
                     spaceBetween={20}
@@ -133,13 +132,13 @@ const RelocationGuides = () => {
                         1280: { slidesPerView: 4 },
                     }}
                 >
-                {guides.map((guide, index) => (
-                    <SwiperSlide key={index}>
-                        <FlipCard {...guide} />
-                    </SwiperSlide>
-                ))}
-            </Swiper>
-        </div>
+                    {guides.map((guide, index) => (
+                        <SwiperSlide key={index}>
+                            <FlipCard {...guide} />
+                        </SwiperSlide>
+                    ))}
+                </Swiper>
+            </div>
         </section >
     );
 };

@@ -2,7 +2,7 @@ import React from 'react';
 
 const ConfidenceCTA: React.FC = () => {
     return (
-        <section className="py-12 bg-primary border-t border-gray-100">
+        <section className="py-8 bg-primary border-t border-gray-100">
             <div className="container mx-auto px-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-8">
                     <div>

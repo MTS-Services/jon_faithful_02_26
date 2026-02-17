@@ -4,42 +4,42 @@ const cities = [
   { 
     name: 'Nashville', 
     desc: 'Music City, job growth, entertainment, and culture.', 
-    img: 'assets/images/home/Nashville_-Tennessee_-USA-scaled.jpeg', 
+    img: 'assets/images/home/best_cities/nashville-TN.jpg', 
     span: 'col-span-1', 
     route: '/living-in-nashville'
   },
   { 
     name: 'Knoxville', 
     desc: 'Affordable living, outdoor lifestyle, strong community.', 
-    img: 'assets/images/home/433f6d07f4eddc16bb67cef36ed22504-p_e.jpg', 
+    img: 'assets/images/home/best_cities/knoxmille-TN.jpeg', 
     span: 'md:col-span-2',
     route: '/living-in-knoxville'
   },
   { 
     name: 'Chattanooga', 
     desc: 'Scenic beauty, technology growth, walkable downtown.', 
-    img: 'assets/images/home/dream-homes-hero.jpg', 
+    img: 'assets/images/home/best_cities/chattanooga-TN.jpg', 
     span: 'md:col-span-2',
     route: '/chattanooga'
   },
   { 
     name: 'Johnson City', 
     desc: 'Mountain living, healthcare hub, quality of life.', 
-    img: 'assets/images/home/29941-1.jpeg', 
+    img: 'assets/images/home/best_cities/johnson-city-TN.jpg', 
     span: 'col-span-1',
     route: '/living-in-johnson-city'
   },
   { 
     name: 'Franklin', 
     desc: 'Top-rated schools, historic charm, upscale homes.', 
-    img: 'assets/images/home/Custom-Built-Homes.webp', 
+    img: 'assets/images/home/best_cities/franklin-TN.jpg', 
     isSidebar: true,
     route: '/living-in-franklin'
   },
   { 
     name: 'Memphis', 
     desc: 'Culture, food scene, affordability, and opportunity.', 
-    img: 'assets/images/home/LymanEstate-scaled-2.jpg', 
+    img: 'assets/images/home/best_cities/memphis,TN.jpg', 
     isSidebar: true,
     route: '/living-in-memphis'
   },
@@ -47,7 +47,7 @@ const cities = [
 
 const CityCard = ({ city }: { city: typeof cities[0] }) => (
   <a 
-    href={city.route} // সরাসরি URL
+    href={city.route}
     className={`bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition duration-300 group cursor-pointer block ${city.span || ''}`}
   >
     <div className="h-80 overflow-hidden relative">
@@ -63,12 +63,10 @@ const CityCard = ({ city }: { city: typeof cities[0] }) => (
 const BestCities: React.FC = () => {
   return (
     <section id="cities" className="py-20 bg-[#f3efe7] rounded-t-[70px]">
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl lg:text-4xl font-bold text-primary mb-4">Best Cities to Live in Tennessee</h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Every city in Tennessee offers something unique. Whether you want urban energy or mountain views, there's a place for you.
-          </p>
+          <p className="text-gray-600 max-w-2xl mx-auto">Every city in Tennessee offers something unique. Whether you want urban energy, suburban comfort, or mountain views, there’s a place that fits your goals.</p>
         </div>
 
         <div className="flex flex-col md:flex-row gap-8">
