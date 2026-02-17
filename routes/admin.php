@@ -63,6 +63,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/delete/{id}', 'delete')->name('delete');
         });
         Route::get('/external-link', [ExternalLinkSubmiition::class, 'externalLink'])->name('external-link');
+        Route::delete('/external-link/{id}', [ExternalLinkSubmiition::class, 'delete'])->name('external-link.delete');
 
         Route::prefix('contact')->as('contact.')->controller(ContactUsController::class)->group(function () {
             Route::get('/', 'index')->name('index');

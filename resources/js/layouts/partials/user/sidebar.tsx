@@ -121,8 +121,8 @@ export default function Sidebar() {
                     />
 
                     <NavItem
-                        href="/account/licence-verification-status"
-                        label="Licence Verification Status"
+                        href="/account/license-verification-status"
+                        label="License Verification Status"
                     />
 
                     {/* Logout */}

@@ -21,7 +21,7 @@ Route::prefix('account')->name('user.')->group(function () {
 
         Route::get('/account-settings', 'accountSettings')->name('account-settings');
         Route::post('/account-settings', 'accountSettingsUpdate')->name('account-settings.update');
-        Route::get('/licence-verification-status', 'licenceVerificationStatus')->name('licence-verification-status');
+        Route::get('/license-verification-status', 'licenceVerificationStatus')->name('license-verification-status');
     });
     Route::middleware(['auth'])->controller(ListingHomeController::class)->group(function () {
         Route::get('/listings-homes', 'listings')->name('dashboard');
