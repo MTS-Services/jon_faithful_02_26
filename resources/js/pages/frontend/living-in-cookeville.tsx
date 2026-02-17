@@ -22,6 +22,7 @@ export default function LivingInCookeville() {
                             Cookeville, Tennessee is a charming Middle Tennessee city known for its affordable housing, relaxed pace of life, and proximity to outdoor recreation. Home to Tennessee Tech University, Cookeville blends small-town friendliness with modern conveniences, making it attractive to families, retirees, students, and remote workers
                         </>
                     }
+                    width="max-w-3xl"
                 />
                 <CookevillePage />
             </FrontendLayout>
