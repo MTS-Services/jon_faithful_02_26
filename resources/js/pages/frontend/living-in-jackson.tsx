@@ -22,6 +22,7 @@ export default function LivingInJackson() {
                             professionals, and retirees relocating to Tennessee.
                         </>
                     }
+                    width="max-w-2xl"
                 />
                 <JacksonPage />
             </FrontendLayout>

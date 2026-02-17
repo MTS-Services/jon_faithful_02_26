@@ -22,6 +22,7 @@ export default function LivingInKingsport() {
                             seeking value without sacrificing quality of life.
                         </>
                     }
+                    width="max-w-2xl"
                 />
                 <KingsportPage />
             </FrontendLayout>
