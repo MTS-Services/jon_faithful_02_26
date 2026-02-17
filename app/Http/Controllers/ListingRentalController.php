@@ -52,7 +52,7 @@ class ListingRentalController extends Controller
             'cities' => $cities,
             'facilities' => $facilities,
             'propertyTypes' => collect(RentalProperty::cases())
-                ->map(fn ($type) => [
+                ->map(fn($type) => [
                     'value' => $type->value,
                     'label' => $type->label(),
                 ])
@@ -104,12 +104,12 @@ class ListingRentalController extends Controller
     public function storeLinkListing(Request $request)
     {
         $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255'],
             'external_link' => ['required', 'url', 'max:1000'],
         ]);
 
         $validated['user_id'] = $request->user()->id;
+        $validated['name'] = $request->user()->name;
+        $validated['email'] = $request->user()->email;
         $validated['external_listing_type'] = ExternalListingType::RENTAL->value;
 
         $this->rentalService->submitExternalRental($validated);
@@ -136,7 +136,7 @@ class ListingRentalController extends Controller
             'cities' => $cities,
             'facilities' => $facilities,
             'propertyTypes' => collect(RentalProperty::cases())
-                ->map(fn ($type) => [
+                ->map(fn($type) => [
                     'value' => $type->value,
                     'label' => $type->label(),
                 ])

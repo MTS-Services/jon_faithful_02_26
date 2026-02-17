@@ -41,11 +41,11 @@ class ListingHomeController extends Controller
         return Inertia::render('user/listings-homes/add-listing-home', [
             'cities' => $cities,
             'facilities' => $facilities,
-            'propertyTypes' => collect(ListingProperty::cases())->map(fn ($type) => [
+            'propertyTypes' => collect(ListingProperty::cases())->map(fn($type) => [
                 'value' => $type->value,
                 'label' => $type->label(),
             ]),
-            'propertyStatuses' => collect(ListingStatus::cases())->map(fn ($status) => [
+            'propertyStatuses' => collect(ListingStatus::cases())->map(fn($status) => [
                 'value' => $status->value,
                 'label' => $status->label(),
             ]),
@@ -91,12 +91,12 @@ class ListingHomeController extends Controller
     public function addListingLinkStore(Request $request)
     {
         $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255'],
             'external_link' => ['required', 'url', 'max:1000'],
         ]);
 
         $validated['user_id'] = $request->user()->id;
+        $validated['name'] = $request->user()->name;
+        $validated['email'] = $request->user()->email;
         $validated['external_listing_type'] = ExternalListingType::LISTING->value;
 
         $this->listingService->submitExternalListing($validated);
@@ -120,11 +120,11 @@ class ListingHomeController extends Controller
             ],
             'cities' => $cities,
             'facilities' => Facility::all(['id', 'name']),
-            'propertyTypes' => collect(ListingProperty::cases())->map(fn ($type) => [
+            'propertyTypes' => collect(ListingProperty::cases())->map(fn($type) => [
                 'value' => $type->value,
                 'label' => $type->label(),
             ]),
-            'propertyStatuses' => collect(ListingStatus::cases())->map(fn ($status) => [
+            'propertyStatuses' => collect(ListingStatus::cases())->map(fn($status) => [
                 'value' => $status->value,
                 'label' => $status->label(),
             ]),

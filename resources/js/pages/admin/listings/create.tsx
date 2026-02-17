@@ -37,9 +37,10 @@ interface Props {
     propertyTypes: PropertyOption[];
     propertyStatuses: PropertyOption[];
     statuses: PropertyOption[];
+    selectedUserId?: number | null;
 }
 
-export default function Create({ cities, facilities: initialFacilities, propertyTypes, propertyStatuses, statuses, users }: Props) {
+export default function Create({ cities, facilities: initialFacilities, propertyTypes, propertyStatuses, statuses, users, selectedUserId }: Props) {
 
     // Maintain a local state for facilities to allow "Add New" without refresh
     const [facilities, setFacilities] = useState(initialFacilities);
@@ -49,7 +50,7 @@ export default function Create({ cities, facilities: initialFacilities, property
         description: '',
         purchase_price: '',
         city_id: '',
-        user_id: '',
+        user_id: selectedUserId ? String(selectedUserId) : '',
         listing_status: propertyStatuses[0]?.value || '',
         property_type: propertyTypes[0]?.value || '',
         status: statuses[0]?.value || '',
@@ -153,7 +154,9 @@ export default function Create({ cities, facilities: initialFacilities, property
                             <div className="grid gap-2">
                                 <Label>User</Label>
                                 <Select
+                                    value={data.user_id}
                                     onValueChange={(v) => setData('user_id', v)}
+                                    disabled={!!selectedUserId}
                                 >
                                     <SelectTrigger>
                                         <SelectValue placeholder="Select a user" />

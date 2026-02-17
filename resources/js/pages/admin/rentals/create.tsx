@@ -5,13 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from '@/components/ui/select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from '@/components/ui/select';
 import AdminLayout from '@/layouts/admin-layout';
 import { Head, useForm } from '@inertiajs/react';
 import { ArrowLeft } from 'lucide-react';
@@ -47,6 +41,7 @@ export default function Create({
     users,
     status,
     facilities: initialFacilities,
+    selectedUserId,
 }: any) {
     // Maintain a local state for facilities to allow "Add New" without refresh
     const [facilities, setFacilities] = useState(initialFacilities);
@@ -60,6 +55,7 @@ export default function Create({
         bathrooms: '',
         square_feet: '',
         city_id: '',
+        user_id: selectedUserId ? String(selectedUserId) : '',
         sort_order: '0',
         status: '',
         primary_image_url: null,
@@ -161,7 +157,9 @@ export default function Create({
                             <div className="grid gap-2">
                                 <Label>User</Label>
                                 <Select
+                                    value={data.user_id}
                                     onValueChange={(v) => setData('user_id', v)}
+                                    disabled={!!selectedUserId}
                                 >
                                     <SelectTrigger>
                                         <SelectValue placeholder="Select a user" />
