@@ -1,50 +1,74 @@
-import { FaMapMarkerAlt } from 'react-icons/fa'
-import { HiArrowRight } from 'react-icons/hi'
+import { FaMapMarkerAlt } from 'react-icons/fa';
+import { HiArrowRight } from 'react-icons/hi';
 
 type property = {
-    title ?: string;
-    description ?: string;
-    cities ?: string[];
-    rightTitle ?: string;
-}
+    title?: string;
+    description?: string;
+    cities?: string[];
+    rightTitle?: string;
+    points?: string[]; // UL list
+    footer?: string;
+};
 
-export default function FinalInfoSection({property}: {property: property}) {
-    const { title, description, cities, rightTitle } = property;
+export default function FinalInfoSection({ property }: { property: property }) {
+    const { title, description, cities, rightTitle, points, footer } = property;
     const citiesList = cities || [
         'Johnson City, TN',
         'Kingsport, TN',
         'Memphis, TN',
         'Nashville, TN',
         'Chattanooga, TN',
-    ]
+    ];
 
     return (
-        <section className="py-20 bg-slate-50">
-            <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12">
-                <div className="bg-white p-5 md:p-10 rounded-3xl">
-                    <h2 className="text-3xl md:text-[40px] font-medium mb-6">{title}</h2>
-                    <p className="text-[#000]">
-                        {description}
-                    </p>
+        <section className="bg-slate-50 py-20">
+            <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-2">
+                <div className="rounded-3xl bg-white p-5 md:p-10">
+                    <h2 className="mb-6 text-3xl font-medium md:text-[40px]">
+                        {title}
+                    </h2>
+                    <p className="text-[#000]">{description}</p>
+
+                    {/* dynamic list */}
+                    {points && points.length > 0 && (
+                        <ul className="mt-4 list-disc space-y-1 pl-6">
+                            {points.map((item, index) => (
+                                <li key={index}>{item}</li>
+                            ))}
+                        </ul>
+                    )}
+
+                    {/* dynamic paragraph */}
+                    {footer && (
+                        <p className="mt-4 text-[#000]">{footer}</p>
+                    )}
                 </div>
 
-                <div className="bg-white p-5 md:p-10 rounded-3xl">
-                    <h2 className="text-3xl md:text-[40px] font-medium mb-6">{rightTitle}</h2>
+                <div className="rounded-3xl bg-white p-5 md:p-10">
+                    <h2 className="mb-6 text-3xl font-medium md:text-[40px]">
+                        {rightTitle}
+                    </h2>
 
-                    <div className="grid grid-cols-2 gap-4 mb-8">
-                        {citiesList.map(city => (
-                            <div key={city} className="flex gap-3 bg-slate-50 p-3 rounded-xl">
+                    <div className="mb-8 grid grid-cols-2 gap-4">
+                        {citiesList.map((city) => (
+                            <div
+                                key={city}
+                                className="flex gap-3 rounded-xl bg-slate-50 p-3"
+                            >
                                 <FaMapMarkerAlt className="text-secondary" />
                                 {city}
                             </div>
                         ))}
                     </div>
 
-                    <a href={route('frontend.livetennessee')} className="flex justify-center items-center gap-2 bg-slate-900 text-white py-4 rounded-xl p-3 sm:p-auto">
-                       See Best Places in Tennessee  <HiArrowRight />
+                    <a
+                        href={route('frontend.livetennessee')}
+                        className="sm:p-auto flex items-center justify-center gap-2 rounded-xl bg-slate-900 p-3 py-4 text-white"
+                    >
+                        See Best Places in Tennessee <HiArrowRight />
                     </a>
                 </div>
             </div>
         </section>
-    )
+    );
 }
