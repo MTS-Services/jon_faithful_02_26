@@ -44,7 +44,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         });
         Route::prefix('listing')->as('listing.')->controller(ListingController::class)->group(function () {
             Route::get('/homes', 'index')->name('index');
-            Route::get('/add-listing-home', 'create')->name('create');
+            Route::get('/add-listing-home/{user_id?}', 'create')->name('create');
             Route::post('/store-listing-home', 'store')->name('store');
             Route::get('/homes-details/{listing}', 'details')->name('details');
             Route::get('/edit-listing-home/{listing}', 'edit')->name('edit');
@@ -55,7 +55,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         });
         Route::prefix('rentals')->as('rentals.')->controller(RentalController::class)->group(function () {
             Route::get('/', 'index')->name('index');
-            Route::get('/create', 'create')->name('create');
+            Route::get('/create/{user_id?}', 'create')->name('create');
             Route::post('/store', 'store')->name('store');
             Route::get('/edit/{id}', 'edit')->name('edit');
             Route::post('/update/{id}', 'update')->name('update');

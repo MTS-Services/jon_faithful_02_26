@@ -389,30 +389,6 @@ export default function AddListingHome({ cities, facilities: initialFacilities, 
                         {activeTab === 'link' && (
                             <form onSubmit={handleLinkSubmit} className="space-y-6 max-w-2xl">
                                 <div className="grid gap-2">
-                                    <Label htmlFor="name">Name (Based on Registration form)</Label>
-                                    <Input
-                                        id="name"
-                                        type="text"
-                                        value={linkData.name}
-                                        onChange={(e) => setLinkData('name', e.target.value)}
-                                        placeholder="Enter your name"
-                                    />
-                                    <InputError message={linkErrors.name} />
-                                </div>
-
-                                <div className="grid gap-2">
-                                    <Label htmlFor="email">Email (Based on Registration form)</Label>
-                                    <Input
-                                        id="email"
-                                        type="email"
-                                        value={linkData.email}
-                                        onChange={(e) => setLinkData('email', e.target.value)}
-                                        placeholder="Enter your email"
-                                    />
-                                    <InputError message={linkErrors.email} />
-                                </div>
-
-                                <div className="grid gap-2">
                                     <Label htmlFor="external_link">External Link (Zillow, Realtor, Redfin or Broker)</Label>
                                     <Input
                                         id="external_link"

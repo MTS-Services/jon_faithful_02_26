@@ -55,10 +55,14 @@ class RentalController extends Controller
     }
 
 
-    public function create(): Response
+    public function create($user_id = null): Response
     {
         $cities = City::all();
-        $users = User::where('is_verified', true)->where('status', ActiveInactive::ACTIVE)->get();
+        if ($user_id) {
+            $users = User::where('is_verified', true)->where('status', ActiveInactive::ACTIVE)->where('id', $user_id)->get();
+        } else {
+            $users = User::where('is_verified', true)->where('status', ActiveInactive::ACTIVE)->get();
+        }
         $facilities = Facility::all();
 
         // Get enum values as key => label
@@ -71,6 +75,7 @@ class RentalController extends Controller
             'cities' => $cities,
             'propertyTypes' => $propertyTypes,
             'users' => $users,
+            'selectedUserId' => $user_id ? (int) $user_id : null,
             'status' => $status,
             'facilities' => $facilities
         ]);
