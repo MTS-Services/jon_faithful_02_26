@@ -97,7 +97,7 @@ class UserController extends Controller
     }
     public function licenceVerificationStatus(Request $request): Response
     {
-        return Inertia::render('user/licence-verification-status', [
+        return Inertia::render('user/license-verification-status', [
             'user' => [
                 'license_verification_status' => $request->user()->license_verification_status,
                 'license_number' => $request->user()->license_number,

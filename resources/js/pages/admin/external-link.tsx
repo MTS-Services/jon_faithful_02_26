@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { ExternalListingSubmission } from '@/types';
 import { Value } from '@radix-ui/react-select';
 import listing from '@/routes/admin/listing';
+import { Plus, Trash2 } from 'lucide-react';
 
 
 interface Props {
@@ -44,12 +45,6 @@ export default function ExternalLink({
     }
 
     const columns: ColumnConfig<ExternalListingSubmission>[] = [
-        // {
-        //     key: 'user_id.user.name',
-        //     label: 'User ID',
-        //     sortable: true,
-        //     render: (item) => <div className="text-gray-700">{item.user_id}</div>,
-        // },
         {
             key: 'name',
             label: 'Name',
@@ -84,12 +79,6 @@ export default function ExternalLink({
             sortable: true,
             render: (item) => <div className="text-gray-600">{new Date(item.created_at).toLocaleString()}</div>,
         },
-        // {
-        //     key: 'updated_at',
-        //     label: 'Updated',
-        //     sortable: true,
-        //     render: (item) => <div className="text-gray-600">{new Date(item.updated_at).toLocaleString()}</div>,
-        // },
     ];
 
     type ListingType = 'listing' | 'rental';
@@ -110,10 +99,21 @@ export default function ExternalLink({
         {
             label: (item) =>
                 LISTING_TYPE_LABELS[item.external_listing_type as ListingType] ?? 'Add Listing',
+            icon: <Plus className="h-4 w-4" />,
             onClick: (item) => {
                 const routeName = CREATE_ROUTES[item.external_listing_type as ListingType] ?? 'admin.rentals.create';
                 router.visit(route(routeName, item.user_id));
             },
+        },
+        {
+            label: 'Delete',
+            icon: <Trash2 className="h-4 w-4" />,
+            onClick: (item) => {
+                if (confirm(`Are you sure you want to delete ${item.name}?`)) {
+                    router.delete(route('admin.external-link.delete', item.id));
+                }
+            },
+            variant: 'destructive',
         },
     ];
 
