@@ -32,4 +32,13 @@ class ExternalLinkSubmiition extends Controller
             ]
         );
     }
+    public function delete($id)
+    {
+        $externalLink = ExternalListingSubmission::findOrFail($id);
+        if (!$externalLink) {
+            return redirect()->route('admin.external-link')->with('error', 'External link not found');
+        }
+        $externalLink->delete();
+        return redirect()->route('admin.external-link')->with('success', 'External link deleted successfully');
+    }
 }
