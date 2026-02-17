@@ -13,12 +13,10 @@ export default function TaxesInTennessee() {
 
                     <p className="text-gray-700 text-lg mb-6 leading-relaxed">
                         Tennessee is one of the most tax-friendly states in the country. 
-                        <span className="font-bold text-black ml-1">No State Income Tax</span>
+                        <span className="font-bold text-black ml-1">No State Income Tax </span>
                     </p>
 
-                    <p className="text-gray-700 mb-4">
-                        Tennessee does not tax earned income. Huge benefit for:
-                    </p>
+                    <p className="text-gray-700 mb-4">Tennessee does not tax earned income  Huge benefit for: </p>
 
                     {/* Income Tax List */}
                     <ul className="list-disc list-inside space-y-1 ml-4 text-gray-700 mb-8">

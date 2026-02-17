@@ -26,13 +26,14 @@ export default function FindHomes() {
                     </p>
 
                     <p className="mb-4 text-gray-700">
-                        Tennessee does not tax earned income. Huge benefit for:
+                        Whether you’re just researching or ready to move, WhyTennessee.com helps you: 
                     </p>
 
                     {/* Income Tax List */}
                     <ul className="mb-8 ml-4 list-inside list-disc space-y-1 text-gray-700">
-                        <li>Remote workers</li>
-                        <li> Business owners</li>
+                        <li>Compare cities </li>
+                        <li>Browse homes for sale </li>
+                        <li>Connect with trusted local realtors </li>
                     </ul>
                     <div className="mt-5">
                         <div className="">
