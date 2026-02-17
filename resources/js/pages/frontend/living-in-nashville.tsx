@@ -26,6 +26,7 @@ export default function LivingInNashville() {
                         country.
                     </>
                 }
+                width="max-w-3xl"
             />
             <NashvillePage />
         </FrontendLayout>
