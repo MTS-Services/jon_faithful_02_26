@@ -11,22 +11,22 @@ export default function WhyTrust() {
         <div className="absolute inset-0 bg-primary/70"></div>
 
         <div className="container relative z-10 px-4 sm:px-6 lg:px-8">
-            <div className="bg-background text-text-primary p-8 md:p-16 shadow-2xl text-center rounded-xl">
+            <div className="max-w-6xl mx-auto bg-background text-text-primary p-8 md:p-16 shadow-2xl text-center rounded-xl">
 
-                <h2 className="text-xl md:text-4xl font-semibold mb-4 md:mb-6 text-text-primary">
+                <h2 className="text-xl md:text-[32px] font-semibold mb-4 md:mb-6 text-text-primary">
                     Why Trust WhyTennessee.com?
                 </h2>
 
-                <p className="text-sm md:text-lg font-montserrat font-normal mb-8 leading-relaxed">
+                <p className="text-sm md:text-base font-montserrat font-normal mb-8 text-[#000]">
                     We focus exclusively on Tennessee. Unlike national listing sites, we provide local insight,
                     city-specific guides, and relocation-focused information designed to help people make
                     smart decisions about where to live.
                 </p>
-                <h3 className="text-xl md:text-2xl font-bold mb-4 text-text-primary uppercase tracking-wide">
+                <h3 className="text-xl md:text-[32px] font-semibold mb-4 text-text-primary">
                     Our mission is simple:
                 </h3>
 
-                <p className="text-lg md:text-xl font-montserrat font-medium text-muted-foreground">
+                <p className="text-lg md:text-base font-montserrat font-normal text-[#000]">
                     Make moving to Tennessee easier, clearer, and more informed.
                 </p>
 
