@@ -49,10 +49,10 @@ const tabs = [
 ];
 export default function ExploreTennessee() {
     return (
-        <div className="mt-20 rounded-t-[100px] bg-primary-background px-4 py-12 sm:py-16 md:px-16 md:py-20 lg:py-28">
+        <div className="rounded-t-[100px] bg-primary-background px-4 py-12 sm:py-16 md:px-16 md:py-20 lg:py-28">
             <div className="container mx-auto">
-                <div className="mx-auto mb-8 max-w-2xl text-center">
-                    <h2 className="mb-4 font-montserrat text-2xl font-bold text-text-secondary-foreground md:text-5xl">
+                <div className="mx-auto mb-8 max-w-xl text-center">
+                    <h2 className="mb-4 font-montserrat text-2xl font-bold text-text-secondary-foreground md:text-[42px]">
                         Explore Tennessee Real Estate by Region
                     </h2>
                     <p className="mt-10 font-montserrat text-sm font-normal text-text-secondary-foreground md:text-base">
