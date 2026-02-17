@@ -71,7 +71,7 @@ const Hero: React.FC<HeroProps> = ({
                 </h1>
 
                 {description && (
-                    <p className={`text-sm md:text-base ${width} mb-10 text-gray-100 font-light`}>
+                    <p className={`text-sm md:text-base ${width} mb-10 text-white font-normal`}>
                         {description}
                     </p>
                 )}
