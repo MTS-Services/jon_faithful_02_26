@@ -10,7 +10,7 @@ interface Props {
   className?: string
   children?: React.ReactNode
   variant?: string
-  rightIcon?: LucideIcon
+  rightIcon?: any
 
 }
 function ActionButton({ href, IconNode = Plus, className, children, rightIcon, }: Props) {

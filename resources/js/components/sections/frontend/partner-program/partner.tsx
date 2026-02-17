@@ -1,5 +1,6 @@
-import { usePage } from '@inertiajs/react';
-import { XCircle } from 'lucide-react';
+import { ActionButton } from '@/components/ui/action-button';
+import { Link, usePage } from '@inertiajs/react';
+import { ArrowRight, XCircle } from 'lucide-react';
 import { FaChevronRight } from 'react-icons/fa';
 
 const Partner = () => {
@@ -23,7 +24,7 @@ const Partner = () => {
                 <div className="absolute inset-0 bg-black/60"></div>
 
                 <div className="relative z-10 container mx-auto w-full px-4 py-16">
-                    <h1 className="max-w-4xl text-4xl leading-tight font-extrabold text-white md:text-6xl">
+                    <h1 className="text-2xl md:text-3xl lg:text-5xl font-semibold mb-6 leading-tight max-w-5xl text-white">
                         Be Featured Before WhyTennessee
                         <br />
                         Publicly Launches
@@ -42,27 +43,27 @@ const Partner = () => {
                     </p>
                     {!auth.user ? (
                         <>
-                            <a
+                            <Link
                                 href={route('user.choose')}
-                                className="mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 font-semibold text-white transition-all duration-300 hover:-translate-y-1 hover:bg-[#b8912a]"
+                                className="mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 font-semibold text-white transition-all duration-300 hover:-translate-y-1 hover:bg-secondary"
                             >
                                 Join Partner Program
                                 <span className="inline-flex items-center rounded-full bg-white p-1 text-black">
                                     <FaChevronRight size={12} />
                                 </span>
-                            </a>
+                            </Link>
                         </>
                     ) : (
                         <>
-                            <a
+                            <Link
                                 href={route('user.dashboard')}
-                                className="mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 font-semibold text-white transition-all duration-300 hover:-translate-y-1 hover:bg-[#b8912a]"
+                                className="mt-8 inline-flex items-center gap-2 rounded-full bg-secondary hover:bg-primary px-8 py-4 font-semibold text-white transition-all duration-300 hover:-translate-y-1"
                             >
                                 Account
                                 <span className="inline-flex items-center rounded-full bg-white p-1 text-black">
                                     <FaChevronRight size={12} />
                                 </span>
-                            </a>
+                            </Link>
                         </>
                     )}
                 </div>
@@ -70,7 +71,7 @@ const Partner = () => {
 
             {/* APPLY BAND (Dark) */}
             <section className="bg-primary px-6 py-12 text-center">
-                <h2 className="text-3xl font-bold text-white md:text-5xl">
+                <h2 className="text-xl md:text-2xl lg:text-4xl font-bold mb-6 text-white">
                     Apply to Become a Founding Partner
                 </h2>
                 <p className="text-md mt-2 text-gray-400">
@@ -79,50 +80,48 @@ const Partner = () => {
 
                 {!auth.user ? (
                     <>
-                        <a
+                        <Link
                             href={route('user.choose')}
-                            className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#d4a832] px-10 py-4 font-bold text-white transition-colors duration-300 hover:bg-[#b8912a]"
+                            className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#d4a832] px-10 py-4 font-bold text-white transition-colors duration-300 hover:bg-secondary"
                         >
                             Apply Now
                             <span className="inline-flex items-center rounded-full bg-white p-1 text-black">
                                 <FaChevronRight size={12} />
                             </span>
-                        </a>
+                        </Link>
                     </>
                 ) : (
                     <>
-                        <a
+                        <Link
                             href={route('user.dashboard')}
-                            className="mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 font-semibold text-white transition-all duration-300 hover:-translate-y-1 hover:bg-[#b8912a]"
+                            className="mt-8 inline-flex items-center gap-2 rounded-full bg-secondary px-8 py-4 font-semibold text-white transition-all duration-300 hover:-translate-y-1"
                         >
                             Account
                             <span className="inline-flex items-center rounded-full bg-white p-1 text-black">
                                 <FaChevronRight size={12} />
                             </span>
-                        </a>
+                        </Link>
                     </>
                 )}
             </section>
 
             {/* WHY DIFFERENT SECTION */}
-            <section className="py-20">
+            <section className="py-20 bg-primary-background">
                 <div className="container mx-auto grid items-center gap-16 px-4 md:grid-cols-2 lg:px-16">
                     <div>
-                        <h2 className="mb-4 text-2xl leading-tight font-bold sm:mb-5 sm:text-3xl md:mb-6 md:text-4xl lg:text-5xl">
+                        <h2 className="mb-4 text-xl md:text-2xl lg:text-4xl leading-tight font-bold sm:mb-5 md:mb-6">
                             Why WhyTennessee.com Is Different
                         </h2>
-                        <p className="mb-6 text-gray-600 italic">
-                            WhyTennessee.com is not another general listing
-                            site.
+                        <p className="mb-6 text-gray-600">
+                            WhyTennessee.com is not another general listing site.
                         </p>
-                        <ul className="space-y-4">
+                        <p className="mb-6 text-gray-600">Our audience includes:</p>
+                        <ul className="space-y-1">
                             {[
-                                'Low home prices compared to national averages',
-                                'No state income tax in Tennessee',
-                                'Historic downtown and cultural events',
-                                'Easy access to Johnson City and Kingsport',
-                                'Strong sense of community',
-                                'Short commute times',
+                                'Buyers and renters relocating from out of state',
+                                'Families comparing Tennessee cities',
+                                'Renters planning to buy',
+                                'Investors researching Tennessee markets',
                             ].map((item, idx) => (
                                 <li
                                     key={idx}
@@ -136,9 +135,7 @@ const Partner = () => {
                             ))}
                         </ul>
                         <p className="mt-8 text-gray-600">
-                            Many people moving to the Tri-Cities choose Bristol
-                            for its affordable housing and distinctive
-                            personality.
+                            Visitors come to WhyTennessee.com before choosing an agent — making this an ideal platform for early relationship building.
                         </p>
                     </div>
 
@@ -162,15 +159,15 @@ const Partner = () => {
                 <div className="container mx-auto flex flex-col gap-8 md:flex-row">
                     {/* Card 1 */}
                     <div className="flex-1 rounded-2xl bg-primary p-8 text-white shadow-xl">
-                        <h3 className="mb-4 text-xl font-bold">
+                        <h3 className="mb-4 text-xl font-bold text-white">
                             What Founding Realtor Partners Receive
                         </h3>
-                        <p className="mb-6 text-sm leading-relaxed text-[#c8d4e4]">
+                        <p className="mb-6 text-md leading-relaxed text-white font-medium">
                             As a Founding Partner, you receive early placement
                             and visibility before additional agents join the
                             platform.
                         </p>
-                        <p className="mb-4 text-sm font-bold text-[#d4a832]">
+                        <p className="mb-4 text-md font-bold text-[#d4a832]">
                             Included Benefits:
                         </p>
                         <ul className="space-y-3">
@@ -184,7 +181,7 @@ const Partner = () => {
                             ].map((benefit, idx) => (
                                 <li
                                     key={idx}
-                                    className="flex items-start gap-3 text-sm text-[#c8d4e4]"
+                                    className="flex items-start gap-3 text-md text-white font-medium"
                                 >
                                     <span className="inline-flex items-center rounded-full bg-white p-1 text-black">
                                         <FaChevronRight size={12} />
@@ -193,6 +190,9 @@ const Partner = () => {
                                 </li>
                             ))}
                         </ul>
+                        <p className="mt-4 text-md">
+                            Early positioning before public launch traffic increases
+                        </p>
                     </div>
 
                     {/* Card 2 */}
@@ -200,55 +200,109 @@ const Partner = () => {
                         <h3 className="mb-4 text-xl font-bold">
                             Limited Availability by City
                         </h3>
-                        <p className="mb-4 text-sm font-bold tracking-wider text-[#d4a832] uppercase">
-                            Quality Assurance:
+                        <p className="mb-4 text-md font-bold tracking-wider text-[#d4a832]">
+                            To maintain quality and fairness:
                         </p>
                         <ul className="mb-8 space-y-3">
-                            <li className="flex items-start gap-3 text-sm text-[#c8d4e4]">
+                            <li className="flex items-start gap-3 text-md text-white font-medium">
                                 <span className="inline-flex items-center rounded-full bg-white p-1 text-black">
                                     <FaChevronRight size={12} />
                                 </span>
                                 Founding Partner spots are limited per city
                             </li>
-                            <li className="flex items-start gap-3 text-sm text-[#c8d4e4]">
+                            <li className="flex items-start gap-3 text-sm text-white font-medium">
                                 <span className="inline-flex items-center rounded-full bg-white p-1 text-black">
                                     <FaChevronRight size={12} />
                                 </span>
                                 Not all applicants will be accepted
                             </li>
-                            <li className="flex items-start gap-3 text-sm text-[#c8d4e4]">
+                            <li className="flex items-start gap-3 text-sm text-white font-medium">
                                 <span className="inline-flex items-center rounded-full bg-white p-1 text-black">
                                     <FaChevronRight size={12} />
                                 </span>
                                 Priority is given to licensed, active agents
                             </li>
                         </ul>
+                        <p className="text-md">
+                            Once spots are filled, future listings will be offered through paid plans.
+                        </p>
 
-                        <h3 className="mb-4 border-t border-white/10 pt-6 text-xl font-bold">
+                        <h3 className="mb-4 pt-4 text-xl font-bold">
                             No Long-Term Commitment
                         </h3>
+                        <p className="mb-4 text-md font-bold tracking-wider text-white">
+                            The Founding Partner Program:
+                        </p>
                         <ul className="space-y-3">
-                            <li className="flex items-start gap-3 text-sm text-[#c8d4e4]">
+                            <li className="flex items-start gap-3 text-sm text-white font-medium">
                                 <XCircle
                                     size={18}
                                     className="shrink-0 text-secondary"
                                 />
                                 Has no long-term contracts
                             </li>
-                            <li className="flex items-start gap-3 text-sm text-[#c8d4e4]">
+                            <li className="flex items-start gap-3 text-sm text-white font-medium">
                                 <XCircle
                                     size={18}
                                     className="shrink-0 text-secondary"
                                 />
                                 Has no upfront listing fees during launch
                             </li>
-                            <li className="flex items-start gap-3 text-sm text-[#c8d4e4]">
+                            <li className="flex items-start gap-3 text-sm text-white font-medium">
                                 <span className="inline-flex items-center rounded-full bg-white p-1 text-black">
                                     <FaChevronRight size={12} />
                                 </span>
                                 Allows you to evaluate results risk-free
                             </li>
                         </ul>
+                        <p className="mt-4 text-md text-white">
+                            After launch, partners will have the option (not obligation) to continue with upgraded placement.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section className="py-20 bg-primary-background">
+                <div className="container mx-auto grid items-center gap-16 px-4 md:grid-cols-2 lg:px-16">
+                    <div>
+                        <h2 className="mb-4 text-xl md:text-2xl lg:text-4xl leading-tight font-bold sm:mb-5 md:mb-6">
+                            Who This Is Best For
+                        </h2>
+                        <p className="mb-6 text-gray-600">This program is ideal for:</p>
+                        <ul className="space-y-1">
+                            {[
+                                'Local realtors serving Tennessee markets',
+                                'Agents working with relocation buyers',
+                                'Professionals looking to expand online exposure',
+                                'Agents seeking early positioning on a growing platform',
+                            ].map((item, idx) => (
+                                <li
+                                    key={idx}
+                                    className="flex items-center gap-3"
+                                >
+                                    <div className="h-2 w-2 rounded-full bg-black" />
+                                    <span className="text-gray-700">
+                                        {item}
+                                    </span>
+                                </li>
+                            ))}
+                        </ul>
+                        <p className="mt-8 text-gray-600">
+                            Visitors come to WhyTennessee.com before choosing an agent — making this an ideal platform for early relationship building.
+                        </p>
+                    </div>
+
+                    <div className="grid h-[500px] grid-cols-1 gap-4 md:grid-cols-2">
+                        <img
+                            src="https://whytennessee.com/wp-content/uploads/2026/01/Apartments-in-2048x1365.jpeg"
+                            className="h-full w-full rounded-2xl object-cover shadow-lg"
+                            alt="Tennessee Apartments"
+                        />
+                        <img
+                            src="https://whytennessee.com/wp-content/uploads/2026/01/Jackson_TN_downtown1-1024x683.webp"
+                            className="h-3/4 w-full self-end rounded-2xl object-cover shadow-lg"
+                            alt="Downtown Jackson"
+                        />
                     </div>
                 </div>
             </section>
@@ -268,12 +322,12 @@ const Partner = () => {
                     ].map((step, idx) => (
                         <div
                             key={idx}
-                            className="flex flex-col items-center rounded-xl bg-white p-6 text-center"
+                            className="flex flex-col items-center rounded-xl bg-white p-8 text-center"
                         >
                             <span className="mb-4 text-5xl leading-none font-black text-primary">
                                 {idx + 1}
                             </span>
-                            <p className="text-sm leading-snug font-bold text-gray-700">
+                            <p className="text-md leading-snug font-medium text-gray-700">
                                 {step}
                             </p>
                         </div>
@@ -283,35 +337,35 @@ const Partner = () => {
 
             {/* FINAL CTA */}
             <section className="bg-white px-6 py-20 text-center">
-                <h2 className="mb-4 text-4xl font-bold text-primary">
+                <h2 className="mb-4 text-xl md:text-2xl lg:text-4xl font-bold text-primary">
                     Apply to Become a Founding Partner
                 </h2>
-                <p className="mb-8 text-gray-500">
+                <p className="mb-8 text-gray-700">
                     Spots are limited and reviewed individually.
                 </p>
                 {!auth.user ? (
                     <>
-                        <a
+                        <Link
                             href={route('user.choose')}
-                            className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#d4a832] px-10 py-4 font-bold text-white transition-colors duration-300 hover:bg-[#b8912a]"
+                            className="inline-flex items-center gap-2 rounded-full bg-[#d4a832] px-10 py-4 font-bold text-white transition-colors duration-300 hover:bg-secondary"
                         >
                             Apply Now
                             <span className="inline-flex items-center rounded-full bg-white p-1 text-black">
                                 <FaChevronRight size={12} />
                             </span>
-                        </a>
+                        </Link>
                     </>
                 ) : (
                     <>
-                        <a
+                        <Link
                             href={route('user.dashboard')}
-                            className="mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 font-semibold text-white transition-all duration-300 hover:-translate-y-1 hover:bg-[#b8912a]"
+                            className="inline-flex items-center gap-2 rounded-full bg-secondary px-8 py-4 font-semibold text-white transition-all duration-300 hover:-translate-y-1"
                         >
                             Account
                             <span className="inline-flex items-center rounded-full bg-white p-1 text-black">
                                 <FaChevronRight size={12} />
                             </span>
-                        </a>
+                        </Link>
                     </>
                 )}
             </section>
@@ -321,11 +375,8 @@ const Partner = () => {
                 <h2 className="mb-4 text-2xl font-bold text-white">
                     Disclaimer
                 </h2>
-                <p className="mx-auto max-w-2xl text-sm leading-relaxed text-white/60">
-                    Participation in the WhyTennessee.com partner program does
-                    not guarantee leads, inquiries, or transactions. Placement,
-                    availability, and program details may change as the platform
-                    grows.
+                <p className="mx-auto max-w-2xl text-md leading-relaxed text-white/80">
+                    Participation in the WhYTennessee.com partner program does not guarantee leads, inquiries, or transactions. Placement, availability, and progam details may as the platform grows.
                 </p>
             </footer>
         </div>
