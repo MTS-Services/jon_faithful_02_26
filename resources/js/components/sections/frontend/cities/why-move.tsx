@@ -21,7 +21,7 @@ export default function WhyMoveSection({ whyMove }: Props) {
             <section className="py-16">
                 <div className="container mx-auto px-4 lg:px-16 grid md:grid-cols-2 gap-10 items-center">
                     <div>
-                        <h2 className="text-3xl font-bold mb-4">{whyMove.title}</h2>
+                        <h2 className="text-3xl md:text-[42px] font-bold mb-4">{whyMove.title}</h2>
                         <p className="mb-6 text-gray-600">{whyMove.description}</p>
 
                         <ul className="space-y-3">

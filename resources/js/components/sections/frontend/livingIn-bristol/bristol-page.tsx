@@ -41,7 +41,7 @@ const locationData = {
     ],
     mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d51457.1062024796!2d-82.22271618683415!3d36.588667533816285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8850702df2f8f8b3%3A0x64e8e04e9c71c4c9!2sBristol%2C%20TN!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus',
     conclusion:
-        'Its location provides easy access to both states while benefiting from Tennessee’s tax advantages.',
+        'Its location provides easy access to both states while benefiting from Tennessee’s tax advantages. Shape',
 };
 
 const neighborhoods = [
@@ -64,13 +64,13 @@ const neighborhoods = [
     {
         name: 'Avoca Area',
         features: [
-            'Family-friendly atmosphere',
+            'Affordable housing options',
             'Easy access to major roads',
-            'Parks and community spaces',
+            'Family-friendly atmosphere',
         ],
     },
     {
-        name: 'Avoca Area (Suburbs)',
+        name: 'Rural Bristol',
         features: [
             'Larger lots and privacy',
             'Mountain and countryside views',
@@ -88,7 +88,7 @@ const tabs = [
         items: [
             'Public schools serving the city',
             'Private school options nearby',
-            'Access to Northeast State Community College and ETSU',
+            'Access to Northeast State Community College and ETSU within driving distance',
         ],
         footer: 'Education options support families relocating to the area.',
         imageUrl:
@@ -154,24 +154,24 @@ const BristolPage: React.FC = () => {
 
             {/* COST OF LIVING SECTION */}
             <section className="container mx-auto px-4 py-16 lg:px-16">
-                <h2 className="mb-6 text-center text-3xl font-bold">
+                <h2 className="mb-6 text-center text-3xl font-bold md:text-[42px]">
                     Cost of Living in Bristol
                 </h2>
-                <p className="mb-10 text-center text-gray-600">
+                <p className="mb-10 text-center text-[#000]">
                     Bristol is one of the most affordable cities in Tennessee.
                 </p>
 
                 <div className="grid gap-6 md:grid-cols-4">
-                    <CostCard title="Median Home Price" value="$220,000" />
-                    <CostCard title="2 Bedroom Rent" value="$900–$1,200" />
+                    <CostCard title="Mediam home price" value="$220,000" />
+                    <CostCard title="2-bedroom apartment" value="$900–$1,200" />
                     <CostCard title="Utilities" value="Below national avg" />
-                    <CostCard title="Property Tax" value="Very Low" />
+                    <CostCard title="Property taxes" value="Very Low" />
                 </div>
             </section>
 
             <div className="bg-primary py-16">
-                <div className="container mx-auto px-4 lg:px-16">
-                    <h2 className="mb-6 text-center text-3xl font-bold text-primary-foreground">
+                <div className="container mx-auto px-4 sm:px-0 lg:px-16">
+                    <h2 className="mb-6 text-center text-3xl font-medium text-primary-foreground md:text-[40px]">
                         Best Neighborhoods in Bristol
                     </h2>
                     <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
@@ -187,12 +187,69 @@ const BristolPage: React.FC = () => {
             <InfoTabsSection tabs={tabs} />
             <CallToActionSection
                 title="Work With a Bristol Realtor"
-                description="A local expert makes all the difference in the Tri-Cities market."
+                description="A local Bristol realtor can help you:"
                 benefits={[
-                    'Navigate neighborhood differences',
-                    'Identify the best value homes',
-                    'Coordinate showings and inspections',
-                    'Assist with relocation details',
+                    {
+                        text: 'Navigate neighborhood differences',
+                        icon: (
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-7 w-7"
+                                fill="currentColor"
+                                viewBox="0 0 640 512"
+                            >
+                                <path d="M620.61 366.55L512 320v192h112c8.84 0 16-7.16 16-16V395.96a32 32 0 0 0-19.39-29.41zM0 395.96V496c0 8.84 7.16 16 16 16h112V320L19.39 366.55A32 32 0 0 0 0 395.96zm464.46-149.28L416 217.6V102.63c0-8.49-3.37-16.62-9.38-22.63L331.31 4.69c-6.25-6.25-16.38-6.25-22.62 0L233.38 80c-6 6-9.38 14.14-9.38 22.63V217.61l-48.46 29.08A31.997 31.997 0 0 0 160 274.12V512h96v-96c0-35.35 28.66-64 64-64s64 28.65 64 64v96h96V274.12c0-11.24-5.9-21.66-15.54-27.44z" />
+                            </svg>
+                        ),
+                    },
+                    {
+                        text: 'Identify the best value homes',
+                        icon: (
+                            <svg
+                                className="h-7 w-7"
+                                fill="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path d="M3 10L12 3l9 7v10a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1V10z" />
+                            </svg>
+                        ),
+                    },
+                    {
+                        text: 'Coordinate showings and inspections',
+                        icon: (
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-7 w-7"
+                                fill="currentColor"
+                                viewBox="0 0 448 512"
+                                width="448"
+                                height="512"
+                            >
+                                <path
+                                    fill="currentColor"
+                                    d="M0 464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V192H0v272zm320-196c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM192 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM64 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zM400 64h-48V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H160V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H48C21.5 64 0 85.5 0 112v48h448v-48c0-26.5-21.5-48-48-48z"
+                                />
+                            </svg>
+                        ),
+                    },
+                    {
+                        text: 'Assist with relocation details',
+                        icon: (
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-7 w-7"
+                                fill="currentColor"
+                                viewBox="0 0 640 512"
+                                width="640"
+                                height="512"
+                            >
+                                <path
+                                    fill="currentColor"
+                                    d="M621.3 237.3l-58.5-58.5c-12-12-28.3-18.7-45.3-18.7H480V64c0-17.7-14.3-32-32-32H32C14.3 32 0 46.3 0 64v336c0 44.2 35.8 80 80 80 26.3 0 49.4-12.9 64-32.4 14.6 19.6 37.7 32.4 64 32.4 44.2 0 80-35.8 80-80 0-5.5-.6-10.8-1.6-16h163.2c-1.1 5.2-1.6 10.5-1.6 16 0 44.2 35.8 80 80 80s80-35.8 80-80c0-5.5-.6-10.8-1.6-16H624c8.8 0 16-7.2 16-16v-85.5c0-17-6.7-33.2-18.7-45.2zM80 432c-17.6 0-32-14.4-32-32s14.4-32 32-32 32 14.4 32 32-14.4 32-32 32zm128 0c-17.6 0-32-14.4-32-32s14.4-32 32-32 32 14.4 32 32-14.4 32-32 32zm272-224h37.5c4.3 0 8.3 1.7 11.3 4.7l43.3 43.3H480v-48zm48 224c-17.6 0-32-14.4-32-32s14.4-32 32-32 32 14.4 32 32-14.4 32-32 32z"
+                                />
+                            </svg>
+                        ),
+                    },
                 ]}
                 buttonText="Connect With a Bristol Realtor"
             />

@@ -26,10 +26,10 @@ export default function MoveLocationSection({ location }: Props) {
                 </div>
 
                 <div>
-                    <h2 className="text-3xl font-bold mb-4">{location.title}</h2>
+                    <h2 className="text-3xl md:text-[42px] font-bold mb-4">{location.title}</h2>
                     <p className="text-gray-600 mb-6">{location.description}</p>
 
-                    <ul className="space-y-3">
+                    <ul className="space-y-3 text-base md:text-xl font-medium font-montserrat">
                         {location.distances.map((item, index) => (
                             <li key={index} className="flex items-center gap-3">
                                 <span className="flex-shrink-0">
@@ -46,7 +46,7 @@ export default function MoveLocationSection({ location }: Props) {
                         ))}
                     </ul>
 
-                    <p className="mt-6 text-gray-600">{location.conclusion}</p>
+                    <p className="mt-6 text-[#000]">{location.conclusion}</p>
                 </div>
             </div>
         </section>
