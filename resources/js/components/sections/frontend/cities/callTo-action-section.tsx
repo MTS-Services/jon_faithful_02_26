@@ -70,7 +70,7 @@ export default function CallToActionSection(props: CallToActionProps) {
                     className="mx-auto flex w-fit items-center gap-1 rounded-full bg-white px-4 py-2 font-montserrat font-normal text-primary shadow-md transition hover:scale-105 sm:gap-2 sm:px-5 sm:py-2.5 md:px-6 md:py-3"
                 >
                     <span className="inline-flex items-center justify-center text-center text-sm whitespace-nowrap sm:text-base">
-                        See Best Places to Live in Tennessee
+                       {callToActionProps.buttonText}
                     </span>
                     <ArrowRightIcon className="h-4 w-4 sm:h-5 sm:w-5" />
                 </Link>

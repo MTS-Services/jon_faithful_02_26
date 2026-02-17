@@ -22,6 +22,7 @@ export default function LivingInFranklin() {
                             to Middle Tennessee.
                         </>
                     }
+                    width="max-w-2xl"
                 />
                 <FranklinPage />
             </FrontendLayout>

@@ -41,7 +41,7 @@ const locationData = {
 
     distances: [
         '30–45 minutes to Franklin and Murfreesboro',
-        '2 hours to Knoxville',
+        '2 hours to Chattanooga',
         '3 hours to Knoxville',
         'Central access to most of the Southeast',
     ],
@@ -166,7 +166,7 @@ export default function NashvillePage() {
 
             {/* COST OF LIVING SECTION */}
             <div className="container mx-auto px-4 py-16 lg:px-16">
-                <h2 className="mb-6 text-center text-3xl font-bold">
+                <h2 className="mb-6 text-center text-3xl font-bold md:text-[42px]">
                     Cost of Living in Nashville
                 </h2>
                 <p className="mb-10 text-center text-text-primary">
@@ -174,14 +174,13 @@ export default function NashvillePage() {
                     cities, it remains competitive compared to other major
                     metros nationwide.
                 </p>
-                <p className="mx-auto mt-7 mb-10 max-w-[320px] text-center text-text-primary sm:max-w-[500px] md:max-w-[640px] lg:max-w-[720px]">
+                <p className="mx-auto mt-7 mb-10 max-w-[320px] text-center text-text-primary sm:max-w-[500px] md:max-w-[640px]">
                     Compared to cities like Nashville or Asheville, Knoxville
                     provides significantly more value for housing.
                 </p>
 
-                <div className="grid gap-6 md:grid-cols-5">
+                <div className="grid gap-6 md:grid-cols-4">
                     <CostCard title="Median home price" value="$325,000" />
-                    <CostCard title="2-bedroom apartment" value="$480,000" />
                     <CostCard
                         title="2-bedroom apartment"
                         value="$1,700–2,200"
@@ -194,9 +193,9 @@ export default function NashvillePage() {
                 </div>
             </div>
             <div className="">
-                <div className="bg-primary rounded-t-[30px] py-16 sm:rounded-t-[50px] md:rounded-t-[60px] lg:rounded-t-[80px]">
+                <div className="rounded-t-[30px] bg-primary py-16 sm:rounded-t-[50px] md:rounded-t-[60px] lg:rounded-t-[80px]">
                     <div className="container mx-auto px-4 lg:px-16">
-                        <h2 className="mb-6 text-center text-3xl font-bold text-primary-foreground">
+                        <h2 className="mb-6 text-center text-3xl font-medium text-primary-foreground md:text-[40px]">
                             Best Neighborhoods in Nashville
                         </h2>
 
@@ -241,12 +240,75 @@ export default function NashvillePage() {
                 title="Work With a Nashville Realtor"
                 description="A knowledgeable Nashville realtor can help you:"
                 benefits={[
-                    'Choose the right neighborhood',
-                    'Navigate competitive listings',
-                    'Arrange virtual tours if relocating',
-                    'Negotiate pricing and inspections',
+                    {
+                        text: 'Choose the right neighborhood',
+                        icon: (
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-7 w-7"
+                                fill="currentColor"
+                                viewBox="0 0 640 512"
+                            >
+                                <path d="M620.61 366.55L512 320v192h112c8.84 0 16-7.16 16-16V395.96a32 32 0 0 0-19.39-29.41zM0 395.96V496c0 8.84 7.16 16 16 16h112V320L19.39 366.55A32 32 0 0 0 0 395.96zm464.46-149.28L416 217.6V102.63c0-8.49-3.37-16.62-9.38-22.63L331.31 4.69c-6.25-6.25-16.38-6.25-22.62 0L233.38 80c-6 6-9.38 14.14-9.38 22.63V217.61l-48.46 29.08A31.997 31.997 0 0 0 160 274.12V512h96v-96c0-35.35 28.66-64 64-64s64 28.65 64 64v96h96V274.12c0-11.24-5.9-21.66-15.54-27.44z" />
+                            </svg>
+                        ),
+                    },
+                    {
+                        text: 'Navigate competitive listings',
+                        icon: (
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-7 w-7"
+                                fill="currentColor"
+                                viewBox="0 0 576 512"
+                                width="576"
+                                height="512"
+                            >
+                                <path
+                                    fill="currentColor"
+                                    d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z"
+                                />
+                            </svg>
+                        ),
+                    },
+                    {
+                        text: 'Arrange virtual tours if relocating',
+                        icon: (
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-7 w-7"
+                                fill="currentColor"
+                                viewBox="0 0 448 512"
+                                width="448"
+                                height="512"
+                            >
+                                <path
+                                    fill="currentColor"
+                                    d="M0 464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V192H0v272zm320-196c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM192 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM64 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zM400 64h-48V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H160V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H48C21.5 64 0 85.5 0 112v48h448v-48c0-26.5-21.5-48-48-48z"
+                                />
+                            </svg>
+                        ),
+                    },
+                    {
+                        text: 'Negotiate pricing and inspections',
+                        icon: (
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-7 w-7"
+                                fill="currentColor"
+                                viewBox="0 0 640 512"
+                                width="640"
+                                height="512"
+                            >
+                                <path
+                                    fill="currentColor"
+                                    d="M621.3 237.3l-58.5-58.5c-12-12-28.3-18.7-45.3-18.7H480V64c0-17.7-14.3-32-32-32H32C14.3 32 0 46.3 0 64v336c0 44.2 35.8 80 80 80 26.3 0 49.4-12.9 64-32.4 14.6 19.6 37.7 32.4 64 32.4 44.2 0 80-35.8 80-80 0-5.5-.6-10.8-1.6-16h163.2c-1.1 5.2-1.6 10.5-1.6 16 0 44.2 35.8 80 80 80s80-35.8 80-80c0-5.5-.6-10.8-1.6-16H624c8.8 0 16-7.2 16-16v-85.5c0-17-6.7-33.2-18.7-45.2zM80 432c-17.6 0-32-14.4-32-32s14.4-32 32-32 32 14.4 32 32-14.4 32-32 32zm128 0c-17.6 0-32-14.4-32-32s14.4-32 32-32 32 14.4 32 32-14.4 32-32 32zm272-224h37.5c4.3 0 8.3 1.7 11.3 4.7l43.3 43.3H480v-48zm48 224c-17.6 0-32-14.4-32-32s14.4-32 32-32 32 14.4 32 32-14.4 32-32 32z"
+                                />
+                            </svg>
+                        ),
+                    },
                 ]}
-                buttonText="See Best Places to Live in Tennessee"
+                buttonText="Connect With a Nashville Realtor"
             />
 
             <FinalInfoSection
@@ -254,7 +316,17 @@ export default function NashvillePage() {
                     title: 'Is Nashville Right for You?',
                     rightTitle: 'Explore Nearby Cities',
                     description:
-                        'Nashville may be a great fit if you’re looking for: Strong job and income opportunities A vibrant music and entertainment scene Diverse neighborhoods and housing options Long-term appreciation potential Big-city amenities without coastal prices For many relocating buyers, Nashville represents opportunity, culture, and growth.',
+                        'Nashville may be a great fit if you’re looking for: ',
+
+                    points: [
+                        'Strong job and income opportunities ',
+                        'A vibrant music and entertainment scene ',
+                        'Diverse neighborhoods and housing options ',
+                        'Long-term appreciation potential ',
+                        'Big-city amenities without coastal prices ',
+                    ],
+
+                    footer: 'For many relocating buyers, Nashville represents opportunity, culture, and growth. ',
                     cities: [
                         'Franklin',
                         'Murfreesboro',

@@ -28,6 +28,7 @@ export default function LivingInKnoxville() {
                             hard to beat.
                         </>
                     }
+                    width="max-w-3xl"
                 />
                 <KnoxvillePage />
             </FrontendLayout>

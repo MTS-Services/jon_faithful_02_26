@@ -1,17 +1,15 @@
-import React from 'react'
-
 interface WhyMoveProps {
-    title: string
-    description: string
-    points: string[]
-    conclusion: string
-    imageUrl: string
-    videoUrl: string
+    title: string;
+    description: string;
+    points: string[];
+    conclusion: string;
+    imageUrl: string;
+    videoUrl?: string;
+    imageUrl2?: string;
 }
 
-
 interface Props {
-    whyMove: WhyMoveProps
+    whyMove: WhyMoveProps;
 }
 
 export default function WhyMoveSection({ whyMove }: Props) {
@@ -19,15 +17,22 @@ export default function WhyMoveSection({ whyMove }: Props) {
         <>
             {/* WHY MOVE SECTION */}
             <section className="py-16">
-                <div className="container mx-auto px-4 lg:px-16 grid md:grid-cols-2 gap-10 items-center">
+                <div className="container mx-auto grid items-center gap-10 px-4 md:grid-cols-2 lg:px-16">
                     <div>
-                        <h2 className="text-3xl md:text-[42px] font-bold mb-4">{whyMove.title}</h2>
-                        <p className="mb-6 text-gray-600">{whyMove.description}</p>
+                        <h2 className="mb-4 text-3xl font-bold md:text-[42px]">
+                            {whyMove.title}
+                        </h2>
+                        <p className="mb-6 text-gray-600">
+                            {whyMove.description}
+                        </p>
 
                         <ul className="space-y-3">
                             {whyMove.points.map((text, index) => (
-                                <li key={index} className="flex items-center gap-3">
-                                    <span className="w-2 h-2 rounded-full bg-black flex-shrink-0" />
+                                <li
+                                    key={index}
+                                    className="flex items-center gap-3"
+                                >
+                                    <span className="h-2 w-2 flex-shrink-0 rounded-full bg-black" />
                                     <span>{text}</span>
                                 </li>
                             ))}
@@ -36,19 +41,52 @@ export default function WhyMoveSection({ whyMove }: Props) {
                         <p className="mt-6">{whyMove.conclusion}</p>
                     </div>
 
-                    <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <img
+                    <div className="grid w-full grid-cols-1 gap-6 md:grid-cols-2">
+                        {whyMove.imageUrl && (
+                            <img
+                                src={whyMove.imageUrl}
+                                alt={whyMove.title}
+                                className="h-[500px] rounded-xl object-cover"
+                            />
+                        )}
+
+                        {whyMove.imageUrl2 && (
+                            <img
+                                src={whyMove.imageUrl2}
+                                alt={whyMove.title}
+                                className="h-[500px] rounded-xl object-cover mt-20"
+                            />
+                        )}
+
+                        {whyMove.videoUrl && (
+                            <video
+                                className="h-[500px] rounded-xl object-cover mt-20"
+                                controls
+                            >
+                                <source
+                                    src={whyMove.videoUrl}
+                                    type="video/mp4"
+                                />
+                            </video>
+                        )}
+
+                        {/* <img
                             src={whyMove.imageUrl}
                             alt={whyMove.title}
-                            className="rounded-xl h-[500px] mb-12 object-cover"
+                            className="mb-12 h-[500px] rounded-xl object-cover"
                         />
 
-                        <video className="rounded h-full object-cover" controls>
+                        <img
+                            src={whyMove.imageUrl2}
+                            alt={whyMove.title}
+                            className="mb-12 h-[500px] rounded-xl object-cover"
+                        />
+                        <video className="h-full rounded object-cover" controls>
                             <source src={whyMove.videoUrl} type="video/mp4" />
-                        </video>
+                        </video> */}
                     </div>
                 </div>
             </section>
         </>
-    )
+    );
 }
