@@ -8,10 +8,10 @@ export default function MovingTennesseeRentingPage() {
 
             {/* ================= SECTION 1: Why Rent First ================= */}
             <section className="py-20 container mx-auto px-4">
-                <div className="flex flex-col md:flex-row gap-12 items-center">
+                <div className="flex flex-col-reverse lg:flex-row gap-12 items-center">
                     {/* Text Content */}
-                    <div className="md:w-1/2">
-                        <h2 className="text-3xl font-bold text-primary mb-6">
+                    <div className="lg:w-1/2">
+                        <h2 className="text-xl md:text-3xl lg:text-4xl font-semibold text-primary mb-6">
                             Why Rent First When Moving to Tennessee?
                         </h2>
                         <p className="text-slate-600 mb-6 leading-relaxed">
@@ -71,7 +71,7 @@ export default function MovingTennesseeRentingPage() {
                     </div>
 
                     {/* Image Grid */}
-                    <div className="md:w-1/2 flex gap-4 relative">
+                    <div className="lg:w-1/2 flex gap-4 relative">
                         <div className="w-1/2">
                             <img
                                 src="assets/images/moving-tennessee-renting/Downtown-Vintage-Trolley-in-Memphis-Tennessee-2048x1367.jpeg"
@@ -93,26 +93,26 @@ export default function MovingTennesseeRentingPage() {
             {/* ================= SECTION 2: Is Renting Affordable (Dark Blue) ================= */}
             <section className="py-20 bg-primary text-white">
                 <div className="container mx-auto px-4 text-center">
-                    <h2 className="text-2xl lg:text-4xl font-bold mb-4">Is Renting in Tennessee Affordable?</h2>
+                    <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4">Is Renting in Tennessee Affordable?</h2>
                     <p className="mb-12 text-blue-100 max-w-4xl mx-auto text-md">
                         Compared to many other states, renting in Tennessee remains relatively affordable, though prices vary by region and city.
                     </p>
 
                     <h3 className="text-xl font-bold mb-8">General Rental Cost Ranges</h3>
 
-                    <div className="grid md:grid-cols-3 gap-6 text-left text-slate-800">
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 text-left text-slate-800">
                         {/* Card 1 */}
-                        <div className="bg-white p-6 rounded-xl shadow-md">
+                        <div className="bg-white p-6 rounded-xl shadow-md min-h-48 flex flex-col justify-center">
                             <h4 className="font-bold text-xl mb-2 text-primary">East Tennessee</h4>
                             <p className="text-md text-slate-600">Lower average rents, especially outside major metros</p>
                         </div>
                         {/* Card 2 */}
-                        <div className="bg-white p-6 rounded-xl shadow-md">
+                        <div className="bg-white p-6 rounded-xl shadow-md min-h-48 flex flex-col justify-center">
                             <h4 className="font-bold text-xl mb-2 text-primary">Middle Tennessee:</h4>
                             <p className="text-md text-slate-600">Higher rents near Nashville and surrounding suburbs</p>
                         </div>
                         {/* Card 3 */}
-                        <div className="bg-white p-6 rounded-xl shadow-md">
+                        <div className="bg-white p-6 rounded-xl shadow-md min-h-48 flex flex-col justify-center">
                             <h4 className="font-bold text-xl mb-2 text-primary">West Tennessee:</h4>
                             <p className="text-md text-slate-600">Affordable options in many areas outside downtown Memphis</p>
                         </div>
@@ -127,9 +127,9 @@ export default function MovingTennesseeRentingPage() {
             {/* ================= SECTION 3: Average Home Prices (Beige) ================= */}
             <section className="py-20 bg-[#F9F7F2]">
                 <div className="container mx-auto px-4">
-                    <h2 className="text-3xl font-bold text-center mb-12 text-primary">Average Home Price Ranges in Tennessee</h2>
+                    <h2 className="text-xl md:text-3xl lg:text-4xl font-semibold text-center mb-12 text-primary">Average Home Price Ranges in Tennessee</h2>
 
-                    <div className="grid md:grid-cols-3 gap-8">
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {/* Entry Level */}
                         <div className="bg-white p-8 rounded-lg shadow-sm border border-slate-100">
                             <h3 className="text-xl font-bold mb-1 text-slate-900">Entry-Level Homes</h3>
@@ -199,7 +199,7 @@ export default function MovingTennesseeRentingPage() {
                     <h2 className="text-2xl lg:text-4xl font-bold mb-6">Best Cities in Tennessee to Rent First</h2>
                     <p className="mb-6 text-blue-100 text-md">Renting is especially helpful if you're unfamiliar with Tennessee's regional differences.</p>
 
-                    <div className="grid md:grid-cols-5 gap-4">
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
                         {['Nashville', 'Knoxville', 'Chattanooga', 'Johnson City & Tri-Cities', 'Memphis'].map((city, idx) => (
                             <div key={idx} className="bg-white text-slate-800 p-6 rounded-lg flex flex-col items-center justify-center min-h-[160px]">
                                 <h4 className="font-bold text-lg mb-2">{city}</h4>
@@ -228,7 +228,7 @@ export default function MovingTennesseeRentingPage() {
                         />
                     </div>
                     <div className="md:w-1/2">
-                        <h2 className="text-3xl font-bold text-primary mb-6">Types of Rentals Available in Tennessee</h2>
+                        <h2 className="text-xl md:text-3xl lg:text-4xl font-semibold text-primary mb-6">Types of Rentals Available in Tennessee</h2>
                         <p className="text-slate-600 mb-4 text-md max-w-md">When renting in Tennessee, you’ll find a wide variety of housing options:</p>
                         <ul className="space-y-2 text-sm text-slate-700 mb-6 pl-2">
                             <li className="flex gap-2 items-center"><span className="w-1.5 h-1.5 bg-primary rounded-full"></span> Apartments and condos</li>
@@ -250,7 +250,7 @@ export default function MovingTennesseeRentingPage() {
             <section className="relative py-24 bg-fixed bg-cover bg-center" style={{ backgroundImage: "url('assets/images/moving-tennessee-renting/Gatlinburg_-TN-cityscape-2048x1188.jpeg')" }}>
                 <div className="absolute inset-0 bg-white/90"></div>
                 <div className="relative z-10 container mx-auto px-4">
-                    <h2 className="text-3xl font-bold text-center text-primary mb-12">Renting vs Buying When Moving To Tennessee</h2>
+                    <h2 className="text-xl md:text-3xl lg:text-4xl font-semibold text-center text-primary mb-12">Renting vs Buying When Moving To Tennessee</h2>
 
                     <div className="grid md:grid-cols-2 gap-8">
                         {/* Renting First Card */}

@@ -1,5 +1,104 @@
 import React from 'react'
 
+const cityHighlights = [
+    {
+        name: 'Nashville',
+        image: '/assets/images/city-compression/Colorful_Nashville_Broadway_at_night_-_NASHVILLE1-scaled.jpeg',
+        bestFor: 'Careers, entertainment, nightlife',
+        vibe: 'Energetic, fast-growing',
+        cost: 'Higher than state average',
+        housing: 'Condos, apartments, suburban homes',
+    },
+    {
+        name: 'Knoxville',
+        image: '/assets/images/city-compression/Paddling_on_the_Tennessee_River_in_Knoxville1-scaled.jpeg',
+        bestFor: 'Outdoor lovers, families',
+        vibe: 'Balanced & relaxed',
+        cost: 'Moderate',
+        housing: 'Homes, rentals, condos',
+    },
+    {
+        name: 'Chattanooga',
+        image: '/assets/images/city-compression/Screenshot_44.png',
+        bestFor: 'Remote workers, outdoor enthusiasts',
+        vibe: 'Active & growing',
+        cost: 'Moderate',
+        housing: 'Homes and rentals',
+    },
+    {
+        name: 'Johnson City',
+        image: '/assets/images/city-compression/Johnson_City__TN-8-30-2018_Large_sign_in_downtown_proclaiming_Johnson_City__Tennessee1-scaled.jpeg',
+        bestFor: 'Affordability, slower pace',
+        vibe: 'Small-city charm',
+        cost: 'Low',
+        housing: 'Homes, rentals',
+    },
+    {
+        name: 'Kingsport',
+        image: '/assets/images/city-compression/KINGSPORT_-TN_-USA-8-APRIL-2021-The-Citizens-Bank-building_-originally-the-Kingsport-train-station_-1-1-scaled.jpg',
+        bestFor: 'Families, stability',
+        vibe: 'Suburban',
+        cost: 'Low',
+        housing: 'Primarily homes',
+    },
+    {
+        name: 'Bristol',
+        image: '/assets/images/city-compression/Bristol-Virginia-Tennessee-Slogan-Sign-at-night.jpeg',
+        bestFor: 'Small-town living',
+        vibe: 'Laid-back',
+        cost: 'Low',
+        housing: 'Homes and rentals',
+    },
+    {
+        name: 'Memphis',
+        image: '/assets/images/city-compression/Neon-signs-of-Beale-Street-Memphis-Tennessee-scaled.jpeg',
+        bestFor: 'Culture, affordability',
+        vibe: 'Urban & historic',
+        cost: 'Low-moderate',
+        housing: 'Homes and rentals',
+    },
+    {
+        name: 'Franklin',
+        image: '/assets/images/city-compression/Aerial_View_of_Franklin__Tennessee_during_Spring1-scaled.jpeg',
+        bestFor: 'Upscale living, families',
+        vibe: 'Historic & refined',
+        cost: 'Higher',
+        housing: 'Primarily homes',
+    },
+    {
+        name: 'Murfreesboro',
+        image: '/assets/images/city-compression/Aerial-View-of-Murfreesboro_-Tennessee-at-Sunrise-scaled.jpeg',
+        bestFor: 'Commuters',
+        vibe: 'Suburban growth',
+        cost: 'Moderate',
+        housing: 'Homes and rentals',
+    },
+    {
+        name: 'Clarksville',
+        image: '/assets/images/city-compression/Montgomery-County-Courthouse.in-Clarksville_-Tennessee_-on-a-sunny-autumn-day-with-a-blue-sky-scaled.jpeg',
+        bestFor: 'Military families',
+        vibe: 'Growing & family-friendly',
+        cost: 'Moderate',
+        housing: 'Homes and rentals',
+    },
+    {
+        name: 'Cookeville',
+        image: '/assets/images/city-compression/Why_Cookeville_is_a_Great_Place_to_Call_Home.jpg',
+        bestFor: 'College town living',
+        vibe: 'Quiet & relaxed',
+        cost: 'Low',
+        housing: 'Homes and rentals',
+    },
+    {
+        name: 'Jackson',
+        image: '/assets/images/city-compression/Jackson-TN-downtown.webp',
+        bestFor: 'Regional affordability',
+        vibe: 'Small city',
+        cost: 'Low',
+        housing: 'Homes and rentals',
+    },
+];
+
 export default function CityComparisonPage() {
     return (
         <>
@@ -11,7 +110,7 @@ export default function CityComparisonPage() {
                                 How to Use This Guide
                             </h2>
                             <p className="text-gray-700 text-lg mb-8">Use this guide to:</p>
-                            <ul className="space-y-4">
+                            <ul className="space-y-0">
                                 <li className="flex items-start">
                                     <span className="text-black text-xl mr-3 mt-1">•</span>
                                     <span className="text-gray-700 text-lg">Compare key metrics across Tennessee's top cities</span>
@@ -36,14 +135,14 @@ export default function CityComparisonPage() {
                         <div className="lg:w-2/5">
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="flex items-center ">
-                                    <img src="assets/images/moving-checklist/Johnson_City__Tennessee1-2048x1536.jpeg" alt="Tennessee City"
+                                    <img src="assets/images/moving-checklist/Aerial-View-over-the-Buildings-and-Infrastructure-in-Clarksville-Tennessee-2048x1151.jpeg" alt="Tennessee City"
                                         className="w-full h-96 object-cover rounded-br-3xl rounded-tl-3xl shadow-lg" />
                                 </div>
                                 <div className="space-y-4">
-                                    <img src="assets/images/moving-checklist/Aerial-View-over-the-Buildings-and-Infrastructure-in-Clarksville-Tennessee-2048x1151.jpeg"
+                                    <img src="assets/images/moving-checklist/Aerial_View_of_Franklin__Tennessee_during_Spring1-2048x1364.jpeg"
                                         alt="Tennessee City"
                                         className="w-full h-48 object-cover rounded-br-3xl rounded-tl-3xl shadow-md" />
-                                    <img src="assets/images/moving-checklist/Aerial_View_of_Franklin__Tennessee_during_Spring1-2048x1364.jpeg"
+                                    <img src="assets/images/moving-checklist/Johnson_City__Tennessee1-2048x1536.jpeg"
                                         alt="Tennessee City"
                                         className="w-full h-48 object-cover rounded-br-3xl rounded-tl-3xl shadow-md" />
                                 </div>
@@ -58,335 +157,44 @@ export default function CityComparisonPage() {
                 <div className="container mx-auto px-6">
                     <h2 className="text-3xl font-bold text-white mb-8 text-center">City-by-City Breakdown</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                        <div
-                            className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-                            <img src="assets/images/moving-checklist/Colorful_Nashville_Broadway_at_night_-_NASHVILLE1-scaled.jpeg" alt="Nashville"
-                                className="w-full h-48 object-cover" />
-                            <div className="p-6">
-                                <h3 className="text-xl font-bold text-primary mb-3">Nashville</h3>
-                                <div className="space-y-2 text-sm">
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Best for:</span>
-                                        <span className="font-medium text-primary">Music & Entertainment</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Vibe:</span>
-                                        <span className="font-medium text-primary">Energetic</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Cost:</span>
-                                        <span className="font-medium text-primary">$$</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Housing:</span>
-                                        <span className="font-medium text-primary">Moderate</span>
+                        {cityHighlights.map((city) => (
+                            <>
+                                <div
+                                    className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+                                    <img src={city.image}
+                                        alt={city.name} className="w-full h-48 object-cover" />
+                                    <div className="p-6">
+                                        <h3 className="text-xl font-bold text-primary mb-3">{city.name}</h3>
+                                        <div className="space-y-2 text-md">
+                                            <div className="flex gap-2">
+                                                <span className="font-bold">Best for:</span>
+                                                <span className="font-medium text-primary">{city.bestFor}</span>
+                                            </div>
+                                            <div className="flex gap-2">
+                                                <span className="font-bold">Vibe:</span>
+                                                <span className="font-medium text-primary">{city.vibe}</span>
+                                            </div>
+                                            <div className="flex gap-2">
+                                                <span className="font-bold">Cost:</span>
+                                                <span className="font-medium text-primary">{city.cost}</span>
+                                            </div>
+                                            <div className="flex gap-2">
+                                                <span className="font-bold">Housing:</span>
+                                                <span className="font-medium text-primary">{city.housing}</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                            </>
 
-                        <div
-                            className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-                            <img src="assets/images/moving-checklist/Screenshot_44.png" alt="Memphis" className="w-full h-48 object-cover" />
-                            <div className="p-6">
-                                <h3 className="text-xl font-bold text-primary mb-3">Memphis</h3>
-                                <div className="space-y-2 text-sm">
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Best for:</span>
-                                        <span className="font-medium text-primary">BBQ & Blues</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Vibe:</span>
-                                        <span className="font-medium text-primary">Cultural</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Cost:</span>
-                                        <span className="font-medium text-primary">$</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Housing:</span>
-                                        <span className="font-medium text-primary">Affordable</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div
-                            className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-                            <img src="assets/images/moving-checklist/Paddling_on_the_Tennessee_River_in_Knoxville1-2048x1367.jpeg" alt="Knoxville"
-                                className="w-full h-48 object-cover" />
-                            <div className="p-6">
-                                <h3 className="text-xl font-bold text-primary mb-3">Knoxville</h3>
-                                <div className="space-y-2 text-sm">
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Best for:</span>
-                                        <span className="font-medium text-primary">Outdoor Activities</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Vibe:</span>
-                                        <span className="font-medium text-primary">Relaxed</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Cost:</span>
-                                        <span className="font-medium text-primary">$</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Housing:</span>
-                                        <span className="font-medium text-primary">Very Affordable</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div
-                            className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-                            <img src="assets/images/moving-checklist/Johnson_City__TN-8-30-2018_Large_sign_in_downtown_proclaiming_Johnson_City__Tennessee1-scaled.jpeg"
-                                alt="Chattanooga" className="w-full h-48 object-cover" />
-                            <div className="p-6">
-                                <h3 className="text-xl font-bold text-primary mb-3">Chattanooga</h3>
-                                <div className="space-y-2 text-sm">
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Best for:</span>
-                                        <span className="font-medium text-primary">Tech & Innovation</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Vibe:</span>
-                                        <span className="font-medium text-primary">Modern</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Cost:</span>
-                                        <span className="font-medium text-primary">$$</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Housing:</span>
-                                        <span className="font-medium text-primary">Moderate</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div
-                            className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-                            <img src="assets/images/moving-checklist/KINGSPORT_-TN_-USA-8-APRIL-2021-The-Citizens-Bank-building_-originally-the-Kingsport-train-station_-1-1-2048x1152.jpg"
-                                alt="Franklin" className="w-full h-48 object-cover" />
-                            <div className="p-6">
-                                <h3 className="text-xl font-bold text-primary mb-3">Franklin</h3>
-                                <div className="space-y-2 text-sm">
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Best for:</span>
-                                        <span className="font-medium text-primary">Families</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Vibe:</span>
-                                        <span className="font-medium text-primary">Suburban</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Cost:</span>
-                                        <span className="font-medium text-primary">$$$</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Housing:</span>
-                                        <span className="font-medium text-primary">Premium</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div
-                            className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-                            <img src="assets/images/moving-checklist/Bristol-Virginia-Tennessee-Slogan-Sign-at-night-1.jpeg" alt="Murfreesboro"
-                                className="w-full h-48 object-cover" />
-                            <div className="p-6">
-                                <h3 className="text-xl font-bold text-primary mb-3">Murfreesboro</h3>
-                                <div className="space-y-2 text-sm">
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Best for:</span>
-                                        <span className="font-medium text-primary">Young Professionals</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Vibe:</span>
-                                        <span className="font-medium text-primary">Growing</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Cost:</span>
-                                        <span className="font-medium text-primary">$$</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Housing:</span>
-                                        <span className="font-medium text-primary">Moderate</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div
-                            className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-                            <img src="https://whytennessee.com/wp-content/uploads/2026/01/Screenshot_44.png"
-                                alt="Clarksville" className="w-full h-48 object-cover" />
-                            <div className="p-6">
-                                <h3 className="text-xl font-bold text-primary mb-3">Clarksville</h3>
-                                <div className="space-y-2 text-sm">
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Best for:</span>
-                                        <span className="font-medium text-primary">Military Families</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Vibe:</span>
-                                        <span className="font-medium text-primary">Community</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Cost:</span>
-                                        <span className="font-medium text-primary">$</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Housing:</span>
-                                        <span className="font-medium text-primary">Affordable</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div
-                            className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-                            <img src="assets/images/moving-checklist/Neon-signs-of-Beale-Street-Memphis-Tennessee-2048x1367.jpeg" alt="Johnson City"
-                                className="w-full h-48 object-cover" />
-                            <div className="p-6">
-                                <h3 className="text-xl font-bold text-primary mb-3">Johnson City</h3>
-                                <div className="space-y-2 text-sm">
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Best for:</span>
-                                        <span className="font-medium text-primary">Healthcare</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Vibe:</span>
-                                        <span className="font-medium text-primary">Mountain</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Cost:</span>
-                                        <span className="font-medium text-primary">$</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Housing:</span>
-                                        <span className="font-medium text-primary">Affordable</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div
-                            className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-                            <img src="assets/images/moving-checklist/Aerial_View_of_Franklin__Tennessee_during_Spring1-2048x1364 (1).jpeg" alt="Gatlinburg"
-                                className="w-full h-48 object-cover" />
-                            <div className="p-6">
-                                <h3 className="text-xl font-bold text-primary mb-3">Gatlinburg</h3>
-                                <div className="space-y-2 text-sm">
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Best for:</span>
-                                        <span className="font-medium text-primary">Tourism</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Vibe:</span>
-                                        <span className="font-medium text-primary">Resort</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Cost:</span>
-                                        <span className="font-medium text-primary">$$$</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Housing:</span>
-                                        <span className="font-medium text-primary">Premium</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div
-                            className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-                            <img src="assets/images/moving-checklist/KINGSPORT_-TN_-USA-8-APRIL-2021-The-Citizens-Bank-building_-originally-the-Kingsport-train-station_-1-1-2048x1152.jpg"
-                                alt="Hendersonville" className="w-full h-48 object-cover" />
-                            <div className="p-6">
-                                <h3 className="text-xl font-bold text-primary mb-3">Hendersonville</h3>
-                                <div className="space-y-2 text-sm">
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Best for:</span>
-                                        <span className="font-medium text-primary">Lakeside Living</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Vibe:</span>
-                                        <span className="font-medium text-primary">Scenic</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Cost:</span>
-                                        <span className="font-medium text-primary">$$</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Housing:</span>
-                                        <span className="font-medium text-primary">Moderate</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div
-                            className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-                            <img src="assets/images/moving-checklist/Montgomery-County-Courthouse.in-Clarksville_-Tennessee_-on-a-sunny-autumn-day-with-a-blue-sky-scaled.jpeg"
-                                alt="Jackson" className="w-full h-48 object-cover" />
-                            <div className="p-6">
-                                <h3 className="text-xl font-bold text-primary mb-3">Jackson</h3>
-                                <div className="space-y-2 text-sm">
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Best for:</span>
-                                        <span className="font-medium text-primary">Manufacturing</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Vibe:</span>
-                                        <span className="font-medium text-primary">Industrial</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Cost:</span>
-                                        <span className="font-medium text-primary">$</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Housing:</span>
-                                        <span className="font-medium text-primary">Very Affordable</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div
-                            className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-                            <img src="assets/images/moving-checklist/Montgomery-County-Courthouse.in-Clarksville_-Tennessee_-on-a-sunny-autumn-day-with-a-blue-sky-scaled.jpeg"
-                                alt="Bristol" className="w-full h-48 object-cover" />
-                            <div className="p-6">
-                                <h3 className="text-xl font-bold text-primary mb-3">Bristol</h3>
-                                <div className="space-y-2 text-sm">
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Best for:</span>
-                                        <span className="font-medium text-primary">Country Music</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Vibe:</span>
-                                        <span className="font-medium text-primary">Historic</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Cost:</span>
-                                        <span className="font-medium text-primary">$</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Housing:</span>
-                                        <span className="font-medium text-primary">Affordable</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        ))}
                     </div>
                 </div>
             </section>
 
             <section className="py-16 bg-white">
                 <div className="container mx-auto px-6">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
                         <div className="bg-gray-50 rounded-lg p-8 shadow-md">
                             <h3 className="text-4xl font-bold text-primary mb-6">Which City Is Right for You?</h3>
                             <ul className="space-y-4">
@@ -484,7 +292,7 @@ export default function CityComparisonPage() {
             <section className="relative h-[400px] w-full overflow-hidden flex items-center justify-center text-white">
                 <div className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                     style={{ backgroundImage: "url('assets/images/moving-checklist/pexels-kelly-2519392-scaled.jpg')" }}>
-                    <div className="absolute inset-0 bg-blue-900/40 mix-blend-multiply"></div>
+                    <div className="absolute inset-0 bg-blue-600/50 mix-blend-multiply"></div>
                     <div className="absolute inset-0 bg-black/20"></div>
                 </div>
 
@@ -500,7 +308,7 @@ export default function CityComparisonPage() {
                         </p>
                     </div>
 
-                    <div className="flex flex-col sm:flex-row gap-4">
+                    <div className="flex flex-col lg:flex-row gap-4">
                         <a href="#"
                             className="px-8 py-4 bg-secondary hover:bg-primary text-white rounded-full font-semibold transition-all shadow-lg text-center whitespace-nowrap">
                             Explore Tennessee Cities

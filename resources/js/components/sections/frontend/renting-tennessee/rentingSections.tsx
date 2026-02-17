@@ -9,7 +9,7 @@ export default function RentingSections() {
             <section className="container mx-auto px-4 py-20">
                 <div className="grid items-center gap-8 md:grid-cols-2">
                     <div>
-                        <h2 className="mb-4 text-5xl font-bold">
+                        <h2 className="mb-4 text-xl md:text-3xl lg:text-4xl font-bold">
                             Is Renting in Tennessee a Good Idea?
                         </h2>
                         <p className="mb-4 text-gray-600">
@@ -92,14 +92,14 @@ export default function RentingSections() {
             {/* Average Rent Section */}
             <section className="bg-primary px-4 py-16 text-white">
                 <div className="container mx-auto">
-                    <div className="grid items-center gap-8 md:grid-cols-2">
+                    <div className="grid items-center gap-8 md:grid-cols-2 ">
                         <img
                             src="https://whytennessee.com/wp-content/uploads/2026/01/Apartments-in-scaled.jpeg"
                             alt="Modern apartment"
                             className="rounded-tr-4xl rounded-bl-4xl"
                         />
                         <div>
-                            <h2 className="mb-4 text-3xl font-bold">
+                            <h2 className="mb-4 text-xl md:text-3xl lg:text-4xl font-bold">
                                 Average Rent in Tennessee
                             </h2>
                             <p className="max-w-2xl text-blue-100">
@@ -170,10 +170,10 @@ export default function RentingSections() {
 
             {/* Neighborhoods Section */}
             <section className="container mx-auto px-4 py-16">
-                <h2 className="mb-12 text-center text-5xl">
+                <h2 className="mb-12 text-center text-xl md:text-3xl lg:text-4xl font-bold">
                     Average Rent in Tennessee
                 </h2>
-                <div className="grid gap-8 md:grid-cols-3">
+                <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                     {[
                         {
                             title: 'Best for Affordability',
@@ -260,11 +260,11 @@ export default function RentingSections() {
             {/* Types & Lease Section */}
             <section className="bg-primary-background px-4 py-16">
                 <div className="container mx-auto grid gap-8 md:grid-cols-2">
-                    <div className="flex gap-5">
+                    <div className="flex flex-col md:flex-row gap-5">
                         <img
                             src="https://whytennessee.com/wp-content/uploads/2025/12/300-S.Montclair.jpg"
                             alt="Garden apartment"
-                            className="h-96 w-80 object-cover"
+                            className="h-96 w-full md:w-80 object-cover"
                         />
                         <div>
                             <h3 className="mb-6 text-xl lg:text-2xl">
@@ -344,11 +344,11 @@ export default function RentingSections() {
                             </p>
                         </div>
                     </div>
-                    <div className="flex gap-5">
+                    <div className="flex flex-col md:flex-row gap-5">
                         <img
                             src="https://whytennessee.com/wp-content/uploads/2026/01/Interracial-couple-having-consultation-with-a-realtor-scaled.jpeg"
                             alt="Lease agreement"
-                            className="h-96 w-80 object-cover"
+                            className="h-96 w-full md:w-80 object-cover"
                         />
                         <div>
                             <h3 className="mb-6 text-xl font-bold">
@@ -516,7 +516,7 @@ export default function RentingSections() {
                             type="video/mp4"
                         />
                     </video>
-                    <div className="flex h-full w-full flex-col justify-center bg-blue-900 p-8 text-white">
+                    <div className="flex h-full w-full flex-col justify-center bg-primary p-8 text-white">
                         <h3 className="mb-6 text-2xl font-semibold lg:text-4xl">
                             Transportation & Commuting
                         </h3>
@@ -651,7 +651,7 @@ export default function RentingSections() {
             </section>
 
             {/* How To Find Section */}
-            <section className="bg-blue-900 px-4 py-16 text-white">
+            <section className="bg-primary px-4 py-16 text-white">
                 <div className="mx-auto max-w-3xl text-center">
                     <h2 className="mb-4 text-3xl font-bold">
                         How to Find Rentals in Tennessee
@@ -711,7 +711,7 @@ export default function RentingSections() {
                         >
                             <item.icon
                                 size={40}
-                                className="mx-auto mb-4 text-blue-900"
+                                className="mx-auto mb-4 text-primary"
                             />
                             <h3 className="mb-2 text-lg font-bold">
                                 {item.city}
@@ -720,7 +720,7 @@ export default function RentingSections() {
                                 {item.desc}
                             </p>
                             <Link href={item.href}>
-                                <button className="w-full rounded bg-blue-900 py-2 font-semibold text-white transition hover:bg-blue-800">
+                                <button className="w-full rounded bg-primary py-2 font-semibold text-white transition hover:bg-blue-800">
                                     {item.button}
                                 </button>
                             </Link>
