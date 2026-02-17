@@ -23,6 +23,7 @@ export default function LivingInJohnsonCity() {
                            Homes, Cost of Living, Neighborhoods & Mountain Lifestyle Johnson City, Tennessee is one of East Tennessee’s fastest-growing cities, known for its mountain views, affordable housing, and high quality of life. Located in the heart of the Tri-Cities region, Johnson City attracts families, healthcare professionals, retirees, and remote workers looking for a balanced lifestyle.
                         </>
                     }
+                    width="max-w-3xl"
                 />
                 <JohnsonCityPage />
             </FrontendLayout>

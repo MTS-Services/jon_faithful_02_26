@@ -23,6 +23,7 @@ export default function LivingInMurfreesboro() {
                             looking for space and value.
                         </>
                     }
+                    width="max-w-3xl"
                 />
                 <MurfreesboroPage />
             </FrontendLayout>
