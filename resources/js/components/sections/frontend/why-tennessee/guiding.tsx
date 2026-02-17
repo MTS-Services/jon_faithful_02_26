@@ -18,11 +18,11 @@ export default function Guiding() {
             </div>
 
             <div className="w-full">
-                <h2 className="max-w-[60%] text-3xl md:text-[42px] font-semibold text-text-secondary-foreground mb-6 leading-tight">
+                <h2 className="max-w-[70%] text-3xl md:text-[42px] font-semibold text-text-secondary-foreground mb-6 leading-tight">
                     Guiding Smart Real Estate Decisions
                 </h2>
 
-                <p className="text-base font-medium text-muted-foreground mb-6">
+                <p className="text-base font-normal text-[#000] mb-6">
                     We are a professional real estate platform built to support buyers, sellers, and investors with
                     clarity,
                     confidence, and strategic insight. Our role goes far beyond property listings — we help our clients
@@ -30,7 +30,7 @@ export default function Guiding() {
                     lifestyle and long-term value.
                 </p>
 
-                <p className="text-base font-medium text-muted-foreground">
+                <p className="text-base font-normal text-[#000]">
                     To become a trusted authority in real estate by delivering reliable guidance, market intelligence,
                     and a
                     refined client experience. We believe great decisions are made when information, expertise, and
