@@ -77,14 +77,14 @@ export default function InfoTabsSection({ tabs }: { tabs: TabContent[] }) {
 
                             <ul className="space-y-4">
                                 {tab.items.map((item, i) => (
-                                    <li key={i} className="flex gap-3">
+                                    <li key={i} className="flex  gap-3">
                                         <FaArrowAltCircleRight className="text-secondary" />
                                         <span>{item}</span>
                                     </li>
                                 ))}
                             </ul>
 
-                            <p className="mt-8 border-l-4 border-secondary pl-4 italic">
+                            <p className="mt-8 border-l-4 border-secondary pl-4">
                                 {tab.footer}
                             </p>
 
