@@ -26,7 +26,7 @@ export default function IsTennesseeAffordable() {
                                     </svg>
                                 </span>
                                 <p className="text-base text-secondary-foreground">
-                                    <span className="text-base font-montserrat font-bold">Cost of Living Index:</span> 100
+                                    <span className="text-base font-montserrat font-bold">U.S. Average Cost of Living Index: </span> 100
                                 </p>
                             </li>
 

@@ -13,11 +13,11 @@ export default function CostOfRentingByRegion() {
             </div>
 
             <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-                
+
                 {/* East Tennessee Card */}
                 <div className="bg-white rounded-xl shadow-md border border-gray-100 p-8 flex flex-col">
                     <h3 className="text-[#333] text-lg font-medium mb-4">Average Rent by East Tennessee City</h3>
-                    
+
                     <div className="space-y-6 flex-grow">
                         <div>
                             <h4 className="font-bold text-lg">Knoxville</h4>
@@ -33,7 +33,7 @@ export default function CostOfRentingByRegion() {
                             <p className="text-base font-normal font-montserrat text-primary mb-2">Johnson City remains one of the most affordable mid-size cities in the region.</p>
                             <ul className="text-sm space-y-1">
                                 <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 bg-primary rounded-full"></span> Homes: $1,200 - $1,900</li>
-                                <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 bg-primary rounded-full"></span> Apartments: $800-$1,100</li>
+                                <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 bg-primary rounded-full"></span> Apartments: $800 - $1,100</li>
                             </ul>
                         </div>
 
@@ -41,8 +41,17 @@ export default function CostOfRentingByRegion() {
                             <h4 className="font-bold text-lg">Kingsport</h4>
                             <p className="text-base font-normal font-montserrat text-primary mb-2">Kingsport offers lower rents and is popular with families and long-term renters.</p>
                             <ul className="text-sm space-y-1">
-                                <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 bg-primary rounded-full"></span> Apartments: $750 $1,000</li>
+                                <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 bg-primary rounded-full"></span> Apartments: $750 - $1,000</li>
                                 <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 bg-primary rounded-full"></span> Homes: $1,100 - $1,700</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 className="font-bold text-lg">Bristol</h4>
+                            <p className="text-base font-normal font-montserrat text-primary mb-2">Bristol provides small-town affordability with easy access to surrounding cities.</p>
+                            <ul className="text-sm space-y-1">
+                                <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 bg-primary rounded-full"></span> Apartments: $700 - $950</li>
+                                <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 bg-primary rounded-full"></span> Homes: $1,100 - $1,600</li>
                             </ul>
                         </div>
                     </div>
@@ -55,7 +64,7 @@ export default function CostOfRentingByRegion() {
                 {/* Middle Tennessee Card */}
                 <div className="bg-white rounded-xl shadow-md border border-gray-100 p-8 flex flex-col">
                     <h3 className="text-[#333] text-lg font-medium mb-4">Average Rent by Middle Tennessee City</h3>
-                    
+
                     <div className="space-y-6 flex-grow">
                         <div>
                             <h4 className="font-bold text-lg">Nashville</h4>
@@ -68,10 +77,28 @@ export default function CostOfRentingByRegion() {
 
                         <div>
                             <h4 className="font-bold text-lg">Franklin</h4>
-                            <p className="text-base font-normal font-montserrat text-primary mb-2">Franklin offers upscale suburban living and top-rated schools.</p>
+                            <p className="text-base font-normal font-montserrat text-primary mb-2">Franklin offers upscale suburban living and top-rated schools, making it popular with families and professionals.</p>
                             <ul className="text-sm space-y-1">
                                 <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 bg-primary rounded-full"></span> Apartments: $1,500 - $2,200</li>
                                 <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 bg-primary rounded-full"></span> Homes: $2,400 - $3,800+</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 className="font-bold text-lg">Murfreesboro</h4>
+                            <p className="text-base font-normal font-montserrat text-primary mb-2">Murfreesboro provides more affordable options while remaining close to Nashville.</p>
+                            <ul className="text-sm space-y-1">
+                                <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 bg-primary rounded-full"></span> Apartments: $1,100 - $1,600</li>
+                                <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 bg-primary rounded-full"></span> Homes: $1,600 - $2,400</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 className="font-bold text-lg">Clarksville</h4>
+                            <p className="text-base font-normal font-montserrat text-primary mb-2">Clarksville is one of the most affordable rental markets in Middle Tennessee and popular with military families.</p>
+                            <ul className="text-sm space-y-1">
+                                <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 bg-primary rounded-full"></span> Apartments: $1,000 - $1,400</li>
+                                <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 bg-primary rounded-full"></span> Homes: $1,400 - $2,100</li>
                             </ul>
                         </div>
                     </div>
@@ -84,24 +111,26 @@ export default function CostOfRentingByRegion() {
                 {/* West Tennessee Card */}
                 <div className="bg-white rounded-xl shadow-md border border-gray-100 p-8 flex flex-col">
                     <h3 className="text-[#333] text-lg font-medium mb-4">Average Rent by West Tennessee City</h3>
-                    
+
                     <div className="space-y-6 flex-grow">
                         <div>
                             <h4 className="font-bold text-lg">Memphis</h4>
-                            <p className="text-base font-normal font-montserrat text-primary mb-2">Memphis is the largest rental market in West Tennessee and offers some of the most affordable urban rents.</p>
+                            <p className="text-base font-normal font-montserrat text-primary mb-2">Memphis is the largest rental market in West Tennessee and offers some of the most affordable urban rents in the state.</p>
                             <ul className="text-sm space-y-1">
                                 <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 bg-primary rounded-full"></span> Apartments: $900 - $1,400</li>
                                 <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 bg-primary rounded-full"></span> Homes: $1,300 - $2,200</li>
                             </ul>
+                            <p className="text-base font-normal font-montserrat text-primary mt-2">Memphis attracts renters looking for culture, music, healthcare jobs, and logistics-related employment.</p>
                         </div>
 
                         <div>
                             <h4 className="font-bold text-lg">Jackson</h4>
-                            <p className="text-base font-normal font-montserrat text-primary mb-2">Jackson provides small-city affordability with access to regional employers.</p>
+                            <p className="text-base font-normal font-montserrat text-primary mb-2">Jackson provides small-city affordability with access to regional employers and services.</p>
                             <ul className="text-sm space-y-1">
                                 <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 bg-primary rounded-full"></span> Homes: $1,200 - $1,800</li>
                                 <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 bg-primary rounded-full"></span> Apartments: $800 - $1,100</li>
                             </ul>
+                            <p className="text-base font-normal font-montserrat text-primary mt-2">Jackson is popular with families, healthcare workers, and renters seeking lower costs.</p>
                         </div>
                     </div>
 

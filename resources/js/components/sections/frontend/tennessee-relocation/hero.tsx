@@ -13,7 +13,7 @@ export default function Hero() {
 
     <div className="container mx-auto relative z-10 px-4 sm:px-6">
         <div className="max-w-3xl text-background">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-montserrat font-medium mb-4 sm:mb-5 md:mb-6 text-background">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[50px] font-montserrat font-bold mb-4 sm:mb-5 md:mb-6 text-background">
                 The Ultimate Tennessee Relocation Guide
             </h2>
             <p className="text-sm sm:text-base font-montserrat font-normal mb-4 sm:mb-5 md:mb-6 text-background leading-relaxed">
