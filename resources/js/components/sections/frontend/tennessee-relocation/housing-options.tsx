@@ -6,7 +6,7 @@ export default function HousingOptions() {
         <div className="container mx-auto">
 
          
-            <h1 className="text-center text-3xl md:text-4xl font-bold font-montserrat text-[$333] mb-14 tracking-tight">
+            <h1 className="text-center text-3xl md:text-4xl lg:text-[42px] font-bold font-montserrat text-[$333] mb-14 tracking-tight">
                 Housing Options in Tennessee
             </h1>
 
@@ -52,8 +52,7 @@ export default function HousingOptions() {
                         </li>
                     </ul>
 
-                    <p className="text-base font-normal font-montserrat text-[$333]">Best for people planning to stay 3–5
-                        years.</p>
+                    <p className="text-base font-normal font-montserrat text-[$333]">Best for people planning to stay 3–5+ years.</p>
                 </div>
 
               
@@ -135,8 +134,7 @@ export default function HousingOptions() {
                                     <circle cx="4" cy="4" r="4" />
                                 </svg>
                             </span>
-                            <span className="text-base font-normal font-montserrat text-[$333]">Short-term &amp; furnished
-                                rentals</span>
+                            <span className="text-base font-normal font-montserrat text-[$333]">Short-term & furnished rentals Shape</span>
                         </li>
                     </ul>
                 </div>

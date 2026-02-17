@@ -5,7 +5,7 @@ export default function OurCommitment() {
   return (
         <div className="container mx-auto px-4 py-12 flex flex-col md:flex-row items-center gap-12 font-montserrat">
         <div className="w-full">
-            <h2 className="text-[40px] font-montserrat font-medium text-secondary-foreground mb-6">
+            <h2 className="text-[40px] font-montserrat font-semibold text-secondary-foreground mb-6">
                 Our Commitment to Excellence
             </h2>
 

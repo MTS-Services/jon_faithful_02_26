@@ -5,11 +5,15 @@ const tabs = [
         id: 'tab1',
         label: 'Schools & Education',
         title: 'Schools & Education',
-        intro: 'School quality varies by city and county. Highly rated areas include:',
+        intro: 'School quality varies by city and county.',
+        intro2: 'Highly rated areas include:',
         items: [
             'Williamson County (Franklin)',
             'Parts of Knoxville & Chattanooga',
             'Kingsport & Johnson City school districts',
+        ],
+        intro3: 'Always research:',
+        items2: [
             'School ratings',
             'District boundaries',
             'Commute times',
@@ -22,11 +26,18 @@ const tabs = [
         label: 'Healthcare & Employment',
         title: 'Healthcare & Employment',
         intro: 'Tennessee has strong job growth in:',
+        intro2: '',
         items: [
             'Healthcare',
             'Manufacturing',
             'Logistics & distribution',
             'Technology',
+            'Education',
+            'Music & entertainment (Nashville)',
+        ],
+
+        intro3: 'Major employers include:',
+        items2: [
             'HCA Healthcare',
             'Amazon',
             'FedEx',
@@ -44,7 +55,7 @@ const tabs = [
         intro: '',
         items: [
             'Most areas require a personal vehicle',
-            'Most areas require a personal vehicle',
+            'Limited public transportation outside major cities',
             'Shorter commutes than many metro areas',
             'Minimal toll roads',
         ],

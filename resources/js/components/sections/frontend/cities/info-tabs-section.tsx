@@ -6,7 +6,10 @@ interface TabContent {
     label: string;
     title: string;
     intro: string;
+    intro2: string | null;
+    intro3: string | null;
     items: string[];
+    items2: string[] | null;
     footer: string;
     imageUrl: string;
     videoUrl?: string;
@@ -59,7 +62,7 @@ export default function InfoTabsSection({ tabs }: { tabs: TabContent[] }) {
                                 autoPlay
                                 muted
                                 loop
-                                className="h-full w-full  object-cover shadow-2xl"
+                                className="h-full w-full object-cover shadow-2xl"
                             />
                         ) : tab.imageUrl ? (
                             <img
@@ -75,9 +78,26 @@ export default function InfoTabsSection({ tabs }: { tabs: TabContent[] }) {
                             </h2>
                             <p className="mb-6 text-gray-600">{tab.intro}</p>
 
+                            <p className="mb-2 text-gray-600">{tab.intro2}</p>
+
                             <ul className="space-y-4">
                                 {tab.items.map((item, i) => (
-                                    <li key={i} className="flex  gap-3">
+                                    <li key={i} className="flex gap-3 items-center">
+                                        <FaArrowAltCircleRight className="text-secondary" />
+                                        <span>{item}</span>
+                                    </li>
+                                ))}
+                            </ul>
+
+                            {tab.intro3 && (
+                                <p className="mt-2 mb-2 text-gray-600">
+                                    {tab.intro3}
+                                </p>
+                            )}
+
+                            <ul className="space-y-4">
+                                {tab.items2?.map((item, i) => (
+                                    <li key={i} className="flex gap-3 items-center">
                                         <FaArrowAltCircleRight className="text-secondary" />
                                         <span>{item}</span>
                                     </li>

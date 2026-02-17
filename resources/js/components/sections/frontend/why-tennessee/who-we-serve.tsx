@@ -6,7 +6,7 @@ export default function WhoWeServe() {
         <div className="container mx-auto">
             <div className="w-full max-w-5xl mx-auto text-center">
 
-                <h2 className="text-3xl sm:text-4xl md:text-5xl text-secondary-foreground font-medium leading-tight mb-5">
+                <h2 className="text-3xl sm:text-4xl md:text-[42px] text-secondary-foreground font-medium leading-tight mb-5">
                     Who We Serve
                 </h2>
 
