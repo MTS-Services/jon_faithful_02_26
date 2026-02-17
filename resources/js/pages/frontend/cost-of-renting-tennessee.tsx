@@ -107,8 +107,8 @@ const TennesseeRentPage = () => {
               </span></span>3-bedroom: $1,400 – $2,000</li>
             </ul>
             <div className="flex flex-col md:flex-row gap-4">
-              <a href={route('frontend.home-for-sale')} className="bg-primary text-white px-6 py-3 rounded font-medium hover:bg-secondary transition">Browse Homes for Sale in Tennessee→</a>
-              <a href= {route('frontend.rentals')}className="border-2 border-primary text-primary px-6 py-3 rounded font-medium hover:bg-secondary hover:text-white hover:border-secondary transition">Browse Rentals in Tennessee →</a>
+              <a href={route('frontend.home-for-sale')} className="bg-primary text-white px-6 py-3 rounded-md font-medium hover:bg-secondary transition">Browse Homes for Sale in Tennessee→</a>
+              <a href= {route('frontend.rentals')}className="bg-primary text-white px-6 py-3 rounded-md font-medium hover:bg-secondary transition">Browse Rentals in Tennessee →</a>
             </div>
           </div>
         </section>
@@ -118,7 +118,7 @@ const TennesseeRentPage = () => {
           <div className="container mx-auto px-4 py-20">
             <h2 className="text-center text-xl md:text-2xl lg:text-4xl font-bold uppercase tracking-widest">Cost of Renting by Region</h2>
             <p className="text-center text-muted-foreground text-md my-6">Average Rent Across East, Middle, and West Tennessee</p>
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               <div className="bg-white p-8 border border-secondary/50 shadow-md rounded-lg">
                 <h3 className="text-xl font-semibold">East Tennessee</h3>
                 <p className="text-muted-foreground text-md my-4">Cities: Knoxville, Johnson City, Kingsport, Bristol, Chattanooga</p>
@@ -293,7 +293,7 @@ const TennesseeRentPage = () => {
           <img src="https://whytennessee.com/wp-content/uploads/2025/12/pexels-mineiamartins-32775636-2048x1365.jpg" alt="Apartment Building" className="rounded shadow-lg" />
         </section>
         {/* Renting Costs & Pet Fees */}
-        <section className="relative bg-cover bg-center py-20" style={{ backgroundImage: "url('https://whytennessee.com/wp-content/uploads/2025/12/pexels-mineiamartins-32775636-2048x1365.jpg')" }}>
+        <section className="relative bg-cover bg-center py-20" style={{ backgroundImage: "url('/assets/images/cost-of-renting/pexels-caleb-clark-6462955-32767698-scaled.jpg')" }}>
           {/* Overlay */}
           <div className="absolute inset-0 bg-black/60" />
 
@@ -612,7 +612,7 @@ const TennesseeRentPage = () => {
               </ul>
               <p className="text-lg leading-relaxed text-muted-foreground">Many people choose to rent first, then buy once they’re settled.</p>
             </div>
-            <img src="https://whytennessee.com/wp-content/uploads/2025/12/pexels-kelly-4109661-2048x1151.jpg" alt="Neighborhood Street" className="rounded shadow-lg order-1 md:order-2" />
+            <img src="/assets/images/cost-of-renting/pexels-kelly-4109661-1024x575.jpg" alt="Neighborhood Street" className="rounded shadow-lg order-1 md:order-2" />
           </div>
         </section>
 
@@ -620,12 +620,12 @@ const TennesseeRentPage = () => {
           <div className="container mx-auto px-4 py-20 pb-32 grid md:grid-cols-2 gap-12 items-center">
             <div className="relative h-64 md:h-80">
               <img
-                src="https://whytennessee.com/wp-content/uploads/2025/12/Aerial-View-over-the-Buildings-and-Infrastructure-in-Clarksville-Tennessee-2048x1151.jpeg"
+                src="/assets/images/cost-of-renting/pexels-kelly-4765246-1024x575.jpg"
                 alt="Tennessee Cityscape"
                 className="rounded-lg shadow-xl object-cover w-full h-full"
               />
               <div className="absolute -bottom-6 -right-6 w-1/2 h-1/2 hidden md:block">
-                <img src="https://whytennessee.com/wp-content/uploads/2025/12/pexels-kelly-2833713-2048x1150.jpg" alt="Suburban TN" className="rounded-lg border-4 border-white shadow-lg object-cover" />
+                <img src="/assets/images/cost-of-renting/pexels-kelly-34088068-1-1024x576.jpg" alt="Suburban TN" className="rounded-lg border-4 border-white shadow-lg object-cover" />
               </div>
             </div>
             <div>
@@ -672,7 +672,7 @@ const TennesseeRentPage = () => {
           className="relative w-full bg-cover bg-center py-24 px-4 text-center"
           style={{
             backgroundImage:
-              "url('https://whytennessee.com/wp-content/uploads/2025/12/pexels-denil-33476066-scaled.jpg')",
+              "url('/assets/images/cost-of-renting/pexels-denil-33476066-scaled-bg.jpg')",
           }}
         >
           {/* Overlay */}

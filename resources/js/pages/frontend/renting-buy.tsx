@@ -34,7 +34,7 @@ const RentingBuy = () => {
         <FrontendLayout>
             <Hero
                 slides={[
-                    'https://whytennessee.com/wp-content/uploads/2026/01/Hay-bales-in-pasture-on-horse-farm-in-shadow-of-the-Blue-Ridge-Mountains-scaled.jpeg',
+                    '/assets/images/herros/Why_Cookeville_is_a_Great_Place_to_Call_Home.jpg',
                 ]}
                 title={<>Renting vs Buying in Tennessee</>}
                 description={
@@ -126,7 +126,7 @@ const RentingBuy = () => {
                         {/* Rounded Image Shape */}
                         <div className="overflow-hidden rounded-tr-[80px] rounded-bl-[80px] shadow-xl">
                             <img
-                                src="https://whytennessee.com/wp-content/uploads/2025/12/memphis-tn.jpg"
+                                src="/assets/images/renting-buy/memphis-tn-1024x683.jpg"
                                 alt="Nashville Skyline"
                                 className="h-[450px] w-full object-cover"
                             />
@@ -138,11 +138,11 @@ const RentingBuy = () => {
             {/* ================= COMPARE OPTIONS SECTION ================= */}
             <section className="bg-[#F3EAD3] py-16">
                 <div className="container mx-auto px-6 md:px-12">
-                    <h2 className="mb-12 text-center text-3xl font-bold text-slate-900">
+                    <h2 className="mb-12 text-center text-xl md:text-3xl lg:text-4xl font-bold text-slate-900">
                         Compare Your Options
                     </h2>
 
-                    <div className="grid gap-8 md:grid-cols-2">
+                    <div className="grid gap-8 lg:grid-cols-2">
                         <div className="flex flex-col rounded-lg bg-white p-8 shadow-md">
                             <h3 className="mb-4 text-4xl font-bold">
                                 Renting in Tennessee
@@ -531,7 +531,7 @@ const RentingBuy = () => {
 
             {/* ================= BY REGION SECTION ================= */}
             <section className="container mx-auto px-6 py-16 md:px-12">
-                <h2 className="mb-4 text-center text-4xl font-bold">
+                <h2 className="mb-4 text-center text-xl md:text-3xl lg:text-4xl  font-bold">
                     Renting vs Buying by Region
                 </h2>
                 <p className="mb-12 text-center text-slate-600">
@@ -539,7 +539,7 @@ const RentingBuy = () => {
                     regions, each with unique opportunities.
                 </p>
 
-                <div className="grid gap-8 md:grid-cols-3">
+                <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                     {/* East TN */}
                     <div className="group rounded-lg border p-4 shadow-xl">
                         <div className="mb-4 h-60 overflow-hidden rounded-lg">
@@ -612,7 +612,7 @@ const RentingBuy = () => {
             {/* ================= DECISION SECTION ================= */}
             <section className="bg-[#C9A24973] py-16">
                 <div className="container mx-auto px-6 md:px-12">
-                    <h2 className="mb-12 text-center text-2xl font-bold lg:text-4xl">
+                    <h2 className="mb-12 text-center text-xl md:text-3xl lg:text-4xl font-bold">
                         Making the Right Decision
                     </h2>
 
@@ -706,7 +706,7 @@ const RentingBuy = () => {
             <section className="relative bg-primary py-20">
                 <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-20 mix-blend-overlay"></div>
                 <div className="relative z-10 container mx-auto px-6 text-center text-white">
-                    <h2 className="mb-4 text-3xl font-bold">
+                    <h2 className="mb-4 text-xl md:text-3xl lg:text-4xl font-bold">
                         The Smart Tennessee Strategy: Rent, Then Buy
                     </h2>
                     <p className="mx-auto mb-4 max-w-2xl text-gray-200">
@@ -726,7 +726,7 @@ const RentingBuy = () => {
 
             {/* ================= EXPLORE OPTIONS ================= */}
             <section className="container mx-auto bg-white px-6 py-20 md:px-12">
-                <h2 className="mb-12 text-center text-3xl font-bold">
+                <h2 className="mb-12 text-center text-xl md:text-3xl lg:text-4xl font-bold">
                     Explore Your Options in Tennessee
                 </h2>
                 <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
@@ -736,7 +736,7 @@ const RentingBuy = () => {
 
             {/* ================= FINAL THOUGHTS ================= */}
             <section className="bg-secondary/50 px-6 py-16 text-center">
-                <h2 className="mb-6 text-3xl font-bold">Final Thoughts</h2>
+                <h2 className="mb-6 text-xl md:text-3xl lg:text-4xl font-bold">Final Thoughts</h2>
                 <p className="mx-auto mb-4 max-w-3xl text-slate-700">
                     Tennessee offers strong opportunities for both renters and
                     buyers. The right choice depends on your timeline, budget,
