@@ -265,12 +265,12 @@ const BristolPage: React.FC = () => {
                     title: 'Is Bristol Right for You?',
                     rightTitle: 'Explore Nearby Cities',
                     description:
-                        'Bristol may be the right fit if you’re looking for: Low cost of living, small-town charm, rich music and cultural history, affordable homeownership, and easy access to the Tri-Cities. For many relocating buyers, Bristol offers a unique blend of affordability and character.',
+                        'Bristol may be the right fit if you’re looking for: Low cost of living Small-town charm Rich music and cultural history Affordable homeownership Easy access to the Tri-Cities For many relocating buyers, Bristol offers a unique blend of affordability and character. Shape',
                     cities: [
-                        'Knoxville',
-                        'Nashville',
                         'Johnson City',
-                        'Franklin',
+                        'Kingsport',
+                        'Knoxville',
+                        'Chattanooga',
                     ],
                 }}
             />
