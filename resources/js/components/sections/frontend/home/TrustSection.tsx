@@ -2,8 +2,9 @@ import React from 'react';
 
 const TrustSection: React.FC = () => {
   return (
-    <section className="py-12">
-      <div className="container mx-auto px-4 text-center">
+    <section className="relative py-12 bg-fixed bg-cover bg-center" style={{ backgroundImage: "url('assets/images/home/A-person_-man-looking-at-the-setting-sun_-Blue.jpeg')" }}>
+      <div className="absolute inset-0 bg-black/50"></div>
+      <div className="container mx-auto px-4 text-center relative z-10">
         <div className="max-w-4xl mx-auto bg-white p-10 rounded-xl shadow-lg border border-gray-50">
           <h2 className="text-2xl md:text-4xl font-semibold mb-4 md:mb-6 text-foreground">
             Why Trust WhyTennessee.com?

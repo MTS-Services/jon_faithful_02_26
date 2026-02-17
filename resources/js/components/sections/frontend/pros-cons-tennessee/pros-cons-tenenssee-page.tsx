@@ -471,7 +471,7 @@ const ProsConsTennesseePage = () => {
             </section>
 
             <section className="container mx-auto px-4 py-20 grid md:grid-cols-2 gap-12 items-center">
-                <div>
+                <div className="order-2 md:order-1">
                     <h2 className="text-xl md:text-2xl lg:text-4xl font-bold mb-6 text-slate-900">Is Tennessee a Good Place to Live?</h2>
                     <p className="text-lg leading-relaxed text-muted-foreground mb-2">
                         For most people, the pros outweigh the cons.</p>
@@ -554,11 +554,11 @@ const ProsConsTennesseePage = () => {
                         </span>Very low sales tax</li>
                     </ul>
                 </div>
-                <div className="relative h-64 md:h-80">
+                <div className="relative h-64 md:h-96 order-1 md:order-2">
                     <img
                         src="assets/images/pros-cons-tennessee/imgi_39_family-home-in-colorado-pufikhomes-1.jpg"
                         alt="Tennessee Cityscape"
-                        className="rounded-lg shadow-xl object-cover w-[calc(100%-200px] h-full"
+                        className="rounded-lg shadow-xl object-cover w-full md:w-[calc(100%-200px] h-full"
                     />
                     <div className="absolute -bottom-6 -right-6 w-1/2 h-1/2 hidden md:block">
                         <img src="assets/images/pros-cons-tennessee/imgi_3_tourist-tent-camping-in-mountains-at-sunset-scaled.jpg" alt="Suburban TN" className="rounded-lg border-4 border-white shadow-lg object-cover" />
