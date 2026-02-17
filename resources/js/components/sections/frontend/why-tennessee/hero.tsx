@@ -4,7 +4,7 @@ export default function Hero() {
   return (
         <div
         className="relative w-full h-[400px] md:h-[500px] bg-foreground flex items-center justify-center overflow-hidden">
-        <img src="/assets/images/apartment-building-in-sunny-day-scaled.jpeg" alt="Apartment building in Tennessee"
+        <img src="/assets/images/brandon-jean-jNu3ZlPfU5Q-unsplash-scaled.jpg" alt="Apartment building in Tennessee"
             className="absolute top-0 left-0 w-full h-full object-cover" />
 
         <div className="absolute inset-0 bg-foreground/60"></div>
@@ -14,7 +14,7 @@ export default function Hero() {
                 <div className="max-w-4xl mx-auto">
                     <h2
                         className="text-3xl sm:text-4xl md:text-[50px] font-montserrat font-semibold uppercase mb-6 leading-tight">
-                        Rentals
+                        Why Tennessee
                     </h2>
 
                     <div className="flex items-center gap-3 justify-center text-sm md:text-base font-medium">
@@ -27,7 +27,7 @@ export default function Hero() {
                             </path>
                         </svg>
 
-                        <span className="text-primary-foreground/90">Rentals</span>
+                        <span className="text-primary-foreground/90">Why Tennessee</span>
                     </div>
                 </div>
             </div>
