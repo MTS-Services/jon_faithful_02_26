@@ -19,6 +19,7 @@ export default function LivingInMemphis() {
                             providing big-city amenities and opportunity.
                         </>
                     }
+                    width="max-w-2xl"
                 />
                 <MemphisPage />
             </FrontendLayout>
