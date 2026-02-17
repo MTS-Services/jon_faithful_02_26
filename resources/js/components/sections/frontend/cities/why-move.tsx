@@ -54,13 +54,13 @@ export default function WhyMoveSection({ whyMove }: Props) {
                             <img
                                 src={whyMove.imageUrl2}
                                 alt={whyMove.title}
-                                className="h-[500px] rounded-xl object-cover mt-10"
+                                className="h-[500px] rounded-xl object-cover mt-20"
                             />
                         )}
 
                         {whyMove.videoUrl && (
                             <video
-                                className="h-[500px] rounded-xl object-cover"
+                                className="h-[500px] rounded-xl object-cover mt-20"
                                 controls
                             >
                                 <source
