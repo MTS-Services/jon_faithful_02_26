@@ -37,10 +37,10 @@ class ListingService
             $query->whereIn('city_id', $cityIds);
         }
         if (!empty($filters['price_min'])) {
-            $query->where('price', '>=', $filters['price_min']);
+            $query->where('purchase_price', '>=', $filters['price_min']);
         }
         if (!empty($filters['price_max'])) {
-            $query->where('price', '<=', $filters['price_max']);
+            $query->where('purchase_price', '<=', $filters['price_max']);
         }
         if (!empty($filters['bedrooms'])) {
             $query->where('bedrooms', $filters['bedrooms']);
