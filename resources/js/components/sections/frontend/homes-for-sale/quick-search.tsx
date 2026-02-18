@@ -1,14 +1,45 @@
 import { PlatinumCard } from '@/components/ui/PlatinumCard';
 import { Link, router } from '@inertiajs/react';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
-export default function QuickSearch({ listings, cities }: any) {
-    const [searchTerm, setSearchTerm] = useState('');
-    const [selectedCities, setSelectedCities] = useState<number[]>([]);
-    const [bedrooms, setBedrooms] = useState('');
-    const [bathrooms, setBathrooms] = useState('');
-    const [square_feet, setSquareFeet] = useState('');
-    const [property_type, setproperty_type] = useState<string[]>([]);
+type QuickSearchFilters = {
+    search?: string;
+    city?: string;
+    price_min?: string;
+    price_max?: string;
+    bedrooms?: string;
+    bathrooms?: string;
+    square_feet?: string;
+    property_type?: string;
+};
+
+interface QuickSearchProps {
+    listings: any;
+    cities: any[];
+    filters?: QuickSearchFilters;
+}
+
+const PRICE_MIN_DEFAULT = 0;
+const PRICE_MAX_DEFAULT = 1000000;
+
+export default function QuickSearch({ listings, cities, filters = {} }: QuickSearchProps) {
+    const initialCities = useMemo(() => {
+        return filters.city ? filters.city.split(',').map((id) => Number(id)) : [];
+    }, [filters.city]);
+
+    const initialPropertyTypes = useMemo(() => {
+        return filters.property_type ? filters.property_type.split(',') : [];
+    }, [filters.property_type]);
+
+    const [searchTerm, setSearchTerm] = useState(filters.search ?? '');
+    const [selectedCities, setSelectedCities] = useState<number[]>(initialCities);
+    const [bedrooms, setBedrooms] = useState(filters.bedrooms ?? '');
+    const [bathrooms, setBathrooms] = useState(filters.bathrooms ?? '');
+    const [square_feet, setSquareFeet] = useState(filters.square_feet ?? '');
+    const [property_type, setproperty_type] = useState<string[]>(initialPropertyTypes);
+    const [priceMin, setPriceMin] = useState(filters.price_min ?? '');
+    const [priceMax, setPriceMax] = useState(filters.price_max ?? '');
+    const [isReady, setIsReady] = useState(false);
 
     // Property type options
     const propertyTypes = [
@@ -17,14 +48,37 @@ export default function QuickSearch({ listings, cities }: any) {
         { value: 'towndhomes_and_condos', label: 'Townhomes & condos' },
     ];
 
-    // Debounce search
     useEffect(() => {
+        setIsReady(true);
+    }, []);
+
+    useEffect(() => {
+        setSearchTerm(filters.search ?? '');
+        setSelectedCities(initialCities);
+        setBedrooms(filters.bedrooms ?? '');
+        setBathrooms(filters.bathrooms ?? '');
+        setSquareFeet(filters.square_feet ?? '');
+        setproperty_type(initialPropertyTypes);
+        setPriceMin(filters.price_min ?? '');
+        setPriceMax(filters.price_max ?? '');
+    }, [filters, initialCities, initialPropertyTypes]);
+
+    // Debounce search & price filters
+    useEffect(() => {
+        if (!isReady) return;
+
         const timer = setTimeout(() => {
             handleFilter();
         }, 500);
 
         return () => clearTimeout(timer);
-    }, [searchTerm]);
+    }, [searchTerm, priceMin, priceMax, isReady]);
+
+    const normalizedPriceMin = priceMin ? Number(priceMin) : PRICE_MIN_DEFAULT;
+    const normalizedPriceMax = priceMax ? Number(priceMax) : PRICE_MAX_DEFAULT;
+
+    const formatCurrency = (value: number) =>
+        `$${value.toLocaleString(undefined, { maximumFractionDigits: 0 })}`;
 
     const handleFilter = () => {
         const filterData: any = {};
@@ -35,6 +89,8 @@ export default function QuickSearch({ listings, cities }: any) {
         if (bedrooms) filterData.bedrooms = bedrooms;
         if (bathrooms) filterData.bathrooms = bathrooms;
         if (square_feet) filterData.square_feet = square_feet;
+        if (priceMin) filterData.price_min = priceMin;
+        if (priceMax) filterData.price_max = priceMax;
         if (property_type.length > 0)
             filterData.property_type = property_type.join(',');
 
@@ -43,6 +99,41 @@ export default function QuickSearch({ listings, cities }: any) {
             preserveScroll: true,
         });
     };
+
+    const handlePriceMinChange = useCallback((value: string) => {
+        if (value === '') {
+            setPriceMin('');
+            return;
+        }
+
+        const sanitized = Math.max(PRICE_MIN_DEFAULT, Number(value));
+        const bounded = Math.min(sanitized, PRICE_MAX_DEFAULT);
+        setPriceMin(String(bounded));
+
+        if (priceMax && Number(priceMax) < bounded) {
+            setPriceMax(String(bounded));
+        }
+    }, [priceMax]);
+
+    const handlePriceMaxChange = useCallback((value: string) => {
+        if (value === '') {
+            setPriceMax('');
+            return;
+        }
+
+        const sanitized = Math.min(PRICE_MAX_DEFAULT, Number(value));
+        const bounded = Math.max(sanitized, PRICE_MIN_DEFAULT);
+        setPriceMax(String(bounded));
+
+        if (priceMin && Number(priceMin) > bounded) {
+            setPriceMin(String(bounded));
+        }
+    }, [priceMin]);
+
+    const handlePriceClear = useCallback(() => {
+        setPriceMin('');
+        setPriceMax('');
+    }, []);
 
     const handleCityChange = (cityId: number) => {
         const newSelectedCities = selectedCities.includes(cityId)
@@ -83,6 +174,8 @@ export default function QuickSearch({ listings, cities }: any) {
         if (bedrooms) filterData.bedrooms = bedrooms;
         if (bathrooms) filterData.bathrooms = bathrooms;
         if (square_feet) filterData.square_feet = square_feet;
+        if (priceMin) filterData.price_min = priceMin;
+        if (priceMax) filterData.price_max = priceMax;
         if (newSelectedTypes.length > 0)
             filterData.property_type = newSelectedTypes.join(',');
 
@@ -277,16 +370,55 @@ export default function QuickSearch({ listings, cities }: any) {
                             <div className="space-y-4">
                                 <input
                                     type="range"
-                                    min="0"
-                                    max="1000000"
-                                    step="10000"
-                                    className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-background accent-muted-foreground"
+                                    min={PRICE_MIN_DEFAULT}
+                                    max={PRICE_MAX_DEFAULT}
+                                    step={10000}
+                                    value={normalizedPriceMax}
+                                    onChange={(e) => handlePriceMaxChange(e.target.value)}
+                                    className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-gray-300 accent-primary"
                                 />
 
-                                <div className="flex justify-between text-sm text-muted-foreground">
-                                    <span>$0</span>
-                                    <span>$1,000,000</span>
+                                <div className="flex justify-between text-sm font-semibold text-text-secondary-foreground">
+                                    <span>{formatCurrency(normalizedPriceMin)}</span>
+                                    <span>{formatCurrency(normalizedPriceMax)}</span>
                                 </div>
+
+                                <div className="flex flex-col gap-3 md:flex-row">
+                                    <label className="flex w-full flex-col text-sm font-semibold text-muted-foreground">
+                                        Min
+                                        <input
+                                            type="number"
+                                            min={PRICE_MIN_DEFAULT}
+                                            max={PRICE_MAX_DEFAULT}
+                                            step={5000}
+                                            value={priceMin}
+                                            onChange={(e) => handlePriceMinChange(e.target.value)}
+                                            className="mt-1 rounded-md border border-text-secondary-foreground px-3 py-2"
+                                        />
+                                    </label>
+                                    <label className="flex w-full flex-col text-sm font-semibold text-muted-foreground">
+                                        Max
+                                        <input
+                                            type="number"
+                                            min={PRICE_MIN_DEFAULT}
+                                            max={PRICE_MAX_DEFAULT}
+                                            step={5000}
+                                            value={priceMax}
+                                            onChange={(e) => handlePriceMaxChange(e.target.value)}
+                                            className="mt-1 rounded-md border border-text-secondary-foreground px-3 py-2"
+                                        />
+                                    </label>
+                                </div>
+
+                                {(priceMin || priceMax) && (
+                                    <button
+                                        type="button"
+                                        onClick={handlePriceClear}
+                                        className="text-sm font-semibold text-primary underline"
+                                    >
+                                        Clear price filter
+                                    </button>
+                                )}
                             </div>
                         </div>
                         <div className="mb-3 rounded-xl bg-background p-4 font-montserrat font-semibold text-text-secondary-foreground shadow">
@@ -353,6 +485,14 @@ export default function QuickSearch({ listings, cities }: any) {
                                 </button>
                             </span>
                         ))}
+                        {(priceMin || priceMax) && (
+                            <span className="inline-flex items-center gap-2 rounded-full border border-primary px-4 py-2 font-montserrat font-semibold text-primary">
+                                Price: {formatCurrency(Number(priceMin || PRICE_MIN_DEFAULT))} - {formatCurrency(Number(priceMax || PRICE_MAX_DEFAULT))}
+                                <button onClick={handlePriceClear} className="hover:text-secondary">
+                                    ×
+                                </button>
+                            </span>
+                        )}
                     </div>
 
                     <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-2">
