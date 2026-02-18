@@ -1,5 +1,5 @@
 import { CardContent } from '@/components/ui/card';
-import { useForm } from '@inertiajs/react';
+import { Link, useForm } from '@inertiajs/react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
@@ -276,18 +276,11 @@ export default function Gallery({ listing }: any) {
                                     ></iframe>
                                 </div>
                             ) : (
-                                <a
-                                    href={listing.youtube_video_url}
-                                    target="_blank"
-                                    className="text-blue-600 underline"
-                                >
-                                    Watch Video on YouTube
-                                </a>
+                                 <a href={listing.youtube_video_url} target="_blank" className="text-blue-600 underline">
+                                            Watch Video on YouTube
+                                        </a>
                             )}
                         </CardContent>
-                        <div className="absolute bottom-2 left-2 text-base font-bold text-primary-foreground drop-shadow-md md:bottom-4 md:left-4 md:text-xl">
-                            THE DREAM LIFE
-                        </div>
                     </div>
                 </div>
                 <div className="space-y-6">
