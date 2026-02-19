@@ -36,6 +36,7 @@ Route::name('frontend.')->controller(FrontendController::class)->group(function 
     Route::get('/living-in-jackson', 'livingInJackson')->name('livingInJackson');
     Route::get('/cost-of-living-in-tennessee', 'costOfLivingInTennessee')->name('cost-of-living-in-tennessee');
     Route::get('/pros-cons-living-in-tennessee', 'prosConsTennessee')->name('pros-cons-tennessee');
+    Route::get('/privacy-policy', 'privacyPolicy')->name('privacy-policy');
     Route::get('/user-details/{id}', 'userDetails')->name('user-details');
     Route::post('/submit-request', 'submitRequest')->name('submit-request');
     Route::post('/user-contact', 'userContact')->name('user-contact');
