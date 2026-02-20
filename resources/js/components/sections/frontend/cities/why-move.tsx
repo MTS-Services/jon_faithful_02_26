@@ -62,6 +62,8 @@ export default function WhyMoveSection({ whyMove }: Props) {
                             <video
                                 className="h-[500px] rounded-xl object-cover mt-20"
                                 controls
+                                autoPlay
+                                playsInline
                             >
                                 <source
                                     src={whyMove.videoUrl}

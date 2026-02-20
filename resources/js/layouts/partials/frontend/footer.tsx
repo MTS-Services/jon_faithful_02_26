@@ -1,4 +1,4 @@
-import { useForm } from '@inertiajs/react';
+import { Link, useForm } from '@inertiajs/react';
 import React from 'react';
 import {
     FaArrowCircleRight,
@@ -204,12 +204,12 @@ const FrontendFooter: React.FC = () => {
                         &copy; {new Date().getFullYear()} WHY TENNESSEE. All
                         rights reserved.
                     </p>
-                    <a
-                        href="#"
+                    <Link
+                        href={route('frontend.privacy-policy')}
                         className="mt-2 transition hover:text-primary md:mt-0"
                     >
                         Privacy Policy
-                    </a>
+                    </Link>
                 </div>
             </div>
         </footer>

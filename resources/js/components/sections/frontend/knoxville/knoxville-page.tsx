@@ -62,14 +62,6 @@ const neighborhoods = [
         ],
     },
     {
-        name: 'West Knoxville',
-        features: [
-            'Shopping and dining hubs',
-            'Strong resale value',
-            'Mix of established and newer neighborhoods',
-        ],
-    },
-    {
         name: 'North Knoxville',
         features: ['Historic homes', 'Revitalized areas', 'Close to downtown'],
     },
@@ -165,10 +157,10 @@ export default function KnoxvillePage({ city }: { city: City }) {
                 </p>
 
                 <div className="grid gap-6 md:grid-cols-4">
-                    <CostCard title="Mediam home price" value="$330,000" />
+                    <CostCard title="Mediam home price" value="$360,000" />
                     <CostCard
                         title="2-bedroom apartment"
-                        value="$1,300–$1,600"
+                        value="$1,300–$1,900"
                     />
                     <CostCard
                         title="Utilities"
