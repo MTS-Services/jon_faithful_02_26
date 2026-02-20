@@ -12,6 +12,7 @@ export default function Hero() {
                     type="video/mp4"
                 />
             </video>
+            <div className="absolute inset-0 bg-black/40 z-10" />
             <div className="container">
                 <div className="relative z-10 px-4 text-center md:px-16">
                     <div className="md:w-3/ mx-auto w-full">

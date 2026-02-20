@@ -8,7 +8,7 @@ export default function SingleProduct({listing}: any) {
     console.log(listing);
     return (
         <FrontendLayout>
-            <Hero />
+            {/* <Hero /> */}
             <Gallery listing={listing} />
             <RealatedRentalListing listings={[listing]} />
             <StartYourMove />

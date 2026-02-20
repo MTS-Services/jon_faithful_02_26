@@ -172,11 +172,30 @@ class FrontendController extends Controller
      {
           return Inertia::render('frontend/tennessee-relocation');
      }
-     public function singleProduct($id): Response
-     {
-          $listing = $this->service->findData($id);
+     // public function singleProduct(Request $request, $id): Response
+     // {
+     //      $listing = $this->service->findData($id);
+     //      $facilitiesShow = $listing->property_type === 'rental' ? true : false;
 
-          return Inertia::render('frontend/single-product', ['listing' => $listing]);
+     // }
+     
+     public function singleListingProduct($listing_id = null)
+     {
+          if ($listing_id) {
+               $listing = $this->service->findData($listing_id);
+               $facilitiesShow = false;
+          }
+          
+          return Inertia::render('frontend/single-product', ['listing' => $listing, 'facilitiesShow' => $facilitiesShow]);
+     }
+     public function singleRentalProduct($rental_id)
+     {
+          if ($rental_id) {
+               $listing = Rental::findOrFail($rental_id)->load(['city', 'user', 'galleries', 'facilities']);
+               $facilitiesShow = false;
+          }
+          
+          return Inertia::render('frontend/single-product', ['listing' => $listing, 'facilitiesShow' => $facilitiesShow]);
      }
 
      public function livetennessee(): Response
@@ -343,53 +362,58 @@ class FrontendController extends Controller
      }
      public function submitGetInTouch(Request $request)
      {
-        $validated = $request->validate([
-            'full_name'      => ['required', 'string', 'max:255'],
-            'phone_number'   => ['required', 'string', 'max:20'],
-            'email'          => ['required', 'email', 'max:255'],
-            'interested_in'  => ['required', 'string'],
-            'city_id'        => ['required', 'exists:cities,id'],
-            'message'        => ['required', 'string'],
-            'is_confirmed'   => ['accepted'],
-        ]);
+          $validated = $request->validate([
+               'full_name'      => ['required', 'string', 'max:255'],
+               'phone_number'   => ['required', 'string', 'max:20'],
+               'email'          => ['required', 'email', 'max:255'],
+               'interested_in'  => ['required', 'string'],
+               'city_id'        => ['required', 'exists:cities,id'],
+               'message'        => ['required', 'string'],
+               'is_confirmed'   => ['accepted'],
+          ]);
 
-        $city = City::find($validated['city_id']);
+          $city = City::find($validated['city_id']);
 
-        $contact = ContactUs::create([
-            'full_name'      => $validated['full_name'],
-            'phone_number'   => $validated['phone_number'],
-            'email'          => $validated['email'],
-            'interested_in'  => $validated['interested_in'],
-            'city_id'        => $validated['city_id'],
-            'message'        => $validated['message'],
-            'is_confirmed'   => true,
-        ]);
+          $contact = ContactUs::create([
+               'full_name'      => $validated['full_name'],
+               'phone_number'   => $validated['phone_number'],
+               'email'          => $validated['email'],
+               'interested_in'  => $validated['interested_in'],
+               'city_id'        => $validated['city_id'],
+               'message'        => $validated['message'],
+               'is_confirmed'   => true,
+          ]);
 
-        Mail::to(config('mail.from.address')) // or your admin email
-            ->send(new ContactSubmissionMail($contact, $city));
-            
-        return back()->with('success', 'Your message has been sent successfully!');
-    }
+          Mail::to(config('mail.from.address')) // or your admin email
+               ->send(new ContactSubmissionMail($contact, $city));
 
-    public function listRentalProperty(): Response
-    {
-        return Inertia::render('frontend/list-rental-property');
-    }
+          return back()->with('success', 'Your message has been sent successfully!');
+     }
 
-    public function submitNewsletter(Request $request)
-    {
-        $validated = $request->validate([
-            'email'          => ['required', 'email', 'max:255'],
-        ]);
+     public function listRentalProperty(): Response
+     {
+          return Inertia::render('frontend/list-rental-property');
+     }
 
-        $newsletter = Newsletter::create([
-            'email'          => $validated['email'],
-            
-        ]);
+     public function submitNewsletter(Request $request)
+     {
+          $validated = $request->validate([
+               'email'          => ['required', 'email', 'max:255'],
+          ]);
 
-        Mail::to(config('mail.from.address'))
-            ->send(new NewsletterMail($newsletter));
+          $newsletter = Newsletter::create([
+               'email'          => $validated['email'],
 
-        return back()->with('success', 'Your email has been sent successfully!');
-    }
+          ]);
+
+          Mail::to(config('mail.from.address'))
+               ->send(new NewsletterMail($newsletter));
+
+          return back()->with('success', 'Your email has been sent successfully!');
+     }
+
+     public function buying(): Response
+     {
+          return Inertia::render('frontend/buying');
+     }
 }

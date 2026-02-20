@@ -41,11 +41,15 @@ export default function QuickSearch({ listings, cities, filters = {} }: QuickSea
     const [priceMax, setPriceMax] = useState(filters.price_max ?? '');
     const [isReady, setIsReady] = useState(false);
 
-    // Property type options
     const propertyTypes = [
-        { value: 'rural_properties_and_mini_farms', label: 'Rural properties & mini-farms' },
-        { value: 'single_properties_homes', label: 'Single properties & homes' },
-        { value: 'towndhomes_and_condos', label: 'Townhomes & condos' },
+        { value: 'house', label: 'House' },
+        { value: 'townhouse', label: 'Townhouse' },
+        { value: 'condo', label: 'Condo' },
+        { value: 'multi_family', label: 'Multi-family' },
+        { value: 'mobile', label: 'Mobile' },
+        { value: 'co_op', label: 'Co-op' },
+        { value: 'land', label: 'Land' },
+        { value: 'other', label: 'Other' },
     ];
 
     useEffect(() => {
@@ -423,7 +427,7 @@ export default function QuickSearch({ listings, cities, filters = {} }: QuickSea
                         </div>
                         <div className="mb-3 rounded-xl bg-background p-4 font-montserrat font-semibold text-text-secondary-foreground shadow">
                             <h4 className="mb-3 font-semibold">
-                                Property Type
+                                Home Type
                             </h4>
                             <div className="space-y-2">
                                 {propertyTypes.map((type) => (
@@ -497,7 +501,7 @@ export default function QuickSearch({ listings, cities, filters = {} }: QuickSea
 
                     <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-2">
                         {listings?.data?.map((listing: any) => (
-                            <PlatinumCard key={listing.id} property={listing} />
+                            <PlatinumCard key={listing.id} property={listing} type="listing" />
                         ))}
                     </div>
                     {listings?.links && listings.links.length > 0 && (
@@ -520,18 +524,17 @@ export default function QuickSearch({ listings, cities, filters = {} }: QuickSea
                                         href={link.url || '#'}
                                         preserveScroll
                                         disabled={!link.url}
-                                        className={`rounded px-4 py-2 transition-colors ${
-                                            link.active
+                                        className={`rounded px-4 py-2 transition-colors ${link.active
                                                 ? 'bg-secondary text-primary-foreground'
                                                 : 'bg-primary text-primary-foreground hover:bg-secondary'
-                                        } ${!link.url ? 'cursor-not-allowed opacity-50' : ''}`}
+                                            } ${!link.url ? 'cursor-not-allowed opacity-50' : ''}`}
                                     >
                                         {isPrevious || isNext
                                             ? displayLabel
                                             : link.label.replace(
-                                                  /&laquo;|&raquo;/g,
-                                                  '',
-                                              )}
+                                                /&laquo;|&raquo;/g,
+                                                '',
+                                            )}
                                     </Link>
                                 );
                             })}

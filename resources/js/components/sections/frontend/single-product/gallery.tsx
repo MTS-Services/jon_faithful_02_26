@@ -3,7 +3,7 @@ import { Link, useForm } from '@inertiajs/react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
-export default function Gallery({ listing }: any) {
+export default function Gallery({ listing, facilitiesShow }: any) {
     const { data, setData, post, processing, reset } = useForm({
         name: '',
         email: '',
@@ -53,7 +53,7 @@ export default function Gallery({ listing }: any) {
     const embedUrl = getEmbedUrl(listing.youtube_video_url);
 
     return (
-        <div className="container mx-auto mt-10 px-4 md:mt-20">
+        <div className="container mx-auto mt-6 px-4 md:mt-12">
             <div className="mb-6">
                 <h1 className="font-montserrat text-2xl font-semibold text-secondary-foreground md:text-3xl">
                     {listing.title}
@@ -139,15 +139,6 @@ export default function Gallery({ listing }: any) {
             </div>
             <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
                 <div className="space-y-8 lg:col-span-2">
-                    {/* <div className="px-4">
-                        <h2 className="mb-3 text-xl font-semibold text-text-primary md:mb-5 md:text-2xl">
-                            Ericgarcia
-                        </h2>
-                        <p className="text-base font-medium text-text-primary md:text-lg">
-                            Realsate Agents
-                        </p>
-                    </div> */}
-
                     <div className="flex flex-wrap items-center justify-between gap-4 border-b px-4 pb-4 text-sm font-semibold text-muted-foreground">
                         <div className="flex items-center gap-2">
                             <svg
@@ -210,12 +201,12 @@ export default function Gallery({ listing }: any) {
                             {listing.description}
                         </p>
                     </div>
+                    {/* {facilitiesShow ? 
                     <div className="px-4">
                         <h3 className="mb-4 text-xl font-bold text-text-muted md:text-2xl">
                             Facilities
                         </h3>
                         <div className="grid grid-cols-1 gap-y-2 text-sm text-text-muted sm:grid-cols-2">
-                            {/* LEFT COLUMN */}
                             <div className="space-y-2">
                                 {leftFacilities.map((facility: any) => (
                                     <div
@@ -236,8 +227,6 @@ export default function Gallery({ listing }: any) {
                                     </div>
                                 ))}
                             </div>
-
-                            {/* RIGHT COLUMN */}
                             <div className="space-y-2">
                                 {rightFacilities.map((facility: any) => (
                                     <div
@@ -260,6 +249,9 @@ export default function Gallery({ listing }: any) {
                             </div>
                         </div>
                     </div>
+                    :
+                    null
+                    } */}
                     <div className="px-4">
                         <h3 className="mb-4 font-montserrat text-xl font-semibold text-secondary-foreground md:text-[25px]">
                             More About Property
