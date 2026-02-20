@@ -129,8 +129,11 @@ export default function QuickSearch({ listings, cities, filters = {} }: QuickSea
         const bounded = Math.max(sanitized, PRICE_MIN_DEFAULT);
         setPriceMax(String(bounded));
 
+        // set timer to clear price min if price max is less than price min
         if (priceMin && Number(priceMin) > bounded) {
-            setPriceMin(String(bounded));
+            setTimeout(() => {
+                setPriceMin('');
+            }, 500);
         }
     }, [priceMin]);
 
@@ -389,7 +392,7 @@ export default function QuickSearch({ listings, cities, filters = {} }: QuickSea
 
                                 <div className="flex flex-col gap-3 md:flex-row">
                                     <label className="flex w-full flex-col text-sm font-semibold text-muted-foreground">
-                                        Min
+                                        Minimum
                                         <input
                                             type="number"
                                             min={PRICE_MIN_DEFAULT}
@@ -397,11 +400,12 @@ export default function QuickSearch({ listings, cities, filters = {} }: QuickSea
                                             step={5000}
                                             value={priceMin}
                                             onChange={(e) => handlePriceMinChange(e.target.value)}
+                                            placeholder="No Minimum"
                                             className="mt-1 rounded-md border border-text-secondary-foreground px-3 py-2"
                                         />
                                     </label>
                                     <label className="flex w-full flex-col text-sm font-semibold text-muted-foreground">
-                                        Max
+                                        Maximum
                                         <input
                                             type="number"
                                             min={PRICE_MIN_DEFAULT}
@@ -409,6 +413,8 @@ export default function QuickSearch({ listings, cities, filters = {} }: QuickSea
                                             step={5000}
                                             value={priceMax}
                                             onChange={(e) => handlePriceMaxChange(e.target.value)}
+                                            // onBlur={(e) => handlePriceMaxBlur(e.target.value)}
+                                            placeholder="No Maximum"
                                             className="mt-1 rounded-md border border-text-secondary-foreground px-3 py-2"
                                         />
                                     </label>
