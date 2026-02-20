@@ -1,8 +1,9 @@
 import { Hero } from '@/components/sections/frontend/hero';
 import KnoxvillePage from '@/components/sections/frontend/knoxville/knoxville-page';
 import FrontendLayout from '@/layouts/frontend-layout';
+import { City } from '@/types';
 
-export default function LivingInKnoxville() {
+export default function LivingInKnoxville({city}: {city: City}) {
     return (
         <div>
             <FrontendLayout>
@@ -30,7 +31,7 @@ export default function LivingInKnoxville() {
                     }
                     width="max-w-3xl"
                 />
-                <KnoxvillePage />
+                <KnoxvillePage city={city} />
             </FrontendLayout>
         </div>
     );

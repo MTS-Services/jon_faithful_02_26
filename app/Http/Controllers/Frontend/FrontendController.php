@@ -28,6 +28,13 @@ class FrontendController extends Controller
 {
      public function __construct(private ListingService $service, private RentalService $rentalService) {}
 
+     private function renderCityPage(string $cityName, string $view): Response
+     {
+          $city = City::where('name', $cityName)->firstOrFail();
+
+          return Inertia::render($view, ['city' => $city]);
+     }
+
      public function index(): Response
      {
           $listings =  $this->service->getPaginatedDatas(
@@ -42,7 +49,7 @@ class FrontendController extends Controller
      }
      public function livingInBristol(): Response
      {
-          return Inertia::render('frontend/livingInBristol');
+          return $this->renderCityPage('Bristol', 'frontend/livingInBristol');
      }
      public function rentingTennessee(): Response
      {
@@ -51,7 +58,7 @@ class FrontendController extends Controller
 
      public function livingInChattanooga(): Response
      {
-          return Inertia::render('frontend/living-in-chattanooga');
+          return $this->renderCityPage('Chattanooga', 'frontend/living-in-chattanooga');
      }
 
      public function homesForSale(Request $request): Response
@@ -218,7 +225,7 @@ class FrontendController extends Controller
      }
      public function livingInNashville(): Response
      {
-          return Inertia::render('frontend/living-in-nashville');
+          return $this->renderCityPage('Nashville', 'frontend/living-in-nashville');
      }
      public function costOfRentingTennessee(): Response
      {
@@ -230,39 +237,39 @@ class FrontendController extends Controller
      }
      public function livingInCookeville(): Response
      {
-          return Inertia::render('frontend/living-in-cookeville');
+          return $this->renderCityPage('Cookeville', 'frontend/living-in-cookeville');
      }
      public function livingInKnoxville(): Response
      {
-          return Inertia::render('frontend/living-in-knoxville');
+          return $this->renderCityPage('Knoxville', 'frontend/living-in-knoxville');
      }
      public function livingInJohnsonCity(): Response
      {
-          return Inertia::render('frontend/living-in-johnson-city');
+          return $this->renderCityPage('Johnson City', 'frontend/living-in-johnson-city');
      }
      public function livingInFranklin(): Response
      {
-          return Inertia::render('frontend/living-in-franklin');
+          return $this->renderCityPage('Franklin', 'frontend/living-in-franklin');
      }
      public function livingInMemphis(): Response
      {
-          return Inertia::render('frontend/living-in-memphis');
+          return $this->renderCityPage('Memphis', 'frontend/living-in-memphis');
      }
      public function livingInClarksville(): Response
      {
-          return Inertia::render('frontend/living-in-clarksville');
+          return $this->renderCityPage('Clarksville', 'frontend/living-in-clarksville');
      }
      public function livingInMurfreesboro(): Response
      {
-          return Inertia::render('frontend/living-in-murfreesboro');
+          return $this->renderCityPage('Murfreesboro', 'frontend/living-in-murfreesboro');
      }
      public function livingInKingsport(): Response
      {
-          return Inertia::render('frontend/living-in-kingsport');
+          return $this->renderCityPage('Kingsport', 'frontend/living-in-kingsport');
      }
      public function livingInJackson(): Response
      {
-          return Inertia::render('frontend/living-in-jackson');
+          return $this->renderCityPage('Jackson', 'frontend/living-in-jackson');
      }
      public function costOfLivingInTennessee(): Response
      {

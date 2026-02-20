@@ -1,9 +1,10 @@
 import { Hero } from '@/components/sections/frontend/hero'
 import JohnsonCityPage from '@/components/sections/frontend/johnson-city/johnson-city-page'
 import FrontendLayout from '@/layouts/frontend-layout'
+import { City } from '@/types'
 import React from 'react'
 
-export default function LivingInJohnsonCity() {
+export default function LivingInJohnsonCity({ city }: { city: City }) {
   return (
     <div>
       <FrontendLayout>
@@ -25,7 +26,7 @@ export default function LivingInJohnsonCity() {
                     }
                     width="max-w-3xl"
                 />
-                <JohnsonCityPage />
+                <JohnsonCityPage city={city} />
             </FrontendLayout>
     </div>
   )

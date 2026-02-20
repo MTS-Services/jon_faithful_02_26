@@ -5,6 +5,7 @@ import InfoTabsSection from '../cities/info-tabs-section';
 import MoveLocationSection from '../cities/move-location-section';
 import NeighborhoodsSection from '../cities/neighborhoods-section';
 import WhyMoveSection from '../cities/why-move';
+import { City } from '@/types';
 
 const whyMoveData = {
     title: 'Why People Are Moving to Jackson',
@@ -137,7 +138,7 @@ const tabs = [
         },
     },
 ];
-export default function JacksonPage() {
+export default function JacksonPage({ city }: { city: City }) {
     return (
         <div>
             <WhyMoveSection whyMove={whyMoveData} />
@@ -254,7 +255,8 @@ export default function JacksonPage() {
                         ),
                     },
                 ]}
-                buttonText="Connect With a Jackson Realtor"
+                cityId={city.id}
+                cityName={city.name}
             />
 
             <FinalInfoSection

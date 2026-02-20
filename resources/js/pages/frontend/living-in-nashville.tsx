@@ -1,8 +1,9 @@
 import { Hero } from '@/components/sections/frontend/hero';
 import NashvillePage from '@/components/sections/frontend/nashville/nashville-page';
 import FrontendLayout from '@/layouts/frontend-layout';
+import { City } from '@/types';
 
-export default function LivingInNashville() {
+export default function LivingInNashville({ city }: { city: City }) {
     return (
         <FrontendLayout>
             {/* <Hero />
@@ -28,7 +29,7 @@ export default function LivingInNashville() {
                 }
                 width="max-w-3xl"
             />
-            <NashvillePage />
+            <NashvillePage city={city} />
         </FrontendLayout>
     );
 }

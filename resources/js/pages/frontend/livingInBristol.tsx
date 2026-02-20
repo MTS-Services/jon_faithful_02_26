@@ -5,7 +5,7 @@ import FrontendLayout from '@/layouts/frontend-layout'
 
 
 
-export default function LivingInBristol() {
+export default function LivingInBristol({ city }: { city: any }) {
     return (
         <FrontendLayout>
             <Hero
@@ -24,7 +24,7 @@ export default function LivingInBristol() {
                 }
                 width="max-w-2xl"
             />
-            <BristolPage />
+            <BristolPage city={city} />
         </FrontendLayout>
     )
 }

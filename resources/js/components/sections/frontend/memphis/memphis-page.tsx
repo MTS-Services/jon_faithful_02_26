@@ -5,6 +5,7 @@ import InfoTabsSection from '../cities/info-tabs-section';
 import MoveLocationSection from '../cities/move-location-section';
 import NeighborhoodsSection from '../cities/neighborhoods-section';
 import WhyMoveSection from '../cities/why-move';
+import { City } from '@/types';
 
 const whyMoveData = {
     title: 'Why People Are Moving to Memphis',
@@ -140,7 +141,7 @@ const tabs = [
         },
     },
 ];
-export default function MemphisPage() {
+export default function MemphisPage({ city }: { city: City }) {
     return (
         <div>
             <WhyMoveSection whyMove={whyMoveData} />
@@ -257,7 +258,8 @@ export default function MemphisPage() {
                         ),
                     },
                 ]}
-                buttonText="Connect With a Memphis Realtor"
+                cityId={city.id}
+                cityName={city.name}
             />
 
             <FinalInfoSection

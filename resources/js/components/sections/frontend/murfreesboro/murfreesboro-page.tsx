@@ -5,6 +5,7 @@ import InfoTabsSection from '../cities/info-tabs-section';
 import MoveLocationSection from '../cities/move-location-section';
 import NeighborhoodsSection from '../cities/neighborhoods-section';
 import WhyMoveSection from '../cities/why-move';
+import { City } from '@/types';
 
 const whyMoveData = {
     title: 'Why People Are Moving to Murfreesboro',
@@ -141,7 +142,7 @@ const tabs = [
         },
     },
 ];
-export default function MurfreesboroPage() {
+export default function MurfreesboroPage({ city }: { city: City }) {
     return (
         <div>
             <WhyMoveSection whyMove={whyMoveData} />
@@ -261,7 +262,8 @@ export default function MurfreesboroPage() {
                         ),
                     },
                 ]}
-                buttonText="Connect With a Murfreesboro Realtor"
+                cityId={city.id}
+                cityName={city.name}
             />
 
             <FinalInfoSection

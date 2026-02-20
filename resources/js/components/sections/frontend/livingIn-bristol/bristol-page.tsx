@@ -146,7 +146,7 @@ const tabs = [
     },
 ];
 
-const BristolPage: React.FC = () => {
+const BristolPage: React.FC<{ city: any }> = ({ city }) => {
     return (
         <div className="font-sans antialiased">
             <WhyMoveSection whyMove={whyMoveData} />
@@ -257,7 +257,8 @@ const BristolPage: React.FC = () => {
                         ),
                     },
                 ]}
-                buttonText="Connect With a Bristol Realtor"
+                cityId={city.id}
+                cityName={city.name}
             />
 
             <FinalInfoSection

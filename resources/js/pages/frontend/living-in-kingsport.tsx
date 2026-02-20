@@ -1,8 +1,9 @@
 import { Hero } from '@/components/sections/frontend/hero';
 import KingsportPage from '@/components/sections/frontend/kingsport/kingsport-page';
 import FrontendLayout from '@/layouts/frontend-layout';
+import { City } from '@/types';
 
-export default function LivingInKingsport() {
+export default function LivingInKingsport({ city }: { city: City }) {
     return (
         <div>
             <FrontendLayout>
@@ -24,7 +25,7 @@ export default function LivingInKingsport() {
                     }
                     width="max-w-2xl"
                 />
-                <KingsportPage />
+                <KingsportPage city={city} />
             </FrontendLayout>
         </div>
     );

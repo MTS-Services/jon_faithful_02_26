@@ -1,8 +1,9 @@
 import ClarksvillePage from '@/components/sections/frontend/clarksville/clarksville-page';
 import { Hero } from '@/components/sections/frontend/hero';
 import FrontendLayout from '@/layouts/frontend-layout';
+import { City } from '@/types';
 
-export default function LivingInClarksville() {
+export default function LivingInClarksville({ city }: { city: City }) {
     return (
         <div>
             <FrontendLayout>
@@ -22,7 +23,7 @@ export default function LivingInClarksville() {
                         </>
                     }
                 />
-                <ClarksvillePage />
+                <ClarksvillePage city={city} />
             </FrontendLayout>
         </div>
     );

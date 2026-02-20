@@ -1,8 +1,9 @@
 import { Hero } from '@/components/sections/frontend/hero';
 import MemphisPage from '@/components/sections/frontend/memphis/memphis-page';
 import FrontendLayout from '@/layouts/frontend-layout';
+import { City } from '@/types';
 
-export default function LivingInMemphis() {
+export default function LivingInMemphis({ city }: { city: City }) {
     return (
         <div>
             <FrontendLayout>
@@ -21,7 +22,7 @@ export default function LivingInMemphis() {
                     }
                     width="max-w-2xl"
                 />
-                <MemphisPage />
+                <MemphisPage city={city} />
             </FrontendLayout>
         </div>
     );

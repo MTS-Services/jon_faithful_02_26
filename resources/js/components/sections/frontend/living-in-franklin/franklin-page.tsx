@@ -5,6 +5,7 @@ import InfoTabsSection from '../cities/info-tabs-section';
 import MoveLocationSection from '../cities/move-location-section';
 import NeighborhoodsSection from '../cities/neighborhoods-section';
 import WhyMoveSection from '../cities/why-move';
+import { City } from '@/types';
 
 const whyMoveData = {
     title: 'Why People Are Moving to Franklin',
@@ -148,7 +149,7 @@ const tabs = [
         },
     },
 ];
-export default function FranklinPage() {
+export default function FranklinPage({ city }: { city: City }) {
     return (
         <div>
             <WhyMoveSection whyMove={whyMoveData} />
@@ -265,7 +266,8 @@ export default function FranklinPage() {
                         ),
                     },
                 ]}
-                buttonText="Connect With a Franklin Realtor"
+                cityId={city.id}
+                cityName={city.name}
             />
 
             <FinalInfoSection
