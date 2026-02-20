@@ -1,4 +1,5 @@
-import { Head } from '@inertiajs/react'
+import React from 'react';
+import { Head } from '@inertiajs/react';
 
 const sections = [
     {
@@ -119,38 +120,34 @@ const sections = [
     },
 ];
 
-
 export default function PrivacyPolicyContent() {
     return (
-        <div className="bg-[#f2f4f7]">
+        <div className="min-h-screen bg-white">
             <Head title="Why Tennessee | Privacy Policy" />
-            <section className="relative h-80 w-full overflow-hidden">
-                <img
-                    src="https://images.unsplash.com/photo-1502673588042-a0dcd2403774?auto=format&fit=crop&w=1600&q=80"
-                    alt="Tennessee home"
-                    className="absolute inset-0 h-full w-full object-cover"
-                />
-                <div className="absolute inset-0 bg-primary/70" />
-                <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center text-white">
-                    <p className="text-sm uppercase tracking-[0.3em]">Legal</p>
-                    <h1 className="mt-4 font-montserrat text-4xl font-semibold">Privacy Policy</h1>
-                    <p className="mt-2 text-base opacity-90">Learn how we collect, use, and protect your information.</p>
-                </div>
-            </section>
-
-            <section className="container mx-auto grid gap-6 px-6 py-16 lg:grid-cols-1">
-                <div className="space-y-6">
-                    {sections.map((section) => (
-                        <article key={section.title} className="">
-                            <div className="border-b border-primary bg-primary px-6 py-4 text-white">
-                                <h2 className="font-montserrat text-xl md:text-2xl lg:text-4xl font-semibold">{section.title}</h2>
+            
+            <section className="mx-auto max-w-5xl px-6 py-12 md:py-20">
+                <div className="space-y-12">
+                    {sections.map((section, index) => (
+                        <article key={index} className="group">
+                            {/* Blue Header Bar */}
+                            <div className="mb-6 bg-[#1e3a5f] px-6 py-3 shadow-md">
+                                <h2 className="font-montserrat text-lg font-bold text-white md:text-2xl">
+                                    {section.title}
+                                </h2>
                             </div>
-                            <div className="space-y-3 px-6 py-5 text-gray-700">
-                                <p className='text-lg'>{section.description}</p>
+
+                            {/* Section Body */}
+                            <div className="space-y-4 px-2 text-gray-700">
+                                <p className="leading-relaxed text-gray-600">
+                                    {section.description}
+                                </p>
+
                                 {section.items && (
-                                    <ul className="list-disc space-y-1 pl-5 text-lg">
-                                        {section.items.map((item) => (
-                                            <li key={item}>{item}</li>
+                                    <ul className="grid grid-cols-1 gap-2 pl-5 md:grid-cols-1">
+                                        {section.items.map((item, idx) => (
+                                            <li key={idx} className="relative list-disc pl-2 text-gray-600 transition-colors hover:text-gray-900">
+                                                {item}
+                                            </li>
                                         ))}
                                     </ul>
                                 )}
@@ -158,26 +155,7 @@ export default function PrivacyPolicyContent() {
                         </article>
                     ))}
                 </div>
-
-                {/* <aside className="space-y-6 rounded-xl border border-primary/10 bg-white p-6 shadow-sm">
-                    <div>
-                        <h3 className="font-montserrat text-lg font-semibold text-primary">Need Help?</h3>
-                        <p className="mt-2 text-sm text-gray-600">
-                            Have questions about your data or need to update your preferences? Reach out to our relocation concierge team.
-                        </p>
-                        <a
-                            href="mailto:hello@whytennessee.com"
-                            className="mt-4 inline-flex items-center rounded-full bg-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-secondary"
-                        >
-                            Email Us
-                        </a>
-                    </div>
-                    <div className="rounded-lg bg-primary/10 p-4 text-sm text-gray-700">
-                        <p className="font-semibold text-primary">Last updated</p>
-                        <p>January 15, 2026</p>
-                    </div>
-                </aside> */}
             </section>
         </div>
-    )
+    );
 }

@@ -181,7 +181,7 @@ export default function NashvillePage({ city }: { city: City }) {
                 </p>
 
                 <div className="grid gap-6 md:grid-cols-4">
-                    <CostCard title="Median home price" value="$325,000" />
+                    <CostCard title="Median home price" value="$460,000" />
                     <CostCard
                         title="2-bedroom apartment"
                         value="$1,700–2,200"
@@ -189,7 +189,7 @@ export default function NashvillePage({ city }: { city: City }) {
                     <CostCard title="Utilities" value="Near national average" />
                     <CostCard
                         title="Property taxes"
-                        value="Lower than many states with income tax"
+                        value="Lower than many states"
                     />
                 </div>
             </div>

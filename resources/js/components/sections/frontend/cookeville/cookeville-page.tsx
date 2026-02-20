@@ -89,7 +89,7 @@ const tabs = [
             'Private and charter school options',
         ],
         footer: 'Education and community involvement are central to Cookeville’s identity.',
-        imageUrl: '/assets/images/FirstBank_Stadium_is_home.jpeg',
+        imageUrl: '/assets/images/cookeville/Pupils leaving elementary school building. Children smiling walking outside.jpeg',
     },
     {
         id: 'tab2',

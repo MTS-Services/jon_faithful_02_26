@@ -262,13 +262,13 @@ export default function Create({ cities, facilities: initialFacilities, property
 
                             {/* Property Type */}
                             <div className="grid gap-2">
-                                <Label htmlFor="property_type">Property Type*</Label>
+                                <Label htmlFor="property_type">Home Type*</Label>
                                 <Select
                                     value={data.property_type}
                                     onValueChange={(value) => setData('property_type', value)}
                                 >
                                     <SelectTrigger>
-                                        <SelectValue placeholder="Select property type" />
+                                        <SelectValue placeholder="Select home type" />
                                     </SelectTrigger>
                                     <SelectContent>
                                         {propertyTypes.map((type) => (
