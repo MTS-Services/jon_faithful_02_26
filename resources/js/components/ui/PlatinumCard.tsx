@@ -14,7 +14,7 @@ import { FaBath, FaBed, FaClone, FaMapMarkerAlt } from "react-icons/fa";
 // };
 
 const PlatinumCard: React.FC<{ property: any; type: string }> = ({ property, type }) => {
-    const { title, location, sqft, beds, baths, price, img, listing_title } = property;
+    const { title, location, sqft, beds, baths, price, img } = property;
     const isRental = type === 'rental';
     const isListing = type === 'listing';
     const isRoute = isRental ? 'frontend.single-product.rental' : isListing ? 'frontend.single-product.listing' : 'frontend.single-product.rental';
@@ -48,7 +48,7 @@ const PlatinumCard: React.FC<{ property: any; type: string }> = ({ property, typ
                 {/* Content */}
                 <div className="p-5">
                     <h3 className="text-lg text-brand-dark font-semibold mb-4 line-clamp-1">
-                        {property.title || property.listing_title}
+                        {property.title}
                     </h3>
 
                     <div className="grid grid-cols-2 gap-y-3 text-sm text-gray-900">

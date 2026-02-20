@@ -178,15 +178,22 @@ class FrontendController extends Controller
      //      $facilitiesShow = $listing->property_type === 'rental' ? true : false;
 
      // }
-     
+
      public function singleListingProduct($listing_id = null)
      {
           if ($listing_id) {
                $listing = $this->service->findData($listing_id);
                $facilitiesShow = false;
           }
-          
-          return Inertia::render('frontend/single-product', ['listing' => $listing, 'facilitiesShow' => $facilitiesShow]);
+          $relatedListings = $this->service->getPaginatedDatas(
+               perPage: 6,
+               filters: []
+          );
+
+          return Inertia::render('frontend/single-product', [
+               'listing' => $listing,
+               'facilitiesShow' => $facilitiesShow
+          ]);
      }
      public function singleRentalProduct($rental_id)
      {
@@ -194,8 +201,11 @@ class FrontendController extends Controller
                $listing = Rental::findOrFail($rental_id)->load(['city', 'user', 'galleries', 'facilities']);
                $facilitiesShow = false;
           }
-          
-          return Inertia::render('frontend/single-product', ['listing' => $listing, 'facilitiesShow' => $facilitiesShow]);
+
+          return Inertia::render('frontend/single-product', [
+               'listing' => $listing,
+               'facilitiesShow' => $facilitiesShow
+          ]);
      }
 
      public function livetennessee(): Response
@@ -308,7 +318,7 @@ class FrontendController extends Controller
                'name'  => $request->name,
                'email' => $request->email,
                'phone' => $request->phone,
-               'listing_title' => $listing->title,
+               'title' => $listing->title,
                'purchase_price' => $listing->purchase_price,
                'owner_name' => $owner->name,
           ];

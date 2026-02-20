@@ -35,7 +35,7 @@ export default function Listings({ rentals }: Props) {
 
                         <div className="p-2">
                             <h2 className="text-1xl mb-2 font-semibold text-gray-700">
-                                {rental.title || rental.listing_title}
+                                {rental.title || rental.title}
                             </h2>
 
                             <div className="grid grid-cols-2 gap-y-5 text-gray-800">

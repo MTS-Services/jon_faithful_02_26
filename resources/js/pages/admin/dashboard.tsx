@@ -13,7 +13,7 @@ type Props = {
   };
   recentListings: Array<{ id: number; title: string; created_at: string }>;
   userTypeCounts?: Record<string, { label: string; count: number }>;
-  recentRentals?: Array<{ id: number; listing_title: string; created_at: string; user?: { id: number; name: string } }>;
+  recentRentals?: Array<{ id: number; title: string; created_at: string; user?: { id: number; name: string } }>;
 };
 
 const StatCard = ({ title, value, subtext, icon: Icon, colorClass }: any) => (
@@ -124,7 +124,7 @@ export default function Index() {
                   {recentRentals.map((r) => (
                     <li key={r.id} className="flex items-center justify-between rounded-md border border-sidebar-border p-3">
                       <div>
-                        <div className="font-medium">{r.listing_title}</div>
+                        <div className="font-medium">{r.title}</div>
                         <div className="text-xs text-muted-foreground">{r.user?.name ?? '—'} · {new Date(r.created_at).toLocaleString()}</div>
                       </div>
                     </li>

@@ -102,7 +102,7 @@ export interface Rental {
     id: number
     user_id: number
     city_id: number
-    listing_title: string
+    title: string
     description: string | null
     purchase_price: number | null
     property_type: string

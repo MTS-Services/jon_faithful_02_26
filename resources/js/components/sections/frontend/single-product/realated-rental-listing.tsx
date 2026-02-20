@@ -18,7 +18,7 @@ const RealatedRentalListing: React.FC<{ listings: any }> = ({ listings }) => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     {listingsArray.map((listing: any) => (
-                        <PlatinumCard key={listing.id} property={listing} />
+                        <PlatinumCard key={listing.id} property={listing} type="rental" />
                     ))}
                 </div>
             </div>

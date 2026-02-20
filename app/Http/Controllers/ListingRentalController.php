@@ -65,7 +65,7 @@ class ListingRentalController extends Controller
     {
 
         $validated = $request->validate([
-            'listing_title' => ['required', 'string', 'max:500'],
+            'title' => ['required', 'string', 'max:500'],
             'description' => ['required', 'string'],
             'purchase_price' => ['required', 'numeric', 'min:0'],
             'city_id' => ['required', 'exists:cities,id'],
@@ -150,7 +150,7 @@ class ListingRentalController extends Controller
         $rental = Rental::where('user_id', $request->user()->id)->findOrFail($id);
 
         $validated = $request->validate([
-            'listing_title' => ['required', 'string', 'max:500'],
+            'title' => ['required', 'string', 'max:500'],
             'description' => ['required', 'string'],
             'purchase_price' => ['required', 'numeric', 'min:0'],
             'city_id' => ['required', 'exists:cities,id'],

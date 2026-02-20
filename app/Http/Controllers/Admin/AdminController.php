@@ -41,7 +41,7 @@ class AdminController extends Controller
             ];
         }
 
-        $recentRentals = Rental::with('user:id,name')->latest()->limit(5)->get(['id', 'listing_title', 'created_at', 'user_id']);
+        $recentRentals = Rental::with('user:id,name')->latest()->limit(5)->get(['id', 'title', 'created_at', 'user_id']);
 
         return Inertia::render('admin/dashboard', [
             'stats' => $stats,

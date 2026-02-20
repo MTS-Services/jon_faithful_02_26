@@ -101,7 +101,7 @@
                 <li><strong>Email:</strong> <a href="mailto:{{ $data['email'] }}"
                         style="color: #b8912a; text-decoration: none;">{{ $data['email'] }}</a></li>
                 <li><strong>Phone:</strong>{{ $data['phone'] }}</li>
-                <li><strong>Property:</strong>{{ $data['listing_title'] }}</li>
+                <li><strong>Property:</strong>{{ $data['title'] }}</li>
                 <li><strong>Price:</strong>{{ $data['purchase_price'] }}</li>
             </ul>
         </div>

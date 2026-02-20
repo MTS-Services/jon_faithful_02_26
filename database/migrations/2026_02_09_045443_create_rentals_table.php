@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('sort_order')->default(0);
             $table->unsignedBigInteger('city_id');
 
-            $table->string('listing_title', 500);
+            $table->string('title', 500);
             $table->text('description')->nullable();
             $table->decimal('purchase_price', 12, 2)->nullable();
             $table->string('property_type');

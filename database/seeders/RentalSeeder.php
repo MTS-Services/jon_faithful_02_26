@@ -32,7 +32,7 @@ class RentalSeeder extends Seeder
 
         $rentals = [
             [
-                'listing_title'   => 'Modern 2 Bed Apartment',
+                'title'   => 'Modern 2 Bed Apartment',
                 'description'     => 'Bright apartment close to downtown and public transport.',
                 'purchase_price'  => 1800,
                 'security_deposit' => 1800,
@@ -46,7 +46,7 @@ class RentalSeeder extends Seeder
                 'sort_order'      => 1,
             ],
             [
-                'listing_title'   => 'Family Home with Garage',
+                'title'   => 'Family Home with Garage',
                 'description'     => 'Spacious rental home in a quiet neighborhood.',
                 'purchase_price'  => 2400,
                 'security_deposit' => 2400,
@@ -64,7 +64,7 @@ class RentalSeeder extends Seeder
         foreach ($rentals as $data) {
             $rental = Rental::updateOrCreate(
                 [
-                    'listing_title' => $data['listing_title'],
+                    'title' => $data['title'],
                     'city_id'       => $city->id,
                 ],
                 array_merge($data, [

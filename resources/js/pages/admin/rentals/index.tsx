@@ -42,12 +42,12 @@ export default function Index({
 
     const columns: ColumnConfig<Rental>[] = [
         {
-            key: 'listing_title',
+            key: 'title',
             label: 'Title',
             sortable: true,
             render: (item) => (
                 <div className="font-medium text-gray-900 dark:text-gray-100">
-                    {item.listing_title}
+                    {item.title}
                 </div>
             ),
         },
@@ -142,7 +142,7 @@ export default function Index({
             label: 'Delete',
             icon: <Trash2 className="h-4 w-4" />,
             onClick: (item) => {
-                if (confirm(`Are you sure you want to delete ${item.listing_title}?`)) {
+                if (confirm(`Are you sure you want to delete ${item.title}?`)) {
                     router.visit(route('admin.rentals.delete', item?.id));
                 }
             },

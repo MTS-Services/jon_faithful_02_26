@@ -30,8 +30,8 @@ class RentalController extends Controller
     {
         $queryBody = Rental::query();
         $result = $this->dataTableService->process($queryBody, request(), [
-            'searchable' => ['listing_title', 'description'],
-            'sortable' => ['id', 'listing_title', 'created_at'],
+            'searchable' => ['title', 'description'],
+            'sortable' => ['id', 'title', 'created_at'],
         ]);
         return Inertia::render('admin/rentals/index', [
             'rentals' => $result['data'],
@@ -85,7 +85,7 @@ class RentalController extends Controller
     {
         // Validate the request
         $validated = $request->validate([
-            'listing_title'    => 'required|string|max:255',
+            'title'    => 'required|string|max:255',
             'description'      => 'required|string',
             'purchase_price'   => 'required|numeric',
             'property_type'    => 'required|string',
@@ -146,7 +146,7 @@ class RentalController extends Controller
     {
         $validated = $request->validate([
             'user_id'          => 'required|exists:users,id',
-            'listing_title'    => 'required|string|max:255',
+            'title'    => 'required|string|max:255',
             'description'      => 'required|string',
             'purchase_price'   => 'required|numeric',
             'property_type'    => 'required|string',
