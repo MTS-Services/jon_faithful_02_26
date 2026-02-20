@@ -1,3 +1,5 @@
+import { Link } from "@inertiajs/react";
+
 export default function StartYourMove() {
     return (
         <section className="flex flex-col items-center justify-between gap-8 bg-primary px-4 py-10 sm:px-6 md:flex-row md:items-center md:px-16">
@@ -16,8 +18,8 @@ export default function StartYourMove() {
 
                 {/* Buttons */}
                 <div className="flex w-full flex-col gap-4 sm:flex-row md:w-auto">
-                    <a
-                        href="#"
+                    <Link
+                            href={route('frontend.city-comparison')}
                         className="group flex w-full items-center justify-center gap-2 rounded-full bg-background px-6 py-4 text-sm font-semibold whitespace-nowrap text-text-primary transition-all hover:bg-secondary hover:text-primary-foreground sm:w-auto sm:text-base"
                     >
                         Explore Tennessee Cities
@@ -36,10 +38,10 @@ export default function StartYourMove() {
                                 />
                             </svg>
                         </span>
-                    </a>
+                    </Link>
 
-                    <a
-                        href="#"
+                    <Link
+                            href={route('frontend.home-for-sale')}
                         className="group flex w-full items-center justify-center gap-2 rounded-full bg-background px-6 py-4 text-sm font-semibold whitespace-nowrap text-text-primary transition-all hover:bg-secondary hover:text-primary-foreground sm:w-auto sm:text-base"
                     >
                         Search Homes for Sale in Tennessee
@@ -58,7 +60,7 @@ export default function StartYourMove() {
                                 />
                             </svg>
                         </span>
-                    </a>
+                    </Link>
                 </div>
             </div>
         </section>

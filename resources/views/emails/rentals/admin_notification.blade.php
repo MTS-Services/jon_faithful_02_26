@@ -86,7 +86,7 @@
 
             <div class="details-box">
                 <p><span class="label">Rental ID:</span> #{{ $rental->id }}</p>
-                <p><span class="label">Title:</span> {{ $rental->listing_title }}</p>
+                <p><span class="label">Title:</span> {{ $rental->title }}</p>
                 <p><span class="label">Price:</span> ${{ number_format($rental->purchase_price, 2) }}</p>
                 <p><span class="label">Property Type:</span> {{ $rental->property_type }}</p>
                 <p><span class="label">Action Date:</span> {{ now()->format('M d, Y h:i A') }}</p>

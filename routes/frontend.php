@@ -18,7 +18,10 @@ Route::name('frontend.')->controller(FrontendController::class)->group(function 
     Route::get('/rentals', 'rentals')->name('rentals');
     Route::get('/why-tennessee', 'whyTennessee')->name('why-tennessee');
     Route::get('/tennessee-relocation', 'tennesseeRelocation')->name('tennessee-relocation');
-    Route::get('/single-product/{id}', 'singleProduct')->name('single-product');
+    // listing
+    Route::get('/single-product/listing/{listing_id}', 'singleListingProduct')->name('single-product.listing');
+    // rental
+    Route::get('/single-product/rental/{rental_id}', 'singleRentalProduct')->name('single-product.rental');
     Route::get('/live-tennessee', 'livetennessee')->name('livetennessee');
     Route::get('/renting-buy', 'rentingBuy')->name('renting-buy');
     Route::get('/living-in-nashville', 'livingInNashville')->name('livingInNashville');
@@ -44,6 +47,5 @@ Route::name('frontend.')->controller(FrontendController::class)->group(function 
     Route::post('/contact-submit', 'submitGetInTouch')->name('contact.submit');
     Route::get('/list-rental-property', 'listRentalProperty')->name('list-rental-property');
     Route::post('/newsletter-submit', 'submitNewsletter')->name('newsletter.submit');
-
-
+    Route::get('/buying', 'buying')->name('buying');
 });

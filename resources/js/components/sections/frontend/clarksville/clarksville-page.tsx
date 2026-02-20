@@ -5,6 +5,7 @@ import NeighborhoodsSection from '../cities/neighborhoods-section';
 import InfoTabsSection from '../cities/info-tabs-section';
 import CallToActionSection from '../cities/callTo-action-section';
 import FinalInfoSection from '../cities/final-info-section';
+import { City } from '@/types';
 
 const whyMoveData = {
     title: 'Why People Are Moving to Clarksville',
@@ -141,7 +142,7 @@ const tabs = [
         },
     },
 ];
-export default function ClarksvillePage() {
+export default function ClarksvillePage({ city }: { city: City }) {
     return (
         <div>
             <WhyMoveSection whyMove={whyMoveData} />
@@ -186,15 +187,72 @@ export default function ClarksvillePage() {
             </div>
             <InfoTabsSection tabs={tabs} />
             <CallToActionSection
-                title="Work With a Clarksville Realtor"
-                description="A local Clarksville realtor can help you:"
+                title="Work With a Cookeville Realtor"
+                description="A local Cookeville realtor can help you:"
                 benefits={[
-                    'Navigate military relocation timelines',
-                    'Understand school zones and neighborhoods',
-                    'Find affordable housing options',
-                    'Coordinate inspections and closings',
+                    {
+                        text: 'Navigate military relocation timelines',
+                        icon: (
+                            <svg className="w-7 h-7 fill-white" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M256,8C119,8,8,119,8,256S119,504,256,504,504,393,504,256,393,8,256,8Zm92.49,313h0l-20,25a16,16,0,0,1-22.49,2.5h0l-67-49.72a40,40,0,0,1-15-31.23V112a16,16,0,0,1,16-16h32a16,16,0,0,1,16,16V256l58,42.5A16,16,0,0,1,348.49,321Z"></path></svg>
+                        ),
+                    },
+                    {
+                        text: 'Understand school zonesand neighborhoods',
+                        icon: (
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-7 w-7"
+                                fill="currentColor"
+                                viewBox="0 0 576 512"
+                                width="576"
+                                height="512"
+                            >
+                                <path
+                                    fill="currentColor"
+                                    d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z"
+                                />
+                            </svg>
+                        ),
+                    },
+                    {
+                        text: 'Find affordable housing options',
+                        icon: (
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-7 w-7"
+                                fill="currentColor"
+                                viewBox="0 0 448 512"
+                                width="448"
+                                height="512"
+                            >
+                                <path
+                                    fill="currentColor"
+                                    d="M0 464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V192H0v272zm320-196c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM192 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM64 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zM400 64h-48V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H160V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H48C21.5 64 0 85.5 0 112v48h448v-48c0-26.5-21.5-48-48-48z"
+                                />
+                            </svg>
+                        ),
+                    },
+                    {
+                        text: 'Coordinate inspections and closings',
+                        icon: (
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-7 w-7"
+                                fill="currentColor"
+                                viewBox="0 0 640 512"
+                                width="640"
+                                height="512"
+                            >
+                                <path
+                                    fill="currentColor"
+                                    d="M621.3 237.3l-58.5-58.5c-12-12-28.3-18.7-45.3-18.7H480V64c0-17.7-14.3-32-32-32H32C14.3 32 0 46.3 0 64v336c0 44.2 35.8 80 80 80 26.3 0 49.4-12.9 64-32.4 14.6 19.6 37.7 32.4 64 32.4 44.2 0 80-35.8 80-80 0-5.5-.6-10.8-1.6-16h163.2c-1.1 5.2-1.6 10.5-1.6 16 0 44.2 35.8 80 80 80s80-35.8 80-80c0-5.5-.6-10.8-1.6-16H624c8.8 0 16-7.2 16-16v-85.5c0-17-6.7-33.2-18.7-45.2zM80 432c-17.6 0-32-14.4-32-32s14.4-32 32-32 32 14.4 32 32-14.4 32-32 32zm128 0c-17.6 0-32-14.4-32-32s14.4-32 32-32 32 14.4 32 32-14.4 32-32 32zm272-224h37.5c4.3 0 8.3 1.7 11.3 4.7l43.3 43.3H480v-48zm48 224c-17.6 0-32-14.4-32-32s14.4-32 32-32 32 14.4 32 32-14.4 32-32 32z"
+                                />
+                            </svg>
+                        ),
+                    },
                 ]}
-                buttonText="Connect With a Clarksville Realtor"
+                cityId={city.id}
+                cityName={city.name}
             />
 
             <FinalInfoSection
@@ -204,9 +262,9 @@ export default function ClarksvillePage() {
                     description:
                         'Clarksville may be a great fit if you’re looking for: Affordable housing near Nashville Military-friendly communities Strong job stability Family-oriented neighborhoods Long-term growth potential For many relocating buyers, Clarksville offers one of the best affordability-to-opportunity ratios in Tennessee.',
                     cities: [
-                        'Nashville', 
-                        'Franklin', 
-                        'Murfreesboro', 
+                        'Nashville',
+                        'Franklin',
+                        'Murfreesboro',
                         'Cookeville'
                     ],
                 }}

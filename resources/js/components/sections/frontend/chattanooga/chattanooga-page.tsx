@@ -5,6 +5,7 @@ import InfoTabsSection from '../cities/info-tabs-section';
 import MoveLocationSection from '../cities/move-location-section';
 import NeighborhoodsSection from '../cities/neighborhoods-section';
 import WhyMoveSection from '../cities/why-move';
+import { City } from '@/types';
 
 // WHY MOVE DATA
 const whyMoveData = {
@@ -22,7 +23,7 @@ const whyMoveData = {
     conclusion:
         'Many people moving to Tennessee choose Chattanooga for its balance of adventure, opportunity, and livability.',
     imageUrl:
-        'https://whytennessee.com/wp-content/uploads/2025/12/Bristol-Virginia-Tennessee-Slogan-Sign-at-night.jpeg',
+        '/assets/images/chattanooga/girl on rock Sunset Rock Chattanooga Tennessee.jpeg',
     videoUrl:
         'https://whytennessee.com/wp-content/uploads/2025/12/Aerial_4K_Drone_Video_Over_the_Tennessee_River_Looking_into_Downtown_Chattanooga_on_a_Beautiful_Spring_Evening1.mp4',
 };
@@ -44,7 +45,7 @@ const locationData = {
 
 const neighborhoods = [
     {
-        name: 'Downtown Chattanoogal',
+        name: 'Downtown Chattanooga',
         features: [
             'Walkable lifestyle',
             'Condos and lofts',
@@ -151,7 +152,7 @@ const tabs = [
         },
     },
 ];
-export default function ChattanoogaPage() {
+export default function ChattanoogaPage({ city }: { city: City }) {
     return (
         <div>
             <WhyMoveSection whyMove={whyMoveData} />
@@ -277,7 +278,8 @@ export default function ChattanoogaPage() {
                         ),  
                     },
                 ]}
-                buttonText="Connect With a Chattanooga Realtor"
+                cityId={city.id}
+                cityName={city.name}
             />
 
             <FinalInfoSection

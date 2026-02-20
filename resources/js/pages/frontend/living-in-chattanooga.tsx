@@ -1,8 +1,9 @@
 import ChattanoogaPage from '@/components/sections/frontend/chattanooga/chattanooga-page';
 import { Hero } from '@/components/sections/frontend/hero';
 import FrontendLayout from '@/layouts/frontend-layout';
+import { City } from '@/types';
 
-export default function LivingInChattanooga() {
+export default function LivingInChattanooga({ city }: { city: City }) {
     return (
         <FrontendLayout>
             {/* <Hero />
@@ -27,9 +28,9 @@ export default function LivingInChattanooga() {
                         relocating to Tennessee.
                     </>
                 }
-                 width="max-w-2xl"
+                width="max-w-2xl"
             />
-            <ChattanoogaPage />
+            <ChattanoogaPage city={city} />
         </FrontendLayout>
     );
 }

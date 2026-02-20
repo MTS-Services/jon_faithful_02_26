@@ -28,7 +28,7 @@ interface PropertyOption {
 
 interface Rental {
     id: number;
-    listing_title: string;
+    title: string;
     description: string;
     purchase_price: string;
     city_id: number;
@@ -61,7 +61,7 @@ export default function EditListingRental({
 }: Props) {
     const [facilities, setFacilities] = useState(initialFacilities);
     const { data, setData, post, processing, errors } = useForm({
-        listing_title: rental.listing_title || '',
+        title: rental.title || '',
         description: rental.description || '',
         purchase_price: rental.purchase_price || '',
         city_id: String(rental.city_id) || '',
@@ -221,19 +221,19 @@ export default function EditListingRental({
 
                             {/* Listing Title */}
                             <div className="grid gap-2">
-                                <Label htmlFor="listing_title">
+                                <Label htmlFor="title">
                                     Listing Title*
                                 </Label>
                                 <Input
-                                    id="listing_title"
+                                    id="title"
                                     type="text"
-                                    value={data.listing_title}
+                                    value={data.title}
                                     onChange={(e) =>
-                                        setData('listing_title', e.target.value)
+                                        setData('title', e.target.value)
                                     }
                                     placeholder="Enter listing title"
                                 />
-                                <InputError message={errors.listing_title} />
+                                <InputError message={errors.title} />
                             </div>
 
                             {/* Purchase Price */}

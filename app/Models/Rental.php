@@ -13,7 +13,7 @@ class Rental extends Model
         'user_id',
         'sort_order',
         'city_id',
-        'listing_title',
+        'title',
         'description',
         'purchase_price',
         'property_type',

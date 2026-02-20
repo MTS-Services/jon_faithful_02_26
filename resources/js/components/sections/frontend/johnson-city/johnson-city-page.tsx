@@ -1,3 +1,4 @@
+import { City } from '@/types';
 import CallToActionSection from '../cities/callTo-action-section';
 import FinalInfoSection from '../cities/final-info-section';
 import InfoTabsSection from '../cities/info-tabs-section';
@@ -140,7 +141,7 @@ const tabs = [
         },
     },
 ];
-export default function JohnsonCityPage() {
+export default function JohnsonCityPage({ city }: { city: City }) {
     return (
         <div>
             <WhyMoveSection whyMove={whyMoveData} />
@@ -257,7 +258,8 @@ export default function JohnsonCityPage() {
                         ),
                     },
                 ]}
-                buttonText="Connect With a Johnson City Realtor"
+                cityId={city.id}
+                cityName={city.name}
             />
 
             <FinalInfoSection

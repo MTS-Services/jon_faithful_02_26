@@ -10,8 +10,9 @@ type CallToActionProps = {
     title: string;
     description: string;
     // benefits: string[];
-    buttonText: string;
     benefits: BenefitItem[];
+    cityName: string;
+    cityId: number;
 };
 
 export default function CallToActionSection(props: CallToActionProps) {
@@ -19,8 +20,10 @@ export default function CallToActionSection(props: CallToActionProps) {
         title: props.title || 'Example Title',
         description: props.description || 'Example Description',
         benefits: props.benefits || [],
-        buttonText: props.buttonText,
+        cityName: props.cityName,
+        cityId: props.cityId,
     };
+    const isRoute = route('frontend.rentals', { city: callToActionProps.cityId });
 
     return (
         <section className="bg-primary py-16 text-center">
@@ -66,11 +69,11 @@ export default function CallToActionSection(props: CallToActionProps) {
                     <ArrowRightIcon className="h-4 w-4 sm:h-5 sm:w-5" />
                 </div> */}
                 <Link
-                    href={route('frontend.realEstateAgents')}
+                    href={isRoute}
                     className="mx-auto flex w-fit items-center gap-1 rounded-full bg-white px-4 py-2 font-montserrat font-normal text-primary shadow-md transition hover:scale-105 sm:gap-2 sm:px-5 sm:py-2.5 md:px-6 md:py-3"
                 >
                     <span className="inline-flex items-center justify-center text-center text-sm whitespace-nowrap sm:text-base">
-                       {callToActionProps.buttonText}
+                        Connect With a {callToActionProps.cityName} Realtor
                     </span>
                     <ArrowRightIcon className="h-4 w-4 sm:h-5 sm:w-5" />
                 </Link>

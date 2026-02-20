@@ -42,7 +42,7 @@ export default function AddListingRental({ cities, propertyTypes, facilities: in
     const [facilities, setFacilities] = useState(initialFacilities);
 
     const { data, setData, post, processing, errors, reset } = useForm({
-        listing_title: '',
+        title: '',
         description: '',
         purchase_price: '',
         city_id: '',
@@ -221,23 +221,23 @@ export default function AddListingRental({ cities, propertyTypes, facilities: in
 
                                     {/* Listing Title */}
                                     <div className="grid gap-2">
-                                        <Label htmlFor="listing_title">
+                                        <Label htmlFor="title">
                                             Listing Title*
                                         </Label>
                                         <Input
-                                            id="listing_title"
+                                            id="title"
                                             type="text"
-                                            value={data.listing_title}
+                                            value={data.title}
                                             onChange={(e) =>
                                                 setData(
-                                                    'listing_title',
+                                                    'title',
                                                     e.target.value,
                                                 )
                                             }
                                             placeholder="Enter listing title"
                                         />
                                         <InputError
-                                            message={errors.listing_title}
+                                            message={errors.title}
                                         />
                                     </div>
 

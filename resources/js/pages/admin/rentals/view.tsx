@@ -54,7 +54,7 @@ export default function View({ rental }: Props) {
                             </CardHeader>
                             <CardContent>
                                 <p className="text-lg text-muted-foreground">
-                                    {rental.listing_title ?? 'N/A'}
+                                    {rental.title ?? 'N/A'}
                                 </p>
                             </CardContent>
                         </Card>

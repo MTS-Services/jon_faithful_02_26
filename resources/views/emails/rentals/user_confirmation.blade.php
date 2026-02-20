@@ -73,13 +73,13 @@
         <p>
             {{ $isNew
                 ? 'Thank you for submitting your rental property on WhyTennessee.com.'
-                : 'Your rental listing "' . $rental->listing_title . '" has been successfully updated.' }}
+                : 'Your rental listing "' . $rental->title . '" has been successfully updated.' }}
             Your listing is currently {{ $isNew ? 'under review' : 'being re-verified' }} by our team.
         </p>
 
         <h3>Rental Details</h3>
         <div class="details-box">
-            <p><span class="label">Property Title:</span> {{ $rental->listing_title }}</p>
+            <p><span class="label">Property Title:</span> {{ $rental->title }}</p>
             <p><span class="label">Monthly Rent:</span> ${{ number_format($rental->purchase_price, 2) }}</p>
             <p><span class="label">Property Type:</span> {{ $rental->property_type }}</p>
             <p><span class="label">Bed/Bath:</span> {{ $rental->bedrooms }} / {{ $rental->bathrooms }}</p>

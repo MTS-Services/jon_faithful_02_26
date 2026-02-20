@@ -1,8 +1,9 @@
 import { Hero } from '@/components/sections/frontend/hero';
 import MurfreesboroPage from '@/components/sections/frontend/murfreesboro/murfreesboro-page';
 import FrontendLayout from '@/layouts/frontend-layout';
+import { City } from '@/types';
 
-export default function LivingInMurfreesboro() {
+export default function LivingInMurfreesboro({ city }: { city: City }) {
     return (
         <div>
             <FrontendLayout>
@@ -25,7 +26,7 @@ export default function LivingInMurfreesboro() {
                     }
                     width="max-w-3xl"
                 />
-                <MurfreesboroPage />
+                <MurfreesboroPage city={city} />
             </FrontendLayout>
         </div>
     );

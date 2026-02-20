@@ -38,6 +38,7 @@ const FrontendHeader: React.FC = () => {
     { name: 'Cost of Living in Tennessee', route: 'cost-of-living-in-tennessee' },
     { name: 'Pros & Cons of Living in Tennessee', route: 'pros-cons-living-in-tennessee' },
     { name: 'Best Places to Live in Tennessee', route: 'live-tennessee' },
+    { name: 'Buying', route: 'buying' },
   ]
   const movingTopics2 = [
     { name: 'Renting in Tennessee', route: 'renting-tennessee' },

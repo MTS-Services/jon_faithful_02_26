@@ -34,7 +34,7 @@ class RentalService
             $rental = Rental::create([
                 'user_id'          => $user_id,
                 'city_id'          => $validated['city_id'],
-                'listing_title'    => $validated['listing_title'],
+                'title'    => $validated['title'],
                 'description'      => $validated['description'],
                 'purchase_price'   => $validated['purchase_price'],
                 'property_type' => $validated['property_type'],
@@ -79,7 +79,7 @@ class RentalService
 
             $rental->update([
                 'city_id'          => $validated['city_id'],
-                'listing_title'    => $validated['listing_title'],
+                'title'    => $validated['title'],
                 'description'      => $validated['description'],
                 'purchase_price'   => $validated['purchase_price'],
                 'property_type'    => $validated['property_type'],

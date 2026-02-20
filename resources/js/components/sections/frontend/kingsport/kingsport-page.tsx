@@ -5,6 +5,7 @@ import InfoTabsSection from '../cities/info-tabs-section';
 import MoveLocationSection from '../cities/move-location-section';
 import NeighborhoodsSection from '../cities/neighborhoods-section';
 import WhyMoveSection from '../cities/why-move';
+import { City } from '@/types';
 
 const whyMoveData = {
     title: 'Why People Are Moving to Kingsport',
@@ -140,7 +141,7 @@ const tabs = [
         },
     },
 ];
-export default function KingsportPage() {
+export default function KingsportPage({ city }: { city: City }) {
     return (
         <div>
             <WhyMoveSection whyMove={whyMoveData} />
@@ -258,7 +259,8 @@ export default function KingsportPage() {
                         ),
                     },
                 ]}
-                buttonText="Connect With a Kingsport Realtor"
+                cityId={city.id}
+                cityName={city.name}
             />
 
             <FinalInfoSection

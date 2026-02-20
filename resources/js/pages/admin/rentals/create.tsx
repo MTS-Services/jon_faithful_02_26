@@ -17,7 +17,7 @@ interface FormData {
     user_id?: string | number;
     sort_order: string;
     city_id: string;
-    listing_title: string;
+    title: string;
     description: string;
     purchase_price: string;
     property_type: string;
@@ -47,7 +47,7 @@ export default function Create({
     const [facilities, setFacilities] = useState(initialFacilities);
 
     const { data, setData, post, processing, errors } = useForm<FormData>({
-        listing_title: '',
+        title: '',
         description: '',
         purchase_price: '',
         property_type: '',
@@ -180,15 +180,15 @@ export default function Create({
 
                             {/* Listing Title */}
                             <div className="grid gap-2">
-                                <Label htmlFor="listing_title">Listing Title*</Label>
+                                <Label htmlFor="title">Listing Title*</Label>
                                 <Input
-                                    id="listing_title"
+                                    id="title"
                                     type="text"
-                                    value={data.listing_title}
-                                    onChange={(e) => setData('listing_title', e.target.value)}
+                                    value={data.title}
+                                    onChange={(e) => setData('title', e.target.value)}
                                     placeholder="Enter listing title"
                                 />
-                                <InputError message={errors.listing_title} />
+                                <InputError message={errors.title} />
                             </div>
 
                             {/* Purchase Price */}

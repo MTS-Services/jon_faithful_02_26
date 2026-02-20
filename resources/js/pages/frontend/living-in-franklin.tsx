@@ -1,8 +1,9 @@
 import { Hero } from '@/components/sections/frontend/hero';
 import FranklinPage from '@/components/sections/frontend/living-in-franklin/franklin-page';
 import FrontendLayout from '@/layouts/frontend-layout';
+import { City } from '@/types';
 
-export default function LivingInFranklin() {
+export default function LivingInFranklin({ city }: { city: City }) {
     return (
         <div>
             <FrontendLayout>
@@ -24,7 +25,7 @@ export default function LivingInFranklin() {
                     }
                     width="max-w-2xl"
                 />
-                <FranklinPage />
+                <FranklinPage city={city} />
             </FrontendLayout>
         </div>
     );

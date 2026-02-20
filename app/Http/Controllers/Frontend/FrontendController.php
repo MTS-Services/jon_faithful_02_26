@@ -28,6 +28,13 @@ class FrontendController extends Controller
 {
      public function __construct(private ListingService $service, private RentalService $rentalService) {}
 
+     private function renderCityPage(string $cityName, string $view): Response
+     {
+          $city = City::where('name', $cityName)->firstOrFail();
+
+          return Inertia::render($view, ['city' => $city]);
+     }
+
      public function index(): Response
      {
           $listings =  $this->service->getPaginatedDatas(
@@ -42,7 +49,7 @@ class FrontendController extends Controller
      }
      public function livingInBristol(): Response
      {
-          return Inertia::render('frontend/livingInBristol');
+          return $this->renderCityPage('Bristol', 'frontend/livingInBristol');
      }
      public function rentingTennessee(): Response
      {
@@ -51,7 +58,7 @@ class FrontendController extends Controller
 
      public function livingInChattanooga(): Response
      {
-          return Inertia::render('frontend/living-in-chattanooga');
+          return $this->renderCityPage('Chattanooga', 'frontend/living-in-chattanooga');
      }
 
      public function homesForSale(Request $request): Response
@@ -172,11 +179,40 @@ class FrontendController extends Controller
      {
           return Inertia::render('frontend/tennessee-relocation');
      }
-     public function singleProduct($id): Response
-     {
-          $listing = $this->service->findData($id);
+     // public function singleProduct(Request $request, $id): Response
+     // {
+     //      $listing = $this->service->findData($id);
+     //      $facilitiesShow = $listing->property_type === 'rental' ? true : false;
 
-          return Inertia::render('frontend/single-product', ['listing' => $listing]);
+     // }
+
+     public function singleListingProduct($listing_id = null)
+     {
+          if ($listing_id) {
+               $listing = $this->service->findData($listing_id);
+               $facilitiesShow = false;
+          }
+          $relatedListings = $this->service->getPaginatedDatas(
+               perPage: 6,
+               filters: []
+          );
+
+          return Inertia::render('frontend/single-product', [
+               'listing' => $listing,
+               'facilitiesShow' => $facilitiesShow
+          ]);
+     }
+     public function singleRentalProduct($rental_id)
+     {
+          if ($rental_id) {
+               $listing = Rental::findOrFail($rental_id)->load(['city', 'user', 'galleries', 'facilities']);
+               $facilitiesShow = false;
+          }
+
+          return Inertia::render('frontend/single-product', [
+               'listing' => $listing,
+               'facilitiesShow' => $facilitiesShow
+          ]);
      }
 
      public function livetennessee(): Response
@@ -189,7 +225,7 @@ class FrontendController extends Controller
      }
      public function livingInNashville(): Response
      {
-          return Inertia::render('frontend/living-in-nashville');
+          return $this->renderCityPage('Nashville', 'frontend/living-in-nashville');
      }
      public function costOfRentingTennessee(): Response
      {
@@ -201,39 +237,39 @@ class FrontendController extends Controller
      }
      public function livingInCookeville(): Response
      {
-          return Inertia::render('frontend/living-in-cookeville');
+          return $this->renderCityPage('Cookeville', 'frontend/living-in-cookeville');
      }
      public function livingInKnoxville(): Response
      {
-          return Inertia::render('frontend/living-in-knoxville');
+          return $this->renderCityPage('Knoxville', 'frontend/living-in-knoxville');
      }
      public function livingInJohnsonCity(): Response
      {
-          return Inertia::render('frontend/living-in-johnson-city');
+          return $this->renderCityPage('Johnson City', 'frontend/living-in-johnson-city');
      }
      public function livingInFranklin(): Response
      {
-          return Inertia::render('frontend/living-in-franklin');
+          return $this->renderCityPage('Franklin', 'frontend/living-in-franklin');
      }
      public function livingInMemphis(): Response
      {
-          return Inertia::render('frontend/living-in-memphis');
+          return $this->renderCityPage('Memphis', 'frontend/living-in-memphis');
      }
      public function livingInClarksville(): Response
      {
-          return Inertia::render('frontend/living-in-clarksville');
+          return $this->renderCityPage('Clarksville', 'frontend/living-in-clarksville');
      }
      public function livingInMurfreesboro(): Response
      {
-          return Inertia::render('frontend/living-in-murfreesboro');
+          return $this->renderCityPage('Murfreesboro', 'frontend/living-in-murfreesboro');
      }
      public function livingInKingsport(): Response
      {
-          return Inertia::render('frontend/living-in-kingsport');
+          return $this->renderCityPage('Kingsport', 'frontend/living-in-kingsport');
      }
      public function livingInJackson(): Response
      {
-          return Inertia::render('frontend/living-in-jackson');
+          return $this->renderCityPage('Jackson', 'frontend/living-in-jackson');
      }
      public function costOfLivingInTennessee(): Response
      {
@@ -289,7 +325,7 @@ class FrontendController extends Controller
                'name'  => $request->name,
                'email' => $request->email,
                'phone' => $request->phone,
-               'listing_title' => $listing->title,
+               'title' => $listing->title,
                'purchase_price' => $listing->purchase_price,
                'owner_name' => $owner->name,
           ];
@@ -343,53 +379,58 @@ class FrontendController extends Controller
      }
      public function submitGetInTouch(Request $request)
      {
-        $validated = $request->validate([
-            'full_name'      => ['required', 'string', 'max:255'],
-            'phone_number'   => ['required', 'string', 'max:20'],
-            'email'          => ['required', 'email', 'max:255'],
-            'interested_in'  => ['required', 'string'],
-            'city_id'        => ['required', 'exists:cities,id'],
-            'message'        => ['required', 'string'],
-            'is_confirmed'   => ['accepted'],
-        ]);
+          $validated = $request->validate([
+               'full_name'      => ['required', 'string', 'max:255'],
+               'phone_number'   => ['required', 'string', 'max:20'],
+               'email'          => ['required', 'email', 'max:255'],
+               'interested_in'  => ['required', 'string'],
+               'city_id'        => ['required', 'exists:cities,id'],
+               'message'        => ['required', 'string'],
+               'is_confirmed'   => ['accepted'],
+          ]);
 
-        $city = City::find($validated['city_id']);
+          $city = City::find($validated['city_id']);
 
-        $contact = ContactUs::create([
-            'full_name'      => $validated['full_name'],
-            'phone_number'   => $validated['phone_number'],
-            'email'          => $validated['email'],
-            'interested_in'  => $validated['interested_in'],
-            'city_id'        => $validated['city_id'],
-            'message'        => $validated['message'],
-            'is_confirmed'   => true,
-        ]);
+          $contact = ContactUs::create([
+               'full_name'      => $validated['full_name'],
+               'phone_number'   => $validated['phone_number'],
+               'email'          => $validated['email'],
+               'interested_in'  => $validated['interested_in'],
+               'city_id'        => $validated['city_id'],
+               'message'        => $validated['message'],
+               'is_confirmed'   => true,
+          ]);
 
-        Mail::to(config('mail.from.address')) // or your admin email
-            ->send(new ContactSubmissionMail($contact, $city));
-            
-        return back()->with('success', 'Your message has been sent successfully!');
-    }
+          Mail::to(config('mail.from.address')) // or your admin email
+               ->send(new ContactSubmissionMail($contact, $city));
 
-    public function listRentalProperty(): Response
-    {
-        return Inertia::render('frontend/list-rental-property');
-    }
+          return back()->with('success', 'Your message has been sent successfully!');
+     }
 
-    public function submitNewsletter(Request $request)
-    {
-        $validated = $request->validate([
-            'email'          => ['required', 'email', 'max:255'],
-        ]);
+     public function listRentalProperty(): Response
+     {
+          return Inertia::render('frontend/list-rental-property');
+     }
 
-        $newsletter = Newsletter::create([
-            'email'          => $validated['email'],
-            
-        ]);
+     public function submitNewsletter(Request $request)
+     {
+          $validated = $request->validate([
+               'email'          => ['required', 'email', 'max:255'],
+          ]);
 
-        Mail::to(config('mail.from.address'))
-            ->send(new NewsletterMail($newsletter));
+          $newsletter = Newsletter::create([
+               'email'          => $validated['email'],
 
-        return back()->with('success', 'Your email has been sent successfully!');
-    }
+          ]);
+
+          Mail::to(config('mail.from.address'))
+               ->send(new NewsletterMail($newsletter));
+
+          return back()->with('success', 'Your email has been sent successfully!');
+     }
+
+     public function buying(): Response
+     {
+          return Inertia::render('frontend/buying');
+     }
 }

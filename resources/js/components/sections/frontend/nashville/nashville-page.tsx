@@ -1,3 +1,4 @@
+import { City } from '@/types';
 import CallToActionSection from '../cities/callTo-action-section';
 import FinalInfoSection from '../cities/final-info-section';
 import InfoTabsSection from '../cities/info-tabs-section';
@@ -158,7 +159,7 @@ const tabs = [
         },
     },
 ];
-export default function NashvillePage() {
+export default function NashvillePage({ city }: { city: City }) {
     return (
         <div>
             <WhyMoveSection whyMove={whyMoveData} />
@@ -308,7 +309,8 @@ export default function NashvillePage() {
                         ),
                     },
                 ]}
-                buttonText="Connect With a Nashville Realtor"
+                cityId={city.id}
+                cityName={city.name}
             />
 
             <FinalInfoSection

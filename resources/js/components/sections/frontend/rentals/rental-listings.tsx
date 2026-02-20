@@ -521,6 +521,7 @@ export default function RentalListings({ rentals, cities, filters = {} }: Props)
                                 <PlatinumCard
                                     key={rental.id}
                                     property={rental}
+                                    type= "rental"
                                 />
                             ))}
                         </div>

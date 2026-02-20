@@ -1,8 +1,9 @@
 import CookevillePage from "@/components/sections/frontend/cookeville/cookeville-page";
 import { Hero } from "@/components/sections/frontend/hero";
 import FrontendLayout from "@/layouts/frontend-layout";
+import { City } from "@/types";
 
-export default function LivingInCookeville() {
+export default function LivingInCookeville({city}: {city: City}) {
     return (
         <div>
             <FrontendLayout>
@@ -24,7 +25,7 @@ export default function LivingInCookeville() {
                     }
                     width="max-w-3xl"
                 />
-                <CookevillePage />
+                <CookevillePage city={city}/>
             </FrontendLayout>
         </div>
     );
