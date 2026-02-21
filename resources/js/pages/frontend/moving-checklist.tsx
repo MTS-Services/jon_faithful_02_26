@@ -4,7 +4,7 @@ import FrontendLayout from '@/layouts/frontend-layout'
 
 export default function MovingChecklist() {
     return (
-        <FrontendLayout>
+        <FrontendLayout activePage="moving-to-tennessee" subPage="Moving Checklist">
             <Hero
                 slides={[
                     "assets/images/moving-checklist/moving-banner.jpeg",

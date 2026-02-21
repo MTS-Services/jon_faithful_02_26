@@ -279,10 +279,10 @@ export default function KingsportPage({ city }: { city: City }) {
 
                     footer: 'For many relocating buyers, Kingsport offers one of the best affordability-to-quality ratios in Tennessee. ',
                     cities: [
-                        'Johnson City',
-                        'Kingsport',
-                        'Knoxville',
-                        'Chattanooga',
+                        { name: 'Johnson City', route: route('frontend.livingInJohnsonCity') },
+                        { name: 'Kingsport', route: route('frontend.livingInKingsport') },
+                        { name: 'Knoxville', route: route('frontend.livingInKnoxville') },
+                        { name: 'Chattanooga', route: route('frontend.livingInChattanooga') },
                     ],
                 }}
             />

@@ -6,7 +6,7 @@ import { City } from '@/types';
 export default function LivingInClarksville({ city }: { city: City }) {
     return (
         <div>
-            <FrontendLayout>
+            <FrontendLayout activePage="city" subPage="Clarksville">
                 <Hero
                     slides={['/assets/images/Aerial-View-over-the-Buildings-and-Infrastructure-in-Clarksville-Tennessee-scaled.jpeg']}
                     title={<>Living in Clarksville, Tennessee</>}

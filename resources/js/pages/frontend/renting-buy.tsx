@@ -31,7 +31,7 @@ const exploreCitiesData = [
 
 const RentingBuy = () => {
     return (
-        <FrontendLayout>
+        <FrontendLayout activePage="moving-to-tennessee" subPage="Renting vs Buying in Tennessee">
             <Hero
                 slides={[
                     '/assets/images/herros/Why_Cookeville_is_a_Great_Place_to_Call_Home.jpg',

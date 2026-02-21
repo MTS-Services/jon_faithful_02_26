@@ -6,7 +6,7 @@ import { City } from '@/types';
 export default function LivingInMurfreesboro({ city }: { city: City }) {
     return (
         <div>
-            <FrontendLayout>
+            <FrontendLayout activePage="city" subPage="Murfreesboro">
                 <Hero
                     slides={[
                         '/assets/images/Aerial-View-of-Murfreesboro_-Tennessee-at-Sunrise-scaled.jpeg',

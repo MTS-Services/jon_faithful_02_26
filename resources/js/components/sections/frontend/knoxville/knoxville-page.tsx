@@ -287,12 +287,12 @@ export default function KnoxvillePage({ city }: { city: City }) {
 
                     footer: 'For many people moving to Tennessee, Knoxville checks every box.',
                     cities: [
-                        'Johnson City',
-                        'Chattanooga',
-                        'Nashville',
-                        'Franklin',
-                        'Kingsport',
-                        'Bristol',
+                        { name: 'Johnson City', route: route('frontend.livingInJohnsonCity') },
+                        { name: 'Chattanooga', route: route('frontend.livingInChattanooga') },
+                        { name: 'Nashville', route: route('frontend.livingInNashville') },
+                        { name: 'Franklin', route: route('frontend.livingInFranklin') },
+                        { name: 'Kingsport', route: route('frontend.livingInKingsport') },
+                        { name: 'Bristol', route: route('frontend.livingInBristol') },
                     ],
                 }}
             />

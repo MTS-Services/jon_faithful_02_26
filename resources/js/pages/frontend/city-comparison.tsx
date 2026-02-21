@@ -6,7 +6,7 @@ import React from 'react'
 export default function CityComparison() {
     return (
         <>
-            <FrontendLayout>
+            <FrontendLayout activePage="moving-to-tennessee" subPage="City Comparison">
                 <Hero
                     slides={[
                         "https://whytennessee.com/wp-content/uploads/2025/12/View-From-Fire-Tower-Bays-Mountain-Park-Kingsport-TN-1-scaled.jpeg",

@@ -282,10 +282,10 @@ export default function MurfreesboroPage({ city }: { city: City }) {
 
                     footer: 'For many relocating buyers, Murfreesboro offers one of the best value markets in Middle Tennessee. ',
                     cities: [
-                        'Nashville',
-                        'Franklin',
-                        'Clarksville',
-                        'Chattanooga',
+                        { name: 'Nashville', route: route('frontend.livingInNashville') },
+                        { name: 'Franklin', route: route('frontend.livingInFranklin') },
+                        { name: 'Clarksville', route: route('frontend.livingInClarksville') },
+                        { name: 'Chattanooga', route: route('frontend.livingInChattanooga') },
                     ],
                 }}
             />

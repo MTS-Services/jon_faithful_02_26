@@ -11,7 +11,7 @@ import React from 'react'
 
 export default function Home({ listings }: any) {
   return (
-    <FrontendLayout>
+    <FrontendLayout activePage="home">
       <Hero />
       <WhyMove />
       <BestCities />
