@@ -275,10 +275,10 @@ export default function JacksonPage({ city }: { city: City }) {
 
                     footer: 'For many relocating buyers, Jackson offers value, convenience, and comfort.',
                     cities: [
-                        'Memphis',
-                        'Nashville',
-                        'Clarksville',
-                        'Cookeville',
+                        { name: 'Memphis', route: route('frontend.livingInmeMphis') },
+                        { name: 'Nashville', route: route('frontend.livingInNashville') },
+                        { name: 'Clarksville', route: route('frontend.livingInClarksville') },
+                        { name: 'Cookeville', route: route('frontend.livingInCookeville') },
                     ],
                 }}
             />

@@ -3,7 +3,7 @@ import FrontendLayout from '@/layouts/frontend-layout'
 
 export default function PartnerProgram() {
     return (
-        <FrontendLayout>
+        <FrontendLayout activePage="Partner Program">
             <Partner />
         </FrontendLayout>
     )

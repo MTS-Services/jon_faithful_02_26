@@ -278,10 +278,10 @@ export default function JohnsonCityPage({ city }: { city: City }) {
 
                     footer: 'For many relocating buyers, Johnson City offers one of the best values in Tennessee.',
                     cities: [
-                        'Kingsport',
-                        'Bristol',
-                        'Knoxville',
-                        'Chattanooga',
+                        { name: 'Kingsport', route: route('frontend.livingInKingsport') },
+                        { name: 'Bristol', route: route('frontend.livingInBristol') },
+                        { name: 'Knoxville', route: route('frontend.livingInKnoxville') },
+                        { name: 'Chattanooga', route: route('frontend.livingInChattanooga') },
                     ],
                 }}
             />

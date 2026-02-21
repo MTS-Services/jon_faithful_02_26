@@ -330,10 +330,10 @@ export default function NashvillePage({ city }: { city: City }) {
 
                     footer: 'For many relocating buyers, Nashville represents opportunity, culture, and growth. ',
                     cities: [
-                        'Franklin',
-                        'Murfreesboro',
-                        'Clarksville',
-                        'Chattanooga',
+                        { name: 'Franklin', route: route('frontend.livingInFranklin') },
+                        { name: 'Murfreesboro', route: route('frontend.livingInMurfreesboro') },
+                        { name: 'Clarksville', route: route('frontend.livingInClarksville') },
+                        { name: 'Chattanooga', route: route('frontend.livingInChattanooga') },
                     ],
                 }}
             />

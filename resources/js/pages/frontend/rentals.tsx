@@ -23,7 +23,7 @@ interface Props {
 
 export default function Rentals({ rentals, cities, filters }: Props) {
     return (
-        <FrontendLayout>
+        <FrontendLayout activePage="rentals">
             <Hero />
             <FindThePerfectPlace />
             <RentalListings rentals={rentals} cities={cities} filters={filters} />

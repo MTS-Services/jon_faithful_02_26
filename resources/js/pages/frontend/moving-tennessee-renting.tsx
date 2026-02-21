@@ -6,7 +6,7 @@ import MovingTennesseeRentingPage from '@/components/sections/frontend/moving-te
 
 const MovingTennesseeRenting = () => {
     return (
-        <FrontendLayout>
+        <FrontendLayout activePage="moving-to-tennessee" subPage="Moving to Tennessee & Renting First">
             <Hero
                 slides={[
                     'assets/images/moving-tennessee-renting/moving-tennessee-renting-banner.jpeg',

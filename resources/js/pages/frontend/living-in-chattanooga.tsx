@@ -5,7 +5,7 @@ import { City } from '@/types';
 
 export default function LivingInChattanooga({ city }: { city: City }) {
     return (
-        <FrontendLayout>
+        <FrontendLayout activePage="city" subPage="Chattanooga">
             {/* <Hero />
             <MovingToChattanooga />
             <ChattanoogaLocated />

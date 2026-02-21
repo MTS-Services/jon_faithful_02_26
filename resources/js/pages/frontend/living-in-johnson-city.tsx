@@ -7,7 +7,7 @@ import React from 'react'
 export default function LivingInJohnsonCity({ city }: { city: City }) {
   return (
     <div>
-      <FrontendLayout>
+      <FrontendLayout activePage="city" subPage="Johnson City">
                 {/* <Hero />
             <MovingToChattanooga />
             <ChattanoogaLocated />

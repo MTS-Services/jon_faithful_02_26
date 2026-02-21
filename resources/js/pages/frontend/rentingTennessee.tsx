@@ -4,7 +4,7 @@ import FrontendLayout from '@/layouts/frontend-layout'
 
 export default function rentingTennessee() {
   return (
-    <FrontendLayout>
+    <FrontendLayout activePage="moving-to-tennessee" subPage="Renting in Tennessee">
       <RentingHero />
       <RentingSections />
     </FrontendLayout>

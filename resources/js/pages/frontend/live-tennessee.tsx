@@ -72,7 +72,7 @@ const tabs = [
 
 export default function LiveTennessee() {
   return (
-    <FrontendLayout>
+    <FrontendLayout activePage="moving-to-tennessee" subPage="Best Places to Live in Tennessee">
       <Hero
         slides={[
           'assets/images/moving-checklist/pexels-chaitaastic-3722911-scaled.jpg',

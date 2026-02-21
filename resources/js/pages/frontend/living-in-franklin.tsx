@@ -6,7 +6,7 @@ import { City } from '@/types';
 export default function LivingInFranklin({ city }: { city: City }) {
     return (
         <div>
-            <FrontendLayout>
+            <FrontendLayout activePage="city" subPage="Franklin">
                 <Hero
                     slides={[
                         '/assets/images/Aerial_View_of_Franklin__Tennessee_during_Spring1-scaled.jpeg',

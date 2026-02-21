@@ -5,7 +5,7 @@ import { Hero } from '@/components/sections/frontend/hero';
 
 const TennesseeRentPage = () => {
   return (
-    <FrontendLayout>
+    <FrontendLayout activePage="moving-to-tennessee" subPage="Cost of Renting in Tennessee">
       <Hero
         height={'h-[calc(100vh-80px)] md:h-[500px]'}
         slides={[

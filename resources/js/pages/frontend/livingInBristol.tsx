@@ -7,7 +7,7 @@ import FrontendLayout from '@/layouts/frontend-layout'
 
 export default function LivingInBristol({ city }: { city: any }) {
     return (
-        <FrontendLayout>
+        <FrontendLayout activePage="city" subPage="Bristol">
             <Hero
                 slides={[
                     "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",

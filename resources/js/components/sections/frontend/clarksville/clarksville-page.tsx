@@ -262,10 +262,10 @@ export default function ClarksvillePage({ city }: { city: City }) {
                     description:
                         'Clarksville may be a great fit if you’re looking for: Affordable housing near Nashville Military-friendly communities Strong job stability Family-oriented neighborhoods Long-term growth potential For many relocating buyers, Clarksville offers one of the best affordability-to-opportunity ratios in Tennessee.',
                     cities: [
-                        'Nashville',
-                        'Franklin',
-                        'Murfreesboro',
-                        'Cookeville'
+                        { name: 'Nashville', route: route('frontend.livingInNashville') },
+                        { name: 'Franklin', route: route('frontend.livingInFranklin') },
+                        { name: 'Murfreesboro', route: route('frontend.livingInMurfreesboro') },
+                        { name: 'Cookeville', route: route('frontend.livingInCookeville') },
                     ],
                 }}
             />

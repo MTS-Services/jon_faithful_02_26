@@ -6,7 +6,7 @@ import { City } from '@/types';
 export default function LivingInKingsport({ city }: { city: City }) {
     return (
         <div>
-            <FrontendLayout>
+            <FrontendLayout activePage="city" subPage="Kingsport">
                 <Hero
                     slides={[
                         '/assets/images/KINGSPORT_-TN_-USA-8-APRIL-2021-The-Citizens-Bank-building_-originally-the-Kingsport-train-station_--scaled.jpg',
