@@ -10,7 +10,7 @@ import React from 'react'
 
 export default function WhyTennessee() {
   return (
-    <FrontendLayout>
+    <FrontendLayout activePage="moving-to-tennessee" subPage="About Why Tennessee">
         <Hero/>
         <Guiding/>
         <WhoWeServe/>

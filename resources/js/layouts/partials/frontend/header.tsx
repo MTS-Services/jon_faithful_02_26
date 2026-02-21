@@ -8,8 +8,11 @@ import { FaChevronDown, FaArrowRight, FaChevronRight } from 'react-icons/fa';
 import { HiMenuAlt3, HiX } from 'react-icons/hi';
 import { MdDoubleArrow } from 'react-icons/md';
 
-
-const FrontendHeader: React.FC = () => {
+interface Props {
+  activePage?: string;
+  subPage?: string
+}
+function FrontendHeader ({activePage, subPage}:Props) {
   const { auth } = usePage<SharedData>().props;
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeMobileSubmenu, setActiveMobileSubmenu] = useState<string | null>(null);
@@ -118,18 +121,18 @@ const FrontendHeader: React.FC = () => {
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex space-x-8 items-center h-full">
-              <Link href="/" className="text-muted-foreground hover:text-secondary font-medium transition-colors">Home</Link>
-              <Link href={route('frontend.home-for-sale')} className="text-muted-foreground hover:text-secondary font-medium transition-colors">Homes for Sale</Link>
-              <Link href={route('frontend.rentals')} className="text-muted-foreground hover:text-secondary font-medium transition-colors">Rentals</Link>
+              <Link href="/" className={`text-muted-foreground hover:text-secondary font-medium transition-colors ${activePage === 'home' ? 'text-secondary' : 'text-muted-foreground'}`} >Home</Link>
+              <Link href={route('frontend.home-for-sale')} className={`text-muted-foreground hover:text-secondary font-medium transition-colors ${activePage === 'homes-for-sale' ? 'text-secondary' : 'text-muted-foreground'}`}>Homes for Sale</Link>
+              <Link href={route('frontend.rentals')} className={`text-muted-foreground hover:text-secondary font-medium transition-colors ${activePage === 'rentals' ? 'text-secondary' : 'text-muted-foreground'}`}>Rentals</Link>
 
               {/* Cities Dropdown */}
               <div className="relative group h-full flex items-center">
-                <button className="text-muted-foreground group-hover:text-secondary font-medium flex items-center focus:outline-none transition-colors">
+                <button className={`text-muted-foreground group-hover:text-secondary font-medium flex items-center focus:outline-none transition-colors ${activePage === 'city' ? 'text-secondary' : 'text-muted-foreground'}`}>
                   Cities <FaChevronDown className="ml-1 text-[10px]" />
                 </button>
                 <div className="absolute top-full left-0 w-56 bg-white shadow-lg rounded-b-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
                   {cities.map((city) => (
-                    <Link href={`/${city.route}`} className="block px-4 py-2 text-sm text-muted-foreground hover:text-white hover:bg-secondary transition-colors">
+                    <Link href={`/${city.route}`} className={`block px-4 py-2 text-sm text-muted-foreground hover:text-white hover:bg-secondary transition-colors ${subPage === city.name ? 'text-white bg-secondary' : ''}`}>
                       {city.name}
                     </Link>
                   ))}
@@ -138,7 +141,7 @@ const FrontendHeader: React.FC = () => {
 
               {/* Mega Menu: Moving to Tennessee */}
               <div className="relative group h-full flex items-center">
-                <button className="text-muted-foreground group-hover:text-secondary font-medium flex items-center focus:outline-none transition-colors">
+                <button className={`text-muted-foreground group-hover:text-secondary font-medium flex items-center focus:outline-none transition-colors ${activePage === 'moving-to-tennessee' ? 'text-secondary' : 'text-muted-foreground'}`}>
                   Moving to Tennessee <FaChevronDown className="ml-1 text-[10px]" />
                 </button>
 
@@ -148,7 +151,7 @@ const FrontendHeader: React.FC = () => {
                     <ul className="space-y-3">
                       {movingTopics1.map((item) => (
                         <li key={item.name}>
-                          <Link href={`/${item.route}`} className="flex items-center text-sm text-muted-foreground hover:text-secondary transition-colors">
+                          <Link href={`/${item.route}`} className={`flex items-center text-sm text-muted-foreground hover:text-secondary transition-colors ${subPage === item.name ? 'text-secondary' : ''}`}>
                             <span className="text-primary mr-2 font-bold">
                               <MdDoubleArrow size={14} />
                             </span> {item.name}
@@ -163,7 +166,7 @@ const FrontendHeader: React.FC = () => {
                     <ul className="space-y-3">
                       {movingTopics2.map((item) => (
                         <li key={`/${item.name}`} id={item.name}>
-                          <Link href={item.route} className="flex items-center text-sm text-muted-foreground hover:text-secondary transition-colors">
+                          <Link href={item.route} className={`flex items-center text-sm text-muted-foreground hover:text-secondary transition-colors ${subPage === item.name ? 'text-secondary' : ''}`}>
                             <span className="text-primary mr-2 font-bold">
                               <MdDoubleArrow size={14} />
                             </span> {item.name}
@@ -178,7 +181,7 @@ const FrontendHeader: React.FC = () => {
                     <ul className="space-y-3">
                       {movingTopics3.map((item) => (
                         <li key={item.name}>
-                          <Link href={`/${item.route}`} className="flex items-center text-sm text-muted-foreground hover:text-secondary transition-colors">
+                          <Link href={`/${item.route}`} className={`flex items-center text-sm text-muted-foreground hover:text-secondary transition-colors ${subPage === item.name ? 'text-secondary' : ''}`}>
                             <span className="text-primary mr-2 font-bold">
                               <MdDoubleArrow size={14} />
                             </span> {item.name}
@@ -190,7 +193,7 @@ const FrontendHeader: React.FC = () => {
                 </div>
               </div>
 
-              <Link href="/partner-program" className="text-muted-foreground hover:text-secondary font-medium transition-colors">Partner Program</Link>
+              <Link href="/partner-program" className={`text-muted-foreground hover:text-secondary font-medium transition-colors ${activePage === 'Partner Program' ? 'text-secondary' : 'text-muted-foreground'}`}>Partner Program</Link>
             </nav>
 
             {/* Desktop Right CTA / Mobile Toggle */}

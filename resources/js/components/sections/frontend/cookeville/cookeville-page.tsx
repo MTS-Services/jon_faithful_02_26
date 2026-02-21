@@ -278,10 +278,10 @@ export default function CookevillePage({ city }: { city: City }) {
 
                     footer: 'For many relocating buyers, Cookeville offers peace, value, and natural beauty.',
                     cities: [
-                        'Nashville',
-                        'Chattanooga',
-                        'Knoxville',
-                        'Clarksville',
+                       {name: 'Nashville', route: route('frontend.livingInNashville')},
+                       {name: 'Chattanooga', route: route('frontend.livingInChattanooga')},
+                       {name: 'Knoxville', route: route('frontend.livingInKnoxville')},
+                       {name: 'Clarksville', route: route('frontend.livingInClarksville')},
                     ],
                 }}
             />

@@ -1,10 +1,15 @@
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { HiArrowRight } from 'react-icons/hi';
 
+
+type CityItem = {
+    name: string;
+    route: string;
+};
 type property = {
     title?: string;
     description?: string;
-    cities?: string[];
+    cities?: CityItem[];
     rightTitle?: string;
     points?: string[]; // UL list
     footer?: string;
@@ -12,13 +17,13 @@ type property = {
 
 export default function FinalInfoSection({ property }: { property: property }) {
     const { title, description, cities, rightTitle, points, footer } = property;
-    const citiesList = cities || [
-        'Johnson City, TN',
-        'Kingsport, TN',
-        'Memphis, TN',
-        'Nashville, TN',
-        'Chattanooga, TN',
-    ];
+    // const citiesList = cities || [
+    //    { name: 'Johnson City, TN', route: route('frontend.city', { city: 'johnson-city' }) },
+    //     { name: 'Kingsport, TN',    route: route('frontend.city', { city: 'kingsport' }) },
+    //     { name: 'Memphis, TN',      route: route('frontend.city', { city: 'memphis' }) },
+    //     { name: 'Nashville, TN',    route: route('frontend.city', { city: 'nashville' }) },
+    //     { name: 'Chattanooga, TN',  route: route('frontend.city', { city: 'chattanooga' }) },
+    // ];
 
     return (
         <section className="bg-slate-50 py-20">
@@ -50,6 +55,19 @@ export default function FinalInfoSection({ property }: { property: property }) {
                     </h2>
 
                     <div className="mb-8 grid grid-cols-2 gap-4">
+                        {cities?.map((city) => (
+                            <a
+                                key={city.name}
+                                href={city.route}
+                                className="flex gap-3 rounded-xl bg-slate-50 p-3 hover:bg-slate-100 transition-colors"
+                            >
+                                <FaMapMarkerAlt className="text-secondary" />
+                                {city.name}
+                            </a>
+                        ))}
+                    </div>
+
+                    {/* <div className="mb-8 grid grid-cols-2 gap-4">
                         {citiesList.map((city) => (
                             <div
                                 key={city}
@@ -59,7 +77,7 @@ export default function FinalInfoSection({ property }: { property: property }) {
                                 {city}
                             </div>
                         ))}
-                    </div>
+                    </div> */}
 
                     <a
                         href={route('frontend.livetennessee')}

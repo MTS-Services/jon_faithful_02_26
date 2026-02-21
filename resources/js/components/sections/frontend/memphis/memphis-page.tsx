@@ -277,7 +277,12 @@ export default function MemphisPage({ city }: { city: City }) {
                     ],
 
                     footer: 'For many relocating buyers, Memphis offers unmatched value and culture.',
-                    cities: ['Nashville', 'Franklin', 'Clarksville', 'Jackson'],
+                    cities: [
+                        { name: 'Nashville', route: route('frontend.livingInNashville') },
+                        { name: 'Franklin', route: route('frontend.livingInFranklin') },
+                        { name: 'Clarksville', route: route('frontend.livingInClarksville') },
+                        { name: 'Jackson', route: route('frontend.livingInJackson') },
+                    ],
                 }}
             />
         </div>

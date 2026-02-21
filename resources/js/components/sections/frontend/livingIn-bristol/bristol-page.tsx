@@ -268,10 +268,10 @@ const BristolPage: React.FC<{ city: any }> = ({ city }) => {
                     description:
                         'Bristol may be the right fit if you’re looking for: Low cost of living Small-town charm Rich music and cultural history Affordable homeownership Easy access to the Tri-Cities For many relocating buyers, Bristol offers a unique blend of affordability and character. Shape',
                     cities: [
-                        'Johnson City',
-                        'Kingsport',
-                        'Knoxville',
-                        'Chattanooga',
+                        {name: 'Johnson City', route: route('frontend.livingInJohnsonCity')},
+                        {name: 'Kingsport', route: route('frontend.livingInKingsport')},
+                        {name: 'Knoxville', route: route('frontend.livingInKnoxville')},
+                        {name: 'Chattanooga', route: route('frontend.livingInChattanooga')},
                     ],
                 }}
             />

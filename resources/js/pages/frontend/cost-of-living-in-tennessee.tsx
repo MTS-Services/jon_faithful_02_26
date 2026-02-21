@@ -13,7 +13,7 @@ import React from 'react'
 export default function CostOfLivingInTennessee() {
   return (
     <div>
-       <FrontendLayout>
+       <FrontendLayout activePage="moving-to-tennessee" subPage="Cost of Living in Tennessee">
             <Hero/>
             <IsTennesseeAffordable/>
             <HousingCostsInTennessee/>

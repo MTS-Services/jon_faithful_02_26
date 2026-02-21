@@ -286,10 +286,10 @@ export default function FranklinPage({ city }: { city: City }) {
 
                     footer: 'For many relocating buyers, Franklin represents the pinnacle of suburban living in Tennessee.',
                     cities: [
-                        'Nashville',
-                        'Murfreesboro',
-                        'Brentwood',
-                        'Clarksville',
+                        { name: 'Nashville', route: route('frontend.livingInNashville') },
+                        { name: 'Murfreesboro', route: route('frontend.livingInMurfreesboro') },
+                        // { name: 'Brentwood', route: route('frontend.livingInBrentwood') },
+                        { name: 'Clarksville', route: route('frontend.livingInClarksville') },
                     ],
                 }}
             />

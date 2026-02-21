@@ -7,7 +7,7 @@ import React from 'react'
 
 export default function Buying() {
   return (
-    <FrontendLayout>
+    <FrontendLayout activePage="moving-to-tennessee" subPage="Buying">
         <ExploreTennessee />
             <TypesOfHomes />
             <WhyBuy />

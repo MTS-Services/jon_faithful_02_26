@@ -16,7 +16,7 @@ import React from 'react'
 
 export default function TennesseeRelocation() {
     return (
-    <FrontendLayout>
+    <FrontendLayout activePage="moving-to-tennessee" subPage="Tennessee Relocation Guide">
         <Hero/>
         <MovingToTennessee/>
         <ChoosingTheRightArea/>

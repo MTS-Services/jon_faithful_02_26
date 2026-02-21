@@ -18,7 +18,7 @@ export default function RealEstateAgents({
     boths,
 }: RealEstateAgentsProps) {
     return (
-        <FrontendLayout>
+        <FrontendLayout activePage="moving-to-tennessee" subPage="Real Estate Agents">
             <Hero
                 slides={[
                     'https://whytennessee.com/wp-content/uploads/2026/01/Hay-bales-in-pasture-on-horse-farm-in-shadow-of-the-Blue-Ridge-Mountains-scaled.jpeg',

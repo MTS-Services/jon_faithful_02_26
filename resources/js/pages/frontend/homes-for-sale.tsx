@@ -21,7 +21,7 @@ interface Props {
 
 export default function HomesForSale({ listings, cities, filters }: Props) {
     return (
-        <FrontendLayout>
+        <FrontendLayout activePage="homes-for-sale">
             <Hero />
             <QuickSearch 
                 listings={listings} 
