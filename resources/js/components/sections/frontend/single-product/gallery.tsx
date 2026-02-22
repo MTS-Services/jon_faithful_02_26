@@ -3,7 +3,7 @@ import { useForm } from '@inertiajs/react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 // Import Swiper React components
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperSlide } from 'swiperfeatures
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -34,11 +34,11 @@ export default function Gallery({ listing, facilitiesShow }: any) {
 
     const primaryImage = listing.image_url;
     // const images = listing.galleries.map((image: any) => image.image_url);
-    const images = [
+    const featuresfeatures
         primaryImage,
-        ...listing.galleries.map((image: any) => image.image_url),
-    ];
-
+        ...listing.galleriefeaturesge: any) => image.image_url),
+    ];features
+features
     const [selectedImage, setSelectedImage] = useState(images[0]);
 
     const facilities = listing.facilities ?? [];
@@ -201,7 +201,7 @@ export default function Gallery({ listing, facilitiesShow }: any) {
                             </span>
                         </div>
                         <div className="flex items-center gap-2">
-                            <svg
+                         features
                                 aria-hidden="true"
                                 className="e-font-icon-svg e-fas-bath h-5 w-5 md:h-6 md:w-6"
                                 viewBox="0 0 512 512"

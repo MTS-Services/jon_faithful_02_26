@@ -435,7 +435,7 @@ export default function Create({
                             {/* Features Section */}
                             <div className="grid gap-2 mb-8 col-span-2">
                                 <div className="flex items-center justify-between">
-                                    <Label className="text-base font-semibold">Features</Label>
+                                    <Label className="text-base font-semibold">Unit Features</Label>
                                     <Button
                                         type="button"
                                         size="sm"

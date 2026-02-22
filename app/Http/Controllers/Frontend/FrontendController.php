@@ -182,7 +182,7 @@ class FrontendController extends Controller
      // public function singleProduct(Request $request, $id): Response
      // {
      //      $listing = $this->service->findData($id);
-     //      $facilitiesShow = $listing->property_type === 'rental' ? true : false;
+     //      $featuresShow = $listing->property_type === 'rental' ? true : false;
 
      // }
 
@@ -204,7 +204,7 @@ class FrontendController extends Controller
      public function singleRentalProduct($rental_id)
      {
           if ($rental_id) {
-               $listing = Rental::findOrFail($rental_id)->load(['city', 'user', 'galleries', 'facilities']);
+               $listing = Rental::findOrFail($rental_id)->load(['city', 'user', 'galleries', 'features']);
           }
 
           return Inertia::render('frontend/single-product', [

@@ -1,5 +1,6 @@
 import FileUpload from '@/components/file-upload';
 import InputError from '@/components/input-error';
+import AddFeatureModal from '@/components/add-feature-modal';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
@@ -26,7 +27,13 @@ interface PropertyOption {
     label: string;
 }
 
-interface Facility {
+interface Feature {
+    id: number;
+    name: string;
+    feature_category_id?: number | null;
+}
+
+interface FeatureCategory {
     id: number;
     name: string;
 }
@@ -34,12 +41,20 @@ interface Facility {
 interface Props {
     cities: City[];
     propertyTypes: PropertyOption[];
-    facilities: Facility[];
+    features: Feature[];
+    featureCategories: FeatureCategory[];
 }
 
-export default function AddListingRental({ cities, propertyTypes, facilities: initialFacilities, }: Props) {
+export default function AddListingRental({
+    cities,
+    propertyTypes,
+    features: initialFeatures,
+    featureCategories,
+}: Props) {
     const [activeTab, setActiveTab] = useState('manual');
-    const [facilities, setFacilities] = useState(initialFacilities);
+    const [features, setFeatures] = useState(initialFeatures);
+    const [modalOpen, setModalOpen] = useState(false);
+    const [modalLoading, setModalLoading] = useState(false);
 
     const { data, setData, post, processing, errors, reset } = useForm({
         title: '',
@@ -56,7 +71,7 @@ export default function AddListingRental({ cities, propertyTypes, facilities: in
         parking_garage: '',
         primary_image_url: null as File | null,
         gallery_images: [] as File[],
-         facilities: [] as number[],
+        features: [] as number[],
         youtube_video_url: '',
     });
 
@@ -102,38 +117,44 @@ export default function AddListingRental({ cities, propertyTypes, facilities: in
         });
     };
 
-    const addNewFacility = async () => {
-        const name = prompt('Enter new facility name:');
-        if (!name) return;
-
+    const handleAddFeature = async (name: string, categoryId: number) => {
+        setModalLoading(true);
         try {
-            const res = await axios.post(
-                route('admin.listing.facilities.store'),
-                { name },
-            );
-            setFacilities([...facilities, res.data]);
-            toast.success('Facility added successfully.');
+            const res = await axios.post(route('admin.feature.store'), {
+                name,
+                feature_category_id: categoryId,
+            });
+            setFeatures([...features, res.data]);
+            toast.success('Feature added successfully.');
+            setModalOpen(false);
         } catch (err: any) {
-            toast.error(
-                err.response?.data?.message || 'Failed to add facility',
-            );
+            toast.error(err.response?.data?.message || 'Failed to add feature');
+        } finally {
+            setModalLoading(false);
         }
     };
 
-    const handleFacilityToggle = (id: number) => {
-        const current = [...data.facilities];
+    const handleFeatureToggle = (id: number) => {
+        const current = [...data.features];
         const index = current.indexOf(id);
         if (index > -1) {
             current.splice(index, 1);
         } else {
             current.push(id);
         }
-        setData('facilities', current);
+        setData('features', current);
     };
 
     return (
         <UserDashboardLayout>
             <div className="min-h-screen bg-gray-50 p-2">
+                <AddFeatureModal
+                    open={modalOpen}
+                    onClose={() => setModalOpen(false)}
+                    onSubmit={handleAddFeature}
+                    featureCategories={featureCategories}
+                    loading={modalLoading}
+                />
                 <div className="container mx-auto">
                     {/* Header Buttons */}
                     <div className="mb-4 flex justify-center gap-3">
@@ -582,48 +603,92 @@ export default function AddListingRental({ cities, propertyTypes, facilities: in
                                     <div className="col-span-2 mb-8 grid gap-2">
                                         <div className="flex items-center justify-between">
                                             <Label className="text-base font-semibold">
-                                                Facilities
+                                                Unit Features
                                             </Label>
                                             <Button
                                                 type="button"
                                                 size="sm"
-                                                onClick={addNewFacility}
+                                                onClick={() => setModalOpen(true)}
                                             >
                                                 + Add New
                                             </Button>
                                         </div>
 
-                                        <div className="grid grid-cols-2 gap-4 rounded-md border bg-slate-50 p-4 md:grid-cols-3 lg:grid-cols-4">
-                                            {facilities.map((facility: any) => (
-                                                <div
-                                                    key={facility.id}
-                                                    className="flex items-center space-x-2"
-                                                >
-                                                    <input
-                                                        type="checkbox"
-                                                        id={`facility-${facility.id}`}
-                                                        className="h-4 w-4 rounded border-gray-300 text-slate-800 focus:ring-slate-500"
-                                                        checked={data.facilities.includes(
-                                                            facility.id,
-                                                        )}
-                                                        onChange={() =>
-                                                            handleFacilityToggle(
-                                                                facility.id,
-                                                            )
-                                                        }
-                                                    />
-                                                    <label
-                                                        htmlFor={`facility-${facility.id}`}
-                                                        className="cursor-pointer text-sm leading-none font-medium"
-                                                    >
-                                                        {facility.name}
-                                                    </label>
-                                                </div>
-                                            ))}
+                                        <div className="space-y-4 rounded-md border bg-slate-50 p-4">
+                                            {featureCategories.map((category) => {
+                                                const categoryFeatures = features.filter(
+                                                    (feature) => feature.feature_category_id === category.id,
+                                                );
+                                                if (categoryFeatures.length === 0) {
+                                                    return null;
+                                                }
+
+                                                return (
+                                                    <div key={category.id}>
+                                                        <p className="mb-2 border-b pb-1 text-sm font-semibold text-slate-700">
+                                                            {category.name}
+                                                        </p>
+                                                        <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
+                                                            {categoryFeatures.map((feature) => (
+                                                                <div key={feature.id} className="flex items-center space-x-2">
+                                                                    <input
+                                                                        type="checkbox"
+                                                                        id={`feature-${feature.id}`}
+                                                                        className="h-4 w-4 rounded border-gray-300 text-slate-800 focus:ring-slate-500"
+                                                                        checked={data.features.includes(feature.id)}
+                                                                        onChange={() => handleFeatureToggle(feature.id)}
+                                                                    />
+                                                                    <label
+                                                                        htmlFor={`feature-${feature.id}`}
+                                                                        className="cursor-pointer text-sm font-medium leading-none"
+                                                                    >
+                                                                        {feature.name}
+                                                                    </label>
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                );
+                                            })}
+                                            {(() => {
+                                                const categoryIds = featureCategories.map((c) => c.id);
+                                                const uncategorized = features.filter(
+                                                    (feature) => !categoryIds.includes(feature.feature_category_id ?? -1),
+                                                );
+
+                                                if (!uncategorized.length) {
+                                                    return null;
+                                                }
+
+                                                return (
+                                                    <div>
+                                                        <p className="mb-2 border-b pb-1 text-sm font-semibold text-slate-700">
+                                                            Other
+                                                        </p>
+                                                        <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
+                                                            {uncategorized.map((feature) => (
+                                                                <div key={feature.id} className="flex items-center space-x-2">
+                                                                    <input
+                                                                        type="checkbox"
+                                                                        id={`feature-${feature.id}`}
+                                                                        className="h-4 w-4 rounded border-gray-300 text-slate-800 focus:ring-slate-500"
+                                                                        checked={data.features.includes(feature.id)}
+                                                                        onChange={() => handleFeatureToggle(feature.id)}
+                                                                    />
+                                                                    <label
+                                                                        htmlFor={`feature-${feature.id}`}
+                                                                        className="cursor-pointer text-sm font-medium leading-none"
+                                                                    >
+                                                                        {feature.name}
+                                                                    </label>
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                );
+                                            })()}
                                         </div>
-                                        <InputError
-                                            message={errors.facilities}
-                                        />
+                                        <InputError message={errors.features} />
                                     </div>
                                 </div>
 

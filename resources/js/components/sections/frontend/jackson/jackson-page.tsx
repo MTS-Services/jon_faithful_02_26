@@ -100,7 +100,7 @@ const tabs = [
             'Education and professional services',
             'Retail and local businesses',
         ],
-        footer: 'Healthcare facilities serve both the city and surrounding rural areas.',
+        footer: 'Healthcare features serve both the city and surrounding rural areas.',
         imageUrl: '/assets/images/pexels-kelly-2833739-2048x1150 (1).jpg',
     },
     {

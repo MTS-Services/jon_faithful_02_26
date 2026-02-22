@@ -8,7 +8,8 @@ use App\Enums\RentalProperty;
 use App\Mail\Rentals\RentalSubmittedAdmin;
 use App\Mail\Rentals\RentalSubmittedUser;
 use App\Models\City;
-use App\Models\Facility;
+use App\Models\Feature;
+use App\Models\FeatureCategory;
 use App\Models\Rental;
 use App\Services\RentalService;
 use Illuminate\Http\Request;
@@ -46,11 +47,13 @@ class ListingRentalController extends Controller
     public function addListing(): Response
     {
         $cities = City::all(['id', 'name']);
-        $facilities = Facility::all();
+        $features = Feature::all();
+        $featureCategories = FeatureCategory::orderBy('name')->get();
 
         return Inertia::render('user/listings-rentals/add-listing-rental', [
             'cities' => $cities,
-            'facilities' => $facilities,
+            'features' => $features,
+            'featureCategories' => $featureCategories,
             'propertyTypes' => collect(RentalProperty::cases())
                 ->map(fn($type) => [
                     'value' => $type->value,
@@ -80,8 +83,8 @@ class ListingRentalController extends Controller
             'primary_image_url' => ['nullable', 'image', 'max:10240'],
             'gallery_images.*' => ['nullable', 'image', 'max:51200'],
             'youtube_video_url' => ['nullable', 'url'],
-            'facilities' => ['nullable', 'array'],
-            'facilities.*' => ['integer', 'exists:facilities,id'],
+            'features' => ['nullable', 'array'],
+            'features.*' => ['integer', 'exists:features,id'],
         ]);
 
         $validated['status'] = ActiveInactive::INACTIVE->value;
@@ -89,8 +92,8 @@ class ListingRentalController extends Controller
         $rental = $this->rentalService->createRental($validated, $request);
 
         // Using sync ensures the pivot table is updated correctly
-        if ($request->has('facilities')) {
-            $rental->facilities()->sync($request->input('facilities', []));
+        if ($request->has('features')) {
+            $rental->features()->sync($request->input('features', []));
         }
 
         // Mail::to($rental->user->email)->send(new RentalSubmittedUser($rental));
@@ -125,16 +128,18 @@ class ListingRentalController extends Controller
     public function editListing(Request $request, $id): Response
     {
         $rental = Rental::where('user_id', $request->user()->id)
-            ->with('facilities')
+            ->with('features')
             ->findOrFail($id);
 
         $cities = City::all(['id', 'name']);
-        $facilities = Facility::all();
+        $features = Feature::all();
+        $featureCategories = FeatureCategory::orderBy('name')->get();
 
         return Inertia::render('user/listings-rentals/edit-listing-rental', [
             'rental' => $rental,
             'cities' => $cities,
-            'facilities' => $facilities,
+            'features' => $features,
+            'featureCategories' => $featureCategories,
             'propertyTypes' => collect(RentalProperty::cases())
                 ->map(fn($type) => [
                     'value' => $type->value,
@@ -165,13 +170,14 @@ class ListingRentalController extends Controller
             'primary_image_url' => ['nullable', 'image', 'max:10240'], // 10MB max
             'gallery_images.*' => ['nullable', 'image', 'max:51200'], // 50MB max per image
             'youtube_video_url' => ['nullable', 'url'],
-            'facilities' => ['nullable', 'array'],
-            'facilities.*' => ['exists:facilities,id'],
+            'features' => ['nullable', 'array'],
+            'features.*' => ['exists:features,id'],
         ]);
 
+        $validated['status'] = ActiveInactive::INACTIVE->value;
         $rental = $this->rentalService->updateRental($rental, $validated, $request);
 
-        $rental->facilities()->sync($validated['facilities'] ?? []);
+        $rental->features()->sync($validated['features'] ?? []);
 
         // Mail::to(config('mail.from.address'))->send(new RentalSubmittedAdmin($rental, false));
         // Mail::to($rental->user->email)->later(now()->addSeconds(2), new RentalSubmittedUser($rental, false));
