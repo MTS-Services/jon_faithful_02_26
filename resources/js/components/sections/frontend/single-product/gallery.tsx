@@ -1,7 +1,14 @@
-import { CardContent } from '@/components/ui/card';
-import { Link, useForm } from '@inertiajs/react';
+import { Card, CardContent } from '@/components/ui/card';
+import { useForm } from '@inertiajs/react';
 import { useState } from 'react';
 import { toast } from 'sonner';
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+import 'swiper/css';
+import 'swiper/css/navigation';
+// import required modules
+import { FreeMode, Navigation, Pagination } from 'swiper/modules';
 
 export default function Gallery({ listing, facilitiesShow }: any) {
     const { data, setData, post, processing, reset } = useForm({
@@ -52,6 +59,33 @@ export default function Gallery({ listing, facilitiesShow }: any) {
 
     const embedUrl = getEmbedUrl(listing.youtube_video_url);
 
+    const petData = [
+        {
+            name: 'Small dogs',
+            image: '/assets/images/pet/istockphoto-1444462703-612x612.jpg',
+            allowed: true,
+            count: 2,
+        },
+        {
+            name: 'Small dogs',
+            image: '/assets/images/pet/istockphoto-1444462703-612x612.jpg',
+            allowed: true,
+            count: 2,
+        },
+        {
+            name: 'Small dogs',
+            image: '/assets/images/pet/istockphoto-1444462703-612x612.jpg',
+            allowed: true,
+            count: 2,
+        },
+        {
+            name: 'Small dogs',
+            image: '/assets/images/pet/istockphoto-1444462703-612x612.jpg',
+            allowed: true,
+            count: 2,
+        },
+
+    ];
     return (
         <div className="container mx-auto mt-6 px-4 md:mt-12">
             <div className="mb-6">
@@ -268,9 +302,13 @@ export default function Gallery({ listing, facilitiesShow }: any) {
                                     ></iframe>
                                 </div>
                             ) : (
-                                 <a href={listing.youtube_video_url} target="_blank" className="text-blue-600 underline">
-                                            Watch Video on YouTube
-                                        </a>
+                                <a
+                                    href={listing.youtube_video_url}
+                                    target="_blank"
+                                    className="text-blue-600 underline"
+                                >
+                                    Watch Video on YouTube
+                                </a>
                             )}
                         </CardContent>
                     </div>
@@ -342,14 +380,114 @@ export default function Gallery({ listing, facilitiesShow }: any) {
                             <button
                                 type="submit"
                                 disabled={processing}
-                                className="w-full rounded-md bg-primary py-3 font-bold text-primary-foreground transition-colors hover:bg-primary/80 cursor-pointer"
+                                className="w-full cursor-pointer rounded-md bg-primary py-3 font-bold text-primary-foreground transition-colors hover:bg-primary/80"
                             >
                                 {/* Submit Request */}
-                                 {processing ? 'Submit Request...' : 'Submit Request'}
+                                {processing
+                                    ? 'Submit Request...'
+                                    : 'Submit Request'}
                             </button>
                         </form>
                     </div>
                 </div>
+            </div>
+            <div className="">
+                <h3 className="mb-4 font-montserrat text-xl font-semibold text-secondary-foreground md:text-[25px]">
+                    Pet essentials
+                </h3>
+                {petData.length > 0 ? (
+                    <div className="flex gap-3">
+                        {petData.length <= 2 ? (
+                            // Display as block when petData count is less than or equal to slidesPerView
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 w-full">
+                                {petData.map((pet, index) => (
+                                    <Card key={index} className="rounded-2xl border border-gray-200 bg-white shadow-sm">
+                                        <CardContent className="p-5">
+                                            <div className="mb-4 flex items-center justify-between">
+                                                <div className="flex items-center gap-2">
+                                                    <img
+                                                        src={pet.image}
+                                                        alt={pet.name}
+                                                        className="h-10 w-10"
+                                                    />
+                                                    <h3 className="text-xl font-semibold text-gray-900">
+                                                        {pet.name}
+                                                    </h3>
+                                                </div>
+
+                                                <span className="inline-flex items-center rounded-full bg-green-100 px-3 py-1 font-semibold text-green-700">
+                                                    {pet.allowed
+                                                        ? 'Allowed'
+                                                        : 'Not Allowed'}
+                                                </span>
+                                            </div>
+
+                                            <div className="flex justify-between border-t border-gray-300 pt-3">
+                                                <span className="text-lg text-black">
+                                                    Number allowed
+                                                </span>
+                                                <span className="text-xl font-bold text-black">
+                                                    {pet.count}
+                                                </span>
+                                            </div>
+                                        </CardContent>
+                                    </Card>
+                                ))}
+                            </div>
+                        ) : (
+                            // Display as Swiper when petData count is greater than slidesPerView
+                            <Swiper
+                                slidesPerView="auto"
+                                spaceBetween={20}
+                                navigation
+                                pagination={{ clickable: true }}
+                                modules={[Navigation, Pagination, FreeMode]}
+                                breakpoints={{
+                                    640: { slidesPerView: 1 },
+                                    1024: { slidesPerView: 2 },
+                                    1300: { slidesPerView: 2 },
+                                    
+                                }}
+                            >
+                                {petData.map((pet, index) => (
+                                    <SwiperSlide key={index} style={{ width: 'full' }}>
+                                        <Card className="w-full rounded-2xl border border-gray-200 bg-white shadow-sm">
+                                            <CardContent className="p-5">
+                                                <div className="mb-4 flex items-center justify-between">
+                                                    <div className="flex items-center gap-2">
+                                                        <img
+                                                            src={pet.image}
+                                                            alt={pet.name}
+                                                            className="h-10 w-10"
+                                                        />
+                                                        <h3 className="text-xl font-semibold text-gray-900">
+                                                            {pet.name}
+                                                        </h3>
+                                                    </div>
+
+                                                    <span className="inline-flex items-center rounded-full bg-green-100 px-3 py-1 font-semibold text-green-700">
+                                                        {pet.allowed
+                                                            ? 'Allowed'
+                                                            : 'Not Allowed'}
+                                                    </span>
+                                                </div>
+
+                                                <div className="flex justify-between border-t border-gray-300 pt-3">
+                                                    <span className="text-lg text-black">
+                                                        Number allowed
+                                                    </span>
+                                                    <span className="text-xl font-bold text-black">
+                                                        {pet.count}
+                                                    </span>
+                                                </div>
+                                            </CardContent>
+                                        </Card>
+                                    </SwiperSlide>
+                                ))}
+                            </Swiper>
+                        )}
+                    </div>
+                ) : null}
             </div>
         </div>
     );
