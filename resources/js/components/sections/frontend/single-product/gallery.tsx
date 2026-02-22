@@ -401,8 +401,8 @@ export default function Gallery({ listing, facilitiesShow }: any) {
                             // Display as block when petData count is less than or equal to slidesPerView
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 w-full">
                                 {petData.map((pet, index) => (
-                                    <Card key={index} className="rounded-2xl border border-gray-200 bg-white shadow-sm">
-                                        <CardContent className="p-5">
+                                    <Card key={index} className="rounded-2xl border border-gray-200 bg-white shadow-sm !py-0">
+                                        <CardContent className=" p-2 sm:p-5">
                                             <div className="mb-4 flex items-center justify-between">
                                                 <div className="flex items-center gap-2">
                                                     <img
