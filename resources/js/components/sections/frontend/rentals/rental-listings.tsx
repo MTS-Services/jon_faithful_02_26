@@ -579,7 +579,7 @@ export default function RentalListings({ rentals, cities, filters = {} }: Props)
                             ))}
                         </div>
 
-                        {rentals?.links && rentals.links.length > 0 && (
+                        {rentals?.links && rentals.links.length > 0 &&  rentals?.total > 9 && (
                             <div className="mt-10 flex items-center justify-center space-x-1">
                                 {rentals.links.map(
                                     (link: any, index: number) => {

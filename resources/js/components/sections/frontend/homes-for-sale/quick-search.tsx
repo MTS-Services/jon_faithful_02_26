@@ -563,7 +563,7 @@ export default function QuickSearch({ listings, cities, filters = {} }: QuickSea
                             <PlatinumCard key={listing.id} property={listing} type="listing" />
                         ))}
                     </div>
-                    {listings?.links && listings.links.length > 0 && (
+                    {listings?.links && listings.links.length > 0 && listings?.total > 6 && (
                         <div className="mt-10 flex items-center justify-center space-x-1">
                             {listings.links.map((link: any, index: number) => {
                                 const isPrevious =
