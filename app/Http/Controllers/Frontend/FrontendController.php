@@ -109,7 +109,7 @@ class FrontendController extends Controller
           $cities = City::all();
 
           $rentals = $this->rentalService->getPaginatedDatas(
-               perPage: 6,
+               perPage: 9,
                filters: $filters
           );
           return Inertia::render('frontend/rentals', [
