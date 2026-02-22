@@ -47,9 +47,7 @@ class RentalController extends Controller
 
     public function details(Rental $rental): Response
     {
-        $rental->load(['galleries', 'features']);
-
-
+        $rental->load(['galleries', 'features.featureCategory']);
         return Inertia::render('admin/rentals/view', [
             'rental' => $rental
         ]);

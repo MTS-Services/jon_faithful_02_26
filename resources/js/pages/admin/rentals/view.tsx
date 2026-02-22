@@ -7,9 +7,19 @@ import { Rental } from '@/types';
 import { Head } from '@inertiajs/react';
 import { ArrowLeft, CheckCircle2, Youtube } from 'lucide-react';
 
+interface FeatureWithCategory {
+    id: number;
+    name: string;
+    // Laravel serializes camelCase relations as snake_case in JSON
+    feature_category?: {
+        id: number;
+        name: string;
+    } | null;
+}
+
 interface Props {
     rental: Rental & {
-        facilities?: { id: number; name: string }[];
+        features?: FeatureWithCategory[];
         youtube_video_url?: string;
     };
 }
@@ -27,6 +37,21 @@ export default function View({ rental }: Props) {
 
     const embedUrl = getEmbedUrl(rental.youtube_video_url);
 
+    // Group features by their category name (snake_case from Laravel)
+    const groupedFeatures = (rental.features ?? []).reduce(
+        (groups, feature) => {
+            const categoryName = feature.feature_category?.name ?? 'Other';
+            if (!groups[categoryName]) {
+                groups[categoryName] = [];
+            }
+            groups[categoryName].push(feature);
+            return groups;
+        },
+        {} as Record<string, FeatureWithCategory[]>,
+    );
+
+    const featureCategories = Object.keys(groupedFeatures);
+
     return (
         <AdminLayout activeSlug={'rentals'}>
             <Head title="Rental Details" />
@@ -38,9 +63,6 @@ export default function View({ rental }: Props) {
                         <ActionButton IconNode={ArrowLeft} href={index.url()}>
                             Back to Rentals
                         </ActionButton>
-                        {/* <ActionButton IconNode={SquarePen} href={edit.url(rental.id)}>
-                            Edit
-                        </ActionButton> */}
                     </div>
                 </div>
 
@@ -71,36 +93,44 @@ export default function View({ rental }: Props) {
                             </CardContent>
                         </Card>
 
-                        {/* Facilities */}
+                        {/* Unit Features — grouped by category */}
                         <Card>
                             <CardHeader>
                                 <CardTitle className="flex items-center gap-2 text-lg">
                                     <CheckCircle2 className="h-5 w-5 text-green-500" />
-                                    Facilities & Amenities
+                                    Unit Features
                                 </CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <div className="flex flex-wrap gap-2">
-                                    {rental.facilities &&
-                                    rental.facilities.length > 0 ? (
-                                        rental.facilities.map((facility) => {
-                                            console.log(rental.facilities);
-                                            return (
-                                                <Badge
-                                                    key={facility.id}
-                                                    variant="secondary"
-                                                    className="px-3 py-1"
-                                                >
-                                                    {facility.name}
-                                                </Badge>
-                                            );
-                                        })
-                                    ) : (
-                                        <p className="text-sm text-muted-foreground">
-                                            No facilities listed.
-                                        </p>
-                                    )}
-                                </div>
+                                {featureCategories.length > 0 ? (
+                                    <div className="grid md:grid-cols-2 gap-x-12 gap-y-6">
+                                        {featureCategories.map((category) => (
+                                            <div key={category}>
+                                                {/* Category Heading */}
+                                                <p className="mb-3 border-b pb-1 text-sm font-semibold text-slate-700">
+                                                    {category}
+                                                </p>
+
+                                                {/* Feature Badges */}
+                                                <div className="flex flex-wrap gap-2">
+                                                    {groupedFeatures[category].map((feature) => (
+                                                        <Badge
+                                                            key={feature.id}
+                                                            variant="secondary"
+                                                            className="px-3 py-1 text-white"
+                                                        >
+                                                            {feature.name}
+                                                        </Badge>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <p className="text-sm text-muted-foreground">
+                                        No features listed.
+                                    </p>
+                                )}
                             </CardContent>
                         </Card>
 
@@ -162,7 +192,9 @@ export default function View({ rental }: Props) {
                             </Card>
 
                             <Card>
-                                <CardTitle>Bathrooms</CardTitle>
+                                <CardHeader>
+                                    <CardTitle>Bathrooms</CardTitle>
+                                </CardHeader>
                                 <CardContent>
                                     <p className="text-muted-foreground">
                                         {rental.bathrooms}
@@ -192,6 +224,7 @@ export default function View({ rental }: Props) {
                                 </CardContent>
                             </Card>
                         </div>
+
                         {/* YouTube Video Section */}
                         {rental.youtube_video_url && (
                             <Card>
@@ -232,17 +265,12 @@ export default function View({ rental }: Props) {
                             <CardHeader>
                                 <CardTitle>Status & Insights</CardTitle>
                             </CardHeader>
-
                             <CardContent className="space-y-4">
                                 <div className="flex items-center justify-between border-b pb-2">
-                                    <span className="text-sm text-muted-foreground">
-                                        Status
-                                    </span>
+                                    <span className="text-sm text-muted-foreground">Status</span>
                                     <Badge
                                         variant={
-                                            rental.status === 'active'
-                                                ? 'default'
-                                                : 'destructive'
+                                            rental.status === 'active' ? 'default' : 'destructive'
                                         }
                                     >
                                         {rental.status}
@@ -252,36 +280,23 @@ export default function View({ rental }: Props) {
                                     <span className="text-sm text-muted-foreground">
                                         Market Status
                                     </span>
-                                    <Badge
-                                        variant="outline"
-                                        className="capitalize"
-                                    >
+                                    <Badge variant="outline" className="capitalize">
                                         {rental.property_type}
                                     </Badge>
                                 </div>
-
                                 <div>
-                                    <p className="text-sm text-muted-foreground">
-                                        Created At
-                                    </p>
+                                    <p className="text-sm text-muted-foreground">Created At</p>
                                     <p className="font-medium">
                                         {rental.created_at
-                                            ? new Date(
-                                                  rental.created_at,
-                                              ).toLocaleString()
+                                            ? new Date(rental.created_at).toLocaleString()
                                             : 'N/A'}
                                     </p>
                                 </div>
-
                                 <div>
-                                    <p className="text-sm text-muted-foreground">
-                                        Updated At
-                                    </p>
+                                    <p className="text-sm text-muted-foreground">Updated At</p>
                                     <p className="font-medium">
                                         {rental.updated_at
-                                            ? new Date(
-                                                  rental.updated_at,
-                                              ).toLocaleString()
+                                            ? new Date(rental.updated_at).toLocaleString()
                                             : 'N/A'}
                                     </p>
                                 </div>
@@ -301,7 +316,7 @@ export default function View({ rental }: Props) {
                                 />
                             </div>
                         )}
-                    </div> 
+                    </div>
                 </div>
 
                 {/* Images Section */}
@@ -309,29 +324,21 @@ export default function View({ rental }: Props) {
                     <CardHeader>
                         <CardTitle>Listing Images</CardTitle>
                     </CardHeader>
-
                     <CardContent className="space-y-4">
-                        {/* Gallery Images */}
                         {rental.galleries && rental.galleries.length > 0 ? (
                             <div>
                                 <p className="mb-3 text-sm text-muted-foreground">
                                     Gallery Images
                                 </p>
-
                                 <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
-                                    {rental.galleries.map(
-                                        (image: any) => (
-                                            console.log(image),
-                                            (
-                                                <img
-                                                    key={image.id}
-                                                    src={image.image_url}
-                                                    alt="gallery-image"
-                                                    className="h-40 w-full rounded object-cover shadow"
-                                                />
-                                            )
-                                        ),
-                                    )}
+                                    {rental.galleries.map((image: any) => (
+                                        <img
+                                            key={image.id}
+                                            src={image.image_url}
+                                            alt="gallery-image"
+                                            className="h-40 w-full rounded object-cover shadow"
+                                        />
+                                    ))}
                                 </div>
                             </div>
                         ) : (

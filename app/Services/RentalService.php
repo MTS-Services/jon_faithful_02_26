@@ -92,8 +92,9 @@ class RentalService
                 'parking_garage'   => $validated['parking_garage'],
                 'primary_image_url' => $validated['primary_image_url'] ?? $rental->primary_image_url,
                 'youtube_video_url' => $validated['youtube_video_url'],
-                'facilities' => ['nullable', 'array'],
-                'facilities.*' => ['integer', 'exists:facilities,id'],
+                'features' => ['nullable', 'array'],
+                'features.*' => ['integer', 'exists:features,id'],
+                'status' => $validated['status'],
             ]);
 
             if ($request->hasFile('gallery_images')) {

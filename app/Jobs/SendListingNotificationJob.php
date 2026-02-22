@@ -38,7 +38,7 @@ class SendListingNotificationJob implements ShouldQueue
                 return;
             }
 
-            $listing->load('user', 'facilities');
+            $listing->load('user', 'features');
 
             $userEmail = $listing->user?->email;
             $adminEmail = config('mail.from.address');

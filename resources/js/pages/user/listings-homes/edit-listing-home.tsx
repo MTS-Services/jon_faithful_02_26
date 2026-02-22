@@ -39,19 +39,16 @@ interface Listing {
     primary_image_url: string | null;
     youtube_video_url: string;
     image_url: string[];
-    facilities: number[];
 }
 
 interface Props {
     listing: Listing;
     cities: City[];
-    facilities: Facility[];
     propertyTypes: PropertyOption[];
     propertyStatuses: PropertyOption[];
 }
 
-export default function EditListingHome({ listing, cities, facilities: initialFacilities, propertyTypes, propertyStatuses }: Props) {
-    const [facilities, setFacilities] = useState(initialFacilities);
+export default function EditListingHome({ listing, cities, propertyTypes, propertyStatuses }: Props) {
     const { data, setData, post, processing, errors } = useForm({
         title: listing.title || '',
         description: listing.description || '',
@@ -65,7 +62,6 @@ export default function EditListingHome({ listing, cities, facilities: initialFa
         primary_image_url: null as File | null,
         youtube_video_url: listing.youtube_video_url || '',
         gallery_images: [] as File[],
-        facilities: listing.facilities || [],
         _method: 'PUT',
     });
     const [existingFiles, setExistingFiles] = useState<any[]>([]);
@@ -112,31 +108,6 @@ export default function EditListingHome({ listing, cities, facilities: initialFa
                 toast.error('Failed to update listing.');
             },
         });
-    };
-
-    const handleFacilityToggle = (id: number) => {
-        const current = [...data.facilities];
-        const index = current.indexOf(id);
-        if (index > -1) {
-            current.splice(index, 1);
-        } else {
-            current.push(id);
-        }
-        setData('facilities', current);
-    };
-
-    const addNewFacility = async () => {
-        const name = prompt('Enter new facility name:');
-        if (!name) return;
-        try {
-            const res = await axios.post(route('admin.facilities.store'), { name });
-            setFacilities([...facilities, res.data]);
-            // Auto-check the new facility
-            setData('facilities', [...data.facilities, res.data.id]);
-            toast.success('Facility added.');
-        } catch (err: any) {
-            toast.error(err.response?.data?.message || 'Error adding facility');
-        }
     };
 
     return (
@@ -329,34 +300,12 @@ export default function EditListingHome({ listing, cities, facilities: initialFa
                                 />
                                 <InputError message={errors.description} />
                             </div>
-
-                            {/* Facilities Section */}
-                            <div className="grid gap-2 mb-8 col-span-2">
-                                <div className="flex items-center justify-between">
-                                    <Label className="text-base font-semibold">Facilities</Label>
-                                    <Button type="button" size="sm" onClick={addNewFacility}>+ Add New</Button>
-                                </div>
-                                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 border rounded-md bg-slate-50">
-                                    {facilities.map((f) => (
-                                        <div key={f.id} className="flex items-center space-x-2">
-                                            <input
-                                                type="checkbox"
-                                                id={`facility-${f.id}`}
-                                                className="h-4 w-4 rounded border-gray-300 text-slate-800"
-                                                checked={data.facilities.includes(f.id)}
-                                                onChange={() => handleFacilityToggle(f.id)}
-                                            />
-                                            <label htmlFor={`facility-${f.id}`} className="text-sm cursor-pointer">{f.name}</label>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
                         </div>
 
                         <button
                             type="submit"
                             disabled={processing}
-                            className="bg-slate-800 hover:bg-slate-700 text-white px-8 py-3 rounded-md font-medium disabled:opacity-50"
+                            className="bg-slate-800 hover:bg-slate-700 text-white px-8 py-3 rounded-md font-medium disabled:opacity-50 mt-4"
                         >
                             {processing ? 'Saving...' : 'Update Listing'}
                         </button>

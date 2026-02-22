@@ -38,7 +38,7 @@ class SendRentalNotificationJob implements ShouldQueue
                 return;
             }
 
-            $rental->load('user', 'facilities');
+            $rental->load('user', 'features');
 
             $userEmail = $rental->user?->email;
             $adminEmail = config('mail.from.address');
