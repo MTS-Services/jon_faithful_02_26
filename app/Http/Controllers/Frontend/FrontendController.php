@@ -109,7 +109,7 @@ class FrontendController extends Controller
           $cities = City::all();
 
           $rentals = $this->rentalService->getPaginatedDatas(
-               perPage: 6,
+               perPage: 9,
                filters: $filters
           );
           return Inertia::render('frontend/rentals', [
@@ -192,7 +192,7 @@ class FrontendController extends Controller
                $listing = $this->service->findData($listing_id);
           }
           $relatedListings = $this->service->getPaginatedDatas(
-               perPage: 6,
+               perPage: 8,
                filters: ['exclude_id' => $listing_id]
           );
 
@@ -208,7 +208,7 @@ class FrontendController extends Controller
                $listing = Rental::findOrFail($rental_id)->load(['city', 'user', 'galleries', 'features']);
           }
           $relatedRentals = $this->rentalService->getPaginatedDatas(
-               perPage: 6,
+               perPage: 8,
                filters: ['exclude_id' => $rental_id]
           );
 

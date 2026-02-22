@@ -1,6 +1,6 @@
 import { PlatinumCard } from '@/components/ui/PlatinumCard';
 import { Link, router } from '@inertiajs/react';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 type QuickSearchFilters = {
     search?: string;
@@ -40,6 +40,7 @@ export default function QuickSearch({ listings, cities, filters = {} }: QuickSea
     const [priceMin, setPriceMin] = useState(filters.price_min ?? '');
     const [priceMax, setPriceMax] = useState(filters.price_max ?? '');
     const [isReady, setIsReady] = useState(false);
+    const isNavigating = useRef(false);
 
     const propertyTypes = [
         { value: 'house', label: 'House' },
@@ -67,24 +68,15 @@ export default function QuickSearch({ listings, cities, filters = {} }: QuickSea
         setPriceMax(filters.price_max ?? '');
     }, [filters, initialCities, initialPropertyTypes]);
 
-    // Debounce search & price filters
-    useEffect(() => {
-        if (!isReady) return;
-
-        const timer = setTimeout(() => {
-            handleFilter();
-        }, 500);
-
-        return () => clearTimeout(timer);
-    }, [searchTerm, priceMin, priceMax, isReady]);
-
     const normalizedPriceMin = priceMin ? Number(priceMin) : PRICE_MIN_DEFAULT;
     const normalizedPriceMax = priceMax ? Number(priceMax) : PRICE_MAX_DEFAULT;
 
     const formatCurrency = (value: number) =>
         `$${value.toLocaleString(undefined, { maximumFractionDigits: 0 })}`;
 
-    const handleFilter = () => {
+    const handleFilter = useCallback(() => {
+        if (isNavigating.current) return;
+        
         const filterData: any = {};
 
         if (searchTerm) filterData.search = searchTerm;
@@ -98,11 +90,40 @@ export default function QuickSearch({ listings, cities, filters = {} }: QuickSea
         if (property_type.length > 0)
             filterData.property_type = property_type.join(',');
 
+        isNavigating.current = true;
         router.get(route('frontend.home-for-sale'), filterData, {
             preserveState: true,
             preserveScroll: true,
+            onFinish: () => {
+                isNavigating.current = false;
+            },
         });
-    };
+    }, [searchTerm, selectedCities, bedrooms, bathrooms, square_feet, priceMin, priceMax, property_type]);
+
+    // Debounce search & price filters
+    useEffect(() => {
+        if (!isReady) return;
+
+        const timer = setTimeout(() => {
+            // Only trigger if values have actually changed from initial state
+            const currentFilters = {
+                search: searchTerm,
+                price_min: priceMin,
+                price_max: priceMax
+            };
+            
+            const hasChanges = 
+                currentFilters.search !== (filters.search ?? '') ||
+                currentFilters.price_min !== (filters.price_min ?? '') ||
+                currentFilters.price_max !== (filters.price_max ?? '');
+            
+            if (hasChanges) {
+                handleFilter();
+            }
+        }, 500);
+
+        return () => clearTimeout(timer);
+    }, [searchTerm, priceMin, priceMax, isReady]);
 
     const handlePriceMinChange = useCallback((value: string) => {
         if (value === '') {
@@ -256,6 +277,38 @@ export default function QuickSearch({ listings, cities, filters = {} }: QuickSea
     const getPropertyTypeLabel = (type: string) => {
         return propertyTypes.find((pt) => pt.value === type)?.label || '';
     };
+
+    const handlePagination = useCallback((url: string) => {
+        if (isNavigating.current) return;
+        
+        // Extract current page from URL or default to 1
+        const urlObj = new URL(url, window.location.origin);
+        const page = urlObj.searchParams.get('page') || '1';
+        
+        const filterData: any = {
+            page: page
+        };
+
+        if (searchTerm) filterData.search = searchTerm;
+        if (selectedCities.length > 0)
+            filterData.city = selectedCities.join(',');
+        if (bedrooms) filterData.bedrooms = bedrooms;
+        if (bathrooms) filterData.bathrooms = bathrooms;
+        if (square_feet) filterData.square_feet = square_feet;
+        if (priceMin) filterData.price_min = priceMin;
+        if (priceMax) filterData.price_max = priceMax;
+        if (property_type.length > 0)
+            filterData.property_type = property_type.join(',');
+
+        isNavigating.current = true;
+        router.get(route('frontend.home-for-sale'), filterData, {
+            preserveState: true,
+            preserveScroll: true,
+            onFinish: () => {
+                isNavigating.current = false;
+            },
+        });
+    }, [searchTerm, selectedCities, bedrooms, bathrooms, square_feet, priceMin, priceMax, property_type]);
 
     return (
         <div className="container mx-auto px-4 py-12 sm:py-16 md:px-16 md:py-20 lg:py-28">
@@ -510,7 +563,7 @@ export default function QuickSearch({ listings, cities, filters = {} }: QuickSea
                             <PlatinumCard key={listing.id} property={listing} type="listing" />
                         ))}
                     </div>
-                    {listings?.links && listings.links.length > 0 && (
+                    {listings?.links && listings.links.length > 0 && listings?.total > 6 && (
                         <div className="mt-10 flex items-center justify-center space-x-1">
                             {listings.links.map((link: any, index: number) => {
                                 const isPrevious =
@@ -525,10 +578,9 @@ export default function QuickSearch({ listings, cities, filters = {} }: QuickSea
                                 if (isNext) displayLabel = 'Next';
 
                                 return (
-                                    <Link
+                                    <button
                                         key={index}
-                                        href={link.url || '#'}
-                                        preserveScroll
+                                        onClick={() => link.url && handlePagination(link.url)}
                                         disabled={!link.url}
                                         className={`rounded px-4 py-2 transition-colors ${link.active
                                                 ? 'bg-secondary text-primary-foreground'
@@ -541,7 +593,7 @@ export default function QuickSearch({ listings, cities, filters = {} }: QuickSea
                                                 /&laquo;|&raquo;/g,
                                                 '',
                                             )}
-                                    </Link>
+                                    </button>
                                 );
                             })}
                         </div>

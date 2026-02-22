@@ -20,8 +20,8 @@ const PlatinumProperties: React.FC<{ listings: any }> = ({ listings }) => {
                     ))}
                 </div>
 
-                {/* Pagination Links */}
-                {listings?.links && listings.links.length > 0 && (
+                {/* Pagination Links - Only show if there are more than 8 listings */}
+                {listings?.links && listings.links.length > 0 && listings?.total > 8 && (
                     <div className="mt-10 flex items-center justify-center space-x-1">
                         {listings.links.map((link: any, index: number) => {
                            
