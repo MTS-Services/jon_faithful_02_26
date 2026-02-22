@@ -45,10 +45,10 @@ interface Props {
     selectedUserId?: number | null;
 }
 
-export default function Create({ cities, features: initialfeatures, propertyTypes, propertyStatuses, statuses, users, selectedUserId }: Props) {
+export default function Create({ cities, propertyTypes, propertyStatuses, statuses, users, selectedUserId }: Props) {
 
     // Maintain a local state for features to allow "Add New" without refresh
-    const [features, setfeatures] = useState(initialfeatures);
+    // const [features, setfeatures] = useState(initialfeatures);
 
     const { data, setData, post, processing, errors, reset } = useForm({
         title: '',
@@ -80,18 +80,18 @@ export default function Create({ cities, features: initialfeatures, propertyType
         }
     };
 
-    const addNewFacility = async () => {
-        const name = prompt('Enter new facility name:');
-        if (!name) return;
+    // const addNewFacility = async () => {
+    //     const name = prompt('Enter new facility name:');
+    //     if (!name) return;
 
-        try {
-            const res = await axios.post(route('admin.features.store'), { name });
-            setfeatures([...features, res.data]);
-            toast.success('Facility added successfully.');
-        } catch (err: any) {
-            toast.error(err.response?.data?.message || 'Failed to add facility');
-        }
-    };
+    //     try {
+    //         const res = await axios.post(route('admin.features.store'), { name });
+    //         setfeatures([...features, res.data]);
+    //         toast.success('Facility added successfully.');
+    //     } catch (err: any) {
+    //         toast.error(err.response?.data?.message || 'Failed to add facility');
+    //     }
+    // };
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
@@ -355,7 +355,7 @@ export default function Create({ cities, features: initialfeatures, propertyType
                             </div>
 
                             {/* --- Added features Section --- */}
-                            <div className="grid gap-2 mb-8 col-span-2">
+                            {/* <div className="grid gap-2 mb-8 col-span-2">
                                 <div className="flex items-center justify-between">
                                     <Label className="text-base font-semibold">features</Label>
                                     <Button
@@ -387,7 +387,7 @@ export default function Create({ cities, features: initialfeatures, propertyType
                                     ))}
                                 </div>
                                 <InputError message={errors.features} />
-                            </div>
+                            </div> */}
                             {/* --- End features Section --- */}
                         </div>
 
@@ -395,7 +395,7 @@ export default function Create({ cities, features: initialfeatures, propertyType
                         <button
                             type="submit"
                             disabled={processing}
-                            className="bg-secondary hover:bg-primary text-white px-8 py-3 rounded-md font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="bg-secondary hover:bg-primary text-white px-8 py-3 rounded-md font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed mt-4"
                         >
                             {processing ? 'Submitting...' : 'Submit Listing for Review'}
                         </button>

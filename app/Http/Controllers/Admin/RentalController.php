@@ -9,6 +9,7 @@ use App\Mail\Rentals\RentalSubmittedAdmin;
 use App\Mail\Rentals\RentalSubmittedUser;
 use App\Models\City;
 use App\Models\Feature;
+use App\Models\FeatureCategory;
 use App\Models\Rental;
 use App\Models\User;
 use App\Services\DataTableService;
@@ -70,6 +71,7 @@ class RentalController extends Controller
             ->mapWithKeys(fn($type) => [$type->value => $type->label()]);
         $status = collect(ActiveInactive::cases())
             ->mapWithKeys(fn($status) => [$status->value => $status->label()]);
+        $featureCategories = FeatureCategory::orderBy('name')->get();
 
         return Inertia::render('admin/rentals/create', [
             'cities' => $cities,
@@ -77,7 +79,8 @@ class RentalController extends Controller
             'users' => $users,
             'selectedUserId' => $user_id ? (int) $user_id : null,
             'status' => $status,
-            'features' => $features
+            'features' => $features,
+            'featureCategories'  => $featureCategories,
         ]);
     }
 
@@ -131,6 +134,7 @@ class RentalController extends Controller
             ->mapWithKeys(fn($type) => [$type->value => $type->label()]);
         $status = collect(ActiveInactive::cases())
             ->mapWithKeys(fn($status) => [$status->value => $status->label()]);
+        $featureCategories = FeatureCategory::orderBy('name')->get();
 
         return Inertia::render('admin/rentals/edit', [
             'rental' => $rental,
@@ -138,7 +142,8 @@ class RentalController extends Controller
             'users' => $users,
             'propertyTypes' => $propertyTypes,
             'status' => $status,
-            'features' => $features
+            'features' => $features,
+            'featureCategories' => $featureCategories,
         ]);
     }
 

@@ -94,7 +94,7 @@ class ListingController extends Controller
             'users' => $users,
             'selectedUserId' => $user_id ? (int) $user_id : null,
             'cities' => $cities,
-            'features' => $features,
+            // 'features' => $features,
             'propertyTypes' => collect(ListingProperty::cases())->map(fn($type) => [
                 'value' => $type->value,
                 'label' => $type->label(),
@@ -129,8 +129,8 @@ class ListingController extends Controller
             'primary_image_url' => ['nullable', 'image', 'max:10240'],
             'youtube_video_url' => ['nullable', 'url'],
             'gallery_images.*' => ['nullable', 'image', 'max:25600'],
-            'features' => ['nullable', 'array'],
-            'features.*' => ['exists:features,id'],
+            // 'features' => ['nullable', 'array'],
+            // 'features.*' => ['exists:features,id'],
         ]);
         $validated['status'] = $validated['status'] ?? ActiveInactive::ACTIVE->value;
 
@@ -138,9 +138,9 @@ class ListingController extends Controller
         $listing = $this->listingService->createListing($validated, $request);
 
         // Using sync ensures the pivot table is updated correctly
-        if ($request->has('features')) {
-            $listing->features()->sync($request->input('features', []));
-        }
+        // if ($request->has('features')) {
+        //     $listing->features()->sync($request->input('features', []));
+        // }
 
         return redirect()
             ->route('admin.listing.index')
@@ -150,21 +150,22 @@ class ListingController extends Controller
     public function storeFacility(Request $request)
     {
         $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255', 'unique:features,name'],
+            'name'                => ['required', 'string', 'max:255', 'unique:features,name'],
+            'feature_category_id' => ['required', 'exists:feature_categories,id'],
         ]);
 
         $facility = Feature::create([
-            'name' => $validated['name'],
-            'slug' => Str::slug($validated['name']), // Added slug generation
+            'name'                => $validated['name'],
+            'slug'                => Str::slug($validated['name']),
+            'feature_category_id' => $validated['feature_category_id'],
         ]);
 
-        return response()->json($facility);
+        // Eager load category so frontend gets full object
+        return response()->json($facility->load('featureCategory'));
     }
 
     public function edit(Listing $listing): Response
     {
-        // Load the existing facility IDs for this listing
-        $listing->load('features');
         $currentFacilityIds = $listing->features->pluck('id')->toArray();
         $users = User::where('is_verified', true)->where('status', ActiveInactive::ACTIVE)->get();
 
@@ -175,7 +176,6 @@ class ListingController extends Controller
                 'features' => $currentFacilityIds // Pass just IDs for the form
             ],
             'cities' => City::all(['id', 'name']),
-            'features' => Feature::all(['id', 'name']),
             'propertyTypes' => collect(ListingProperty::cases())->map(fn($type) => [
                 'value' => $type->value,
                 'label' => $type->label(),
@@ -209,16 +209,14 @@ class ListingController extends Controller
             'primary_image_url' => ['nullable', 'image', 'max:10240'],
             'youtube_video_url' => ['nullable', 'url'],
             'gallery_images.*' => ['nullable', 'image', 'max:25600'],
-            'features' => ['nullable', 'array'],
-            'features.*' => ['exists:features,id'],
         ]);
 
         $listing = $this->listingService->updateListing($listing, $validated, $request);
 
         // Sync features (this removes old ones and adds new ones automatically)
-        if ($request->has('features')) {
-            $listing->features()->sync($request->input('features', []));
-        }
+        // if ($request->has('features')) {
+        //     $listing->features()->sync($request->input('features', []));
+        // }
 
         return redirect()->route('admin.listing.index')->with('success', 'Listing updated.');
     }
