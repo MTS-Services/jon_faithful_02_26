@@ -74,9 +74,14 @@ class Rental extends Model
         return $this->belongsTo(City::class);
     }
 
-    public function facilities()
+    public function features()
     {
-        return $this->morphToMany(Facility::class, 'facilityable');
+        return $this->morphToMany(Feature::class, 'featureable');
+    }
+
+    public function petEssentials()
+    {
+        return $this->hasMany(PetEssential::class);
     }
 
 

@@ -9,7 +9,7 @@ import { useForm } from '@inertiajs/react';
 import { FormEvent } from 'react';
 import { useState } from 'react';
 import { toast } from 'sonner';
-import axios from 'axios'; // Ensure axios is imported for adding new facilities
+import axios from 'axios'; // Ensure axios is imported for adding new features
 
 interface City {
     id: number;
@@ -26,15 +26,12 @@ interface PropertyOption {
 
 interface Props {
     cities: City[];
-    facilities: Facility[];
     propertyTypes: PropertyOption[];
     propertyStatuses: PropertyOption[];
 }
 
-export default function AddListingHome({ cities, facilities: initialFacilities, propertyTypes, propertyStatuses }: Props) {
+export default function AddListingHome({ cities, propertyTypes, propertyStatuses }: Props) {
     const [activeTab, setActiveTab] = useState('manual');
-    // Maintain a local state for facilities to allow "Add New" without refresh
-    const [facilities, setFacilities] = useState(initialFacilities);
 
     const { data, setData, post, processing, errors, reset } = useForm({
         title: '',
@@ -49,8 +46,6 @@ export default function AddListingHome({ cities, facilities: initialFacilities, 
         primary_image_url: null as File | null,
         youtube_video_url: '',
         gallery_images: [] as File[],
-        facilities: [] as number[],
-
     });
 
     const { data: linkData, setData: setLinkData, post: postLink, processing: linkProcessing, errors: linkErrors } = useForm({
@@ -103,29 +98,6 @@ export default function AddListingHome({ cities, facilities: initialFacilities, 
         }
     };
 
-    const addNewFacility = async () => {
-        const name = prompt('Enter new facility name:');
-        if (!name) return;
-
-        try {
-            const res = await axios.post(route('admin.facilities.store'), { name });
-            setFacilities([...facilities, res.data]);
-            toast.success('Facility added successfully.');
-        } catch (err: any) {
-            toast.error(err.response?.data?.message || 'Failed to add facility');
-        }
-    };
-
-    const handleFacilityToggle = (id: number) => {
-        const current = [...data.facilities];
-        const index = current.indexOf(id);
-        if (index > -1) {
-            current.splice(index, 1);
-        } else {
-            current.push(id);
-        }
-        setData('facilities', current);
-    };
 
     return (
         <UserDashboardLayout>
@@ -337,49 +309,13 @@ export default function AddListingHome({ cities, facilities: initialFacilities, 
                                         />
                                         <InputError message={errors.description} />
                                     </div>
-
-                                    {/* --- Added Facilities Section --- */}
-                                    <div className="grid gap-2 mb-8 col-span-2">
-                                        <div className="flex items-center justify-between">
-                                            <Label className="text-base font-semibold">Facilities</Label>
-                                            <Button
-                                                type="button"
-                                                size="sm"
-                                                onClick={addNewFacility}
-                                            >
-                                                + Add New
-                                            </Button>
-                                        </div>
-
-                                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 border rounded-md bg-slate-50">
-                                            {facilities.map((facility) => (
-                                                <div key={facility.id} className="flex items-center space-x-2">
-                                                    <input
-                                                        type="checkbox"
-                                                        id={`facility-${facility.id}`}
-                                                        className="h-4 w-4 rounded border-gray-300 text-slate-800 focus:ring-slate-500"
-                                                        checked={data.facilities.includes(facility.id)}
-                                                        onChange={() => handleFacilityToggle(facility.id)}
-                                                    />
-                                                    <label
-                                                        htmlFor={`facility-${facility.id}`}
-                                                        className="text-sm font-medium leading-none cursor-pointer"
-                                                    >
-                                                        {facility.name}
-                                                    </label>
-                                                </div>
-                                            ))}
-                                        </div>
-                                        <InputError message={errors.facilities} />
-                                    </div>
-                                    {/* --- End Facilities Section --- */}
                                 </div>
 
                                 {/* Submit Button */}
                                 <button
                                     type="submit"
                                     disabled={processing}
-                                    className="bg-secondary hover:bg-primary text-white px-8 py-3 rounded-md font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                    className="bg-secondary hover:bg-primary text-white px-8 py-3 rounded-md font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed mt-4"
                                 >
                                     {processing ? 'Submitting...' : 'Submit Listing for Review'}
                                 </button>

@@ -11,16 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('facilityables', function (Blueprint $table) {
+        Schema::create('features', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('facility_id')->constrained()->cascadeOnDelete();
-            $table->morphs('facilityable');
+            $table->unsignedBigInteger('sort_order')->default(0);
+            $table->foreignId('feature_category_id')
+            ->constrained()
+            ->cascadeOnDelete();
+            $table->string('name');
+            $table->string('slug')->unique();
             $table->timestamps();
-
-            $table->unique(
-                ['facility_id', 'facilityable_id', 'facilityable_type'],
-                'facilityables_facility_idx'
-            );
         });
     }
 
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('facilityables');
+        Schema::dropIfExists('features');
     }
 };

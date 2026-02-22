@@ -7,14 +7,13 @@ use App\Enums\ListingProperty;
 use App\Enums\ListingStatus;
 use App\Http\Controllers\Controller;
 use App\Models\City;
-use App\Models\Facility;
+use App\Models\Feature;
 use App\Models\Listing;
 use App\Models\User;
 use App\Services\DataTableService;
 use App\Services\ListingHomeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Enum;
@@ -75,7 +74,7 @@ class ListingController extends Controller
 
     public function details(Listing $listing): Response
     {
-        $listing->load(['galleries', 'facilities']);
+        $listing->load(['galleries', 'features']);
 
         return Inertia::render('admin/listings/view', [
             'listing' => $listing
@@ -84,7 +83,7 @@ class ListingController extends Controller
     public function create($user_id = null): Response
     {
         $cities = City::all(['id', 'name']);
-        $facilities = Facility::all(['id', 'name']);
+        $features = Feature::all(['id', 'name']);
         if ($user_id) {
             $users = User::where('is_verified', true)->where('status', ActiveInactive::ACTIVE)->where('id', $user_id)->get();
         } else {
@@ -95,7 +94,7 @@ class ListingController extends Controller
             'users' => $users,
             'selectedUserId' => $user_id ? (int) $user_id : null,
             'cities' => $cities,
-            'facilities' => $facilities,
+            // 'features' => $features,
             'propertyTypes' => collect(ListingProperty::cases())->map(fn($type) => [
                 'value' => $type->value,
                 'label' => $type->label(),
@@ -130,8 +129,8 @@ class ListingController extends Controller
             'primary_image_url' => ['nullable', 'image', 'max:10240'],
             'youtube_video_url' => ['nullable', 'url'],
             'gallery_images.*' => ['nullable', 'image', 'max:25600'],
-            'facilities' => ['nullable', 'array'],
-            'facilities.*' => ['exists:facilities,id'],
+            // 'features' => ['nullable', 'array'],
+            // 'features.*' => ['exists:features,id'],
         ]);
         $validated['status'] = $validated['status'] ?? ActiveInactive::ACTIVE->value;
 
@@ -139,9 +138,9 @@ class ListingController extends Controller
         $listing = $this->listingService->createListing($validated, $request);
 
         // Using sync ensures the pivot table is updated correctly
-        if ($request->has('facilities')) {
-            $listing->facilities()->sync($request->input('facilities', []));
-        }
+        // if ($request->has('features')) {
+        //     $listing->features()->sync($request->input('features', []));
+        // }
 
         return redirect()
             ->route('admin.listing.index')
@@ -151,32 +150,32 @@ class ListingController extends Controller
     public function storeFacility(Request $request)
     {
         $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255', 'unique:facilities,name'],
+            'name'                => ['required', 'string', 'max:255', 'unique:features,name'],
+            'feature_category_id' => ['required', 'exists:feature_categories,id'],
         ]);
 
-        $facility = Facility::create([
-            'name' => $validated['name'],
-            'slug' => Str::slug($validated['name']), // Added slug generation
+        $facility = Feature::create([
+            'name'                => $validated['name'],
+            'slug'                => Str::slug($validated['name']),
+            'feature_category_id' => $validated['feature_category_id'],
         ]);
 
-        return response()->json($facility);
+        // Eager load category so frontend gets full object
+        return response()->json($facility->load('featureCategory'));
     }
 
     public function edit(Listing $listing): Response
     {
-        // Load the existing facility IDs for this listing
-        $listing->load('facilities');
-        $currentFacilityIds = $listing->facilities->pluck('id')->toArray();
+        $currentFacilityIds = $listing->features->pluck('id')->toArray();
         $users = User::where('is_verified', true)->where('status', ActiveInactive::ACTIVE)->get();
 
         return Inertia::render('admin/listings/edit', [
             'users' => $users,
             'listing' => [
                 ...$listing->toArray(),
-                'facilities' => $currentFacilityIds // Pass just IDs for the form
+                'features' => $currentFacilityIds // Pass just IDs for the form
             ],
             'cities' => City::all(['id', 'name']),
-            'facilities' => Facility::all(['id', 'name']),
             'propertyTypes' => collect(ListingProperty::cases())->map(fn($type) => [
                 'value' => $type->value,
                 'label' => $type->label(),
@@ -210,16 +209,14 @@ class ListingController extends Controller
             'primary_image_url' => ['nullable', 'image', 'max:10240'],
             'youtube_video_url' => ['nullable', 'url'],
             'gallery_images.*' => ['nullable', 'image', 'max:25600'],
-            'facilities' => ['nullable', 'array'],
-            'facilities.*' => ['exists:facilities,id'],
         ]);
 
         $listing = $this->listingService->updateListing($listing, $validated, $request);
 
-        // Sync facilities (this removes old ones and adds new ones automatically)
-        if ($request->has('facilities')) {
-            $listing->facilities()->sync($request->input('facilities', []));
-        }
+        // Sync features (this removes old ones and adds new ones automatically)
+        // if ($request->has('features')) {
+        //     $listing->features()->sync($request->input('features', []));
+        // }
 
         return redirect()->route('admin.listing.index')->with('success', 'Listing updated.');
     }

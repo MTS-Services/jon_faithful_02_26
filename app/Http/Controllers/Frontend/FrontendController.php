@@ -109,7 +109,7 @@ class FrontendController extends Controller
           $cities = City::all();
 
           $rentals = $this->rentalService->getPaginatedDatas(
-               perPage: 6,
+               perPage: 9,
                filters: $filters
           );
           return Inertia::render('frontend/rentals', [
@@ -182,7 +182,7 @@ class FrontendController extends Controller
      // public function singleProduct(Request $request, $id): Response
      // {
      //      $listing = $this->service->findData($id);
-     //      $facilitiesShow = $listing->property_type === 'rental' ? true : false;
+     //      $featuresShow = $listing->property_type === 'rental' ? true : false;
 
      // }
 
@@ -192,24 +192,30 @@ class FrontendController extends Controller
                $listing = $this->service->findData($listing_id);
           }
           $relatedListings = $this->service->getPaginatedDatas(
-               perPage: 6,
-               filters: []
+               perPage: 8,
+               filters: ['exclude_id' => $listing_id]
           );
 
           return Inertia::render('frontend/single-product', [
                'listing' => $listing,
-               'listingType' => 'listing'
+               'listingType' => 'listing',
+               'relatedListings' => $relatedListings
           ]);
      }
      public function singleRentalProduct($rental_id)
      {
           if ($rental_id) {
-               $listing = Rental::findOrFail($rental_id)->load(['city', 'user', 'galleries', 'facilities']);
+               $listing = Rental::findOrFail($rental_id)->load(['city', 'user', 'galleries', 'features']);
           }
+          $relatedRentals = $this->rentalService->getPaginatedDatas(
+               perPage: 8,
+               filters: ['exclude_id' => $rental_id]
+          );
 
           return Inertia::render('frontend/single-product', [
                'listing' => $listing,
-               'listingType' => 'rental'
+               'listingType' => 'rental',
+               'relatedListings' => $relatedRentals
           ]);
      }
 
@@ -275,7 +281,7 @@ class FrontendController extends Controller
      }
      public function prosConsTennessee(): Response
      {
-          return Inertia::render('frontend/pros-cons-tn');
+          return Inertia::render('frontend/pros-cons-tennessee');
      }
 
      public function privacyPolicy(): Response

@@ -10,7 +10,7 @@ import { Badge } from '@/components/ui/badge'
 
 interface Props {
     listing: Listing & {
-        facilities?: { id: number; name: string }[]
+        features?: { id: number; name: string }[]
         youtube_video_url?: string
     }
 }
@@ -67,19 +67,19 @@ export default function View({ listing }: Props) {
                             </CardContent>
                         </Card>
 
-                        {/* Facilities */}
+                        {/* features */}
                         <Card>
                             <CardHeader>
                                 <CardTitle className="text-lg flex items-center gap-2">
                                     <CheckCircle2 className="w-5 h-5 text-green-500" />
-                                    Facilities & Amenities
+                                    features & Amenities
                                 </CardTitle>
                             </CardHeader>
                             <CardContent>
                                 <div className="flex flex-wrap gap-2">
-                                    {listing.facilities && listing.facilities.length > 0 ? (
-                                        listing.facilities.map((facility) => {
-                                            console.log(listing.facilities);
+                                    {listing.features && listing.features.length > 0 ? (
+                                        listing.features.map((facility) => {
+                                            console.log(listing.features);
                                             return (
                                                 <Badge key={facility.id} variant="secondary" className="px-3 py-1">
                                                     {facility.name}
@@ -88,7 +88,7 @@ export default function View({ listing }: Props) {
                                         })
 
                                     ) : (
-                                        <p className="text-sm text-muted-foreground">No facilities listed.</p>
+                                        <p className="text-sm text-muted-foreground">No features listed.</p>
                                     )}
                                 </div>
                             </CardContent>

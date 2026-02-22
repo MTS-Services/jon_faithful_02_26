@@ -12,17 +12,22 @@ import { Head, Link, router, useForm } from '@inertiajs/react';
 import { ArrowLeft } from 'lucide-react';
 import { toast } from 'sonner';
 import { FormEvent, useState } from 'react'; // Added useState
-import axios from 'axios'; // Ensure axios is imported for adding new facilities
+import axios from 'axios'; // Ensure axios is imported for adding new features
 import { stat } from 'fs';
 
 interface City {
     id: number;
     name: string;
 }
-
 interface Facility {
     id: number;
     name: string;
+}
+
+interface FacilityCategory {
+    id: number;
+    name: string;
+    features: Facility[];
 }
 
 interface PropertyOption {
@@ -33,17 +38,17 @@ interface PropertyOption {
 interface Props {
     users: any;
     cities: City[];
-    facilities: Facility[]; // Added facilities to props
+    features: Facility[]; // Added features to props
     propertyTypes: PropertyOption[];
     propertyStatuses: PropertyOption[];
     statuses: PropertyOption[];
     selectedUserId?: number | null;
 }
 
-export default function Create({ cities, facilities: initialFacilities, propertyTypes, propertyStatuses, statuses, users, selectedUserId }: Props) {
+export default function Create({ cities, propertyTypes, propertyStatuses, statuses, users, selectedUserId }: Props) {
 
-    // Maintain a local state for facilities to allow "Add New" without refresh
-    const [facilities, setFacilities] = useState(initialFacilities);
+    // Maintain a local state for features to allow "Add New" without refresh
+    // const [features, setfeatures] = useState(initialfeatures);
 
     const { data, setData, post, processing, errors, reset } = useForm({
         title: '',
@@ -60,7 +65,7 @@ export default function Create({ cities, facilities: initialFacilities, property
         youtube_video_url: '',
         primary_image_url: null as File | null,
         gallery_images: [] as File[],
-        facilities: [] as number[], // Added facilities array to form data
+        features: [] as number[], // Added features array to form data
     });
 
     const handlePrimaryImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -75,18 +80,18 @@ export default function Create({ cities, facilities: initialFacilities, property
         }
     };
 
-    const addNewFacility = async () => {
-        const name = prompt('Enter new facility name:');
-        if (!name) return;
+    // const addNewFacility = async () => {
+    //     const name = prompt('Enter new facility name:');
+    //     if (!name) return;
 
-        try {
-            const res = await axios.post(route('admin.facilities.store'), { name });
-            setFacilities([...facilities, res.data]);
-            toast.success('Facility added successfully.');
-        } catch (err: any) {
-            toast.error(err.response?.data?.message || 'Failed to add facility');
-        }
-    };
+    //     try {
+    //         const res = await axios.post(route('admin.features.store'), { name });
+    //         setfeatures([...features, res.data]);
+    //         toast.success('Facility added successfully.');
+    //     } catch (err: any) {
+    //         toast.error(err.response?.data?.message || 'Failed to add facility');
+    //     }
+    // };
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
@@ -102,14 +107,14 @@ export default function Create({ cities, facilities: initialFacilities, property
     };
 
     const handleFacilityToggle = (id: number) => {
-        const current = [...data.facilities];
+        const current = [...data.features];
         const index = current.indexOf(id);
         if (index > -1) {
             current.splice(index, 1);
         } else {
             current.push(id);
         }
-        setData('facilities', current);
+        setData('features', current);
     };
 
     return (
@@ -349,10 +354,10 @@ export default function Create({ cities, facilities: initialFacilities, property
                                 <InputError message={errors.description} />
                             </div>
 
-                            {/* --- Added Facilities Section --- */}
-                            <div className="grid gap-2 mb-8 col-span-2">
+                            {/* --- Added features Section --- */}
+                            {/* <div className="grid gap-2 mb-8 col-span-2">
                                 <div className="flex items-center justify-between">
-                                    <Label className="text-base font-semibold">Facilities</Label>
+                                    <Label className="text-base font-semibold">features</Label>
                                     <Button
                                         type="button"
                                         size="sm"
@@ -363,13 +368,13 @@ export default function Create({ cities, facilities: initialFacilities, property
                                 </div>
 
                                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 border rounded-md bg-slate-50">
-                                    {facilities.map((facility) => (
+                                    {features.map((facility) => (
                                         <div key={facility.id} className="flex items-center space-x-2">
                                             <input
                                                 type="checkbox"
                                                 id={`facility-${facility.id}`}
                                                 className="h-4 w-4 rounded border-gray-300 text-slate-800 focus:ring-slate-500"
-                                                checked={data.facilities.includes(facility.id)}
+                                                checked={data.features.includes(facility.id)}
                                                 onChange={() => handleFacilityToggle(facility.id)}
                                             />
                                             <label
@@ -381,16 +386,16 @@ export default function Create({ cities, facilities: initialFacilities, property
                                         </div>
                                     ))}
                                 </div>
-                                <InputError message={errors.facilities} />
-                            </div>
-                            {/* --- End Facilities Section --- */}
+                                <InputError message={errors.features} />
+                            </div> */}
+                            {/* --- End features Section --- */}
                         </div>
 
                         {/* Submit Button */}
                         <button
                             type="submit"
                             disabled={processing}
-                            className="bg-secondary hover:bg-primary text-white px-8 py-3 rounded-md font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="bg-secondary hover:bg-primary text-white px-8 py-3 rounded-md font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed mt-4"
                         >
                             {processing ? 'Submitting...' : 'Submit Listing for Review'}
                         </button>

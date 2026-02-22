@@ -16,11 +16,13 @@ import AdminLayout from '@/layouts/admin-layout';
 import { Head, useForm } from '@inertiajs/react';
 import { ArrowLeft } from 'lucide-react';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { toast } from 'sonner';
+import AddFeatureModal from '@/components/add-feature-modal';
+import PetEssentialsInput, { PetEssential } from '@/components/pet-essentials-input';
 
 interface FormData {
-    user_id?: string | number;
+    user_id?: string;
     sort_order: string;
     city_id: string;
     title: string;
@@ -35,21 +37,33 @@ interface FormData {
     pet_friendly?: string;
     parking_garage?: string;
     primary_image_url: File | null;
-    gallery_images: File | null;
+    gallery_images: File[];
     status: string;
-    facilities: number[];
+    features: number[];
     youtube_video_url?: string;
+    pet_essentials: PetEssential[];
 }
 
 export default function Edit({
     rental,
-    cities,
-    propertyTypes,
-    users,
-    status,
-    facilities: initialFacilities,
-}: any) {
-    const [facilities, setFacilities] = useState(initialFacilities);
+    cities = [],
+    propertyTypes = {},
+    users = [],
+    status = {},
+    features: initialFeatures = [],
+    featureCategories = [],
+}: any = {}) {
+    const [features, setFeatures] = useState(initialFeatures);
+
+    // Modal state
+    const [modalOpen, setModalOpen] = useState(false);
+    const [modalLoading, setModalLoading] = useState(false);
+
+    const rentalPetEssentials = useMemo(
+        () => rental.pet_essentials ?? rental.petEssentials ?? [],
+        [rental],
+    );
+
     const { data, setData, post, processing, errors } = useForm<FormData>({
         title: rental.title || '',
         description: rental.description || '',
@@ -70,33 +84,33 @@ export default function Edit({
                 : 'no',
         parking_garage: rental.parking_garage || '',
         primary_image_url: null,
-        gallery_images: null,
-        facilities: rental.facilities?.map((f: any) => f.id) || [],
+        gallery_images: [],
+        features: rental.features?.map((f: any) => f.id) || [],
         youtube_video_url: rental.youtube_video_url || '',
+        pet_essentials: rentalPetEssentials.map((item: any) => ({
+            pet_type: item.pet_type ?? '',
+            allowed: item.allowed === 'no' ? 'no' : 'yes',
+            number_allowed: item.number_allowed ? String(item.number_allowed) : '',
+            icon: null,
+            existing_icon: item.icon ?? item.existing_icon ?? null,
+        })),
     });
 
     const [existingFiles, setExistingFiles] = useState<any[]>([]);
-    useEffect(() => {
-        if (data) {
-            setData({
-                ...data,
-                // _method: 'PUT',
-            });
 
-            // Update existing files whenever information changes
-            if (rental.primary_image_url) {
-                setExistingFiles([
-                    {
-                        id: rental.id,
-                        url: rental.image_url,
-                        name: rental.primary_image_url,
-                        path: rental.primary_image_url,
-                        mime_type: 'image/*',
-                    },
-                ]);
-            } else {
-                setExistingFiles([]);
-            }
+    useEffect(() => {
+        if (rental.primary_image_url) {
+            setExistingFiles([
+                {
+                    id: rental.id,
+                    url: rental.image_url,
+                    name: rental.primary_image_url,
+                    path: rental.primary_image_url,
+                    mime_type: 'image/*',
+                },
+            ]);
+        } else {
+            setExistingFiles([]);
         }
     }, [rental]);
 
@@ -110,38 +124,37 @@ export default function Edit({
         }
     };
 
-    const addNewFacility = async () => {
-        const name = prompt('Enter new facility name:');
-        if (!name) return;
-
+    // Called when modal form is submitted
+    const handleAddFeature = async (name: string, categoryId: number) => {
+        setModalLoading(true);
         try {
-            const res = await axios.post(
-                route('admin.listing.facilities.store'),
-                { name },
-            );
-            setFacilities([...facilities, res.data]);
-            toast.success('Facility added successfully.');
+            const res = await axios.post(route('admin.listing.features.store'), {
+                name,
+                feature_category_id: categoryId,
+            });
+            setFeatures([...features, res.data]);
+            toast.success('Feature added successfully.');
+            setModalOpen(false);
         } catch (err: any) {
-            toast.error(
-                err.response?.data?.message || 'Failed to add facility',
-            );
+            toast.error(err.response?.data?.message || 'Failed to add feature');
+        } finally {
+            setModalLoading(false);
         }
     };
 
-    const handleFacilityToggle = (id: number) => {
-        const current = [...data.facilities];
+    const handleFeatureToggle = (id: number) => {
+        const current = [...data.features];
         const index = current.indexOf(id);
         if (index > -1) {
             current.splice(index, 1);
         } else {
             current.push(id);
         }
-        setData('facilities', current);
+        setData('features', current);
     };
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
-
         post(route('admin.rentals.update', rental.id), {
             forceFormData: true,
             preserveScroll: true,
@@ -154,14 +167,39 @@ export default function Edit({
         });
     }
 
+    const normalizedPropertyTypes = Array.isArray(propertyTypes)
+        ? propertyTypes
+        : Object.entries(propertyTypes ?? {}).map(([value, label]) => ({
+              value,
+              label,
+          }));
+
+    const statusOptions = Array.isArray(status)
+        ? status
+        : Object.entries(status ?? {}).map(([value, label]) => ({
+              value,
+              label,
+          }));
+
     return (
         <AdminLayout activeSlug="rentals">
             <Head title="Edit Rental Listing" />
 
+            {/* Add Feature Modal */}
+            <AddFeatureModal
+                open={modalOpen}
+                onClose={() => setModalOpen(false)}
+                onSubmit={handleAddFeature}
+                featureCategories={featureCategories}
+                loading={modalLoading}
+            />
+
             <CardContent>
                 <CardHeader className="flex flex-row justify-between">
-                    <CardTitle className='text-2xl'>Edit Rental Listing</CardTitle>
-                    <ActionButton href={route('admin.rentals.index')} IconNode={ArrowLeft}>Back to Rentals</ActionButton>
+                    <CardTitle className="text-2xl">Edit Rental Listing</CardTitle>
+                    <ActionButton href={route('admin.rentals.index')} IconNode={ArrowLeft}>
+                        Back to Rentals
+                    </ActionButton>
                 </CardHeader>
                 <CardContent>
                     <form onSubmit={handleSubmit}>
@@ -172,7 +210,9 @@ export default function Edit({
                                     <Label htmlFor="primary_image_url">Image</Label>
                                     <FileUpload
                                         value={data.primary_image_url}
-                                        onChange={(file) => setData('primary_image_url', file as File | null)}
+                                        onChange={(file) =>
+                                            setData('primary_image_url', file as File | null)
+                                        }
                                         existingFiles={existingFiles}
                                         onRemoveExisting={handleRemoveExisting}
                                         accept="image/*"
@@ -184,7 +224,9 @@ export default function Edit({
 
                             {/* Photo Gallery */}
                             <div className="grid gap-2 col-span-2">
-                                <Label htmlFor="gallery_images">Photo Gallery (Optional - only upload to replace)</Label>
+                                <Label htmlFor="gallery_images">
+                                    Photo Gallery (Optional - only upload to replace)
+                                </Label>
                                 <input
                                     id="gallery_images"
                                     type="file"
@@ -192,15 +234,14 @@ export default function Edit({
                                     multiple
                                     onChange={(e) => {
                                         if (e.target.files) {
-                                            setData(
-                                                'gallery_images',
-                                                Array.from(e.target.files),
-                                            );
+                                            setData('gallery_images', Array.from(e.target.files));
                                         }
                                     }}
                                     className="block w-full text-sm text-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded file:border file:border-gray-300 file:text-sm file:font-medium file:bg-gray-50 hover:file:bg-gray-100 file:transition"
                                 />
-                                <p className="text-xs text-gray-500 mt-1">Maximum file size: 200 MB total</p>
+                                <p className="text-xs text-gray-500 mt-1">
+                                    Maximum file size: 200 MB total
+                                </p>
                                 <InputError message={errors.gallery_images} />
                             </div>
 
@@ -208,7 +249,7 @@ export default function Edit({
                             <div className="grid gap-2">
                                 <Label>User</Label>
                                 <Select
-                                    value={data.user_id}
+                                    value={data.user_id ?? ''}
                                     onValueChange={(v) => setData('user_id', v)}
                                 >
                                     <SelectTrigger>
@@ -216,10 +257,7 @@ export default function Edit({
                                     </SelectTrigger>
                                     <SelectContent>
                                         {users.map((user: any) => (
-                                            <SelectItem
-                                                key={user.id}
-                                                value={String(user.id)}
-                                            >
+                                            <SelectItem key={user.id} value={String(user.id)}>
                                                 {user.name}
                                             </SelectItem>
                                         ))}
@@ -286,13 +324,11 @@ export default function Edit({
                                         <SelectValue placeholder="Select status" />
                                     </SelectTrigger>
                                     <SelectContent>
-                                        {Object.entries(status).map(
-                                            ([value, label]) => (
-                                                <SelectItem key={value} value={value}>
-                                                    {label}
-                                                </SelectItem>
-                                            ),
-                                        )}
+                                        {statusOptions.map((option: any) => (
+                                            <SelectItem key={option.value} value={option.value}>
+                                                {option.label}
+                                            </SelectItem>
+                                        ))}
                                     </SelectContent>
                                 </Select>
                                 <InputError message={errors.status} />
@@ -309,13 +345,11 @@ export default function Edit({
                                         <SelectValue placeholder="Select property type" />
                                     </SelectTrigger>
                                     <SelectContent>
-                                        {Object.entries(propertyTypes).map(
-                                            ([value, label]) => (
-                                                <SelectItem key={value} value={value}>
-                                                    {label}
-                                                </SelectItem>
-                                            ),
-                                        )}
+                                        {normalizedPropertyTypes.map((type: any) => (
+                                            <SelectItem key={type.value} value={type.value}>
+                                                {type.label}
+                                            </SelectItem>
+                                        ))}
                                     </SelectContent>
                                 </Select>
                                 <InputError message={errors.property_type} />
@@ -425,12 +459,10 @@ export default function Edit({
                                             type="radio"
                                             name="pet_friendly"
                                             value="yes"
-                                            checked={
-                                                data.pet_friendly === 'yes' ||
-                                                data.pet_friendly === 1 ||
-                                                data.pet_friendly === true
+                                            checked={data.pet_friendly === 'yes'}
+                                            onChange={(e) =>
+                                                setData('pet_friendly', e.target.value)
                                             }
-                                            onChange={(e) => setData('pet_friendly', e.target.value)}
                                             className="text-blue-600 focus:ring-blue-500"
                                         />
                                         Yes
@@ -440,18 +472,31 @@ export default function Edit({
                                             type="radio"
                                             name="pet_friendly"
                                             value="no"
-                                            checked={
-                                                data.pet_friendly === 'no' ||
-                                                data.pet_friendly === 0 ||
-                                                data.pet_friendly === false
+                                            checked={data.pet_friendly === 'no'}
+                                            onChange={(e) =>
+                                                setData('pet_friendly', e.target.value)
                                             }
-                                            onChange={(e) => setData('pet_friendly', e.target.value)}
                                             className="text-blue-600 focus:ring-blue-500"
                                         />
                                         No
                                     </label>
                                 </div>
                                 <InputError message={errors.pet_friendly} />
+                            </div>
+
+                            {/* ✅ Pet Essentials Section */}
+                            <div className="grid gap-3 col-span-2">
+                                <div className="flex items-center justify-between">
+                                    <Label className="text-base font-semibold">Pet Essentials</Label>
+                                    <span className="text-xs text-muted-foreground">
+                                        Add details for each allowed pet type
+                                    </span>
+                                </div>
+                                <PetEssentialsInput
+                                    value={data.pet_essentials}
+                                    onChange={(items) => setData('pet_essentials', items)}
+                                    error={errors.pet_essentials as string | undefined}
+                                />
                             </div>
 
                             {/* Listing Description */}
@@ -468,39 +513,54 @@ export default function Edit({
                                 <InputError message={errors.description} />
                             </div>
 
-                            {/* Facilities Section */}
+                            {/* Features Section */}
                             <div className="grid gap-2 mb-8 col-span-2">
                                 <div className="flex items-center justify-between">
-                                    <Label className="text-base font-semibold">Facilities</Label>
+                                    <Label className="text-base font-semibold">Features</Label>
                                     <Button
                                         type="button"
                                         size="sm"
-                                        onClick={addNewFacility}
+                                        onClick={() => setModalOpen(true)}
                                     >
                                         + Add New
                                     </Button>
                                 </div>
 
-                                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 border rounded-md bg-slate-50">
-                                    {facilities.map((facility: any) => (
-                                        <div key={facility.id} className="flex items-center space-x-2">
-                                            <input
-                                                type="checkbox"
-                                                id={`facility-${facility.id}`}
-                                                className="h-4 w-4 rounded border-gray-300 text-slate-800 focus:ring-slate-500"
-                                                checked={data.facilities.includes(facility.id)}
-                                                onChange={() => handleFacilityToggle(facility.id)}
-                                            />
-                                            <label
-                                                htmlFor={`facility-${facility.id}`}
-                                                className="text-sm font-medium leading-none cursor-pointer"
-                                            >
-                                                {facility.name}
-                                            </label>
+                                <div className="space-y-4 p-4 border rounded-md bg-slate-50">
+                                    {featureCategories.map((category: any) => {
+                                    const categoryFeatures = features.filter(
+                                        (f: any) => f.feature_category_id === category.id,
+                                    );
+                                    if (categoryFeatures.length === 0) return null;
+                                    return (
+                                        <div key={category.id}>
+                                            <p className="text-sm font-semibold text-slate-700 mb-2 border-b pb-1">
+                                                {category.name}
+                                            </p>
+                                            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                                                {categoryFeatures.map((feature: any) => (
+                                                    <div key={feature.id} className="flex items-center space-x-2">
+                                                        <input
+                                                            type="checkbox"
+                                                            id={`feature-${feature.id}`}
+                                                            className="h-4 w-4 rounded border-gray-300 text-slate-800 focus:ring-slate-500"
+                                                            checked={data.features.includes(feature.id)}
+                                                            onChange={() => handleFeatureToggle(feature.id)}
+                                                        />
+                                                        <label
+                                                            htmlFor={`feature-${feature.id}`}
+                                                            className="text-sm font-medium leading-none cursor-pointer"
+                                                        >
+                                                            {feature.name}
+                                                        </label>
+                                                    </div>
+                                                ))}
+                                            </div>
                                         </div>
-                                    ))}
+                                    );
+                                })}
                                 </div>
-                                <InputError message={errors.facilities} />
+                                <InputError message={errors.features} />
                             </div>
                         </div>
 
