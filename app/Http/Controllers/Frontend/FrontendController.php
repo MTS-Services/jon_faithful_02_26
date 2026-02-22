@@ -275,7 +275,7 @@ class FrontendController extends Controller
      }
      public function prosConsTennessee(): Response
      {
-          return Inertia::render('frontend/pros-cons-tn');
+          return Inertia::render('frontend/pros-cons-tennessee');
      }
 
      public function privacyPolicy(): Response
