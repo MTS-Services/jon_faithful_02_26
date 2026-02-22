@@ -16,12 +16,13 @@ import AdminLayout from '@/layouts/admin-layout';
 import { Head, useForm } from '@inertiajs/react';
 import { ArrowLeft } from 'lucide-react';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { toast } from 'sonner';
-import AddFeatureModal from '@/components/add-feature-modal'; // 👈 adjust path as needed
+import AddFeatureModal from '@/components/add-feature-modal';
+import PetEssentialsInput, { PetEssential } from '@/components/pet-essentials-input';
 
 interface FormData {
-    user_id?: string | number;
+    user_id?: string;
     sort_order: string;
     city_id: string;
     title: string;
@@ -36,26 +37,32 @@ interface FormData {
     pet_friendly?: string;
     parking_garage?: string;
     primary_image_url: File | null;
-    gallery_images: File | null;
+    gallery_images: File[];
     status: string;
     features: number[];
     youtube_video_url?: string;
+    pet_essentials: PetEssential[];
 }
 
 export default function Edit({
     rental,
-    cities,
-    propertyTypes,
-    users,
-    status,
-    features: initialFeatures,
-    featureCategories, // 👈 new prop
-}: any) {
+    cities = [],
+    propertyTypes = {},
+    users = [],
+    status = {},
+    features: initialFeatures = [],
+    featureCategories = [],
+}: any = {}) {
     const [features, setFeatures] = useState(initialFeatures);
 
     // Modal state
     const [modalOpen, setModalOpen] = useState(false);
     const [modalLoading, setModalLoading] = useState(false);
+
+    const rentalPetEssentials = useMemo(
+        () => rental.pet_essentials ?? rental.petEssentials ?? [],
+        [rental],
+    );
 
     const { data, setData, post, processing, errors } = useForm<FormData>({
         title: rental.title || '',
@@ -77,9 +84,16 @@ export default function Edit({
                 : 'no',
         parking_garage: rental.parking_garage || '',
         primary_image_url: null,
-        gallery_images: null,
+        gallery_images: [],
         features: rental.features?.map((f: any) => f.id) || [],
         youtube_video_url: rental.youtube_video_url || '',
+        pet_essentials: rentalPetEssentials.map((item: any) => ({
+            pet_type: item.pet_type ?? '',
+            allowed: item.allowed === 'no' ? 'no' : 'yes',
+            number_allowed: item.number_allowed ? String(item.number_allowed) : '',
+            icon: null,
+            existing_icon: item.icon ?? item.existing_icon ?? null,
+        })),
     });
 
     const [existingFiles, setExistingFiles] = useState<any[]>([]);
@@ -114,7 +128,7 @@ export default function Edit({
     const handleAddFeature = async (name: string, categoryId: number) => {
         setModalLoading(true);
         try {
-            const res = await axios.post(route('admin.feature.store'), {
+            const res = await axios.post(route('admin.listing.features.store'), {
                 name,
                 feature_category_id: categoryId,
             });
@@ -152,6 +166,20 @@ export default function Edit({
             },
         });
     }
+
+    const normalizedPropertyTypes = Array.isArray(propertyTypes)
+        ? propertyTypes
+        : Object.entries(propertyTypes ?? {}).map(([value, label]) => ({
+              value,
+              label,
+          }));
+
+    const statusOptions = Array.isArray(status)
+        ? status
+        : Object.entries(status ?? {}).map(([value, label]) => ({
+              value,
+              label,
+          }));
 
     return (
         <AdminLayout activeSlug="rentals">
@@ -221,7 +249,7 @@ export default function Edit({
                             <div className="grid gap-2">
                                 <Label>User</Label>
                                 <Select
-                                    value={data.user_id}
+                                    value={data.user_id ?? ''}
                                     onValueChange={(v) => setData('user_id', v)}
                                 >
                                     <SelectTrigger>
@@ -296,9 +324,9 @@ export default function Edit({
                                         <SelectValue placeholder="Select status" />
                                     </SelectTrigger>
                                     <SelectContent>
-                                        {Object.entries(status).map(([value, label]) => (
-                                            <SelectItem key={value} value={value}>
-                                                {label}
+                                        {statusOptions.map((option: any) => (
+                                            <SelectItem key={option.value} value={option.value}>
+                                                {option.label}
                                             </SelectItem>
                                         ))}
                                     </SelectContent>
@@ -317,9 +345,9 @@ export default function Edit({
                                         <SelectValue placeholder="Select property type" />
                                     </SelectTrigger>
                                     <SelectContent>
-                                        {Object.entries(propertyTypes).map(([value, label]) => (
-                                            <SelectItem key={value} value={value}>
-                                                {label}
+                                        {normalizedPropertyTypes.map((type: any) => (
+                                            <SelectItem key={type.value} value={type.value}>
+                                                {type.label}
                                             </SelectItem>
                                         ))}
                                     </SelectContent>
@@ -431,11 +459,7 @@ export default function Edit({
                                             type="radio"
                                             name="pet_friendly"
                                             value="yes"
-                                            checked={
-                                                data.pet_friendly === 'yes' ||
-                                                data.pet_friendly === 1 ||
-                                                data.pet_friendly === true
-                                            }
+                                            checked={data.pet_friendly === 'yes'}
                                             onChange={(e) =>
                                                 setData('pet_friendly', e.target.value)
                                             }
@@ -448,11 +472,7 @@ export default function Edit({
                                             type="radio"
                                             name="pet_friendly"
                                             value="no"
-                                            checked={
-                                                data.pet_friendly === 'no' ||
-                                                data.pet_friendly === 0 ||
-                                                data.pet_friendly === false
-                                            }
+                                            checked={data.pet_friendly === 'no'}
                                             onChange={(e) =>
                                                 setData('pet_friendly', e.target.value)
                                             }
@@ -462,6 +482,21 @@ export default function Edit({
                                     </label>
                                 </div>
                                 <InputError message={errors.pet_friendly} />
+                            </div>
+
+                            {/* ✅ Pet Essentials Section */}
+                            <div className="grid gap-3 col-span-2">
+                                <div className="flex items-center justify-between">
+                                    <Label className="text-base font-semibold">Pet Essentials</Label>
+                                    <span className="text-xs text-muted-foreground">
+                                        Add details for each allowed pet type
+                                    </span>
+                                </div>
+                                <PetEssentialsInput
+                                    value={data.pet_essentials}
+                                    onChange={(items) => setData('pet_essentials', items)}
+                                    error={errors.pet_essentials as string | undefined}
+                                />
                             </div>
 
                             {/* Listing Description */}
@@ -481,7 +516,7 @@ export default function Edit({
                             {/* Features Section */}
                             <div className="grid gap-2 mb-8 col-span-2">
                                 <div className="flex items-center justify-between">
-                                    <Label className="text-base font-semibold">Unit Features</Label>
+                                    <Label className="text-base font-semibold">Features</Label>
                                     <Button
                                         type="button"
                                         size="sm"
@@ -491,86 +526,39 @@ export default function Edit({
                                     </Button>
                                 </div>
 
-                                {/* Grouped by category */}
                                 <div className="space-y-4 p-4 border rounded-md bg-slate-50">
                                     {featureCategories.map((category: any) => {
-                                        const categoryFeatures = features.filter(
-                                            (f: any) => f.feature_category_id === category.id,
-                                        );
-                                        if (categoryFeatures.length === 0) return null;
-
-                                        return (
-                                            <div key={category.id}>
-                                                <p className="text-sm font-semibold text-slate-700 mb-2 border-b pb-1">
-                                                    {category.name}
-                                                </p>
-                                                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                                                    {categoryFeatures.map((feature: any) => (
-                                                        <div
-                                                            key={feature.id}
-                                                            className="flex items-center space-x-2"
+                                    const categoryFeatures = features.filter(
+                                        (f: any) => f.feature_category_id === category.id,
+                                    );
+                                    if (categoryFeatures.length === 0) return null;
+                                    return (
+                                        <div key={category.id}>
+                                            <p className="text-sm font-semibold text-slate-700 mb-2 border-b pb-1">
+                                                {category.name}
+                                            </p>
+                                            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                                                {categoryFeatures.map((feature: any) => (
+                                                    <div key={feature.id} className="flex items-center space-x-2">
+                                                        <input
+                                                            type="checkbox"
+                                                            id={`feature-${feature.id}`}
+                                                            className="h-4 w-4 rounded border-gray-300 text-slate-800 focus:ring-slate-500"
+                                                            checked={data.features.includes(feature.id)}
+                                                            onChange={() => handleFeatureToggle(feature.id)}
+                                                        />
+                                                        <label
+                                                            htmlFor={`feature-${feature.id}`}
+                                                            className="text-sm font-medium leading-none cursor-pointer"
                                                         >
-                                                            <input
-                                                                type="checkbox"
-                                                                id={`feature-${feature.id}`}
-                                                                className="h-4 w-4 rounded border-gray-300 text-slate-800 focus:ring-slate-500"
-                                                                checked={data.features.includes(feature.id)}
-                                                                onChange={() =>
-                                                                    handleFeatureToggle(feature.id)
-                                                                }
-                                                            />
-                                                            <label
-                                                                htmlFor={`feature-${feature.id}`}
-                                                                className="text-sm font-medium leading-none cursor-pointer"
-                                                            >
-                                                                {feature.name}
-                                                            </label>
-                                                        </div>
-                                                    ))}
-                                                </div>
+                                                            {feature.name}
+                                                        </label>
+                                                    </div>
+                                                ))}
                                             </div>
-                                        );
-                                    })}
-
-                                    {/* Uncategorized fallback */}
-                                    {(() => {
-                                        const categoryIds = featureCategories.map((c: any) => c.id);
-                                        const uncategorized = features.filter(
-                                            (f: any) => !categoryIds.includes(f.feature_category_id),
-                                        );
-                                        if (uncategorized.length === 0) return null;
-                                        return (
-                                            <div>
-                                                <p className="text-sm font-semibold text-slate-700 mb-2 border-b pb-1">
-                                                    Other
-                                                </p>
-                                                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                                                    {uncategorized.map((feature: any) => (
-                                                        <div
-                                                            key={feature.id}
-                                                            className="flex items-center space-x-2"
-                                                        >
-                                                            <input
-                                                                type="checkbox"
-                                                                id={`feature-${feature.id}`}
-                                                                className="h-4 w-4 rounded border-gray-300 text-slate-800 focus:ring-slate-500"
-                                                                checked={data.features.includes(feature.id)}
-                                                                onChange={() =>
-                                                                    handleFeatureToggle(feature.id)
-                                                                }
-                                                            />
-                                                            <label
-                                                                htmlFor={`feature-${feature.id}`}
-                                                                className="text-sm font-medium leading-none cursor-pointer"
-                                                            >
-                                                                {feature.name}
-                                                            </label>
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        );
-                                    })()}
+                                        </div>
+                                    );
+                                })}
                                 </div>
                                 <InputError message={errors.features} />
                             </div>

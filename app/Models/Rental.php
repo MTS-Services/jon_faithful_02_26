@@ -79,6 +79,11 @@ class Rental extends Model
         return $this->morphToMany(Feature::class, 'featureable');
     }
 
+    public function petEssentials()
+    {
+        return $this->hasMany(PetEssential::class);
+    }
+
 
     /* ---------------- Scopes ---------------- */
 
