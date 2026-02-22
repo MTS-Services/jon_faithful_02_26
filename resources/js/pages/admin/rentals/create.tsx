@@ -79,7 +79,7 @@ export default function Create({
     const handleAddFeature = async (name: string, categoryId: number) => {
         setModalLoading(true);
         try {
-            const res = await axios.post(route('admin.listing.features.store'), {
+            const res = await axios.post(route('admin.feature.store'), {
                 name,
                 feature_category_id: categoryId,
             });
@@ -133,6 +133,16 @@ export default function Create({
     return (
         <AdminLayout activeSlug="rentals">
             <Head title="Create Rental Listing" />
+            {/* All errors */}
+            {Object.keys(errors).length > 0 && (
+                <div className="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+                    <ul>
+                        {Object.entries(errors).map(([key, value]) => (
+                            <li key={key}>{value}</li>
+                        ))}
+                    </ul>
+                </div>
+            )}
 
             <AddFeatureModal
                 open={modalOpen}
