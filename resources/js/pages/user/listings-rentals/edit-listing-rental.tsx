@@ -2,6 +2,7 @@ import FileUpload from '@/components/file-upload';
 import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import AddFeatureModal from '@/components/add-feature-modal';
+import PetEssentialsInput, { PetEssential } from '@/components/pet-essentials-input';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
@@ -14,7 +15,7 @@ import {
 import UserDashboardLayout from '@/layouts/user-dashboard-layout';
 import { useForm } from '@inertiajs/react';
 import axios from 'axios';
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useEffect, useMemo, useState } from 'react';
 import { toast } from 'sonner';
 
 interface City {
@@ -45,6 +46,20 @@ interface Rental {
     image_url: string[];
     youtube_video_url: string | null;
     features: { id: number }[];
+    pet_essentials?: {
+        id: number;
+        pet_type: string;
+        allowed: 'yes' | 'no';
+        number_allowed?: number | null;
+        icon?: string | null;
+    }[];
+    petEssentials?: {
+        id: number;
+        pet_type: string;
+        allowed: 'yes' | 'no';
+        number_allowed?: number | null;
+        icon?: string | null;
+    }[];
 }
 
 interface Feature {
@@ -56,6 +71,27 @@ interface Feature {
 interface FeatureCategory {
     id: number;
     name: string;
+}
+
+interface FormData {
+    title: string;
+    description: string;
+    purchase_price: string;
+    city_id: string;
+    property_type: string;
+    security_deposit: string;
+    lease_length: string;
+    bedrooms: string;
+    bathrooms: string;
+    square_feet: string;
+    pet_friendly: string;
+    parking_garage: string;
+    primary_image_url: File | null;
+    gallery_images: File[];
+    youtube_video_url: string;
+    features: number[];
+    pet_essentials: PetEssential[];
+    _method: 'PUT';
 }
 
 interface Props {
@@ -76,7 +112,13 @@ export default function EditListingRental({
     const [features, setFeatures] = useState(initialFeatures);
     const [modalOpen, setModalOpen] = useState(false);
     const [modalLoading, setModalLoading] = useState(false);
-    const { data, setData, post, processing, errors } = useForm({
+
+    const rentalPetEssentials = useMemo(
+        () => rental.pet_essentials ?? rental.petEssentials ?? [],
+        [rental],
+    );
+
+    const { data, setData, post, processing, errors } = useForm<FormData>({
         title: rental.title || '',
         description: rental.description || '',
         purchase_price: rental.purchase_price || '',
@@ -93,6 +135,13 @@ export default function EditListingRental({
         gallery_images: [] as File[],
         youtube_video_url: rental.youtube_video_url || '',
         features: rental.features?.map((f: any) => f.id) || [],
+        pet_essentials: rentalPetEssentials.map((item: any) => ({
+            pet_type: item.pet_type ?? '',
+            allowed: item.allowed === 'no' ? 'no' : 'yes',
+            number_allowed: item.number_allowed ? String(item.number_allowed) : '',
+            icon: null,
+            existing_icon: item.icon ?? item.existing_icon ?? null,
+        })),
         _method: 'PUT',
     });
 
@@ -500,6 +549,23 @@ export default function EditListingRental({
                                     </label>
                                 </div>
                                 <InputError message={errors.pet_friendly} />
+                            </div>
+
+                            {/* Pet Essentials */}
+                            <div className="col-span-2 grid gap-2">
+                                <div className="flex items-center justify-between">
+                                    <Label className="text-base font-semibold">
+                                        Pet Essentials
+                                    </Label>
+                                    <span className="text-xs text-muted-foreground">
+                                        Add allowed pet types & limits
+                                    </span>
+                                </div>
+                                <PetEssentialsInput
+                                    value={data.pet_essentials}
+                                    onChange={(items) => setData('pet_essentials', items)}
+                                    error={errors.pet_essentials as string | undefined}
+                                />
                             </div>
 
                             {/* Listing Description */}

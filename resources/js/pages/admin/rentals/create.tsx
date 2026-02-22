@@ -2,7 +2,7 @@ import FileUpload from '@/components/file-upload';
 import InputError from '@/components/input-error';
 import { ActionButton } from '@/components/ui/action-button';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
@@ -19,6 +19,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { toast } from 'sonner';
 import AddFeatureModal from '@/components/add-feature-modal';
+import PetEssentialsInput, { PetEssential } from '@/components/pet-essentials-input';
 
 interface FormData {
     user_id?: string | number;
@@ -40,20 +41,19 @@ interface FormData {
     status: string;
     features: number[];
     youtube_video_url?: string;
+    pet_essentials: PetEssential[];
 }
 
 export default function Create({
-    cities,
-    propertyTypes,
-    users,
-    status,
-    features: initialfeatures,
+    cities = [],
+    propertyTypes = [],
+    users = [],
+    status = {},
+    features: initialfeatures = [],
     selectedUserId,
-    featureCategories, // 👈 new prop
-}: any) {
+    featureCategories = [],
+}: any = {}) {
     const [features, setfeatures] = useState(initialfeatures);
-
-    // Modal state
     const [modalOpen, setModalOpen] = useState(false);
     const [modalLoading, setModalLoading] = useState(false);
 
@@ -73,23 +73,21 @@ export default function Create({
         gallery_images: null,
         features: [],
         youtube_video_url: '',
+        pet_essentials: [], // 👈 new
     });
 
-    // Called when modal form is submitted
     const handleAddFeature = async (name: string, categoryId: number) => {
         setModalLoading(true);
         try {
-            const res = await axios.post(route('admin.feature.store'), {
+            const res = await axios.post(route('admin.listing.features.store'), {
                 name,
                 feature_category_id: categoryId,
             });
-            console.log(res.data);
             setfeatures([...features, res.data]);
             toast.success('Feature added successfully.');
             setModalOpen(false);
         } catch (err: any) {
             toast.error(err.response?.data?.message || 'Failed to add feature');
-            console.log(err);
         } finally {
             setModalLoading(false);
         }
@@ -118,11 +116,24 @@ export default function Create({
         });
     }
 
+    const normalizedPropertyTypes = Array.isArray(propertyTypes)
+        ? propertyTypes
+        : Object.entries(propertyTypes ?? {}).map(([value, label]) => ({
+              value,
+              label,
+          }));
+
+    const statusOptions = Array.isArray(status)
+        ? status
+        : Object.entries(status ?? {}).map(([value, label]) => ({
+              value,
+              label,
+          }));
+
     return (
         <AdminLayout activeSlug="rentals">
             <Head title="Create Rental Listing" />
 
-            {/* Add Feature Modal */}
             <AddFeatureModal
                 open={modalOpen}
                 onClose={() => setModalOpen(false)}
@@ -141,6 +152,7 @@ export default function Create({
                 <CardContent>
                     <form onSubmit={handleSubmit}>
                         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+
                             {/* Primary Image */}
                             <div className="w-80 col-span-2">
                                 <div className="grid gap-2">
@@ -172,9 +184,7 @@ export default function Create({
                                     }}
                                     className="block w-full text-sm text-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded file:border file:border-gray-300 file:text-sm file:font-medium file:bg-gray-50 hover:file:bg-gray-100 file:transition"
                                 />
-                                <p className="text-xs text-gray-500 mt-1">
-                                    Maximum file size: 200 MB total
-                                </p>
+                                <p className="text-xs text-gray-500 mt-1">Maximum file size: 200 MB total</p>
                                 <InputError message={errors.gallery_images} />
                             </div>
 
@@ -258,9 +268,9 @@ export default function Create({
                                         <SelectValue placeholder="Select status" />
                                     </SelectTrigger>
                                     <SelectContent>
-                                        {Object.entries(status).map(([value, label]) => (
-                                            <SelectItem key={value} value={value}>
-                                                {label}
+                                        {statusOptions.map((option: any) => (
+                                            <SelectItem key={option.value} value={option.value}>
+                                                {option.label}
                                             </SelectItem>
                                         ))}
                                     </SelectContent>
@@ -279,9 +289,9 @@ export default function Create({
                                         <SelectValue placeholder="Select property type" />
                                     </SelectTrigger>
                                     <SelectContent>
-                                        {Object.entries(propertyTypes).map(([value, label]) => (
-                                            <SelectItem key={value} value={value}>
-                                                {label}
+                                        {normalizedPropertyTypes.map((type: any) => (
+                                            <SelectItem key={type.value} value={type.value}>
+                                                {type.label}
                                             </SelectItem>
                                         ))}
                                     </SelectContent>
@@ -394,9 +404,7 @@ export default function Create({
                                             name="pet_friendly"
                                             value="yes"
                                             checked={data.pet_friendly === 'yes'}
-                                            onChange={(e) =>
-                                                setData('pet_friendly', e.target.value)
-                                            }
+                                            onChange={(e) => setData('pet_friendly', e.target.value)}
                                             className="text-blue-600 focus:ring-blue-500"
                                         />
                                         Yes
@@ -407,15 +415,28 @@ export default function Create({
                                             name="pet_friendly"
                                             value="no"
                                             checked={data.pet_friendly === 'no'}
-                                            onChange={(e) =>
-                                                setData('pet_friendly', e.target.value)
-                                            }
+                                            onChange={(e) => setData('pet_friendly', e.target.value)}
                                             className="text-blue-600 focus:ring-blue-500"
                                         />
                                         No
                                     </label>
                                 </div>
                                 <InputError message={errors.pet_friendly} />
+                            </div>
+
+                            {/* ✅ Pet Essentials Section */}
+                            <div className="grid gap-3 col-span-2">
+                                <div className="flex items-center justify-between">
+                                    <Label className="text-base font-semibold">Pet Essentials</Label>
+                                    <span className="text-xs text-muted-foreground">
+                                        Add details for each allowed pet type
+                                    </span>
+                                </div>
+                                <PetEssentialsInput
+                                    value={data.pet_essentials}
+                                    onChange={(items) => setData('pet_essentials', items)}
+                                    error={errors.pet_essentials as string | undefined}
+                                />
                             </div>
 
                             {/* Listing Description */}
@@ -435,24 +456,22 @@ export default function Create({
                             {/* Features Section */}
                             <div className="grid gap-2 mb-8 col-span-2">
                                 <div className="flex items-center justify-between">
-                                    <Label className="text-base font-semibold">Unit Features</Label>
+                                    <Label className="text-base font-semibold">Features</Label>
                                     <Button
                                         type="button"
                                         size="sm"
-                                        onClick={() => setModalOpen(true)} // 👈 open modal
+                                        onClick={() => setModalOpen(true)}
                                     >
                                         + Add New
                                     </Button>
                                 </div>
 
-                                {/* Grouped by category */}
                                 <div className="space-y-4 p-4 border rounded-md bg-slate-50">
                                     {featureCategories.map((category: any) => {
                                         const categoryFeatures = features.filter(
                                             (f: any) => f.feature_category_id === category.id,
                                         );
                                         if (categoryFeatures.length === 0) return null;
-
                                         return (
                                             <div key={category.id}>
                                                 <p className="text-sm font-semibold text-slate-700 mb-2 border-b pb-1">
@@ -460,20 +479,13 @@ export default function Create({
                                                 </p>
                                                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
                                                     {categoryFeatures.map((facility: any) => (
-                                                        <div
-                                                            key={facility.id}
-                                                            className="flex items-center space-x-2"
-                                                        >
+                                                        <div key={facility.id} className="flex items-center space-x-2">
                                                             <input
                                                                 type="checkbox"
                                                                 id={`facility-${facility.id}`}
                                                                 className="h-4 w-4 rounded border-gray-300 text-slate-800 focus:ring-slate-500"
-                                                                checked={data.features.includes(
-                                                                    facility.id,
-                                                                )}
-                                                                onChange={() =>
-                                                                    handleFacilityToggle(facility.id)
-                                                                }
+                                                                checked={data.features.includes(facility.id)}
+                                                                onChange={() => handleFacilityToggle(facility.id)}
                                                             />
                                                             <label
                                                                 htmlFor={`facility-${facility.id}`}
@@ -487,48 +499,6 @@ export default function Create({
                                             </div>
                                         );
                                     })}
-
-                                    {/* Uncategorized fallback */}
-                                    {(() => {
-                                        const categoryIds = featureCategories.map((c: any) => c.id);
-                                        const uncategorized = features.filter(
-                                            (f: any) => !categoryIds.includes(f.feature_category_id),
-                                        );
-                                        if (uncategorized.length === 0) return null;
-                                        return (
-                                            <div>
-                                                <p className="text-sm font-semibold text-slate-700 mb-2 border-b pb-1">
-                                                    Other
-                                                </p>
-                                                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                                                    {uncategorized.map((facility: any) => (
-                                                        <div
-                                                            key={facility.id}
-                                                            className="flex items-center space-x-2"
-                                                        >
-                                                            <input
-                                                                type="checkbox"
-                                                                id={`facility-${facility.id}`}
-                                                                className="h-4 w-4 rounded border-gray-300 text-slate-800 focus:ring-slate-500"
-                                                                checked={data.features.includes(
-                                                                    facility.id,
-                                                                )}
-                                                                onChange={() =>
-                                                                    handleFacilityToggle(facility.id)
-                                                                }
-                                                            />
-                                                            <label
-                                                                htmlFor={`facility-${facility.id}`}
-                                                                className="text-sm font-medium leading-none cursor-pointer"
-                                                            >
-                                                                {facility.name}
-                                                            </label>
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        );
-                                    })()}
                                 </div>
                                 <InputError message={errors.features} />
                             </div>
