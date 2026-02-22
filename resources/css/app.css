@@ -4,6 +4,15 @@
 
 @import 'tw-animate-css';
 
+/* Pet Swiper Custom Styles */
+.pet-swiper .swiper-slide {
+    width: 100% !important;
+}
+
+.pet-swiper .swiper-slide .card {
+    height: 100%;
+}
+
 @source '../views';
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 
