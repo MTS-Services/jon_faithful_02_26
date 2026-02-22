@@ -33,7 +33,7 @@ interface PropertyOption {
 interface Props {
     users: any;
     cities: City[];
-    facilities: Facility[];
+    // features: Facility[];
     propertyTypes: PropertyOption[];
     propertyStatuses: PropertyOption[];
     statuses: PropertyOption[];
@@ -42,10 +42,7 @@ interface ListingData extends Props {
     listing: any; // Ideally create a full Listing interface
 }
 
-export default function Edit({ listing, cities, facilities: initialFacilities, propertyTypes, propertyStatuses, statuses, users }: ListingData) {
-
-    const [facilities, setFacilities] = useState(initialFacilities);
-    console.log(listing.user_id);
+export default function Edit({ listing, cities, propertyTypes, propertyStatuses, statuses, users }: ListingData) {
 
     const { data, setData, post, processing, errors } = useForm({
         _method: 'PUT', // Required for Inertia/Laravel when sending files via POST
@@ -63,7 +60,6 @@ export default function Edit({ listing, cities, facilities: initialFacilities, p
         youtube_video_url: listing.youtube_video_url || '',
         primary_image_url: null as File | null, // Keep null unless user uploads new
         gallery_images: [] as File[],
-        facilities: listing.facilities || [], // These are IDs from the controller
     });
 
     const handleSubmit = (e: FormEvent) => {
@@ -110,30 +106,30 @@ export default function Edit({ listing, cities, facilities: initialFacilities, p
         }
     };
 
-    const handleFacilityToggle = (id: number) => {
-        const current = [...data.facilities];
-        const index = current.indexOf(id);
-        if (index > -1) {
-            current.splice(index, 1);
-        } else {
-            current.push(id);
-        }
-        setData('facilities', current);
-    };
+    // const handleFacilityToggle = (id: number) => {
+    //     const current = [...data.features];
+    //     const index = current.indexOf(id);
+    //     if (index > -1) {
+    //         current.splice(index, 1);
+    //     } else {
+    //         current.push(id);
+    //     }
+    //     setData('features', current);
+    // };
 
-    const addNewFacility = async () => {
-        const name = prompt('Enter new facility name:');
-        if (!name) return;
-        try {
-            const res = await axios.post(route('admin.facilities.store'), { name });
-            setFacilities([...facilities, res.data]);
-            // Auto-check the new facility
-            setData('facilities', [...data.facilities, res.data.id]);
-            toast.success('Facility added.');
-        } catch (err: any) {
-            toast.error(err.response?.data?.message || 'Error adding facility');
-        }
-    };
+    // const addNewFacility = async () => {
+    //     const name = prompt('Enter new facility name:');
+    //     if (!name) return;
+    //     try {
+    //         const res = await axios.post(route('admin.features.store'), { name });
+    //         setfeatures([...features, res.data]);
+    //         // Auto-check the new facility
+    //         setData('features', [...data.features, res.data.id]);
+    //         toast.success('Facility added.');
+    //     } catch (err: any) {
+    //         toast.error(err.response?.data?.message || 'Error adding facility');
+    //     }
+    // };
 
     return (
         <AdminLayout activeSlug="listings">
@@ -375,33 +371,33 @@ export default function Edit({ listing, cities, facilities: initialFacilities, p
                                 <InputError message={errors.description} />
                             </div>
 
-                            {/* Facilities Section */}
-                            <div className="grid gap-2 mb-8 col-span-2">
+                            {/* features Section */}
+                            {/* <div className="grid gap-2 mb-8 col-span-2">
                                 <div className="flex items-center justify-between">
-                                    <Label className="text-base font-semibold">Facilities</Label>
+                                    <Label className="text-base font-semibold">features</Label>
                                     <Button type="button" size="sm" onClick={addNewFacility}>+ Add New</Button>
                                 </div>
                                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 border rounded-md bg-slate-50">
-                                    {facilities.map((f) => (
+                                    {features.map((f) => (
                                         <div key={f.id} className="flex items-center space-x-2">
                                             <input
                                                 type="checkbox"
                                                 id={`facility-${f.id}`}
                                                 className="h-4 w-4 rounded border-gray-300 text-slate-800"
-                                                checked={data.facilities.includes(f.id)}
+                                                checked={data.features.includes(f.id)}
                                                 onChange={() => handleFacilityToggle(f.id)}
                                             />
                                             <label htmlFor={`facility-${f.id}`} className="text-sm cursor-pointer">{f.name}</label>
                                         </div>
                                     ))}
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
 
                         <button
                             type="submit"
                             disabled={processing}
-                            className="bg-slate-800 hover:bg-slate-700 text-white px-8 py-3 rounded-md font-medium disabled:opacity-50"
+                            className="bg-slate-800 hover:bg-slate-700 text-white px-8 py-3 rounded-md font-medium disabled:opacity-50 mt-4"
                         >
                             {processing ? 'Saving...' : 'Update Listing'}
                         </button>

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Facilityable extends Model
+class FeatureCategory extends Model
 {
     //
 }

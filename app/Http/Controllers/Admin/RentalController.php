@@ -8,7 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Mail\Rentals\RentalSubmittedAdmin;
 use App\Mail\Rentals\RentalSubmittedUser;
 use App\Models\City;
-use App\Models\Facility;
+use App\Models\Feature;
+use App\Models\FeatureCategory;
 use App\Models\Rental;
 use App\Models\User;
 use App\Services\DataTableService;
@@ -46,7 +47,7 @@ class RentalController extends Controller
 
     public function details(Rental $rental): Response
     {
-        $rental->load(['galleries', 'facilities']);
+        $rental->load(['galleries', 'features']);
 
 
         return Inertia::render('admin/rentals/view', [
@@ -63,13 +64,14 @@ class RentalController extends Controller
         } else {
             $users = User::where('is_verified', true)->where('status', ActiveInactive::ACTIVE)->get();
         }
-        $facilities = Facility::all();
+        $features = Feature::all();
 
         // Get enum values as key => label
         $propertyTypes = collect(RentalProperty::cases())
             ->mapWithKeys(fn($type) => [$type->value => $type->label()]);
         $status = collect(ActiveInactive::cases())
             ->mapWithKeys(fn($status) => [$status->value => $status->label()]);
+        $featureCategories = FeatureCategory::orderBy('name')->get();
 
         return Inertia::render('admin/rentals/create', [
             'cities' => $cities,
@@ -77,7 +79,8 @@ class RentalController extends Controller
             'users' => $users,
             'selectedUserId' => $user_id ? (int) $user_id : null,
             'status' => $status,
-            'facilities' => $facilities
+            'features' => $features,
+            'featureCategories'  => $featureCategories,
         ]);
     }
 
@@ -100,8 +103,8 @@ class RentalController extends Controller
             'primary_image_url' => 'nullable|file|image|max:5120', // 5MB max
             'gallery_images.*' => 'nullable|file|image|max:5120',
             'status' => 'required|string',
-            'facilities' => ['nullable', 'array'],
-            'facilities.*' => ['exists:facilities,id'],
+            'features' => ['nullable', 'array'],
+            'features.*' => ['exists:features,id'],
             'youtube_video_url' => ['nullable', 'url'],
         ]);
 
@@ -109,8 +112,8 @@ class RentalController extends Controller
         $rental = $this->rentalService->createRental($request->all(), $request, $validated);
 
         // Using sync ensures the pivot table is updated correctly
-        if ($request->has('facilities')) {
-            $rental->facilities()->sync($request->input('facilities', []));
+        if ($request->has('features')) {
+            $rental->features()->sync($request->input('features', []));
         }
 
         // Mail::to(config('mail.from.address'))->send(new RentalSubmittedAdmin($rental));
@@ -123,14 +126,15 @@ class RentalController extends Controller
 
     public function edit($id)
     {
-        $rental = Rental::with('facilities')->findOrFail($id);
+        $rental = Rental::with('features')->findOrFail($id);
         $cities = City::all();
         $users = User::where('is_verified', true)->where('status', ActiveInactive::ACTIVE)->get();
-        $facilities = Facility::all();
+        $features = Feature::all();
         $propertyTypes = collect(RentalProperty::cases())
             ->mapWithKeys(fn($type) => [$type->value => $type->label()]);
         $status = collect(ActiveInactive::cases())
             ->mapWithKeys(fn($status) => [$status->value => $status->label()]);
+        $featureCategories = FeatureCategory::orderBy('name')->get();
 
         return Inertia::render('admin/rentals/edit', [
             'rental' => $rental,
@@ -138,7 +142,8 @@ class RentalController extends Controller
             'users' => $users,
             'propertyTypes' => $propertyTypes,
             'status' => $status,
-            'facilities' => $facilities
+            'features' => $features,
+            'featureCategories' => $featureCategories,
         ]);
     }
 
@@ -161,8 +166,8 @@ class RentalController extends Controller
             'primary_image_url' => 'nullable|file|image|max:5120',
             'gallery_images.*' => 'nullable|file|image|max:5120',
             'status' => 'required|string',
-            'facilities' => ['nullable', 'array'],
-            'facilities.*' => ['exists:facilities,id'],
+            'features' => ['nullable', 'array'],
+            'features.*' => ['exists:features,id'],
             'youtube_video_url' => ['nullable', 'url'],
         ]);
 
@@ -171,8 +176,8 @@ class RentalController extends Controller
 
         $rentalUpdated = $this->rentalService->updateRental($rental, $validated, $request);
 
-        if ($request->has('facilities')) {
-            $rentalUpdated->facilities()->sync($request->input('facilities', []));
+        if ($request->has('features')) {
+            $rentalUpdated->features()->sync($request->input('features', []));
         }
 
         // Mail::to(config('mail.from.address'))->send(new RentalSubmittedAdmin($rental, false));

@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use App\Enums\ActiveInactive;
 use App\Enums\RentalProperty;
 use App\Models\City;
-use App\Models\Facility;
+use App\Models\Feature;
 use App\Models\Rental;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -23,10 +23,10 @@ class RentalSeeder extends Seeder
             return;
         }
 
-        $facilityIds = Facility::pluck('id')->toArray();
+        $featureIds = Feature::pluck('id')->toArray();
 
-        if (empty($facilityIds)) {
-            $this->command->warn('Facilities table is empty. Please seed facilities first.');
+        if (empty($featureIds)) {
+            $this->command->warn('Features table is empty. Please seed features first.');
             return;
         }
 
@@ -74,12 +74,12 @@ class RentalSeeder extends Seeder
                     'status'            => ActiveInactive::ACTIVE->value,
                 ])
             );
-            $randomFacilities = Arr::random(
-                $facilityIds,
-                min(rand(2, 3), count($facilityIds))
+            $randomFeatures = Arr::random(
+                $featureIds,
+                min(rand(2, 3), count($featureIds))
             );
 
-            $rental->facilities()->sync((array) $randomFacilities);
+            $rental->features()->sync((array) $randomFeatures);
         }
 
         $this->command->info('Rentals table seeded successfully.');
