@@ -31,7 +31,7 @@ interface FormData {
     primary_image_url: File | null;
     gallery_images: File | null;
     status: string;
-    facilities: number[];
+    features: number[];
     youtube_video_url?: string;
 }
 
@@ -40,11 +40,11 @@ export default function Create({
     propertyTypes,
     users,
     status,
-    facilities: initialFacilities,
+    features: initialfeatures,
     selectedUserId,
 }: any) {
-    // Maintain a local state for facilities to allow "Add New" without refresh
-    const [facilities, setFacilities] = useState(initialFacilities);
+    // Maintain a local state for features to allow "Add New" without refresh
+    const [features, setfeatures] = useState(initialfeatures);
 
     const { data, setData, post, processing, errors } = useForm<FormData>({
         title: '',
@@ -60,7 +60,7 @@ export default function Create({
         status: '',
         primary_image_url: null,
         gallery_images: null,
-        facilities: [],
+        features: [],
         youtube_video_url: '',
     });
 
@@ -70,10 +70,10 @@ export default function Create({
 
         try {
             const res = await axios.post(
-                route('admin.listing.facilities.store'),
+                route('admin.listing.features.store'),
                 { name },
             );
-            setFacilities([...facilities, res.data]);
+            setfeatures([...features, res.data]);
             toast.success('Facility added successfully.');
         } catch (err: any) {
             toast.error(
@@ -83,14 +83,14 @@ export default function Create({
     };
 
     const handleFacilityToggle = (id: number) => {
-        const current = [...data.facilities];
+        const current = [...data.features];
         const index = current.indexOf(id);
         if (index > -1) {
             current.splice(index, 1);
         } else {
             current.push(id);
         }
-        setData('facilities', current);
+        setData('features', current);
     };
 
     function handleSubmit(e: React.FormEvent) {
@@ -410,10 +410,10 @@ export default function Create({
                                 <InputError message={errors.description} />
                             </div>
 
-                            {/* Facilities Section */}
+                            {/* features Section */}
                             <div className="grid gap-2 mb-8 col-span-2">
                                 <div className="flex items-center justify-between">
-                                    <Label className="text-base font-semibold">Facilities</Label>
+                                    <Label className="text-base font-semibold">features</Label>
                                     <Button
                                         type="button"
                                         size="sm"
@@ -424,13 +424,13 @@ export default function Create({
                                 </div>
 
                                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 border rounded-md bg-slate-50">
-                                    {facilities.map((facility: any) => (
+                                    {features.map((facility: any) => (
                                         <div key={facility.id} className="flex items-center space-x-2">
                                             <input
                                                 type="checkbox"
                                                 id={`facility-${facility.id}`}
                                                 className="h-4 w-4 rounded border-gray-300 text-slate-800 focus:ring-slate-500"
-                                                checked={data.facilities.includes(facility.id)}
+                                                checked={data.features.includes(facility.id)}
                                                 onChange={() => handleFacilityToggle(facility.id)}
                                             />
                                             <label
@@ -442,7 +442,7 @@ export default function Create({
                                         </div>
                                     ))}
                                 </div>
-                                <InputError message={errors.facilities} />
+                                <InputError message={errors.features} />
                             </div>
                         </div>
 

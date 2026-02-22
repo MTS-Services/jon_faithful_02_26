@@ -6,10 +6,10 @@ use Illuminate\Database\Seeder;
 use App\Models\Listing;
 use App\Models\User;
 use App\Models\City;
-use App\Models\Facility;
 use App\Enums\ActiveInactive;
 use App\Enums\ListingProperty;
 use App\Enums\ListingStatus;
+use App\Models\Feature;
 use Illuminate\Support\Arr;
 
 class ListingSeeder extends Seeder
@@ -24,12 +24,12 @@ class ListingSeeder extends Seeder
             return;
         }
 
-        $facilityIds = Facility::pluck('id')->toArray();
+        // $featureIds = Feature::pluck('id')->toArray();
 
-        if (empty($facilityIds)) {
-            $this->command->warn('Facilities table is empty. Please seed facilities first.');
-            return;
-        }
+        // if (empty($featureIds)) {
+        //     $this->command->warn('Features table is empty. Please seed features first.');
+        //     return;
+        // }
 
         $listings = [
             [
@@ -73,16 +73,16 @@ class ListingSeeder extends Seeder
 
             /*
              |----------------------------------------
-             | Attach Random Facilities (2-3 ta)
+             | Attach Random Features (2-3 ta)
              |----------------------------------------
              */
 
-            $randomFacilities = Arr::random(
-                $facilityIds,
-                min(rand(2, 3), count($facilityIds))
-            );
+            // $randomFeatures = Arr::random(
+            //     $featureIds,
+            //     min(rand(2, 3), count($featureIds))
+            // );
 
-            $listing->facilities()->sync((array) $randomFacilities);
+            // $listing->features()->sync((array) $randomFeatures);
         }
 
         $this->command->info('ListingSeeder completed successfully.');
