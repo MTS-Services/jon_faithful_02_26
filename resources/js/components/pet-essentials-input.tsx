@@ -9,6 +9,7 @@ export interface PetEssential {
     allowed: 'yes' | 'no';
     number_allowed: string;
     icon: File | null;
+    icon_url: string | null;
     existing_icon?: string | null;
 }
 
@@ -33,6 +34,7 @@ const emptyItem = (): PetEssential => ({
     allowed: 'yes',
     number_allowed: '',
     icon: null,
+    icon_url: null,
     existing_icon: null,
 });
 
@@ -71,27 +73,12 @@ export default function PetEssentialsInput({
             return {
                 ...item,
                 icon: file,
+                icon_url: file ? null : item.icon_url,
                 existing_icon: file ? null : item.existing_icon,
             };
         });
 
         onChange(updated);
-    };
-
-    const resolveExistingIconUrl = (path?: string | null): string | null => {
-        if (!path) {
-            return null;
-        }
-
-        if (path.startsWith('http://') || path.startsWith('https://')) {
-            return path;
-        }
-
-        if (path.startsWith('/')) {
-            return path;
-        }
-
-        return `/storage/${path.replace(/^\/|^/, '')}`;
     };
 
     return (
@@ -146,7 +133,7 @@ export default function PetEssentialsInput({
                             />
 
                             {/* Preview */}
-                            {(item.icon || item.existing_icon) && (
+                            {(item.icon || item.icon_url || item.existing_icon) && (
                                 <div className="mt-2 flex items-center gap-2">
                                     <div className="h-12 w-12 overflow-hidden rounded border">
                                         {item.icon ? (
@@ -157,12 +144,13 @@ export default function PetEssentialsInput({
                                             />
                                         ) : (
                                             <img
-                                                src={resolveExistingIconUrl(item.existing_icon) ?? ''}
+                                                src={item.icon_url ?? item.existing_icon ?? ''}
                                                 alt="Existing icon"
                                                 className="h-full w-full object-cover"
                                             />
                                         )}
                                     </div>
+
                                     {item.icon ? (
                                         <p className="text-xs text-slate-500">
                                             {item.icon.name}

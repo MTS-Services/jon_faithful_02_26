@@ -99,7 +99,7 @@ class RentalController extends Controller
             'parking_garage'   => 'nullable|string',
             'city_id'          => 'required|exists:cities,id',
             'primary_image_url' => 'nullable|file|image|max:5120', // 5MB max
-            'gallery_images.*' => 'nullable|file|image|max:5120',
+            'gallery_images.*' => 'nullable|file|image|max:10240', // 10MB max
             'status' => 'required|string',
             'features' => ['nullable', 'array'],
             'features.*' => ['exists:features,id'],

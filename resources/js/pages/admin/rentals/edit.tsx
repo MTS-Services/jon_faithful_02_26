@@ -128,7 +128,7 @@ export default function Edit({
     const handleAddFeature = async (name: string, categoryId: number) => {
         setModalLoading(true);
         try {
-            const res = await axios.post(route('admin.listing.features.store'), {
+            const res = await axios.post(route('admin.feature.store'), {
                 name,
                 feature_category_id: categoryId,
             });
