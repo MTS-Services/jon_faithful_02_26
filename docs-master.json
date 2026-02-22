@@ -39,7 +39,7 @@
     },
     {
       "name": "Schedules (Locations)",
-      "description": "Schedules are logical groupings of users that are working together. Schedules can be physical offices with addresses or logical groups like departments. Users can be tagged (associated) to one or more schedules. Schedules can be departments, facilities, business divisions or any grouping of staff.\n\nFor more information about using Scheduled, visit the [Help Center](https://help.wheniwork.com/articles/creating-and-managing-schedules-computer/).\n"
+      "description": "Schedules are logical groupings of users that are working together. Schedules can be physical offices with addresses or logical groups like departments. Users can be tagged (associated) to one or more schedules. Schedules can be departments, features, business divisions or any grouping of staff.\n\nFor more information about using Scheduled, visit the [Help Center](https://help.wheniwork.com/articles/creating-and-managing-schedules-computer/).\n"
     },
     {
       "name": "Sites",

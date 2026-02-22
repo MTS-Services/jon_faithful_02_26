@@ -12,7 +12,7 @@ import { Head, Link, router, useForm } from '@inertiajs/react';
 import { ArrowLeft } from 'lucide-react';
 import { toast } from 'sonner';
 import { FormEvent, useState } from 'react'; // Added useState
-import axios from 'axios'; // Ensure axios is imported for adding new facilities
+import axios from 'axios'; // Ensure axios is imported for adding new features
 
 interface City {
     id: number;
@@ -31,15 +31,15 @@ interface PropertyOption {
 
 interface Props {
     cities: City[];
-    facilities: Facility[]; // Added facilities to props
+    features: Facility[]; // Added features to props
     propertyTypes: PropertyOption[];
     propertyStatuses: PropertyOption[];
 }
 
-export default function Create({ cities, facilities: initialFacilities, propertyTypes, propertyStatuses }: Props) {
+export default function Create({ cities, features: initialFacilities, propertyTypes, propertyStatuses }: Props) {
 
-    // Maintain a local state for facilities to allow "Add New" without refresh
-    const [facilities, setFacilities] = useState(initialFacilities);
+    // Maintain a local state for features to allow "Add New" without refresh
+    const [features, setFacilities] = useState(initialFacilities);
 
     const { data, setData, post, processing, errors, reset } = useForm({
         title: '',
@@ -53,7 +53,7 @@ export default function Create({ cities, facilities: initialFacilities, property
         square_feet: '',
         primary_image_url: null as File | null,
         gallery_images: [] as File[],
-        facilities: [] as number[], // Added facilities array to form data
+        features: [] as number[], // Added features array to form data
     });
 
     const handlePrimaryImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -73,8 +73,8 @@ export default function Create({ cities, facilities: initialFacilities, property
         if (!name) return;
 
         try {
-            const res = await axios.post(route('admin.facilities.store'), { name });
-            setFacilities([...facilities, res.data]);
+            const res = await axios.post(route('admin.features.store'), { name });
+            setFacilities([...features, res.data]);
             toast.success('Facility added successfully.');
         } catch (err: any) {
             toast.error(err.response?.data?.message || 'Failed to add facility');
@@ -98,14 +98,14 @@ export default function Create({ cities, facilities: initialFacilities, property
     };
 
     const handleFacilityToggle = (id: number) => {
-        const current = [...data.facilities];
+        const current = [...data.features];
         const index = current.indexOf(id);
         if (index > -1) {
             current.splice(index, 1);
         } else {
             current.push(id);
         }
-        setData('facilities', current);
+        setData('features', current);
     };
 
     return (
@@ -306,13 +306,13 @@ export default function Create({ cities, facilities: initialFacilities, property
                             </div>
 
                             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 border rounded-md bg-slate-50">
-                                {facilities.map((facility) => (
+                                {features.map((facility) => (
                                     <div key={facility.id} className="flex items-center space-x-2">
                                         <input
                                             type="checkbox"
                                             id={`facility-${facility.id}`}
                                             className="h-4 w-4 rounded border-gray-300 text-slate-800 focus:ring-slate-500"
-                                            checked={data.facilities.includes(facility.id)}
+                                            checked={data.features.includes(facility.id)}
                                             onChange={() => handleFacilityToggle(facility.id)}
                                         />
                                         <label
@@ -324,7 +324,7 @@ export default function Create({ cities, facilities: initialFacilities, property
                                     </div>
                                 ))}
                             </div>
-                            <InputError message={errors.facilities} />
+                            <InputError message={errors.features} />
                         </div>
                         {/* --- End Facilities Section --- */}
 

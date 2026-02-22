@@ -85,9 +85,6 @@
             <p><span class="label">Location:</span> {{ $listing->city->name }}</p>
             <p><span class="label">Bed/Bath:</span> {{ $listing->bedrooms }} / {{ $listing->bathrooms }}</p>
             <p><span class="label">Square Feet:</span> {{ number_format($listing->square_feet) }} sqft</p>
-            <p><span class="label">Facilities:</span>
-                {{ $listing->facilities->pluck('name')->implode(', ') ?: 'None listed' }}
-            </p>
         </div>
 
         <p>Our team will review your {{ $isNew ? 'submission' : 'updates' }} within 24-48 hours. You will receive an

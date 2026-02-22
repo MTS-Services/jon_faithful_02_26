@@ -86,7 +86,7 @@
             <p><span class="label">Square Feet:</span> {{ $rental->square_feet ?? 'N/A' }} sqft</p>
             <p><span class="label">Location:</span> {{ $rental->city->name ?? 'N/A' }}</p>
             <p><span class="label">Facilities:</span>
-                {{ $rental->facilities->pluck('name')->implode(', ') ?: 'None listed' }}
+                {{ $rental->features->pluck('name')->implode(', ') ?: 'None listed' }}
             </p>
         </div>
 

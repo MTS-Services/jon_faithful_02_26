@@ -36,11 +36,9 @@ class ListingHomeController extends Controller
     public function addListing(): Response
     {
         $cities = City::all(['id', 'name']);
-        $facilities = Facility::all(['id', 'name']);
 
         return Inertia::render('user/listings-homes/add-listing-home', [
             'cities' => $cities,
-            'facilities' => $facilities,
             'propertyTypes' => collect(ListingProperty::cases())->map(fn($type) => [
                 'value' => $type->value,
                 'label' => $type->label(),
@@ -67,21 +65,12 @@ class ListingHomeController extends Controller
             'primary_image_url' => ['nullable', 'image', 'max:10240'],
             'youtube_video_url' => ['nullable', 'url'],
             'gallery_images.*' => ['nullable', 'image', 'max:25600'],
-            'facilities' => ['nullable', 'array'],
-            'facilities.*' => ['exists:facilities,id'],
         ]);
 
         $validated['user_id'] = $request->user()->id;
         $validated['status'] = ActiveInactive::INACTIVE->value;
 
-        $listing = $this->listingService->createListing($validated, $request);
-
-        // Using sync ensures the pivot table is updated correctly
-        if ($request->has('facilities')) {
-            $listing->facilities()->sync($request->input('facilities', []));
-        }
-
-        $listing->load('facilities', 'city');
+        $this->listingService->createListing($validated, $request);
 
         return redirect()
             ->route('user.dashboard')
@@ -108,18 +97,15 @@ class ListingHomeController extends Controller
 
     public function editListing($id): Response
     {
-        $listing = Listing::findOrFail($id)->load('facilities');
+        $listing = Listing::findOrFail($id)->load('features');
 
         $cities = City::all(['id', 'name']);
-        $currentFacilityIds = $listing->facilities->pluck('id')->toArray();
 
         return Inertia::render('user/listings-homes/edit-listing-home', [
             'listing' => [
                 ...$listing->toArray(),
-                'facilities' => $currentFacilityIds,
             ],
             'cities' => $cities,
-            'facilities' => Facility::all(['id', 'name']),
             'propertyTypes' => collect(ListingProperty::cases())->map(fn($type) => [
                 'value' => $type->value,
                 'label' => $type->label(),
@@ -149,18 +135,9 @@ class ListingHomeController extends Controller
             'primary_image_url' => ['nullable', 'image', 'max:10240'],
             'youtube_video_url' => ['nullable', 'url'],
             'gallery_images.*' => ['nullable', 'image', 'max:25600'],
-            'facilities' => ['nullable', 'array'],
-            'facilities.*' => ['exists:facilities,id'],
         ]);
 
         $listing = $this->listingService->updateListing($listing, $validated, $request);
-
-        // Using sync ensures the pivot table is updated correctly
-        if ($request->has('facilities')) {
-            $listing->facilities()->sync($request->input('facilities', []));
-        }
-
-        $listing->load('facilities', 'city');
 
         return redirect()
             ->route('user.dashboard')

@@ -182,7 +182,7 @@ class FrontendController extends Controller
      // public function singleProduct(Request $request, $id): Response
      // {
      //      $listing = $this->service->findData($id);
-     //      $facilitiesShow = $listing->property_type === 'rental' ? true : false;
+     //      $featuresShow = $listing->property_type === 'rental' ? true : false;
 
      // }
 

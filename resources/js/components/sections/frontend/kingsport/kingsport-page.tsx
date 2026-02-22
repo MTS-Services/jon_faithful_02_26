@@ -103,7 +103,7 @@ const tabs = [
             'Education',
             'Regional business and logistics',
         ],
-        footer: 'Major healthcare facilities are nearby throughout the Tri-Cities region.',
+        footer: 'Major healthcare features are nearby throughout the Tri-Cities region.',
         imageUrl: '/assets/images/engineer_team_full_skill.jpeg',
     },
     {
