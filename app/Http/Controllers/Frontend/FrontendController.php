@@ -193,23 +193,29 @@ class FrontendController extends Controller
           }
           $relatedListings = $this->service->getPaginatedDatas(
                perPage: 6,
-               filters: []
+               filters: ['exclude_id' => $listing_id]
           );
 
           return Inertia::render('frontend/single-product', [
                'listing' => $listing,
-               'listingType' => 'listing'
+               'listingType' => 'listing',
+               'relatedListings' => $relatedListings
           ]);
      }
      public function singleRentalProduct($rental_id)
      {
           if ($rental_id) {
-               $listing = Rental::findOrFail($rental_id)->load(['city', 'user', 'galleries', 'facilities']);
+               $listing = Rental::findOrFail($rental_id)->load(['city', 'user', 'galleries', 'features']);
           }
+          $relatedRentals = $this->rentalService->getPaginatedDatas(
+               perPage: 6,
+               filters: ['exclude_id' => $rental_id]
+          );
 
           return Inertia::render('frontend/single-product', [
                'listing' => $listing,
-               'listingType' => 'rental'
+               'listingType' => 'rental',
+               'relatedListings' => $relatedRentals
           ]);
      }
 

@@ -238,6 +238,9 @@ class RentalService
                     ->orWhere('description', 'like', "%{$search}%");
             });
         }
+        if (!empty($filters['exclude_id'])) {
+            $query->where('id', '!=', $filters['exclude_id']);
+        }
         if (!empty($filters['city'])) {
             $cityIds = explode(',', $filters['city']);
             $query->whereIn('city_id', $cityIds);
