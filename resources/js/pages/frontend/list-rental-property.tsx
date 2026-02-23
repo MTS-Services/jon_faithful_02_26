@@ -23,7 +23,7 @@ export default function ListRentalProperty() {
                     playsInline
                 >
                     <source
-                        src="https://whytennessee.com/wp-content/uploads/2026/01/Family_ready_to_move_into_a_new_home__real_estate_house_purchase._Financial_investment_and_freedom_to_own_property_as_adults._Young_parents_excited__looking_at_sold_home_from_the1.mp4"
+                        src="video/Family_ready_to_move_into_a_new_home.mp4"
                         type="video/mp4"
                     />
                 </video>
