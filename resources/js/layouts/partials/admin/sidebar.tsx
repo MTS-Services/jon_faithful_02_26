@@ -45,32 +45,56 @@ const adminNavItems: NavItemType[] = [
         slug: 'listings',
     },
     {
-        title: 'Listings (Rentals)',
-        href: route('admin.rentals.index'),
+        title: 'Rental Management',
+        href: '#',
         icon: BarChart,
         permission: 'view analytics',
-        slug: 'rentals',
+        slug: 'rental-management',
+        children: [
+            {
+                title: 'Listings (Rentals)',
+                href: route('admin.rentals.index'),
+                icon: BarChart,
+                permission: 'view analytics',
+                slug: 'rentals',
+            },
+            {
+                title: 'Unit Feature Categories',
+                href: route('admin.unit-feature-categories.index'),
+                icon: BarChart,
+                permission: 'view analytics',
+                slug: 'unit-feature-categories',
+            },
+            {
+                title: 'Unit Features',
+                href: route('admin.unit-features.index'),
+                icon: BarChart,
+                permission: 'view analytics',
+                slug: 'unit-features',
+            }
+
+        ]
     },
     {
         title: 'External Link Submissions',
         href: route('admin.external-link'),
         icon: BarChart,
         permission: 'view analytics',
-        slug: 'externa-links', 
+        slug: 'externa-links',
     },
     {
         title: 'Contact Us',
         href: route('admin.contact.index'),
         icon: BarChart,
         permission: 'view analytics',
-        slug: 'contact-us', 
+        slug: 'contact-us',
     },
     {
         title: 'Newsletter',
         href: route('admin.newsletter.index'),
         icon: BarChart,
         permission: 'view analytics',
-        slug: 'newsletter', 
+        slug: 'newsletter',
     },
 ];
 

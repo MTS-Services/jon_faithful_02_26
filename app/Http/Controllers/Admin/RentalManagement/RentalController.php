@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\RentalManagement;
 
 use App\Enums\ActiveInactive;
 use App\Enums\RentalProperty;
 use App\Http\Controllers\Controller;
-use App\Mail\Rentals\RentalSubmittedAdmin;
-use App\Mail\Rentals\RentalSubmittedUser;
 use App\Models\City;
 use App\Models\Feature;
 use App\Models\FeatureCategory;
@@ -15,7 +13,6 @@ use App\Models\User;
 use App\Services\DataTableService;
 use App\Services\RentalService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -34,7 +31,7 @@ class RentalController extends Controller
             'searchable' => ['title', 'description'],
             'sortable' => ['id', 'title', 'created_at'],
         ]);
-        return Inertia::render('admin/rentals/index', [
+        return Inertia::render('admin/rental-management/rentals/index', [
             'rentals' => $result['data'],
             'pagination' => $result['pagination'],
             'offset' => $result['offset'],
@@ -48,7 +45,7 @@ class RentalController extends Controller
     public function details(Rental $rental): Response
     {
         $rental->load(['galleries', 'features.featureCategory']);
-        return Inertia::render('admin/rentals/view', [
+        return Inertia::render('admin/rental-management/rentals/view', [
             'rental' => $rental
         ]);
     }
@@ -71,7 +68,7 @@ class RentalController extends Controller
             ->mapWithKeys(fn($status) => [$status->value => $status->label()]);
         $featureCategories = FeatureCategory::orderBy('name')->get();
 
-        return Inertia::render('admin/rentals/create', [
+        return Inertia::render('admin/rental-management/rentals/create', [
             'cities' => $cities,
             'propertyTypes' => $propertyTypes,
             'users' => $users,
@@ -159,7 +156,7 @@ class RentalController extends Controller
             ->mapWithKeys(fn($status) => [$status->value => $status->label()]);
         $featureCategories = FeatureCategory::orderBy('name')->get();
 
-        return Inertia::render('admin/rentals/edit', [
+        return Inertia::render('admin/rental-management/rentals/edit', [
             'rental' => $rental,
             'cities' => $cities,
             'users' => $users,
