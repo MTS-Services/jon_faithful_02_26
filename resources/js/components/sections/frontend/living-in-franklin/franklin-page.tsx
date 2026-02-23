@@ -23,7 +23,7 @@ const whyMoveData = {
         'Many buyers choose Franklin for its combination of luxury living and small-town charm.',
     imageUrl: '/assets/images/Franklin-Tennessee-Cityscape.jpeg',
     videoUrl:
-        'https://whytennessee.com/wp-content/uploads/2025/12/1-Franklin_-Tennessee_-Downtown_-Amazing-Landscape_-Aerial-View-1.mp4',
+        '/assets/images/franklin/1-Franklin.mp4',
 };
 
 // LOCATION DATA

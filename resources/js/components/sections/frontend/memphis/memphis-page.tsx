@@ -24,7 +24,7 @@ const whyMoveData = {
     imageUrl:
         '/assets/images/Neon-signs-of-Beale-Street-Memphis-Tennessee-2048x1367.jpeg',
     videoUrl:
-        'https://whytennessee.com/wp-content/uploads/2025/12/Memphis-Tennessee-Downtown-Skyline-Aerial.mp4',
+        'assets/images/memphis/Memphis.mp4',
 };
 
 // LOCATION DATA

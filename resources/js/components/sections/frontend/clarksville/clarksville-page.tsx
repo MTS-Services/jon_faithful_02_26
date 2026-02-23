@@ -24,7 +24,7 @@ const whyMoveData = {
     imageUrl:
         '/assets/images/Montgomery-County-Courthouse.in-Clarksville_-Tennessee_-on-a-sunny-autumn-day-with-a-blue-sky-scaled.jpeg',
     videoUrl:
-        'https://whytennessee.com/wp-content/uploads/2025/12/Aerial-panorama-of-downtown-Clarksville-and-Clarksville-Courthouse_-Tennessee.mp4',
+        '/assets/images/cookeville/Aerial-panorama.mp4',
 };
 
 // LOCATION DATA

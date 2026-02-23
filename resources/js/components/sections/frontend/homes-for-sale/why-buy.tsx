@@ -7,7 +7,7 @@ export default function WhyBuy() {
             <div className="w-full h-full">
                 <video className="h-full" controls>
                     <source className="h-full"
-                        src="https://whytennessee.com/wp-content/uploads/2025/12/Blue-Grass-village-in-Highland-county_-Virginia-countryside_-car-driving-point-of-view-by-farm-shed-barns-houses-at-Appalachian-mountains.mp4"
+                        src="/assets/images/renting-buy/Blue.mp4"
                         type="video/mp4" />
                 </video>
             </div>

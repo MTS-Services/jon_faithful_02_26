@@ -294,12 +294,12 @@ const Partner = () => {
 
                     <div className="grid h-[500px] grid-cols-1 gap-4 md:grid-cols-2">
                         <img
-                            src="https://whytennessee.com/wp-content/uploads/2026/01/Apartments-in-2048x1365.jpeg"
+                            src="/assets/images/partner/Apartments-in-2048x1365.jpeg"
                             className="h-full w-full rounded-2xl object-cover shadow-lg"
                             alt="Tennessee Apartments"
                         />
                         <img
-                            src="https://whytennessee.com/wp-content/uploads/2026/01/Jackson_TN_downtown1-1024x683.webp"
+                            src="/assets/images/partner/Jackson_TN_downtown1-1024x683.webp"
                             className="h-3/4 w-full self-end rounded-2xl object-cover shadow-lg"
                             alt="Downtown Jackson"
                         />

@@ -18,7 +18,7 @@ const tabs = [
             'Chattanooga homes for sale – riverfront lifestyle, tech jobs, incredible outdoor access.',
         ],
         footer: 'Whether you want a downtown condo, a suburban family home, or a cabin with a view of the mountains, East Tennessee has options at a range of price points.',
-        videoUrl: 'https://whytennessee.com/wp-content/uploads/2025/12/Evening-aerial-flyby-of-scenic-rural-home-surrounded-by-trees-in-Springtime.mp4',
+        videoUrl: '/assets/images/explore/Evening.mp4',
     },
     {
         id: 'tab2',
@@ -32,7 +32,7 @@ const tabs = [
             'EClarksville homes for sale – military community, excellent value, new construction.',
         ],
         footer: 'If you’re looking for opportunity, nightlife, and long-term appreciation, Middle Tennessee offers some of the best real estate in the state.',
-        videoUrl: 'https://whytennessee.com/wp-content/uploads/2025/12/Evening-aerial-flyby-of-scenic-rural-home-surrounded-by-trees-in-Springtime.mp4',
+        videoUrl: '/assets/images/explore/Evening.mp4',
     },
     {
         id: 'tab3',
@@ -44,7 +44,7 @@ const tabs = [
             'Jackson homes for sale – affordable cost of living, small-city convenience, easy access to larger metros.',
         ],
         footer: 'For buyers focused on stretching their budget or investing in rental properties, West Tennessee can provide excellent value.',
-        videoUrl: 'https://whytennessee.com/wp-content/uploads/2025/12/Evening-aerial-flyby-of-scenic-rural-home-surrounded-by-trees-in-Springtime.mp4',
+        videoUrl: '/assets/images/explore/Evening.mp4',
     },
 ];
 export default function ExploreTennessee() {
