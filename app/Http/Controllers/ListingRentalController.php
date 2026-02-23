@@ -14,6 +14,7 @@ use App\Models\Rental;
 use App\Services\RentalService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -85,6 +86,13 @@ class ListingRentalController extends Controller
             'youtube_video_url' => ['nullable', 'url'],
             'features' => ['nullable', 'array'],
             'features.*' => ['integer', 'exists:features,id'],
+
+            'pet_essentials'                  => ['nullable', 'array'],
+            'pet_essentials.*.pet_type'       => ['required', 'string', 'max:100'],
+            'pet_essentials.*.allowed'        => ['required', 'in:yes,no'],
+            'pet_essentials.*.number_allowed' => ['nullable', 'integer', 'min:0'],
+            'pet_essentials.*.icon'           => ['nullable', 'image', 'max:2048'],
+            'pet_essentials.*.existing_icon'  => ['nullable', 'string'],
         ]);
 
         $validated['status'] = ActiveInactive::INACTIVE->value;
@@ -96,8 +104,26 @@ class ListingRentalController extends Controller
             $rental->features()->sync($request->input('features', []));
         }
 
-        // Mail::to($rental->user->email)->send(new RentalSubmittedUser($rental));
-        // Mail::to(config('mail.from.address'))->later(now()->addSeconds(2), new RentalSubmittedAdmin($rental));
+        // Save pet essentials
+        if ($request->filled('pet_essentials')) {
+            $rental->petEssentials()->delete();
+
+            foreach ($request->input('pet_essentials', []) as $index => $item) {
+                if ($request->hasFile("pet_essentials.$index.icon")) {
+                    $file = $request->file("pet_essentials.$index.icon");
+                    $item['icon'] = $this->storeImage($file, 'rentals/pet_icons');
+                } elseif (!empty($item['existing_icon'])) {
+                    $item['icon'] = $item['existing_icon'];
+                }
+
+                $rental->petEssentials()->create([
+                    'pet_type' => $item['pet_type'],
+                    'allowed' => $item['allowed'],
+                    'number_allowed' => $item['number_allowed'] ?? null,
+                    'icon' => $item['icon'] ?? null,
+                ]);
+            }
+        }
 
         return redirect()
             ->route('user.listings-rentals')
@@ -128,7 +154,7 @@ class ListingRentalController extends Controller
     public function editListing(Request $request, $id): Response
     {
         $rental = Rental::where('user_id', $request->user()->id)
-            ->with('features')
+            ->with(['features', 'petEssentials'])
             ->findOrFail($id);
 
         $cities = City::all(['id', 'name']);
@@ -172,12 +198,41 @@ class ListingRentalController extends Controller
             'youtube_video_url' => ['nullable', 'url'],
             'features' => ['nullable', 'array'],
             'features.*' => ['exists:features,id'],
+
+            'pet_essentials'                  => ['nullable', 'array'],
+            'pet_essentials.*.pet_type'       => ['required', 'string', 'max:100'],
+            'pet_essentials.*.allowed'        => ['required', 'in:yes,no'],
+            'pet_essentials.*.number_allowed' => ['nullable', 'integer', 'min:0'],
+            'pet_essentials.*.icon'           => ['nullable', 'image', 'max:2048'],
+            'pet_essentials.*.existing_icon'  => ['nullable', 'string'],
         ]);
 
         $validated['status'] = ActiveInactive::INACTIVE->value;
         $rental = $this->rentalService->updateRental($rental, $validated, $request);
 
         $rental->features()->sync($validated['features'] ?? []);
+
+        if ($request->filled('pet_essentials')) {
+            $rental->petEssentials()->delete();
+
+            foreach ($request->input('pet_essentials', []) as $index => $item) {
+                if ($request->hasFile("pet_essentials.$index.icon")) {
+                    $file = $request->file("pet_essentials.$index.icon");
+                    $item['icon'] = $this->storeImage($file, 'rentals/pet_icons');
+                } elseif (!empty($item['existing_icon'])) {
+                    $item['icon'] = $item['existing_icon'];
+                }
+
+                $rental->petEssentials()->create([
+                    'pet_type' => $item['pet_type'],
+                    'allowed' => $item['allowed'],
+                    'number_allowed' => $item['number_allowed'] ?? null,
+                    'icon' => $item['icon'] ?? null,
+                ]);
+            }
+        } else {
+            $rental->petEssentials()->delete();
+        }
 
         // Mail::to(config('mail.from.address'))->send(new RentalSubmittedAdmin($rental, false));
         // Mail::to($rental->user->email)->later(now()->addSeconds(2), new RentalSubmittedUser($rental, false));
@@ -199,5 +254,13 @@ class ListingRentalController extends Controller
         return redirect()
             ->route('user.listings-rentals')
             ->with('success', 'Rental listing deleted successfully.');
+    }
+
+    private function storeImage($file, string $path): string
+    {
+        $imageName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+        $file->storeAs($path, $imageName, 'public');
+
+        return $imageName;
     }
 }

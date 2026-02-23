@@ -95,7 +95,7 @@ export default function LiveTennessee() {
                   muted
                   loop
                   playsInline
-                  poster="https://whytennessee.com/wp-content/uploads/2025/12/pexels-chaitaastic-3722911-scaled.jpg"
+                  poster="assets/images/live-in-tennessee/pexels-chaitaastic-3722911-scaled.jpg"
                 >
                   <source src="video/LiveinTennessee.mp4" type="video/mp4" />
                   Your browser does not support the video tag.
@@ -105,7 +105,7 @@ export default function LiveTennessee() {
 
               <div className="absolute -bottom-24 right-0 w-1/2 h-50 z-20 border-8 border-white shadow-xl rounded-br-lg">
                 <img
-                  src="https://whytennessee.com/wp-content/uploads/2025/12/pexels-kelly-2833713-2048x1150.jpg"
+                  src="assets/images/live-in-tennessee/pexels-kelly-2833713-2048x1150.jpg"
                   alt="City daytime stadium"
                   className="w-full h-full object-cover rounded-br-lg"
                 />
@@ -189,7 +189,7 @@ export default function LiveTennessee() {
             <div className="order-1 lg:order-2">
               <div className="relative p-2 border-2 rounded-sm">
                 <img
-                  src="https://whytennessee.com/wp-content/uploads/2026/01/Nashville-Skyline-with-stadium-2048x981.jpeg"
+                  src="assets/images/live-in-tennessee/Nashville-Skyline-with-stadium-2048x981.jpeg"
                   alt="Nashville Skyline at Sunset"
                   className="w-full lg:w-[600px] h-[500px] object-cover rounded-sm"
                 />
@@ -384,7 +384,7 @@ export default function LiveTennessee() {
         </div>
       </section>
 
-      <section className="relative py-24 bg-fixed bg-cover bg-center" style={{ backgroundImage: "url('https://whytennessee.com/wp-content/uploads/2026/01/Memphis-scaled.jpeg')" }}>
+      <section className="relative py-24 bg-fixed bg-cover bg-center" style={{ backgroundImage: "url('assets/images/live-in-tennessee/Memphis-scaled.jpeg')" }}>
         <div className="absolute inset-0 bg-black/80"></div>
         <div className="relative z-10 mx-auto text-white text-center flex flex-col items-center justify-center">
           <h1 className="text-2xl font-bold mb-4 leading-tight">

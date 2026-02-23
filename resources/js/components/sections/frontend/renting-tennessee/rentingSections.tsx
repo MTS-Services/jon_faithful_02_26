@@ -82,7 +82,7 @@ export default function RentingSections() {
 
                     <video className="rounded-lg" controls>
                         <source
-                            src="https://whytennessee.com/wp-content/uploads/2026/01/Slider-Shot-of-Luxury-Apartments-in-the-Suburbs.mp4"
+                            src="assets/images/renting-tennessee/https://whytennessee.com/wp-content/uploads/2026/01/Slider-Shot-of-Luxury-Apartments-in-the-Suburbs.mp4"
                             type="video/mp4"
                         />
                     </video>
@@ -94,7 +94,7 @@ export default function RentingSections() {
                 <div className="container mx-auto">
                     <div className="grid items-center gap-8 md:grid-cols-2 ">
                         <img
-                            src="https://whytennessee.com/wp-content/uploads/2026/01/Apartments-in-scaled.jpeg"
+                            src="assets/images/renting-tennessee/Apartments-in-scaled.jpeg"
                             alt="Modern apartment"
                             className="rounded-tr-4xl rounded-bl-4xl"
                         />
@@ -183,12 +183,12 @@ export default function RentingSections() {
                                 'Jackson',
                                 'Memphis',
                             ],
-                            img: 'https://whytennessee.com/wp-content/uploads/2025/12/Best_Memphis_Neighborhoods_Harbor_Town.jpg',
+                            img: 'assets/images/renting-tennessee/Best_Memphis_Neighborhoods_Harbor_Town.jpg',
                         },
                         {
                             title: 'Best for Kids & City Life',
                             list: ['Nashville', 'Chattanooga', 'Knoxville'],
-                            img: 'https://whytennessee.com/wp-content/uploads/2025/12/pexels-kelly-3061230-scaled.jpg',
+                            img: 'assets/images/renting-tennessee/pexels-kelly-3061230-scaled.jpg',
                         },
                         {
                             title: 'Best for Families',
@@ -197,7 +197,7 @@ export default function RentingSections() {
                                 'Clarksville',
                                 'Murfreesboro',
                             ],
-                            img: 'https://whytennessee.com/wp-content/uploads/2025/12/pexels-curtis-adams-1694007-3935344-scaled.jpg',
+                            img: 'assets/images/renting-tennessee/pexels-curtis-adams-1694007-3935344-scaled (1).jpg',
                         },
                     ].map((item, i) => (
                         <div
@@ -262,7 +262,7 @@ export default function RentingSections() {
                 <div className="container mx-auto grid gap-8 md:grid-cols-2">
                     <div className="flex flex-col md:flex-row gap-5">
                         <img
-                            src="https://whytennessee.com/wp-content/uploads/2025/12/300-S.Montclair.jpg"
+                            src="assets/images/renting-tennessee/300-S.Montclair (1).jpg"
                             alt="Garden apartment"
                             className="h-96 w-full md:w-80 object-cover"
                         />
@@ -346,7 +346,7 @@ export default function RentingSections() {
                     </div>
                     <div className="flex flex-col md:flex-row gap-5">
                         <img
-                            src="https://whytennessee.com/wp-content/uploads/2026/01/Interracial-couple-having-consultation-with-a-realtor-scaled.jpeg"
+                            src="assets/images/renting-tennessee/Interracial-couple-having-consultation-with-a-realtor-scaled.jpeg"
                             alt="Lease agreement"
                             className="h-96 w-full md:w-80 object-cover"
                         />
@@ -503,7 +503,7 @@ export default function RentingSections() {
                         </p>
                     </div>
                     <img
-                        src="https://whytennessee.com/wp-content/uploads/2026/01/Four-young-friends-playing-with-a-dog_-spending-time-together-on-a-porch-of-a-country-house-on-the-evening-scaled.jpeg"
+                        src="assets/images/renting-tennessee/Four-young-friends-playing-with-a-dog_-spending-time-together-on-a-porch-of-a-country-house-on-the-evening-scaled.jpeg"
                         alt="Pet friendly"
                         className="h-full min-h-[400px] w-full rounded-tl-4xl rounded-br-4xl object-cover"
                     />
@@ -512,7 +512,7 @@ export default function RentingSections() {
                         controls
                     >
                         <source
-                            src="https://whytennessee.com/wp-content/uploads/2026/01/Aerial-close-following-behind-grey-Sports-Car-nearby-a-river-at-sunset_-US-National-Park.mp4"
+                            src="assets/images/renting-tennessee/Aerial-close-following-behind-grey-Sports-Car-nearby-a-river-at-sunset_-US-National-Park.mp4"
                             type="video/mp4"
                         />
                     </video>

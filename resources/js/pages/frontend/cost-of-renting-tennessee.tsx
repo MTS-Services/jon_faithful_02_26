@@ -9,7 +9,7 @@ const TennesseeRentPage = () => {
       <Hero
         height={'h-[calc(100vh-80px)] md:h-[500px]'}
         slides={[
-          '	https://whytennessee.com/wp-content/uploads/2025/12/pexels-chaitaastic-3722911-scaled.jpg',
+          '	assets/images/cost-of-renting/pexels-chaitaastic-3722911-scaled.jpg',
         ]}
         title={<>Cost of Renting in Tennessee</>}
         description={<>
@@ -31,12 +31,12 @@ const TennesseeRentPage = () => {
           </div>
           <div className="relative h-64 md:h-80">
             <img
-              src="https://whytennessee.com/wp-content/uploads/2025/12/Aerial-View-over-the-Buildings-and-Infrastructure-in-Clarksville-Tennessee-2048x1151.jpeg"
+              src="assets/images/cost-of-renting/Aerial-View-over-the-Buildings-and-Infrastructure-in-Clarksville-Tennessee-2048x1151.jpeg"
               alt="Tennessee Cityscape"
               className="rounded-lg shadow-xl object-cover w-full h-full"
             />
             <div className="absolute -bottom-6 -right-6 w-1/2 h-1/2 hidden md:block">
-              <img src="https://whytennessee.com/wp-content/uploads/2025/12/pexels-kelly-2833713-2048x1150.jpg" alt="Suburban TN" className="rounded-lg border-4 border-white shadow-lg object-cover" />
+              <img src="assets/images/cost-of-renting/pexels-kelly-2833713-2048x1150.jpg" alt="Suburban TN" className="rounded-lg border-4 border-white shadow-lg object-cover" />
             </div>
           </div>
         </section>
@@ -290,7 +290,7 @@ const TennesseeRentPage = () => {
               </span></span>Admin or processing fees</li>
             </ul>
           </div>
-          <img src="https://whytennessee.com/wp-content/uploads/2025/12/pexels-mineiamartins-32775636-2048x1365.jpg" alt="Apartment Building" className="rounded shadow-lg" />
+          <img src="assets/images/cost-of-renting/pexels-mineiamartins-32775636-2048x1365.jpg" alt="Apartment Building" className="rounded shadow-lg" />
         </section>
         {/* Renting Costs & Pet Fees */}
         <section className="relative bg-cover bg-center py-20" style={{ backgroundImage: "url('/assets/images/cost-of-renting/pexels-caleb-clark-6462955-32767698-scaled.jpg')" }}>
@@ -542,7 +542,7 @@ const TennesseeRentPage = () => {
 
         <section className="py-20">
           <div className="container mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
-            <img src="https://whytennessee.com/wp-content/uploads/2025/12/pexels-caleb-clark-6462955-32767698-scaled.jpg" alt="Neighborhood Street" className="rounded shadow-lg order-2 md:order-1" />
+            <img src="assets/images/cost-of-renting/pexels-caleb-clark-6462955-32767698-scaled.jpg" alt="Neighborhood Street" className="rounded shadow-lg order-2 md:order-1" />
             <div className="order-1 md:order-2">
               <h2 className="text-xl md:text-2xl lg:text-4xl font-bold mb-6 text-slate-900">Is Rent Increasing in Tennessee?</h2>
               <p className="text-lg leading-relaxed text-muted-foreground mb-4">Rental prices have risen in recent years due to:</p>

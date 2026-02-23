@@ -17,7 +17,7 @@ const Partner = () => {
                     playsInline
                 >
                     <source
-                        src="https://whytennessee.com/wp-content/uploads/2026/01/Family_ready_to_move_into_a_new_home__real_estate_house_purchase._Financial_investment_and_freedom_to_own_property_as_adults._Young_parents_excited__looking_at_sold_home_from_the1.mp4"
+                        src="assets/images/partners/Family_ready_to_move_into_a_new_home__real_estate_house_purchase.mp4"
                         type="video/mp4"
                     />
                 </video>
@@ -141,12 +141,12 @@ const Partner = () => {
 
                     <div className="grid h-[500px] grid-cols-1 gap-4 md:grid-cols-2">
                         <img
-                            src="https://whytennessee.com/wp-content/uploads/2026/01/Apartments-in-2048x1365.jpeg"
+                            src="assets/images/partners/Apartments-in-2048x1365.jpeg"
                             className="h-full w-full rounded-2xl object-cover shadow-lg"
                             alt="Tennessee Apartments"
                         />
                         <img
-                            src="https://whytennessee.com/wp-content/uploads/2026/01/Jackson_TN_downtown1-1024x683.webp"
+                            src="assets/images/partners/Jackson_TN_downtown1-1024x683.webp"
                             className="h-3/4 w-full self-end rounded-2xl object-cover shadow-lg"
                             alt="Downtown Jackson"
                         />
@@ -294,12 +294,12 @@ const Partner = () => {
 
                     <div className="grid h-[500px] grid-cols-1 gap-4 md:grid-cols-2">
                         <img
-                            src="/assets/images/partner/Apartments-in-2048x1365.jpeg"
+                            src="assets/images/partners/Apartments-in-2048x1365.jpeg"
                             className="h-full w-full rounded-2xl object-cover shadow-lg"
                             alt="Tennessee Apartments"
                         />
                         <img
-                            src="/assets/images/partner/Jackson_TN_downtown1-1024x683.webp"
+                            src="assets/images/partners/Jackson_TN_downtown1-1024x683.webp"
                             className="h-3/4 w-full self-end rounded-2xl object-cover shadow-lg"
                             alt="Downtown Jackson"
                         />

@@ -205,7 +205,7 @@ class FrontendController extends Controller
      public function singleRentalProduct($rental_id)
      {
           if ($rental_id) {
-               $listing = Rental::findOrFail($rental_id)->load(['city', 'user', 'galleries', 'features']);
+               $listing = Rental::findOrFail($rental_id)->load(['city', 'user', 'galleries', 'features.featureCategory', 'petEssentials']);
           }
           $relatedRentals = $this->rentalService->getPaginatedDatas(
                perPage: 8,
