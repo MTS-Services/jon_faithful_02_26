@@ -140,6 +140,7 @@ export default function EditListingRental({
             allowed: item.allowed === 'no' ? 'no' : 'yes',
             number_allowed: item.number_allowed ? String(item.number_allowed) : '',
             icon: null,
+            icon_url: item.icon_url ?? null,
             existing_icon: item.icon ?? item.existing_icon ?? null,
         })),
         _method: 'PUT',
