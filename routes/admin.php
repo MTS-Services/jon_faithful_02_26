@@ -7,8 +7,10 @@ use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\ContactUsController;
 use App\Http\Controllers\Admin\ExternalLinkSubmiition;
 use App\Http\Controllers\Admin\NewsletterController;
-use App\Http\Controllers\Admin\RentalController;
+use App\Http\Controllers\Admin\RentalManagement\RentalController;
 use App\Http\Controllers\Admin\UserManagement\UserController;
+use App\Http\Controllers\Admin\RentalManagement\FeatureCategoryController;
+use App\Http\Controllers\Admin\RentalManagement\FeatureController;
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware('guest:admin')->group(function () {
@@ -41,6 +43,20 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/pending-verification', [UserController::class, 'pendingVerification'])->name('user.pending-verification');
             Route::get('/user/verify/{id}', [UserController::class, 'verified'])->name('user.verify');
             Route::post('/user/license-verify/{id}/{status}', [UserController::class, 'licenseVerify'])->name('user.license-verify');
+        });
+
+        Route::prefix('unit-feature-categories')->as('unit-feature-categories.')->controller(FeatureCategoryController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('/', 'store')->name('store');
+            Route::put('/{featureCategory}', 'update')->name('update');
+            Route::delete('/{featureCategory}', 'destroy')->name('destroy');
+        });
+
+        Route::prefix('unit-features')->as('unit-features.')->controller(FeatureController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('/', 'store')->name('store');
+            Route::put('/{feature}', 'update')->name('update');
+            Route::delete('/{feature}', 'destroy')->name('destroy');
         });
         Route::prefix('listing')->as('listing.')->controller(ListingController::class)->group(function () {
             Route::get('/homes', 'index')->name('index');
