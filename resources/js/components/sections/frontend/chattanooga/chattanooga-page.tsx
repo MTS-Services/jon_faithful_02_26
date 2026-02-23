@@ -25,7 +25,7 @@ const whyMoveData = {
     imageUrl:
         '/assets/images/chattanooga/girl on rock Sunset Rock Chattanooga Tennessee.jpeg',
     videoUrl:
-        'https://whytennessee.com/wp-content/uploads/2025/12/Aerial_4K_Drone_Video_Over_the_Tennessee_River_Looking_into_Downtown_Chattanooga_on_a_Beautiful_Spring_Evening1.mp4',
+        '/assets/images/chattanooga/Aerial_4K.mp4',
 };
 
 // LOCATION DATA

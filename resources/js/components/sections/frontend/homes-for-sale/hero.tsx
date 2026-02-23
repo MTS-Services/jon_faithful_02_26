@@ -8,7 +8,7 @@ export default function Hero() {
                 loop
             >
                 <source
-                    src="https://whytennessee.com/wp-content/uploads/2025/12/Dolly-Zoom-into-a-Countryside-Family-Home-with-a-Pool.mp4"
+                    src="/assets/images/homes-for-sale/Dolly-Zoom-Pool.mp4"
                     type="video/mp4"
                 />
             </video>

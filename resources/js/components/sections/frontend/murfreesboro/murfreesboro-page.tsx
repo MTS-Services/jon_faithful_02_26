@@ -24,7 +24,7 @@ const whyMoveData = {
     imageUrl:
         '/assets/images/Cannon-At-The-Stones-River-National-Battlefield-And-Cemetery-2048x1367.jpeg',
     videoUrl:
-        'https://whytennessee.com/wp-content/uploads/2025/12/Murfreesboro-Town-Square-Straight-Flyover-in-December-2020-sunset-Joy-decorations.mp4',
+        '/assets/images/Murfreesboro/Murfreesboro-Town.mp4',
 };
 
 // LOCATION DATA

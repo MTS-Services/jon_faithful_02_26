@@ -22,7 +22,7 @@ const whyMoveData = {
     imageUrl:
         '/assets/images/Johnson_City__TN-8-30-2018_Large_sign_in_downtown_proclaiming_Johnson_City__Tennessee1-scaled.jpeg',
     videoUrl:
-        'https://whytennessee.com/wp-content/uploads/2025/12/aerial-push-in-to-johnson-city-tennessee-skyline-in-east-tennessee.mp4',
+        '/assets/images/jackson-city/aerial.mp4',
 };
 
 // LOCATION DATA
