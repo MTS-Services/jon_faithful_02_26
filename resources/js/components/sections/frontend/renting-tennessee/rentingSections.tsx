@@ -82,7 +82,7 @@ export default function RentingSections() {
 
                     <video className="rounded-lg" controls>
                         <source
-                            src="assets/images/renting-tennessee/https://whytennessee.com/wp-content/uploads/2026/01/Slider-Shot-of-Luxury-Apartments-in-the-Suburbs.mp4"
+                            src="assets/images/Slider-Shot-of-Luxury-Apartments-in-the-Suburbs.mp4"
                             type="video/mp4"
                         />
                     </video>
