@@ -39,11 +39,11 @@ const MovingChecklistPage = () => {
             label: "Transfer Utilities & Services",
             title: "Transfer Utilities & Services",
             imageUrl: "/assets/images/moving-checklist/pexels-denil-33476066-scaled-1.webp",
-            intro: "Before moving day, schedule activation or transfer for:",
+            intro: "Set up or transfer:",
             items: [
                 "Electricity",
-                "Waterr",
-                "Gash",
+                "Water",
+                "Gas",
                 "Internet",
                 "Trash Service",
             ],
@@ -69,9 +69,9 @@ const MovingChecklistPage = () => {
             <div className="min-h-screen bg-white text-gray-800">
                 {/* Research Section */}
                 <section className="container mx-auto p-8 font-sans">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center md:space-y-0 space-y-12">
 
-                        <div className="space-y-6">
+                        <div className="order-2 md:order-1 space-y-6">
                             <h1 className="text-xl md:text-2xl lg:text-4xl font-bold text-gray-900 leading-tight">
                                 Research Tennessee Cities & Regions
                             </h1>
@@ -126,7 +126,7 @@ const MovingChecklistPage = () => {
                             </button>
                         </div>
 
-                        <div className="relative">
+                        <div className="relative order-1 md:order-2">
                             <img src="assets/images/moving-checklist/moving.jpeg" alt="People moving into a new home"
                                 className="rounded-xl shadow-lg w-full h-auto object-cover" />
                         </div>
@@ -134,15 +134,15 @@ const MovingChecklistPage = () => {
                     </div>
                 </section>
 
-                <section className="bg-[#FBF8F2] py-16">
+                <section className="bg-[#FBF8F2] py-16 rounded-t-3xl md:rounded-t-none shadow-lg">
                     <div className="container mx-auto px-6">
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-                            <div className="order-2 lg:order-1">
+                            <div className="">
                                 <img src="assets/images/moving/pexels-kelly-3061230-scaled.jpg"
                                     alt="Tennessee home" className="w-full h-auto rounded-lg shadow-lg object-cover" loading="lazy" />
                             </div>
 
-                            <div className="order-1 lg:order-2 space-y-6">
+                            <div className=" space-y-6">
                                 <h2 className="text-xl md:text-2xl lg:text-4xl font-semibold text-gray-900">
                                     Decide Whether to Rent or Buy
                                 </h2>
@@ -212,11 +212,11 @@ const MovingChecklistPage = () => {
 
                 <section className="bg-gray-50 py-16 px-4">
                     <div className="container mx-auto">
-                        <h2 className="text-xl md:text-2xl lg:text-4xl font-bold text-gray-900 mb-10 text-left">
+                        <h2 className=" text-center md:text-start text-2xl lg:text-4xl xl:text-[42px] font-bold text-gray-900 mb-10">
                             Set a Moving Budget
                         </h2>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-4">
 
                             <div
                                 className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center text-center justify-between min-h-[180px]">
@@ -291,11 +291,11 @@ const MovingChecklistPage = () => {
 
 
                 <section className="bg-primary flex flex-col items-center py-16 px-6 font-sans">
-                    <h2 className="text-white text-4xl font-bold mb-12 tracking-tight">
+                    <h2 className="text-white text-2xl sm:text-3xl md:text-[40px] font-semibold mb-12 tracking-tight">
                         60 Days Before Moving
                     </h2>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 container w-full">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 container w-full">
 
                         <div className="bg-white rounded-xl p-6 shadow-2xl">
                             <h3 className="text-primary text-2xl font-semibold mb-6">Secure Housing</h3>
@@ -384,6 +384,9 @@ const MovingChecklistPage = () => {
                 {/* TABS SECTION */}
                 <section className="py-16 bg-white">
                     <div className="container mx-auto px-4">
+                         <h2 className="text-2xl sm:text-3xl md:text-[40px] font-semibold mb-12 tracking-tight text-center">
+                        30 Days Before Moving
+                    </h2>
                         <div className="flex flex-wrap justify-center gap-4 mb-12">
                             {tabs.map((tab) => (
                                 <button
@@ -431,7 +434,7 @@ const MovingChecklistPage = () => {
                         <div className="container mx-auto">
                             <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-12">2 Weeks Before Moving</h2>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center text-white">
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center text-white">
                                 <div className="flex flex-col md:flex-row items-center md:items-center gap-6">
                                     <img src="/assets/images/moving-checklist/pexels-kelly-2350459-2048x1150.jpg"
                                         alt="Nashville" className="w-72 h-72 rounded-xl object-cover" />
@@ -446,9 +449,11 @@ const MovingChecklistPage = () => {
                                 </div>
 
                                 <div className="flex flex-col md:flex-row items-center md:items-center gap-6">
-                                    <img src="/assets/images/moving-checklist/3630.jpg"
+                                    <div className="order-1 md:order-2">
+                                        <img src="/assets/images/moving-checklist/3630.jpg"
                                         alt="Documents" className="w-72 h-72 rounded-xl object-cover" />
-                                    <div>
+                                    </div>
+                                    <div className="order-2 md:order-1 ">
                                         <h3 className="text-2xl font-bold mb-4">Prepare Important Documents</h3>
                                         <ul className="space-y-1 text-md list-disc list-inside opacity-90">
                                             <li>Driver's License</li>
