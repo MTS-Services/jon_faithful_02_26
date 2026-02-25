@@ -23,9 +23,9 @@ const whyMoveData = {
     conclusion:
         'Many people moving to the Tri-Cities choose Bristol for its affordable housing and distinctive personality.',
     imageUrl:
-        'https://whytennessee.com/wp-content/uploads/2025/12/Bristol-Virginia-Tennessee-Slogan-Sign-at-night.jpeg',
+        '/assets/images/bristol/Bristol-Virginia-Tennessee-Slogan-Sign-at-night.jpeg',
     videoUrl:
-        'https://whytennessee.com/wp-content/uploads/2025/12/Bristol-Tennesse_-Virginia-aerial-fast-push-over-state-street.mp4',
+        '/assets/images/bristol/Bristol.mp4',
 };
 
 // LOCATION DATA
@@ -92,7 +92,7 @@ const tabs = [
         ],
         footer: 'Education options support families relocating to the area.',
         imageUrl:
-            'https://whytennessee.com/wp-content/uploads/2026/01/Be_focus_and_patient_while_teaching_new_things1-scaled.jpeg',
+            '/assets/images/bristol/Be_focus_and_patient_while_teaching_new_things1-scaled.jpeg',
     },
     {
         id: 'tab2',
@@ -106,7 +106,7 @@ const tabs = [
         ],
         footer: 'Healthcare and regional employers provide stable job options.',
         imageUrl:
-            'https://whytennessee.com/wp-content/uploads/2026/01/Cropped-shot-of-diverse-coworkers-working-together-in-boardroom_-brainstorming_-discussing-and-analyzing-and-planning-business-strategy-scaled.jpeg',
+            '/assets/images/bristol/Cropped-s-strategy-scaled.jpeg',
     },
     {
         id: 'tab3',
@@ -121,7 +121,7 @@ const tabs = [
         ],
         footer: 'Bristol combines culture, history, and outdoor access in a small-city setting.',
         imageUrl:
-            'https://whytennessee.com/wp-content/uploads/2026/01/Bristol_Motor_Speedway_Preparing_For_The_Speedway_Classic_2025_Between_The_Atlanta_Braves_and_the_Cincinnati_Reds1-scaled.jpeg',
+            '/assets/images/bristol/Bristol_Motor_Speedway_Preparing_For_The_Speedway_.jpeg',
     },
     {
         id: 'tab4',
@@ -136,7 +136,7 @@ const tabs = [
         ],
         footer: 'Homes in Bristol are often priced lower than surrounding cities, making it a great option for first-time buyers and retirees.',
         imageUrl:
-            'https://whytennessee.com/wp-content/uploads/2025/12/pexels-lebele-11935244-scaled.jpg',
+            '/assets/images/bristol/pexels-lebele-11935244-scaled.jpg',
 
         cta: {
             label: 'Homes for Sale',

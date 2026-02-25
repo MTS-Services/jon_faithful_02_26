@@ -24,7 +24,7 @@ const whyMoveData = {
     imageUrl:
         '/assets/images/View-From-Fire-Tower-Bays-Mountain-Park-Kingsport-TN-2048x1362 (1).jpeg',
     videoUrl:
-        'https://whytennessee.com/wp-content/uploads/2025/12/Downtown-Kingsport-TN-USA_-Aerial-View-of-Church-Circle-Buildings-and-Neighborhood-on-Sunny-Fall-Day_-Drone-Shot.mp4',
+        '/assets/images/kingstone/Downtown-Kingsport.mp4',
 };
 
 // LOCATION DATA

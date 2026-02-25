@@ -9,7 +9,7 @@ export default function CityComparison() {
             <FrontendLayout activePage="moving-to-tennessee" subPage="City Comparison">
                 <Hero
                     slides={[
-                        "https://whytennessee.com/wp-content/uploads/2025/12/View-From-Fire-Tower-Bays-Mountain-Park-Kingsport-TN-1-scaled.jpeg",
+                        "assets/images/herros/View-From-Fire-Tower-Bays-Mountain-Park-Kingsport-TN-1-scaled.jpeg",
                     ]}
                     title={
                         <>

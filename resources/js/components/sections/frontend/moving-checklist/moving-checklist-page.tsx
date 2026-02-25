@@ -138,7 +138,7 @@ const MovingChecklistPage = () => {
                     <div className="container mx-auto px-6">
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
                             <div className="order-2 lg:order-1">
-                                <img src="https://whytennessee.com/wp-content/uploads/2025/12/pexels-kelly-3061230-scaled.jpg"
+                                <img src="assets/images/moving/pexels-kelly-3061230-scaled.jpg"
                                     alt="Tennessee home" className="w-full h-auto rounded-lg shadow-lg object-cover" loading="lazy" />
                             </div>
 

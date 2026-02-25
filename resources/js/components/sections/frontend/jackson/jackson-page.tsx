@@ -23,7 +23,7 @@ const whyMoveData = {
         'Many people choose Jackson for its cost-effective living and strategic location.',
     imageUrl: '/assets/images/Jackson_TN_downtown1-2048x1366.webp',
     videoUrl:
-        'https://whytennessee.com/wp-content/uploads/2025/12/Bristol-Tennesse_-Virginia-aerial-fast-push-over-state-street.mp4',
+        '/assets/images/jackson-city/Bristol-Tennesse.mp4',
 };
 
 // LOCATION DATA

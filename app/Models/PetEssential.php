@@ -18,4 +18,17 @@ class PetEssential extends Model
     {
         return $this->belongsTo(Rental::class);
     }
+
+    protected $appends = ['icon_url'];
+
+    public function getIconUrlAttribute()
+    {
+        if (filter_var($this->icon, FILTER_VALIDATE_URL)) {
+            return $this->icon;
+        }
+        if (!$this->icon) {
+            return asset('no-image.png');
+        }
+        return asset('storage/rentals/pet_icons/' . $this->icon);
+    }
 }

@@ -24,7 +24,7 @@ const whyMoveData = {
     imageUrl:
         '/assets/images/Colorful_Nashville_Broadway_at_night_-_NASHVILLE1-scaled.jpeg',
     videoUrl:
-        'https://whytennessee.com/wp-content/uploads/2025/12/Tennessee_Nashville_Aerial_v3_Cityscape_hyperlapse_flying_low_over_river_and_over_downtown_buildings_10181.mp4',
+        '/assets/images/Nashville/Tennessee_Nashville.mp4',
 };
 
 // LOCATION DATA

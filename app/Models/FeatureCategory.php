@@ -6,5 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class FeatureCategory extends Model
 {
-    //
+    protected $fillable = [
+        'name',
+        'slug',
+    ];
+
+    public function features()
+    {
+        return $this->hasMany(Feature::class);
+    }
 }

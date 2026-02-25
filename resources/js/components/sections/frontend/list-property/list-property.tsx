@@ -17,7 +17,7 @@ const whyMoveData = {
         'Your listing is seen by people choosing a city, not just scrolling listings.',
     imageUrl: 'assets/images/pexels-kelly-3061230-2048x1150.jpg',
     videoUrl:
-        'https://whytennessee.com/wp-content/uploads/2025/12/Aerial_4K_Drone_Video_Over_the_Tennessee_River_Looking_into_Downtown_Chattanooga_on_a_Beautiful_Spring_Evening1.mp4',
+        '/assets/images/property/Aerial_4K.mp4',
 };
 
 const tabs = [

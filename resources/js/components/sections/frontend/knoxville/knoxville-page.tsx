@@ -23,7 +23,7 @@ const whyMoveData = {
     imageUrl:
         '/assets/images/Paddling_on_the_Tennessee_River_in_Knoxville1-2048x1367.jpeg',
     videoUrl:
-        'https://whytennessee.com/wp-content/uploads/2025/12/Knoxville_-Tennessee.-View-from-above-of-University-of-Tennessee-campus-historical-buildings.mp4',
+        '/assets/images/knoxville/Knoxville.mp4',
 };
 
 // LOCATION DATA

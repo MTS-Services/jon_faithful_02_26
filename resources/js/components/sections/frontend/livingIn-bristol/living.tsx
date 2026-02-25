@@ -61,13 +61,13 @@ const Living: React.FC = () => {
 
           <div className="w-full grid grid-cols-2 gap-6">
             <img 
-              src="https://whytennessee.com/wp-content/uploads/2025/12/Bristol-Virginia-Tennessee-Slogan-Sign-at-night.jpeg"
+              src="assets/images/bristol/Bristol-Virginia-Tennessee-Slogan-Sign-at-night.jpeg"
               alt="Bristol State Line Sign"
               className="rounded-xl h-[500px] mb-16 object-cover"
             />
             <video className="rounded h-full object-cover" controls>
               <source
-                src="https://whytennessee.com/wp-content/uploads/2025/12/Bristol-Tennesse_-Virginia-aerial-fast-push-over-state-street.mp4"
+                src="assets/images/bristol/Bristol.mp4"
                 type="video/mp4"
               />
               Your browser does not support the video tag.
