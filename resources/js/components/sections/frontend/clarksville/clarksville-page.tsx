@@ -157,7 +157,7 @@ export default function ClarksvillePage({ city }: { city: City }) {
                     Clarksville offers one of the best affordability levels in Middle Tennessee.
                 </p>
 
-                <div className="grid gap-6 md:grid-cols-4">
+                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
                     <CostCard title="Mediam home price" value="$310,000" />
                     <CostCard
                         title="2-bedroom apartment"
@@ -175,7 +175,7 @@ export default function ClarksvillePage({ city }: { city: City }) {
                     <h2 className="mb-6 text-center text-3xl font-bold text-primary-foreground">
                         Best Neighborhoods in Clarksville
                     </h2>
-                    <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
+                    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
                         {neighborhoods.map((neighborhood, idx) => (
                             <NeighborhoodsSection
                                 name={neighborhood.name}
@@ -257,10 +257,17 @@ export default function ClarksvillePage({ city }: { city: City }) {
 
             <FinalInfoSection
                 property={{
-                    title: 'Is Memphis Right for You?',
-                    rightTitle: 'Explore Nearby Cities',
-                    description:
-                        'Clarksville may be a great fit if you’re looking for: Affordable housing near Nashville Military-friendly communities Strong job stability Family-oriented neighborhoods Long-term growth potential For many relocating buyers, Clarksville offers one of the best affordability-to-opportunity ratios in Tennessee.',
+                    title: 'Is Clarksville Right for You?',
+                    rightTitle: 'Explore Other Tennessee Cities',
+                    description: 'Clarksville may be a great fit if you’re looking for:',
+                    points: [
+                        'Affordable housing near Nashville',
+                        'Military-friendly communities',
+                        'Strong job stability',
+                        'Family-oriented neighborhoods',
+                        'Long-term growth potential',
+                    ],
+                    footer: 'For many relocating buyers, Clarksville offers one of the best affordability-to-opportunity ratios in Tennessee.',
                     cities: [
                         { name: 'Nashville', route: route('frontend.livingInNashville') },
                         { name: 'Franklin', route: route('frontend.livingInFranklin') },

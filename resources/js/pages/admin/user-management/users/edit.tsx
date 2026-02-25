@@ -8,19 +8,21 @@ import { Button } from '@/components/ui/button';
 import { update, index } from '@/actions/App/Http/Controllers/Admin/UserManagement/UserController';
 import FileUpload from '@/components/file-upload';
 import { toast } from 'sonner';
-import { User } from '@/types';
+import { City, User } from '@/types';
 
 interface Props {
     user: User;
+    cities: City[];
 }
 
-export default function EditUser({ user }: Props) {
+export default function EditUser({ user, cities }: Props) {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         id: '',
         username: '',
         email: '',
         phone: '',
+        city_id: '',
         brokerage_name: '',
         license_number: '',
         image: null as File | null,
@@ -32,17 +34,19 @@ export default function EditUser({ user }: Props) {
 
     useEffect(() => {
         if (user) {
-            setData({
+            setData((prev) => ({
+                ...prev,
                 name: user.name,
-                id: user.id,
+                id: String(user.id),
                 username: user.username || '',
                 email: user.email,
                 phone: user.phone || '',
+                city_id: user.city_id ? String(user.city_id) : '',
                 brokerage_name: user.brokerage_name || '',
                 license_number: user.license_number || '',
                 image: null,
                 _method: 'PUT',
-            });
+            }));
 
             // Update existing files whenever information changes
             if (user.image) {
@@ -85,7 +89,7 @@ export default function EditUser({ user }: Props) {
     };
 
     return (
-        <AdminLayout activeSlug="admin-users">
+        <AdminLayout activeSlug="users">
             <Head title={`Edit User: ${user.name}`} />
 
             <CardHeader className="flex items-center flex-row justify-between">
@@ -154,6 +158,26 @@ export default function EditUser({ user }: Props) {
                                 
                             />
                             {errors.phone && <div className="text-red-500 text-sm">{errors.phone}</div>}
+                        </div>
+                        <div className="grid gap-2">
+                            <Label htmlFor="city_id">City</Label>
+                            <select
+                                id="city_id"
+                                value={data.city_id}
+                                onChange={(e) => setData('city_id', e.target.value)}
+                                className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
+                                required
+                            >
+                                <option value="" disabled>
+                                    Select City
+                                </option>
+                                {cities.map((city) => (
+                                    <option key={city.id} value={city.id}>
+                                        {city.name}
+                                    </option>
+                                ))}
+                            </select>
+                            {errors.city_id && <div className="text-red-500 text-sm">{errors.city_id}</div>}
                         </div>
                         <div className="grid gap-2">
                             <Label htmlFor="brokerage_name">Brokerage Name</Label>

@@ -132,7 +132,7 @@ const tabs = [
             'Lakefront and mountain-view properties',
         ],
         footer: 'Inventory ranges from affordable starter homes to luxury properties in West Knoxville and Farragut.',
-        imageUrl: '/assets/images/Beautiful_home_exterior.jpeg',
+        imageUrl: '/assets/images/knoxville/beautiful_home_21-1536x937.jpeg',
         cta: {
             label: 'Homes for Sale',
             href: '/homes-for-sale',
@@ -156,7 +156,7 @@ export default function KnoxvillePage({ city }: { city: City }) {
                     Tennessee.
                 </p>
 
-                <div className="grid gap-6 md:grid-cols-4">
+                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
                     <CostCard title="Mediam home price" value="$360,000" />
                     <CostCard
                         title="2-bedroom apartment"
@@ -177,7 +177,7 @@ export default function KnoxvillePage({ city }: { city: City }) {
                     <h2 className="mb-6 text-center text-3xl font-medium text-primary-foreground md:text-[40px]">
                         Best Neighborhoods & Areas in Knoxville
                     </h2>
-                    <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+                    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                         {neighborhoods.map((neighborhood, idx) => (
                             <NeighborhoodsSection
                                 name={neighborhood.name}
@@ -212,7 +212,7 @@ export default function KnoxvillePage({ city }: { city: City }) {
                         ),
                     },
                     {
-                        text: 'Navigate competitivelistings',
+                        text: 'Navigate competitive listings',
                         icon: (
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"

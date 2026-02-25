@@ -7,6 +7,10 @@ use App\Enums\ActiveInactive;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+/** @var class-string<\App\Models\City> */
+use App\Models\City;
 
 class User extends Authenticatable
 {
@@ -17,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'phone',
+        'city_id',
         'user_type',
         'status',
         'password',
@@ -60,5 +65,10 @@ class User extends Authenticatable
             return asset('no-user-image-icon.png');
         }
         return asset('storage/user_images/' . $this->image);
+    }
+
+    public function city(): BelongsTo
+    {
+        return $this->belongsTo(City::class);
     }
 }

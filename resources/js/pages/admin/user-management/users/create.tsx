@@ -17,6 +17,11 @@ import {
 import { PasswordInput } from '@/components/ui/password-input';
 import InputError from '@/components/input-error';
 
+interface CityOption {
+    id: number;
+    name: string;
+}
+
 interface FormData {
     files: File | File[] | null;
     username: string;
@@ -24,6 +29,7 @@ interface FormData {
     email: string;
     phone: string;
     image: null | File | null,
+    city_id: string;
     your_self: string;
     brokerage_name: string;
     license_number: string;
@@ -33,7 +39,12 @@ interface FormData {
     user_types: any;
 }
 
-export default function CreateUser({ user_types }: any) {
+interface Props {
+    user_types: any;
+    cities: CityOption[];
+}
+
+export default function CreateUser({ user_types, cities }: Props) {
     console.log('user_types', user_types);
     const { data, setData, post, processing, errors } = useForm<FormData>({
         files: null,
@@ -42,6 +53,7 @@ export default function CreateUser({ user_types }: any) {
         email: '',
         phone: '',
         image: null,
+        city_id: '',
         your_self: '',
         brokerage_name: '',
         license_number: '',
@@ -152,6 +164,26 @@ export default function CreateUser({ user_types }: any) {
 
                                 />
                                 <InputError message={errors.phone} />
+                            </div>
+                            <div className="grid gap-2">
+                                <Label htmlFor="city_id">City</Label>
+                                <select
+                                    id="city_id"
+                                    value={data.city_id}
+                                    onChange={(e) => setData('city_id', e.target.value)}
+                                    className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
+                                    required
+                                >
+                                    <option value="" disabled>
+                                        Select City
+                                    </option>
+                                    {cities.map((city) => (
+                                        <option key={city.id} value={city.id}>
+                                            {city.name}
+                                        </option>
+                                    ))}
+                                </select>
+                                <InputError message={errors.city_id} />
                             </div>
                             <div className="grid gap-2">
                                 <Label htmlFor="brokerage_name">Brokerage Name</Label>

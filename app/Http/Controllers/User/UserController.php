@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\City;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -26,7 +27,8 @@ class UserController extends Controller
     public function accountSettings(): Response
     {
         return Inertia::render('user/profile/index', [
-            'user' => auth()->user(),
+            'user' => auth()->user()->load('city'),
+            'cities' => City::orderBy('name')->get(['id', 'name']),
         ]);
     }
 
@@ -40,6 +42,7 @@ class UserController extends Controller
             $validated = $request->validate([
                 'name' => ['required', 'string', 'max:255'],
                 'phone' => ['nullable', 'string', 'max:20'],
+                'city_id' => ['required', 'exists:cities,id'],
                 'your_self' => ['nullable', 'string'],
                 'brokerage_name' => ['nullable', 'string', 'max:255'],
                 'license_number' => ['nullable', 'string', 'max:255'],

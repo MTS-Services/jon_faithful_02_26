@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Enums\InterestedIn;
+use App\Enums\UserType;
 use App\Http\Controllers\Controller;
 use App\Mail\ContactRealsateAgentMail;
 use App\Mail\ContactSubmissionMail;
@@ -436,5 +437,35 @@ class FrontendController extends Controller
      public function buying(): Response
      {
           return Inertia::render('frontend/buying');
+     }
+
+     public function realtor(Request $request): Response
+     {
+          $cities = City::all();
+
+          // Get selected cities from the query string (e.g., ?cities=1,2,3)
+          $selectedCityIds = $request->input('cities') ? explode(',', $request->input('cities')) : [];
+
+          $realtors = User::where('user_type', UserType::REALTOR)
+               ->when(!empty($selectedCityIds), function ($query) use ($selectedCityIds) {
+                    $query->whereIn('city_id', $selectedCityIds);
+               })
+               ->get()
+               ->map(function ($user) {
+                    return [
+                         'id' => Crypt::encryptString($user->id),
+                         'name' => $user->name,
+                         'email' => $user->email,
+                         'phone' => $user->phone,
+                         'image_url' => $user->image_url,
+                         'your_self' => $user->your_self,
+                    ];
+               });
+
+          return Inertia::render('frontend/realtor', [
+               'cities' => $cities,
+               'realtors' => $realtors,
+               'selectedCityIds' => $selectedCityIds,
+          ]);
      }
 }

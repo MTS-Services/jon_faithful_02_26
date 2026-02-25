@@ -3,7 +3,7 @@ import UserDashboardLayout from '@/layouts/user-dashboard-layout';
 import { Link, useForm } from '@inertiajs/react';
 import { Label } from '@/components/ui/label';
 import React, { useEffect, useState } from 'react';
-import { User } from '@/types';
+import { City, User } from '@/types';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { CardContent } from '@/components/ui/card';
@@ -13,10 +13,11 @@ import { PasswordInput } from '@/components/ui/password-input';
 
 interface Props {
     user: User;
+    cities: City[];
 }
 
 
-export default function Index({ user }: Props) {
+export default function Index({ user, cities }: Props) {
     // const { data, setData, post, processing, errors } = useForm({
     //     id: item.id,
     //     name: item.name ?? '',
@@ -37,23 +38,27 @@ export default function Index({ user }: Props) {
         username: '',
         email: '',
         phone: '',
+        city_id: '',
         brokerage_name: '',
         license_number: '',
         image: null as File | null,
         password: '',
         password_confirmation: '',
+        your_self: '',
         _method: 'POST',
     });
     const [existingFiles, setExistingFiles] = useState<any[]>([]);
 
     useEffect(() => {
         if (user) {
-            setData({
+            setData((prev) => ({
+                ...prev,
                 name: user.name,
-                id: user.id,
+                id: String(user.id),
                 username: user.username || '',
                 email: user.email,
                 phone: user.phone || '',
+                city_id: user.city_id ? String(user.city_id) : '',
                 brokerage_name: user.brokerage_name || '',
                 license_number: user.license_number || '',
                 image: null,
@@ -61,7 +66,7 @@ export default function Index({ user }: Props) {
                 your_self: user.your_self || '',
                 password: '',
                 password_confirmation: '',
-            });
+            }));
 
             // Update existing files whenever information changes
             if (user.image) {
@@ -155,6 +160,26 @@ export default function Index({ user }: Props) {
 
                                     />
                                     {errors.phone && <div className="text-red-500 text-sm">{errors.phone}</div>}
+                                </div>
+                                <div className="grid gap-2">
+                                    <Label htmlFor="city_id">City</Label>
+                                    <select
+                                        id="city_id"
+                                        value={data.city_id}
+                                        onChange={(e) => setData('city_id', e.target.value)}
+                                        className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
+                                        required
+                                    >
+                                        <option value="" disabled>
+                                            Select City
+                                        </option>
+                                        {cities.map((city) => (
+                                            <option key={city.id} value={city.id}>
+                                                {city.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    <InputError message={errors.city_id} />
                                 </div>
                                 <div className="grid gap-2">
                                     <Label htmlFor="brokerage_name">Brokerage Name</Label>

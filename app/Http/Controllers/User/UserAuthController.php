@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Models\City;
 use App\Models\User;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -34,7 +35,9 @@ class UserAuthController extends Controller
 
     public function register(): Response
     {
-        return Inertia::render('auth/register');
+        return Inertia::render('auth/register', [
+            'cities' => City::orderBy('name')->get(['id', 'name']),
+        ]);
     }
 
     public function registerStore(Request $request)
@@ -43,6 +46,7 @@ class UserAuthController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255'],
             'phone' => ['nullable', 'string', 'max:20'],
+            'city_id' => ['required', 'exists:cities,id'],
             'your_self' => ['nullable', 'string', 'max:255'],
             'brokerage_name' => ['nullable', 'string', 'max:255'],
             'license_number' => ['nullable', 'string', 'max:255'],
@@ -68,6 +72,7 @@ class UserAuthController extends Controller
             'email' => $request['email'],
             'username' => $request['username'],
             'phone' => $request['phone'],
+            'city_id' => $request['city_id'],
             'user_type' => $request['type'],
             'your_self' => $request['your_self'],
             'brokerage_name' => $request['brokerage_name'],

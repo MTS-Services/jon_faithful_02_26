@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\UserManagement;
 
+use App\Models\City;
 use App\Models\User;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -51,6 +52,7 @@ class UserController extends Controller
                 'value' => $type->value,
                 'label' => $type->label(),
             ]),
+            'cities' => City::orderBy('name')->get(['id', 'name']),
         ]);
     }
     public function store(Request $request)
@@ -60,6 +62,7 @@ class UserController extends Controller
             'username' => ['required', 'string', 'max:255'],
             'phone' => ['nullable', 'string', 'max:20'],
             'user_type' => ['required', Rule::in(UserType::cases())],
+            'city_id' => ['required', 'exists:cities,id'],
             'your_self' => ['nullable', 'string', 'max:255'],
             'brokerage_name' => ['nullable', 'string', 'max:255'],
             'license_number' => ['nullable', 'string', 'max:255'],
@@ -102,7 +105,10 @@ class UserController extends Controller
         if (!$user) {
             abort(404);
         }
-        return Inertia::render('admin/user-management/users/edit', ['user' => $user]);
+        return Inertia::render('admin/user-management/users/edit', [
+            'user' => $user->load('city'),
+            'cities' => City::orderBy('name')->get(['id', 'name']),
+        ]);
     }
     public function update(Request $request, $id)
     {
@@ -115,6 +121,7 @@ class UserController extends Controller
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'phone' => ['nullable', 'string', 'max:20'],
+            'city_id' => ['required', 'exists:cities,id'],
             'your_self' => ['nullable', 'string', 'max:255'],
             'brokerage_name' => ['nullable', 'string', 'max:255'],
             'license_number' => ['nullable', 'string', 'max:255'],

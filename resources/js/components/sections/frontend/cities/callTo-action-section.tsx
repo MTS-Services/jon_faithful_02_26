@@ -23,7 +23,7 @@ export default function CallToActionSection(props: CallToActionProps) {
         cityName: props.cityName,
         cityId: props.cityId,
     };
-    const isRoute = route('frontend.rentals', { city: callToActionProps.cityId });
+    const isRoute = route('frontend.realtor', { cities: callToActionProps.cityId });
 
     return (
         <section className="bg-primary py-16 text-center">

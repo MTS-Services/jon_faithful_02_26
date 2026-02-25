@@ -5,7 +5,16 @@ import { PasswordInput } from '@/components/ui/password-input';
 import { useForm } from '@inertiajs/react';
 import React from 'react';
 
-export default function Register() {
+type CityOption = {
+    id: number;
+    name: string;
+};
+
+interface RegisterProps {
+    cities: CityOption[];
+}
+
+export default function Register({ cities }: RegisterProps) {
     const userType = new URLSearchParams(window.location.search).get('type');
 
     const { data, setData, post, processing, errors } = useForm({
@@ -15,6 +24,7 @@ export default function Register() {
         password: '',
         password_confirmation: '',
         phone: '',
+        city_id: '',
         license_number: '',
         brokerage_name: '',
         image: '',
@@ -91,6 +101,31 @@ export default function Register() {
                                 }
                             />
                             <p className="mt-1 text-sm text-red-500"></p>
+                        </div>
+                        <div>
+                            <label
+                                htmlFor="city_id"
+                                className="mb-1 block text-sm font-medium text-gray-700"
+                            >
+                                City
+                            </label>
+                            <select
+                                id="city_id"
+                                className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
+                                value={data.city_id}
+                                onChange={(e) => setData('city_id', e.target.value)}
+                                required
+                            >
+                                <option value="" disabled>
+                                    Select City
+                                </option>
+                                {cities.map((city) => (
+                                    <option key={city.id} value={city.id}>
+                                        {city.name}
+                                    </option>
+                                ))}
+                            </select>
+                            <InputError message={errors.city_id} />
                         </div>
                         <div>
                             <label

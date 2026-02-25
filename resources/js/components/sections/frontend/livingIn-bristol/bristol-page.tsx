@@ -175,7 +175,7 @@ const BristolPage: React.FC<{ city: any }> = ({ city }) => {
                     <h2 className="mb-6 text-center text-3xl font-medium text-primary-foreground md:text-[40px]">
                         Best Neighborhoods in Bristol
                     </h2>
-                    <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
+                    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
                         {neighborhoods.map((neighborhood, idx) => (
                             <NeighborhoodsSection
                                 name={neighborhood.name}
