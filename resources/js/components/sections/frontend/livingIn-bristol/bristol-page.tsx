@@ -117,7 +117,8 @@ const tabs = [
             'Bristol Motor Speedway events',
             'Birthplace of Country Music Museum',
             'Local festivals & live music',
-            'Outdoor recreation & parks',
+            'Outdoor recreation in nearby mountains',
+            'Parks, walking trails, and community events',
         ],
         footer: 'Bristol combines culture, history, and outdoor access in a small-city setting.',
         imageUrl:
@@ -161,7 +162,7 @@ const BristolPage: React.FC<{ city: any }> = ({ city }) => {
                     Bristol is one of the most affordable cities in Tennessee.
                 </p>
 
-                <div className="grid gap-6 md:grid-cols-4">
+                <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
                     <CostCard title="Mediam home price" value="$220,000" />
                     <CostCard title="2-bedroom apartment" value="$900–$1,200" />
                     <CostCard title="Utilities" value="Below national avg" />

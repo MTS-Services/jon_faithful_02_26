@@ -168,7 +168,7 @@ export default function ChattanoogaPage({ city }: { city: City }) {
                     cities.
                 </p>
 
-                <div className="grid gap-6 md:grid-cols-4">
+                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
                     <CostCard title="Mediam home price" value="$325,000" />
                     <CostCard
                         title="2-bedroom apartment"
@@ -189,7 +189,7 @@ export default function ChattanoogaPage({ city }: { city: City }) {
                     <h2 className="mb-6 text-center text-xl font-bold text-primary-foreground md:text-2xl lg:text-4xl">
                         Best Neighborhoods in Chattanooga
                     </h2>
-                    <div className="grid grid-cols-1 gap-6 md:grid-cols-5">
+                    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
                         {neighborhoods.map((neighborhood, idx) => (
                             <NeighborhoodsSection
                                 name={neighborhood.name}

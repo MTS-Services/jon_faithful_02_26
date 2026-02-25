@@ -89,7 +89,6 @@ const neighborhoods = [
         features: [
             'More affordable suburban option',
             'Easy access to downtown',
-            'Easy access to downtown',
         ],
     },
 ];
@@ -151,7 +150,7 @@ const tabs = [
             'Luxury properties and estates',
         ],
         footer: 'Prices vary widely by neighborhood, giving buyers options across different budgets.',
-        imageUrl: '/assets/images/Beautiful_home_exterior.jpeg',
+        imageUrl: '/assets/images/nashville/0093a01b2e7cd8015037a784c4b4be0c-p_e.jpg',
         cta: {
             label: 'Homes for Sale',
             href: '/homes-for-sale',
@@ -180,7 +179,7 @@ export default function NashvillePage({ city }: { city: City }) {
                     provides significantly more value for housing.
                 </p>
 
-                <div className="grid gap-6 md:grid-cols-4">
+                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
                     <CostCard title="Median home price" value="$460,000" />
                     <CostCard
                         title="2-bedroom apartment"
@@ -200,7 +199,7 @@ export default function NashvillePage({ city }: { city: City }) {
                             Best Neighborhoods in Nashville
                         </h2>
 
-                        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+                        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                             {/* First full rows (3 cards per row) */}
                             {neighborhoods
                                 .slice(

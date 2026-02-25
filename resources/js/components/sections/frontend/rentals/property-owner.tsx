@@ -9,8 +9,8 @@ export default function PropertyOwner() {
 
             <div className="absolute inset-0 bg-black/60"></div>
 
-            <div className="relative z-10 container mx-auto">
-                <div className="text-center text-background md:text-left">
+            <div className="relative z-10 container mx-auto px-4">
+                <div className="lg:text-center text-background md:text-left">
                     <div className="max-w-5xl">
                         <h2 className="mb-6 font-montserrat text-3xl font-semibold md:text-[42px]"> 
                             Are You a Property Owner or Manager?

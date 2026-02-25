@@ -60,7 +60,7 @@ const FlipCard: React.FC<CardProps> = ({ title, image, description, link }) => {
                     />
 
                     {/* 🔥 IMPORTANT FIX */}
-                    <div className="pointer-events-none absolute inset-0 flex items-center justify-center rounded-xl bg-black/50 p-6">
+                    <div className="pointer-events-none absolute inset-0 flex items-center justify-center rounded-xl bg-black/50 p-6 px-8">
                         <h3 className="text-center text-xl font-bold text-white">
                             {title}
                         </h3>
