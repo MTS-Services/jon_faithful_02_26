@@ -22,7 +22,7 @@ const exploreCitiesData = [
     },
     {
         icon: MapPin,
-        city: 'Explore Citiess',
+        city: 'Explore Cities',
         desc: "Learn about Tennessee's neighborhoods",
         button: 'Explore Cities →',
         href: route('frontend.livingInBristol'),
@@ -167,6 +167,13 @@ const RentingBuy = () => {
                                         />
                                         Flexibility to move between cities or
                                         neighborhoods
+                                    </li>
+                                    <li className="flex gap-2">
+                                        <Check
+                                            size={20}
+                                            className="font-bold text-black"
+                                        />
+                                        No responsibility for maintenance or repairs
                                     </li>
                                     <li className="flex gap-2">
                                         <Check
@@ -339,7 +346,7 @@ const RentingBuy = () => {
                             </h3>
 
                             <h4 className="mb-4 inline-block border-b-2 border-black text-sm font-semibold text-[#d4af37] uppercase">
-                                Pros of Renting
+                                Pros of buying
                             </h4>
                             <ul className="mb-4 space-y-2 text-sm">
                                 <li className="flex gap-2">
@@ -387,7 +394,7 @@ const RentingBuy = () => {
                             </p>
 
                             <h4 className="mb-4 inline-block border-b-2 border-black text-sm font-semibold text-[#d4af37] uppercase">
-                                Cons of Renting
+                               Cons of buying
                             </h4>
                             <ul className="mb-6 space-y-2 text-sm">
                                 <li className="flex items-center gap-2">
@@ -520,7 +527,7 @@ const RentingBuy = () => {
 
                             <a
                                 href={route('frontend.home-for-sale')}
-                                className="text-md mt-auto w-full rounded bg-primary py-3 text-center font-bold text-white hover:bg-primary"
+                               className="text-md mt-6 block w-full rounded bg-primary py-3 text-center font-bold text-white hover:bg-primary"
                             >
                                 View Homes for Sale in Tennessee →
                             </a>
@@ -653,8 +660,7 @@ const RentingBuy = () => {
                                 </li>
                             </ul>
                             <p className="text-md mt-4 text-slate-500">
-                                Many people rent for 6-24 months, then purchase
-                                once they're comfortable.
+                               Many people rent for 6–24 months, then purchase once they’re comfortable.
                             </p>
                         </div>
 

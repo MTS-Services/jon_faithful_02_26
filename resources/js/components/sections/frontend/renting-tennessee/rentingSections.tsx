@@ -8,8 +8,8 @@ export default function RentingSections() {
             {/* Good Idea Section */}
             <section className="container mx-auto px-4 py-20">
                 <div className="grid items-center gap-8 md:grid-cols-2">
-                    <div>
-                        <h2 className="mb-4 text-xl md:text-3xl lg:text-4xl font-bold">
+                    <div className="order-2 md:order-1">
+                        <h2 className="mb-4 text-xl font-bold md:text-3xl lg:text-4xl">
                             Is Renting in Tennessee a Good Idea?
                         </h2>
                         <p className="mb-4 text-gray-600">
@@ -80,26 +80,28 @@ export default function RentingSections() {
                         </p>
                     </div>
 
-                    <video className="rounded-lg" controls>
+                   <div className="order-1 md:order-2">
+                     <video className="rounded-lg" controls>
                         <source
                             src="assets/images/Slider-Shot-of-Luxury-Apartments-in-the-Suburbs.mp4"
                             type="video/mp4"
                         />
                     </video>
+                   </div>
                 </div>
             </section>
 
             {/* Average Rent Section */}
             <section className="bg-primary px-4 py-16 text-white">
                 <div className="container mx-auto">
-                    <div className="grid items-center gap-8 md:grid-cols-2 ">
+                    <div className="grid items-center gap-8 md:grid-cols-2">
                         <img
                             src="assets/images/renting-tennessee/Apartments-in-scaled.jpeg"
                             alt="Modern apartment"
                             className="rounded-tr-4xl rounded-bl-4xl"
                         />
                         <div>
-                            <h2 className="mb-4 text-xl md:text-3xl lg:text-4xl font-bold">
+                            <h2 className="mb-4 text-xl font-bold md:text-3xl lg:text-4xl">
                                 Average Rent in Tennessee
                             </h2>
                             <p className="max-w-2xl text-blue-100">
@@ -170,9 +172,14 @@ export default function RentingSections() {
 
             {/* Neighborhoods Section */}
             <section className="container mx-auto px-4 py-16">
-                <h2 className="mb-12 text-center text-xl md:text-3xl lg:text-4xl font-bold">
-                    Average Rent in Tennessee
-                </h2>
+                <div className="mb-12">
+                    <h2 className=" text-center text-xl font-bold md:text-3xl lg:text-4xl">
+                        Average Rent in Tennessee
+                    </h2>
+                    <p className="mt-4 text-center">
+                        Tennessee offers rental options for every lifestyle.
+                    </p>
+                </div>
                 <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                     {[
                         {
@@ -186,7 +193,7 @@ export default function RentingSections() {
                             img: 'assets/images/renting-tennessee/Best_Memphis_Neighborhoods_Harbor_Town.jpg',
                         },
                         {
-                            title: 'Best for Kids & City Life',
+                            title: 'Best for Jobs & City Life',
                             list: ['Nashville', 'Chattanooga', 'Knoxville'],
                             img: 'assets/images/renting-tennessee/pexels-kelly-3061230-scaled.jpg',
                         },
@@ -260,11 +267,11 @@ export default function RentingSections() {
             {/* Types & Lease Section */}
             <section className="bg-primary-background px-4 py-16">
                 <div className="container mx-auto grid gap-8 md:grid-cols-2">
-                    <div className="flex flex-col md:flex-row gap-5">
+                    <div className="flex flex-col gap-5 md:flex-row">
                         <img
                             src="assets/images/renting-tennessee/300-S.Montclair (1).jpg"
                             alt="Garden apartment"
-                            className="h-96 w-full md:w-80 object-cover"
+                            className="h-96 w-full object-cover md:w-80"
                         />
                         <div>
                             <h3 className="mb-6 text-xl lg:text-2xl">
@@ -344,19 +351,19 @@ export default function RentingSections() {
                             </p>
                         </div>
                     </div>
-                    <div className="flex flex-col md:flex-row gap-5">
+                    <div className="flex flex-col gap-5 md:flex-row">
                         <img
                             src="assets/images/renting-tennessee/Interracial-couple-having-consultation-with-a-realtor-scaled.jpeg"
                             alt="Lease agreement"
-                            className="h-96 w-full md:w-80 object-cover"
+                            className="h-96 w-full object-cover md:w-80"
                         />
                         <div>
                             <h3 className="mb-6 text-xl font-bold">
                                 Lease Terms & Deposits
                             </h3>
                             <p className="mb-6 text-sm text-gray-600">
-                                Understand Tennessee's lease agreements and
-                                security deposit requirements.
+                                Most Tennessee rentals require:
+
                             </p>
                             <ul className="space-y-1 text-sm">
                                 <li className="text-md flex items-center gap-2">
@@ -425,9 +432,9 @@ export default function RentingSections() {
                     <div className="grid gap-4 md:grid-cols-4">
                         {[
                             { label: 'Electricity', price: '$120-$180' },
-                            { label: 'Water/Gas', price: '$40-$70' },
+                            { label: 'Water/sewer', price: '$40-$70' },
                             { label: 'Internet', price: '$60-$90' },
-                            { label: 'Total', desc: 'Sometimes included' },
+                            { label: 'Trash', desc: 'Sometimes included' },
                         ].map((util, i) => (
                             <div
                                 key={i}
@@ -570,8 +577,8 @@ export default function RentingSections() {
                             </li>
                         </ul>
                         <p className="mt-6 text-sm text-white">
-                            Single-family home rentals are especially popular
-                            with families relocating to Tennessee.
+                            Most renters will need a personal vehicle.
+
                         </p>
                     </div>
                 </div>
@@ -736,9 +743,7 @@ export default function RentingSections() {
                         Final Thoughts
                     </h2>
                     <p className="text-gray-600">
-                        Tennessee offers an excellent rental market with
-                        affordable prices, great communities, and quality of
-                        life. Start your Tennessee rental journey today.
+                       Renting in Tennessee offers flexibility, affordability, and access to diverse cities and lifestyles. Whether you plan to rent short-term or long-term, Tennessee provides strong value compared to many other states
                     </p>
                 </div>
             </section>
