@@ -449,11 +449,11 @@ const MovingChecklistPage = () => {
                                 </div>
 
                                 <div className="flex flex-col md:flex-row items-center md:items-center gap-6">
-                                    <div className="order-1 md:order-2">
+                                    <div className="order-1 md:order-2 lg:order-1">
                                         <img src="/assets/images/moving-checklist/3630.jpg"
                                         alt="Documents" className="w-72 h-72 rounded-xl object-cover" />
                                     </div>
-                                    <div className="order-2 md:order-1 ">
+                                    <div className="order-2 md:order-1 lg:order-2">
                                         <h3 className="text-2xl font-bold mb-4">Prepare Important Documents</h3>
                                         <ul className="space-y-1 text-md list-disc list-inside opacity-90">
                                             <li>Driver's License</li>
@@ -476,7 +476,7 @@ const MovingChecklistPage = () => {
                     <div className={`relative py-20 px-4 bg-cover bg-center`}
                         style={{ backgroundImage: "linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url('https://images.unsplash.com/photo-1470219556762-1771e7f9427d?q=80&w=2000')" }}>
 
-                        <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div className="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
 
                             <div className="bg-white/50 backdrop-blur-md p-8 rounded-2xl shadow-xl border border-gray-200">
                                 <h2 className="text-xl md:text-2xl lg:text-4xl font-semibold text-gray-800 mb-2">Moving Week</h2>
@@ -487,12 +487,13 @@ const MovingChecklistPage = () => {
                                     </p>
                                     <ul className="space-y-1 text-md text-gray-700 list-disc pl-5">
                                         <li>Toiletries and personal hygiene items</li>
-                                        <li>Phone chargers and power banks</li>
+                                        <li>Phone charers and power banks</li>
                                         <li>Medications and prescriptions</li>
                                         <li>Important paperwork and documents</li>
                                         <li>Basic kitchen items (coffee maker, utensils, paper towels)</li>
                                         <li>A change of clothes for each family member</li>
-                                        <li>Cleaning supplies and trash bags</li>
+                                        <li>Cleaning supplies and trash bag</li>
+                                        <li>Inspect Your New Home</li>
                                     </ul>
                                 </div>
 
@@ -508,7 +509,7 @@ const MovingChecklistPage = () => {
                                         <li>Confirm movers' arrival time and contact information</li>
                                         <li>Protect floors and doorways during move-in</li>
                                         <li>Keep pets and children in a safe, quiet area</li>
-                                        <li>Do a final walk-thru of your old home</li>
+                                        <li>Do a final walk-throu$l of your old home</li>
                                         <li>Secure valuables and important documents</li>
                                     </ul>
                                 </div>
@@ -551,9 +552,9 @@ const MovingChecklistPage = () => {
                 </section>
 
                 <section className="bg-[#FBF8F2] py-24 px-6">
-                    <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
-                        <div className="flex flex-col md:flex-row gap-10 items-center">
-                            <div className="flex-1">
+                    <div className="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+                        <div className="flex flex-col md:flex-row gap-10">
+                            <div className="flex-1 order-2 lg:order-1">
                                 <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-gray-800 mb-6">Ongoing Tasks After Your Move</h2>
                                 <ul className="space-y-2 text-gray-700 font-medium">
                                     <li className="flex items-center gap-2">
@@ -582,10 +583,12 @@ const MovingChecklistPage = () => {
                                         </span>Evaluate long-term housing plans</li>
                                 </ul>
                             </div>
-                            <img src="https://images.unsplash.com/photo-1533903345306-15d1c30952de?auto=format&fit=crop&q=80&w=400"
-                                className="w-80 h-80 rounded-lg shadow-2xl object-cover" />
+                            <div className="flex-1 order-1 lg:order-2">
+                                <img src="/assets/images/moving-checklist/pexels-caleb-clark-6462955-32767698-2048x1536.jpg"
+                                className="w-full md:w-80 md:h-80 rounded-lg shadow-2xl object-cover" />
+                            </div>
                         </div>
-                        <div className="flex flex-col md:flex-row gap-10 items-center">
+                        <div className="flex flex-col md:flex-row gap-10">
                             <div className="flex-1 order-2 md:order-1">
                                 <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-gray-800 mb-6">Helpful Moving Tips for Tennessee</h2>
                                 <ul className="space-y-2 text-gray-700 font-medium text-right md:text-left">
@@ -615,8 +618,8 @@ const MovingChecklistPage = () => {
                                         </span>Housing demand differs significantly by market</li>
                                 </ul>
                             </div>
-                            <img src="https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&q=80&w=400"
-                                className="w-80 h-80 rounded-lg shadow-2xl object-cover order-1 md:order-2" />
+                            <img src="/assets/images/moving-checklist/pexels-kelly-3061230-2048x1150.jpg"
+                                className="w-full md:w-80 h-80 rounded-lg shadow-2xl object-cover order-1 md:order-2" />
                         </div>
                     </div>
                 </section>
@@ -670,7 +673,7 @@ const MovingChecklistPage = () => {
                 <section className="bg-primary py-16 px-4 text-center">
                     <div className="max-w-3xl mx-auto">
                         <h2 className="text-2xl md:text-4xl font-bold mb-4 text-white">Disclaimer</h2>
-                        <p className="text-gray-100">The information provided is for general informational purposes only and should not be considered financial, legal, or real estate advice. Costs, prices, and conditions may vary by location and over time.</p>
+                        <p className="text-gray-100">Participation in the WhyTennesse@.com Partner Program does not guarantee leads, inquiries, or transactions. Placement, availability, and program details may change as the platform grows.</p>
                     </div>
                 </section>
             </div>
