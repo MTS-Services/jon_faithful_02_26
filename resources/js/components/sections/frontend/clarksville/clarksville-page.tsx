@@ -257,10 +257,17 @@ export default function ClarksvillePage({ city }: { city: City }) {
 
             <FinalInfoSection
                 property={{
-                    title: 'Is Memphis Right for You?',
-                    rightTitle: 'Explore Nearby Cities',
-                    description:
-                        'Clarksville may be a great fit if you’re looking for: Affordable housing near Nashville Military-friendly communities Strong job stability Family-oriented neighborhoods Long-term growth potential For many relocating buyers, Clarksville offers one of the best affordability-to-opportunity ratios in Tennessee.',
+                    title: 'Is Clarksville Right for You?',
+                    rightTitle: 'Explore Other Tennessee Cities',
+                    description: 'Clarksville may be a great fit if you’re looking for:',
+                    points: [
+                        'Affordable housing near Nashville',
+                        'Military-friendly communities',
+                        'Strong job stability',
+                        'Family-oriented neighborhoods',
+                        'Long-term growth potential',
+                    ],
+                    footer: 'For many relocating buyers, Clarksville offers one of the best affordability-to-opportunity ratios in Tennessee.',
                     cities: [
                         { name: 'Nashville', route: route('frontend.livingInNashville') },
                         { name: 'Franklin', route: route('frontend.livingInFranklin') },
