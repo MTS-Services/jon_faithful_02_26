@@ -1,6 +1,8 @@
 "use client";
 
+import AgentCard from "@/components/ui/agent-card";
 import FrontendLayout from "@/layouts/frontend-layout";
+import { User } from "@/types";
 import { useState } from "react";
 
 interface Realtor {
@@ -32,7 +34,7 @@ const allRealtors: Realtor[] = [
   { id: 4, name: "David Wilson", email: "david@dev.com", city: "Knoxville" },
 ];
 
-export default function RealtorsPage() {
+export default function RealtorsPage({realtors}: {realtors: User[]}) {
   const [selectedCities, setSelectedCities] = useState<string[]>([]);
 
   const handleCityChange = (city: string) => {
@@ -78,33 +80,11 @@ export default function RealtorsPage() {
 
           {/* REALTORS GRID */}
           <div className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-            {filteredRealtors.map((realtor) => (
-              <div
-                key={realtor.id}
-                className="bg-white rounded-xl shadow-md overflow-hidden"
-              >
-                {/* Placeholder Image */}
-                <div className="h-56 bg-gray-300 flex items-center justify-center">
-                  <span className="text-gray-500">Photo</span>
-                </div>
-
-                {/* Content */}
-                <div className="p-6 text-center">
-                  <h3 className="text-lg font-semibold text-gray-800">
-                    Name: {realtor.name}
-                  </h3>
-                  <p className="text-sm text-gray-600 mt-1">
-                    Email: {realtor.email}
-                  </p>
-
-                  <button className="mt-6 w-full border border-gray-800 text-gray-800 py-2 rounded-md hover:bg-gray-800 hover:text-white transition">
-                    Read More
-                  </button>
-                </div>
-              </div>
+            {realtors.map((realtor) => (
+              <AgentCard key={realtor.id} data={realtor} />
             ))}
 
-            {filteredRealtors.length === 0 && (
+            {realtors.length === 0 && (
               <p className="col-span-full text-center text-gray-500">
                 No realtors found for selected city.
               </p>

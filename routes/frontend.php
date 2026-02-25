@@ -48,4 +48,7 @@ Route::name('frontend.')->controller(FrontendController::class)->group(function 
     Route::get('/list-rental-property', 'listRentalProperty')->name('list-rental-property');
     Route::post('/newsletter-submit', 'submitNewsletter')->name('newsletter.submit');
     Route::get('/buying', 'buying')->name('buying');
+
+    // realtor
+    Route::get('/realtor/{city_id?}', 'realtor')->name('realtor');
 });
