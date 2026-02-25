@@ -17,8 +17,8 @@ export default function WhyMoveSection({ whyMove }: Props) {
         <>
             {/* WHY MOVE SECTION */}
             <section className="py-16">
-                <div className="container mx-auto grid items-center gap-10 px-4 md:grid-cols-2 lg:px-16">
-                    <div>
+                <div className="container mx-auto grid items-center gap-10 px-4 lg:grid-cols-2 lg:px-16">
+                    <div className="order-2 lg:order-1">
                         <h2 className="mb-4 text-3xl font-bold md:text-[42px]">
                             {whyMove.title}
                         </h2>
@@ -46,7 +46,7 @@ export default function WhyMoveSection({ whyMove }: Props) {
                             <img
                                 src={whyMove.imageUrl}
                                 alt={whyMove.title}
-                                className="h-[500px] rounded-xl object-cover"
+                                className="h-[500px] w-full rounded-xl object-cover"
                             />
                         )}
 
@@ -54,13 +54,13 @@ export default function WhyMoveSection({ whyMove }: Props) {
                             <img
                                 src={whyMove.imageUrl2}
                                 alt={whyMove.title}
-                                className="h-[500px] rounded-xl object-cover mt-20"
+                                className="h-[500px] w-full rounded-xl object-cover md:mt-20"
                             />
                         )}
 
                         {whyMove.videoUrl && (
                             <video
-                                className="h-[500px] rounded-xl object-cover mt-20"
+                                className="h-[500px] w-full rounded-xl object-cover md:mt-20"
                                 controls
                                 autoPlay
                                 playsInline

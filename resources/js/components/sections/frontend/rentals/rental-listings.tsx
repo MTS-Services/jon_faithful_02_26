@@ -390,14 +390,14 @@ export default function RentalListings({ rentals, cities, filters = {} }: Props)
                                         className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-muted-foreground accent-[#858585]"
                                     />
 
-                                    <div className="flex justify-between text-sm font-semibold text-muted">
+                                    <div className="flex justify-between text-sm font-semibold text-muted-foreground">
                                         <span>{formatCurrency(normalizedPriceMin)}</span>
                                         <span>{formatCurrency(normalizedPriceMax)}</span>
                                     </div>
 
                                     <div className="flex flex-col gap-3 md:flex-row">
-                                        <label className="flex w-full flex-col text-sm font-semibold text-muted">
-                                            Min
+                                        <label className="flex w-full flex-col text-sm font-semibold text-muted-foreground">
+                                            Minimum
                                             <input
                                                 type="number"
                                                 min={PRICE_MIN_DEFAULT}
@@ -405,11 +405,12 @@ export default function RentalListings({ rentals, cities, filters = {} }: Props)
                                                 step={5000}
                                                 value={priceMin}
                                                 onChange={(e) => handlePriceMinChange(e.target.value)}
-                                                className="mt-1 rounded-md border border-primary px-3 py-2"
+                                                placeholder="No Minimum"
+                                                className="mt-1 rounded-md border border-text-secondary-foreground px-3 py-2"
                                             />
                                         </label>
-                                        <label className="flex w-full flex-col text-sm font-semibold text-muted">
-                                            Max
+                                        <label className="flex w-full flex-col text-sm font-semibold text-muted-foreground">
+                                            Maximum
                                             <input
                                                 type="number"
                                                 min={PRICE_MIN_DEFAULT}
@@ -417,7 +418,9 @@ export default function RentalListings({ rentals, cities, filters = {} }: Props)
                                                 step={5000}
                                                 value={priceMax}
                                                 onChange={(e) => handlePriceMaxChange(e.target.value)}
-                                                className="mt-1 rounded-md border border-primary px-3 py-2"
+                                                // onBlur={(e) => handlePriceMaxBlur(e.target.value)}
+                                                placeholder="No Maximum"
+                                                className="mt-1 rounded-md border border-text-secondary-foreground px-3 py-2"
                                             />
                                         </label>
                                     </div>
@@ -521,7 +524,7 @@ export default function RentalListings({ rentals, cities, filters = {} }: Props)
                                 <PlatinumCard
                                     key={rental.id}
                                     property={rental}
-                                    type= "rental"
+                                    type="rental"
                                 />
                             ))}
                         </div>
@@ -548,11 +551,10 @@ export default function RentalListings({ rentals, cities, filters = {} }: Props)
                                                 href={link.url || '#'}
                                                 preserveScroll
                                                 disabled={!link.url}
-                                                className={`rounded px-4 py-2 transition-colors ${
-                                                    link.active
+                                                className={`rounded px-4 py-2 transition-colors ${link.active
                                                         ? 'bg-secondary text-primary-foreground'
                                                         : 'bg-primary text-primary-foreground hover:bg-secondary'
-                                                } ${!link.url ? 'cursor-not-allowed opacity-50' : ''}`}
+                                                    } ${!link.url ? 'cursor-not-allowed opacity-50' : ''}`}
                                             >
                                                 {isPrevious || isNext
                                                     ? displayLabel

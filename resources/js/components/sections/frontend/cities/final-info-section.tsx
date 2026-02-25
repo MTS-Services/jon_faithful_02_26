@@ -83,7 +83,7 @@ export default function FinalInfoSection({ property }: { property: property }) {
                         href={route('frontend.livetennessee')}
                         className="sm:p-auto flex items-center justify-center gap-2 rounded-xl bg-slate-900 p-3 py-4 text-white"
                     >
-                        See Best Places in Tennessee <HiArrowRight />
+                        See Best Places to Live in Tennessee <HiArrowRight />
                     </a>
                 </div>
             </div>

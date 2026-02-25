@@ -32,11 +32,10 @@ export default function InfoTabsSection({ tabs }: { tabs: TabContent[] }) {
                         <button
                             key={tab.id}
                             onClick={() => setActiveTab(tab.id)}
-                            className={`rounded-full px-3 py-2 font-medium transition sm:px-4 sm:py-3 sm:font-bold md:px-6 md:py-5 ${
-                                activeTab === tab.id
+                            className={`rounded-full px-3 py-2 font-medium transition sm:px-4 sm:py-3 sm:font-bold md:px-6 md:py-5 ${activeTab === tab.id
                                     ? 'scale-105 bg-secondary text-white'
                                     : 'bg-slate-800 text-white hover:bg-secondary'
-                            }`}
+                                }`}
                         >
                             {tab.label}
                         </button>
@@ -47,7 +46,7 @@ export default function InfoTabsSection({ tabs }: { tabs: TabContent[] }) {
                 {tabs.map((tab) => (
                     <div
                         key={tab.id}
-                        className={`${activeTab === tab.id ? 'grid' : 'hidden'} items-center gap-12 md:grid-cols-2`}
+                        className={`${activeTab === tab.id ? 'grid' : 'hidden'} items-center gap-12 md:grid-cols-2 shadow-xl rounded-2xl border-2 border-slate-100`}
                     >
                         {/* <img
                             src={tab.imageUrl}
@@ -68,11 +67,11 @@ export default function InfoTabsSection({ tabs }: { tabs: TabContent[] }) {
                             <img
                                 src={tab.imageUrl}
                                 alt={tab.title}
-                                className="h-96 w-full rounded-2xl object-cover shadow-2xl"
+                                className="h-full w-full rounded-2xl object-cover shadow-2xl"
                             />
                         ) : null}
 
-                        <div>
+                        <div className='p-3'>
                             <h2 className="mb-6 text-4xl font-bold">
                                 {tab.title}
                             </h2>
@@ -83,7 +82,9 @@ export default function InfoTabsSection({ tabs }: { tabs: TabContent[] }) {
                             <ul className="space-y-4">
                                 {tab.items.map((item, i) => (
                                     <li key={i} className="flex gap-3 items-center">
-                                        <FaArrowAltCircleRight className="text-secondary" />
+                                        <div>
+                                            <FaArrowAltCircleRight size={16} className="text-secondary" />
+                                        </div>
                                         <span>{item}</span>
                                     </li>
                                 ))}

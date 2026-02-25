@@ -37,18 +37,16 @@ const Hero: React.FC = () => {
 
       {/* Content */}
       <div className="relative z-20 container mx-auto px-6 text-white mt-10">
-        <h2 className="text-xl md:text-3xl font-light mb-4 tracking-wide">
+        <p className="text-xl md:text-3xl font-light mb-4 tracking-wide">
           Why Tennessee?
-        </h2>
+        </p>
         <h1 className="text-2xl md:text-3xl lg:text-5xl font-bold mb-6 leading-tight">
           The Complete Guide to Living,<br />
           Moving and Buying a Home<br />
           in Tennessee
         </h1>
         <p className="text-lg md:text-xl max-w-3xl mb-10 text-gray-100 font-light">
-          Thinking about moving to Tennessee? WhyTennessee.com is your all-in-one
-          relocation resource for discovering the best places to live in Tennessee,
-          comparing cities, understanding the cost of living, and browsing homes for sale.
+          Thinking about moving to Tennessee? WhyTennessee.com is your all-in-one relocation resource for discovering the best places to live in Tennessee, comparing cities, understanding the cost of living, and browsing homes for sale across the state.
         </p>
 
         {/* Buttons */}
@@ -74,7 +72,7 @@ const Hero: React.FC = () => {
             href="homes-for-sale"
             className="bg-primary hover:bg-secondary text-white px-8 py-3 rounded-full text-lg font-medium transition flex items-center justify-center"
           >
-            Search Homes for Sale
+            Search Homes for Sale in Tennessee
             <span className="ml-2">
               <svg
                 aria-hidden="true"

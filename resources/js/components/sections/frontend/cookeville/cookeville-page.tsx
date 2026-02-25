@@ -89,7 +89,7 @@ const tabs = [
             'Private and charter school options',
         ],
         footer: 'Education and community involvement are central to Cookeville’s identity.',
-        imageUrl: '/assets/images/cookeville/Pupils leaving elementary school building. Children smiling walking outside.jpeg',
+        imageUrl: '/assets/images/cookeville/cookeville-high-school-cookeville-tn-primaryphoto.avif',
     },
     {
         id: 'tab2',
@@ -103,7 +103,7 @@ const tabs = [
             'Retail and local businesses',
         ],
         footer: 'Healthcare features serve both the city and surrounding rural areas.',
-        imageUrl: '/assets/images/Doctor_and_hospital.jpeg',
+        imageUrl: '/assets/images/cookeville/3-new-york-blog-post-image-20220726015201.jpg',
     },
     {
         id: 'tab3',
@@ -119,7 +119,7 @@ const tabs = [
         ],
         footer: 'Outdoor recreation is a major draw for residents.',
         imageUrl:
-            '/assets/images/crowd_with_raised_hands_at_concert_festival_banner1-2048x1182.jpeg',
+            '/assets/images/cookeville/everyone-was-enjoying-1024x969.jpg',
     },
     {
         id: 'tab4',
@@ -133,7 +133,7 @@ const tabs = [
             'Rural homes with acreage',
         ],
         footer: 'Cookeville offers excellent value for buyers looking for space and affordability.',
-        imageUrl: '/assets/images/Beautiful_home_exterior.jpeg',
+        imageUrl: '/assets/images/cookeville/Highbury-Homes-for-rent-cookeville-tn-1024x710.webp',
         cta: {
             label: 'Homes for Sale',
             href: '/homes-for-sale',
@@ -157,7 +157,7 @@ export default function CookevillePage({ city }: { city: City }) {
                     and state averages.
                 </p>
 
-                <div className="grid gap-6 md:grid-cols-4">
+                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
                     <CostCard title="Mediam home price" value="$290,000" />
                     <CostCard
                         title="2-bedroom apartment"
@@ -175,7 +175,7 @@ export default function CookevillePage({ city }: { city: City }) {
                     <h2 className="mb-6 text-center text-3xl font-bold text-primary-foreground">
                         Best Neighborhoods in Cookeville
                     </h2>
-                    <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
+                    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
                         {neighborhoods.map((neighborhood, idx) => (
                             <NeighborhoodsSection
                                 name={neighborhood.name}

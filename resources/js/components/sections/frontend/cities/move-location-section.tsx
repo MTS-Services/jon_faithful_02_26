@@ -15,7 +15,7 @@ interface Props {
 export default function MoveLocationSection({ location }: Props) {
     return (
         <section className="bg-[#f8f5ef] py-16 rounded-[40px] lg:rounded-t-[80px]">
-            <div className="container mx-auto px-4 lg:px-16 grid md:grid-cols-2 gap-16 items-center">
+            <div className="container mx-auto px-4 lg:px-16 grid lg:grid-cols-2 gap-16 items-center">
                 <div className="rounded-md overflow-hidden shadow-lg h-[400px]">
                     <iframe
                         title="Location Map"
