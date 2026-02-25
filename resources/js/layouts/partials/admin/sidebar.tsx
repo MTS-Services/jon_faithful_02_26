@@ -3,7 +3,20 @@ import { NavItem } from '@/components/ui/nav-item';
 import { cn } from '@/lib/utils';
 import { type NavItemType, type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
-import { BarChart, LayoutGrid, User, Users } from 'lucide-react';
+import {
+    Building2,
+    ClipboardList,
+    ExternalLink,
+    Home,
+    Layers,
+    LayoutGrid,
+    ListChecks,
+    Mail,
+    MessageSquare,
+    User,
+    UserCheck,
+    Users,
+} from 'lucide-react';
 import * as React from 'react';
 
 // Navigation configuration
@@ -40,35 +53,35 @@ const adminNavItems: NavItemType[] = [
     {
         title: 'Listings (Homes)',
         href: route('admin.listing.index'),
-        icon: BarChart,
+        icon: Home,
         permission: 'view analytics',
         slug: 'listings',
     },
     {
         title: 'Rental Management',
         href: '#',
-        icon: BarChart,
+        icon: Building2,
         permission: 'view analytics',
         slug: 'rental-management',
         children: [
             {
                 title: 'Listings (Rentals)',
                 href: route('admin.rentals.index'),
-                icon: BarChart,
+                icon: ClipboardList,
                 permission: 'view analytics',
                 slug: 'rentals',
             },
             {
                 title: 'Unit Feature Categories',
                 href: route('admin.unit-feature-categories.index'),
-                icon: BarChart,
+                icon: Layers,
                 permission: 'view analytics',
                 slug: 'unit-feature-categories',
             },
             {
                 title: 'Unit Features',
                 href: route('admin.unit-features.index'),
-                icon: BarChart,
+                icon: ListChecks,
                 permission: 'view analytics',
                 slug: 'unit-features',
             }
@@ -78,21 +91,21 @@ const adminNavItems: NavItemType[] = [
     {
         title: 'External Link Submissions',
         href: route('admin.external-link'),
-        icon: BarChart,
+        icon: ExternalLink,
         permission: 'view analytics',
         slug: 'externa-links',
     },
     {
         title: 'Contact Us',
         href: route('admin.contact.index'),
-        icon: BarChart,
+        icon: MessageSquare,
         permission: 'view analytics',
         slug: 'contact-us',
     },
     {
         title: 'Newsletter',
         href: route('admin.newsletter.index'),
-        icon: BarChart,
+        icon: Mail,
         permission: 'view analytics',
         slug: 'newsletter',
     },
