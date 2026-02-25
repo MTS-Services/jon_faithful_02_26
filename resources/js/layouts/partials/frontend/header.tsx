@@ -118,7 +118,7 @@ function FrontendHeader ({activePage, subPage}:Props) {
               <Link href="/">
                 <img
                   className="h-16 w-auto"
-                  src="/DFD32E71-47C0-41C6-86DE-4B5126B4E53A-1-e1765605360205.png"
+                  src="/assets/logo/why-tennessee-logo.png"
                   alt="Why Tennessee Logo"
                 />
               </Link>
