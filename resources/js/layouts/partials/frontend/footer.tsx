@@ -67,7 +67,7 @@ const FrontendFooter: React.FC = () => {
                     {/* Brand/About Section */}
                     <div>
                         <img
-                            src="DFD32E71-47C0-41C6-86DE-4B5126B4E53A-1-e1765605360205.png"
+                            src="/DFD32E71-47C0-41C6-86DE-4B5126B4E53A-1-e1765605360205.png"
                             alt="Why Tennessee"
                             className="mb-6 h-16"
                         />

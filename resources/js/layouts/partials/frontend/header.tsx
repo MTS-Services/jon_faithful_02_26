@@ -41,7 +41,7 @@ function FrontendHeader ({activePage, subPage}:Props) {
     { name: 'Cost of Living in Tennessee', route: 'cost-of-living-in-tennessee' },
     { name: 'Pros & Cons of Living in Tennessee', route: 'pros-cons-living-in-tennessee' },
     { name: 'Best Places to Live in Tennessee', route: 'live-tennessee' },
-    { name: 'Buying', route: 'buying' },
+    // { name: 'Buying', route: 'buying' },
   ]
   const movingTopics2 = [
     { name: 'Renting in Tennessee', route: 'renting-tennessee' },
@@ -54,6 +54,11 @@ function FrontendHeader ({activePage, subPage}:Props) {
     { name: 'City Comparison', route: 'city-comparison' },
     { name: 'Download Guide (PDF)', route: '#' },
     { name: 'Real Estate Agents', route: 'real-estate-agents' },
+  ]
+
+  const movingTopics4 = [
+    { name: 'Buying in Tennessee', route: '#' },
+    { name: 'Cost of buying in Tennessee', route: '#' },
   ]
 
   return (
@@ -113,7 +118,7 @@ function FrontendHeader ({activePage, subPage}:Props) {
               <Link href="/">
                 <img
                   className="h-16 w-auto"
-                  src="DFD32E71-47C0-41C6-86DE-4B5126B4E53A-1-e1765605360205.png"
+                  src="/DFD32E71-47C0-41C6-86DE-4B5126B4E53A-1-e1765605360205.png"
                   alt="Why Tennessee Logo"
                 />
               </Link>
@@ -145,9 +150,9 @@ function FrontendHeader ({activePage, subPage}:Props) {
                   Moving to Tennessee <FaChevronDown className="ml-1 text-[10px]" />
                 </button>
 
-                <div className="absolute top-full -right-80 w-[950px] bg-white shadow-2xl rounded-b-lg p-8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 grid grid-cols-3 gap-8">
+                <div className="absolute top-full -right-90 w-[1200px] bg-white shadow-2xl rounded-b-lg p-8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 grid grid-cols-4 gap-8">
                   <div>
-                    <h3 className="text-xl font-bold text-primary mb-4 border-b pb-2">What You Need to Know:</h3>
+                    <h3 className="text-lg font-bold text-primary mb-4 border-b pb-2">What You Need to Know:</h3>
                     <ul className="space-y-3">
                       {movingTopics1.map((item) => (
                         <li key={item.name}>
@@ -162,7 +167,7 @@ function FrontendHeader ({activePage, subPage}:Props) {
                   </div>
 
                   <div>
-                    <h3 className="text-xl font-bold text-primary mb-4 border-b pb-2">Renting:</h3>
+                    <h3 className="text-lg font-bold text-primary mb-4 border-b pb-2">Renting:</h3>
                     <ul className="space-y-3">
                       {movingTopics2.map((item) => (
                         <li key={`/${item.name}`} id={item.name}>
@@ -176,8 +181,23 @@ function FrontendHeader ({activePage, subPage}:Props) {
                     </ul>
                   </div>
 
+                   <div>
+                    <h3 className="text-lg font-bold text-primary mb-4 border-b pb-2">Buying:</h3>
+                    <ul className="space-y-3">
+                      {movingTopics4.map((item) => (
+                        <li key={`/${item.name}`} id={item.name}>
+                          <Link href={item.route} className={`flex items-center text-sm text-muted-foreground hover:text-secondary transition-colors ${subPage === item.name ? 'text-secondary' : ''}`}>
+                            <span className="text-primary mr-2 font-bold">
+                              <MdDoubleArrow size={14} />
+                            </span> {item.name}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
                   <div>
-                    <h3 className="text-xl font-bold text-primary mb-4 border-b pb-2">Helpful Tools:</h3>
+                    <h3 className="text-lg font-bold text-primary mb-4 border-b pb-2">Helpful Tools:</h3>
                     <ul className="space-y-3">
                       {movingTopics3.map((item) => (
                         <li key={item.name}>
