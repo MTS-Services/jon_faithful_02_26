@@ -157,7 +157,7 @@ export default function JohnsonCityPage({ city }: { city: City }) {
                     affordable cities in Tennessee.
                 </p>
 
-                <div className="grid gap-6 md:grid-cols-4">
+                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
                     <CostCard title="Mediam home price" value="$285,000" />
                     <CostCard
                         title="2-bedroom apartment"
@@ -175,7 +175,7 @@ export default function JohnsonCityPage({ city }: { city: City }) {
                     <h2 className="mb-6 text-center text-3xl font-medium text-primary-foreground md:text-[40px]">
                         Best Neighborhoods in Johnson City
                     </h2>
-                    <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
+                    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
                         {neighborhoods.map((neighborhood, idx) => (
                             <NeighborhoodsSection
                                 name={neighborhood.name}
