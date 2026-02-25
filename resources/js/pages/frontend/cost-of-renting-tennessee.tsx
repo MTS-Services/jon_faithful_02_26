@@ -22,12 +22,13 @@ const TennesseeRentPage = () => {
           <div>
             <h2 className="text-xl md:text-2xl lg:text-4xl font-bold mb-6 text-slate-900">Is Renting in Tennessee Affordable?</h2>
             <p className="text-lg leading-relaxed text-muted-foreground mb-4">
-              The Tennessee rental market offers a variety of price ranges, making it accessible to many budgets.
+              Yes. Tennessee’s rental costs are below the national average, especially outside of Nashville and its surrounding suburbs.
             </p>
             <ul className="list-disc pl-5 space-y-2 text-muted-foreground">
-              <li>Variety of housing options</li>
-              <li>Cost of living below national average</li>
+              <li>U.S. average rent index: 100</li>
+              <li>Tennessee rent index: ~88–92</li>
             </ul>
+            <p className="mt-5">That means renters often pay 8–12% less than the national average, depending on city and property type. Shape</p>
           </div>
           <div className="relative h-64 md:h-80">
             <img
@@ -96,18 +97,12 @@ const TennesseeRentPage = () => {
                   <path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z" />
                 </svg>
               </span></span>Larger homes and newer construction can exceed this range in high-demand areas</li>
-              <li className="flex items-center gap-2"><span className="font-bold"><span className="flex-shrink-0">
-                <svg
-                  aria-hidden="true"
-                  className="w-2 h-2 fill-current text-black"
-                  viewBox="0 0 512 512"
-                >
-                  <path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z" />
-                </svg>
-              </span></span>3-bedroom: $1,400 – $2,000</li>
             </ul>
-            <div className="flex flex-col md:flex-row gap-4">
+            <div className="mb-10">
               <a href={route('frontend.home-for-sale')} className="bg-primary text-white px-6 py-3 rounded-md font-medium hover:bg-secondary transition">Browse Homes for Sale in Tennessee→</a>
+              </div>
+
+              <div>
               <a href= {route('frontend.rentals')}className="bg-primary text-white px-6 py-3 rounded-md font-medium hover:bg-secondary transition">Browse Rentals in Tennessee →</a>
             </div>
           </div>
@@ -239,7 +234,7 @@ const TennesseeRentPage = () => {
                 >
                   <path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z" />
                 </svg>
-              </span></span>Application fee: $30–$75 per adult</li>
+              </span></span>Security deposit: Usually 1 month’s rent</li>
               <li className="flex items-center gap-2"><span className="font-bold"><span className="flex-shrink-0">
                 <svg
                   aria-hidden="true"
@@ -368,7 +363,7 @@ const TennesseeRentPage = () => {
                       >
                         <path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z" />
                       </svg>
-                    </span>Electricity: $120–$180</li>
+                    </span>Electricity: $120 – $180</li>
                   <li className='flex items-center gap-2'>
                     <span className="flex-shrink-0">
                       <svg
@@ -378,7 +373,7 @@ const TennesseeRentPage = () => {
                       >
                         <path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z" />
                       </svg>
-                    </span>Water & sewer: $40–$70</li>
+                    </span>Water & sewer: $40 – $70</li>
                   <li className='flex items-center gap-2'>
                     <span className="flex-shrink-0">
                       <svg
@@ -388,7 +383,7 @@ const TennesseeRentPage = () => {
                       >
                         <path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z" />
                       </svg>
-                    </span>Internet: $60–$90</li>
+                    </span>Internet: $60 – $90</li>
                   <li className='flex items-center gap-2'>
                     <span className="flex-shrink-0">
                       <svg
@@ -445,8 +440,7 @@ const TennesseeRentPage = () => {
                     </span>Shorter commutes outside major metros</li>
                 </ul>
                 <p className="text-sm mt-4">
-                  Most renters will need a personal vehicle, especially outside
-                  city centers.
+                 Most renters will need a personal vehicle, especially outside city centers. Shape
                 </p>
               </div>
             </div>
@@ -684,9 +678,7 @@ const TennesseeRentPage = () => {
               Final Thoughts
             </h2>
             <p className="text-white">
-              Tennessee offers an excellent rental market with affordable prices, great
-              communities, and quality of life. Start your Tennessee rental journey
-              today.
+              The cost of renting in Tennessee remains one of the state’s biggest advantages. Whether you’re moving for work, lifestyle, or affordability, Tennessee offers strong rental value across a wide range of cities and property types. Shape
             </p>
           </div>
         </section>
