@@ -1,4 +1,4 @@
-import { index } from '@/actions/App/Http/Controllers/Admin/RentalController';
+import { index } from '@/actions/App/Http/Controllers/Admin/RentalManagement/RentalController';
 import { ActionButton } from '@/components/ui/action-button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
