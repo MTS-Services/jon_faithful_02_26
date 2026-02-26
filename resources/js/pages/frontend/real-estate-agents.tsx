@@ -24,6 +24,7 @@ export default function RealEstateAgents({
                     'assets/images/herros/Hay-bales-in-pasture-on-horse-farm-in-shadow-of-the-Blue-Ridge-Mountains-scaled.jpeg',
                 ]}
                 title={<>Real Estate Agent</>}
+                className="text-2xl md:text-3xl lg:text-5xl font-semibold mb-6 leading-tight text-center"
             />
 
             {/* Section One */}
