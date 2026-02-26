@@ -683,6 +683,52 @@ export default function RentingSections() {
                 </div>
             </section>
 
+            <section className="w-full bg-[#F2EDE4] py-16 px-8 md:px-20">
+      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12">
+        
+        {/* Left: Title */}
+        <div className="md:w-2/5 flex-shrink-0">
+          <h2 className="text-4xl font-bold text-[#1A1A1A] leading-tight">
+            Renting First
+          </h2>
+          <h2 className="text-4xl font-bold text-[#B8922A] leading-tight">
+            Buying Later
+          </h2>
+        </div>
+
+        {/* Divider */}
+        <div className="hidden md:block self-stretch border-l border-dashed border-[#C8BCA8]" />
+
+        {/* Right: Content */}
+        <div className="md:w-3/5 space-y-5">
+          <p className="text-[#2D2D2D] text-base leading-relaxed">
+            Many renters eventually become buyers within 6–24 months.
+            <br />
+            Renting first allows you to:
+          </p>
+
+          <ul className="space-y-2">
+            {[
+              "Learn neighborhoods",
+              "Understand pricing",
+              "Build savings",
+              "Make a confident purchase decision",
+            ].map((item) => (
+              <li key={item} className="flex items-center gap-3 text-[#2D2D2D] text-base">
+                <span className="text-[#1B2F5E] font-bold text-xs">»</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+
+          <p className="text-[#2D2D2D] text-base leading-relaxed pt-2">
+            WhyTennessee.com helps renters transition smoothly into homeownership
+            when the time is right.
+          </p>
+        </div>
+      </div>
+    </section>
+
             {/* Explore Cities Section */}
             <section className="container mx-auto px-4 py-16">
                 <h2 className="mb-12 text-center text-3xl font-bold">
