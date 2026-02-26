@@ -4,7 +4,7 @@ export default function MovingToTennessee() {
   return (
         <div
         className="container mx-auto px-4 py-12 flex flex-col lg:flex-row items-center gap-8 lg:gap-12 font-montserrat">
-        <div className="flex flex-col justify-center w-full lg:w-1/2">
+        <div className="flex flex-col justify-center w-full lg:w-1/2 order-2 lg:order-1">
             <h3 className="text-2xl sm:text-3xl lg:text-[42px] text-foreground font-bold font-montserrat mb-10">Why People Are
                 Moving to Tennessee</h3>
             <p className="text-sm sm:text-base font-montserrat font-normal text-foreground mb-8">
@@ -72,14 +72,14 @@ export default function MovingToTennessee() {
                 Tennessee offers a unique balance of affordability, opportunity, and quality of life.
             </p>
         </div>
-        <div className="w-full lg:w-1/2">
-            <div className="flex flex-col sm:flex-row gap-3">
+        <div className="w-full lg:w-1/2 order-1 lg:order-2">
+            <div className="flex flex-col sm:flex-row justify-center xl:justify-end gap-3">
                 <div className="rounded-2xl overflow-hidden shadow-lg w-full sm:w-[300px] sm:shrink-0 h-48 sm:h-[420px]">
                     <img src="/assets/images/Gatlinburg_-TN-cityscape-2048x1188.jpeg" alt="Tennessee Home"
                         className="w-full h-full object-cover" />
                 </div>
                 <div
-                    className="rounded-2xl overflow-hidden shadow-lg w-full sm:w-[300px] sm:shrink-0 h-48 sm:h-[420px] mt-12">
+                    className="rounded-2xl overflow-hidden shadow-lg w-full sm:w-[300px] sm:shrink-0 h-48 sm:h-[420px] sm:mt-12">
                     <img src="/assets/images/Memphis_-Tennessee_-USA-skyline-over-Beale-Street-2048x1367.jpeg"
                         alt="Tennessee Home" className="w-full h-full object-cover" />
                 </div>

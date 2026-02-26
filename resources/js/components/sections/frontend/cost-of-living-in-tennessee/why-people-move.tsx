@@ -7,7 +7,7 @@ export default function WhyPeopleMove() {
                     Why People Move to Tennessee for Affordability
                 </h2>
 
-                <div className="grid grid-cols-1 items-stretch gap-8 md:grid-cols-2">
+                <div className="grid grid-cols-1 items-stretch gap-8 lg:grid-cols-2">
                     {/* Left Card: People relocating often cite */}
                     <div className="flex flex-col rounded-lg border-b-4 border-[#1e3a62] bg-white p-8 shadow-sm">
                         <p className="mb-6 text-lg text-gray-800">

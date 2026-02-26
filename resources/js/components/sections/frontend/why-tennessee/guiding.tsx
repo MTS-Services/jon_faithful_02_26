@@ -4,8 +4,8 @@ export default function Guiding() {
   return (
         <div className=" bg-muted px-4 py-16 md:py-36">
 
-        <div className="container mx-auto flex flex-col md:flex-row items-center gap-16 md:gap-12 font-montserrat">
-            <div className="w-full relative mb-20 md:mb-0">
+        <div className="container mx-auto flex flex-col lg:flex-row items-center gap-16 md:gap-12 lg:gap-16 font-montserrat">
+            <div className="w-full relative mb-20 lg:mb-0">
                 <div className="rounded-2xl overflow-hidden shadow-lg w-[90%] md:w-full">
                     <img src="/assets/images/pexels-denil-33475257-2048x1366.jpg" alt="Tennessee Home"
                         className="w-full h-64 md:h-[400px] object-cover" />

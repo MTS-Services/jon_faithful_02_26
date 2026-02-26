@@ -2,7 +2,7 @@ export default function WhyTrust() {
     return (
         <div className="relative mt-10 flex min-h-[500px] w-full items-center justify-center overflow-hidden py-12 md:mt-20 md:py-20">
             <img
-                src="/assets/images/pexels-kelly-34088068-1-scaled.jpg"
+                src="/assets/images/why-tennessee/Custom-Built-Homes.webp"
                 alt="apartment-building-in-sunny-day-scaled"
                 className="absolute top-0 left-0 h-full w-full object-cover"
             />
