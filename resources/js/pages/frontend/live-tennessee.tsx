@@ -2,7 +2,7 @@ import InfoTabsSection from '@/components/sections/frontend/cities/info-tabs-sec
 import { Hero } from '@/components/sections/frontend/hero'
 import AgentCard from '@/components/ui/agent-card'
 import FrontendLayout from '@/layouts/frontend-layout'
-import { ArrowRightIcon } from 'lucide-react';
+import { ArrowRightIcon, LocateFixedIcon, LocateIcon, LocateOffIcon, MapPinIcon } from 'lucide-react';
 import React from 'react'
 
 const tabs = [
@@ -12,11 +12,11 @@ const tabs = [
     title: 'Schools & Education',
     intro: 'Nashville provides extensive education options:',
     items: [
-      'Public schools serving the city',
-      'Private school options nearby',
-      'Access to Northeast State Community College and ETSU',
+      'Public and private K-12 schools',
+      'Charter and magnet schools',
+      'Universities including Vanderbilt University, Belmont University, and Tennessee State University',
     ],
-    footer: 'Education options support families relocating to the area.',
+    footer: 'Education access is a major draw for families relocating to the area.',
     imageUrl:
       '/assets/images/moving-checklist/Pupils-leaving.jpeg',
   },
@@ -24,47 +24,55 @@ const tabs = [
     id: 'tab2',
     label: 'Best Places',
     title: 'Best Places to Live in Tennessee for Families',
-    intro: 'Nashville offers a range of education options:',
+    intro: 'Top family-friendly cities:',
     items: [
-      'Healthcare and medical services',
-      'Manufacturing and logistics',
-      'Technology and startups',
-      'Education and government',
+      'Franklin',
+      'Murfreesboro',
+      'Kingsport',
+      'Clarksville',
+      'Johnson City',
     ],
     footer: 'Major healthcare systems and employers support long-term job stability in the region.',
     imageUrl: '/assets/images/Team_of_Medical.jpeg',
+     itemIcon: <MapPinIcon   size={16} />
   },
   {
     id: 'tab3',
-    label: 'Things to Do in Chattanooga',
-    title: 'Things to Do in Chattanooga',
-    intro: 'Chattanooga is an outdoor lover’s paradise:',
+    label: 'Growth & Investment',
+    title: 'Best Places to Live in Tennessee for Growth & Investment',
+    intro: 'Cities with strong long-term growth:',
     items: [
-      'Hiking and climbing at Lookout Mountain',
-      'Rock climbing, kayaking, and paddleboarding',
-      'Tennessee Aquarium and riverfront parks',
-      'Bike trails and greenways',
-      'Festivals, live music, and local breweries',
+      'Nashville',
+      'Franklin',
+      'Chattanooga',
+      'Murfreesboro',
+      'Knoxville',
     ],
-    footer: 'Chattanooga offers a year-round active lifestyle with city conveniences.',
+    footer: '',
     imageUrl: '/assets/images/pexels-kelly-2519390-scaled-1-2048x1536.jpg',
+    itemIcon: <MapPinIcon   size={16} />
   },
   {
     id: 'tab4',
-    label: 'Homes for Sale in Chattanooga',
-    title: 'Homes for Sale in Chattanooga',
-    intro: 'Chattanooga’s housing market includes:',
+    label: 'Find Homes & Rentals',
+    title: 'Find Homes & Rentals in Tennessee',
+    intro: 'WhyTennessee.com helps you:',
     items: [
-      'Single-family homes',
-      'Townhomes and condos',
-      'New construction communities',
-      'Mountain and river-view properties',
+      'Compare cities',
+      'Browse homes for sale',
+      'Find rentals',
+      'Connect with trusted local realtors',
     ],
     footer: 'Housing options range from affordable starter homes to luxury properties in Signal Mountain and riverfront areas.',
     imageUrl: '/assets/images/Beautiful_home_exterior.jpeg',
     cta: {
-      label: 'Homes for Sale',
+      label: 'View Homes for Sale in Tennessee',
       href: '/homes-for-sale',
+      icon: '',
+    },
+    cta2: {
+      label: 'Rentals in Tennessee',
+      href: '/rentals',
       icon: '',
     },
   },
@@ -84,7 +92,7 @@ export default function LiveTennessee() {
 
 
       <section>
-        <div className=" py-28  flex items-center justify-center p-6 font-sans">
+        <div className="py-12 lg:py-28 flex items-center justify-center font-sans px-4">
           <div className="container mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 gap-y-32 items-center">
             <div className="relative">
               <div className="relative z-10  overflow-hidden aspect-video bg-black flex items-center justify-center">
@@ -111,7 +119,7 @@ export default function LiveTennessee() {
                 />
               </div>
             </div>
-            <div className=" pl-12">
+            <div className="pl-4 md:pl-12">
               <h1 className="text-4xl font-semibold text-slate-800 leading-tight">
                 What Makes a City One of the Best in Tennessee?
               </h1>
@@ -146,7 +154,7 @@ export default function LiveTennessee() {
       </section>
 
       <section>
-        <div className="bg-primary-background py-28 flex items-center justify-center p-8 font-sans">
+        <div className="bg-primary-background py-12 lg:py-28 flex items-center justify-center p-4 font-sans">
           <div className="container mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
             <div className="order-2 lg:order-1 space-y-6">
@@ -159,9 +167,7 @@ export default function LiveTennessee() {
               </p>
 
               <p className="text-slate-700 leading-relaxed">
-                Best for: Jobs, culture, and long-term growth.
-                Nashville is Tennessee's economic engine and cultural hub. It offers a booming job market,
-                diverse neighborhoods, and strong appreciation potential. Why people choose Nashville:
+                Best for: Jobs, culture, and long-term growth Nashville is Tennessee’s economic engine and cultural hub. It offers a booming job market, diverse neighborhoods, and strong appreciation potential. Why people choose Nashville:
               </p>
 
               <ul className="space-y-2 text-slate-700">
@@ -217,31 +223,29 @@ export default function LiveTennessee() {
           {/* Right Column: Content */}
           <div className="order-2 space-y-6">
             <h2 className="text-4xl lg:text-5xl font-bold text-slate-800 leading-tight">
-              Best Overall Cities to Live in Tennessee
+             Best Overall Cities to Live in Tennessee
             </h2>
 
             <p className="text-yellow-600 font-semibold uppercase tracking-widest text-sm">
-              Nashville
+              Franklin
             </p>
 
             <p className="text-slate-700 leading-relaxed text-lg">
-              <span className="font-bold text-slate-800">Best for: Jobs, culture, and long-term growth.</span>
-              Nashville is Tennessee's economic engine and cultural hub. It offers a booming job market,
-              diverse neighborhoods, and strong appreciation potential. Why people choose Nashville:
+             Best for: Families, schools, and upscale living Franklin consistently ranks as one of the best places to live in the Southeast. Why people choose Franklin:
             </p>
 
             <ul className="space-y-3 text-slate-700">
               <li className="flex items-start ">
                 <span className="mr-3 text-xl leading-none text-black">•</span>
-                <span>Strong employment in healthcare, tech, and entertainment</span>
+                <span>Top-rated schools</span>
               </li>
               <li className="flex items-start ">
                 <span className="mr-3 text-xl leading-none text-black">•</span>
-                <span>Vibrant music and food scene</span>
+                <span>Luxury and master-planned communities</span>
               </li>
               <li className="flex items-start ">
                 <span className="mr-3 text-xl leading-none text-black">•</span>
-                <span>Big-city amenities without coastal prices</span>
+                <span>Historic downtown charm</span>
               </li>
             </ul>
 
@@ -258,7 +262,7 @@ export default function LiveTennessee() {
         </div>
       </section>
 
-      <section className="bg-chart-2 py-20 rounded-t-[3rem]  my-10 font-sans">
+      <section className="bg-chart-2 py-20 rounded-t-[3rem] p-4  my-10 font-sans">
         <div className="container mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-white text-3xl md:text-5xl font-bold leading-tight">
@@ -272,8 +276,7 @@ export default function LiveTennessee() {
             <div className="bg-white rounded-xl p-8 shadow-lg flex flex-col items-center text-center">
               <h3 className="text-2xl font-bold text-slate-800 mb-4">Knoxville</h3>
               <p className="text-slate-600 text-sm leading-relaxed mb-8 flex-grow">
-                <span className="font-semibold text-slate-700">Best for: Balanced city life & outdoor access</span>
-                Knoxville offers a mix of affordability, jobs, and proximity to the Smoky Mountains.
+                Best for: Balanced city life & outdoor access Knoxville offers a mix of affordability, jobs, and proximity to the Smoky Mountains.
               </p>
               <a href={route('frontend.livingInKnoxville')} className="bg-chart-2 text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-slate-700 transition-colors">
                 Explore Living in Knoxville
@@ -283,8 +286,7 @@ export default function LiveTennessee() {
             <div className="bg-white rounded-xl p-8 shadow-lg flex flex-col items-center text-center">
               <h3 className="text-2xl font-bold text-slate-800 mb-4">Johnson City</h3>
               <p className="text-slate-600 text-sm leading-relaxed mb-8 flex-grow">
-                <span className="font-semibold text-slate-700">Best for: Affordability & quality of life</span>
-                Johnson City is one of the most underrated cities in Tennessee, especially for families and healthcare professionals.
+                Best for: Affordability & quality of life Johnson City is one of the most underrated cities in Tennessee, especially for families and healthcare professionals.
               </p>
               <a href={route('frontend.livingInJohnsonCity')} className="bg-chart-2 text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-slate-700 transition-colors">
                 Explore Living in Johnson City
@@ -294,8 +296,7 @@ export default function LiveTennessee() {
             <div className="bg-white rounded-xl p-8 shadow-lg flex flex-col items-center text-center">
               <h3 className="text-2xl font-bold text-slate-800 mb-4">Chattanooga</h3>
               <p className="text-slate-600 text-sm leading-relaxed mb-8 flex-grow">
-                <span className="font-semibold text-slate-700">Best for: Outdoor lifestyle & scenic beauty</span>
-                Chattanooga blends mountains, riverfront living, and a growing tech scene.
+                Best for: Outdoor lifestyle & scenic beauty Chattanooga blends mountains, riverfront living, and a growing tech scene.
               </p>
               <a href={route('frontend.livingInChattanooga')} className="bg-chart-2 text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-slate-700 transition-colors">
                 Explore Living in Chattanooga
@@ -305,8 +306,7 @@ export default function LiveTennessee() {
             <div className="bg-white rounded-xl p-8 shadow-lg flex flex-col items-center text-center">
               <h3 className="text-2xl font-bold text-slate-800 mb-4">Murfreesboro</h3>
               <p className="text-slate-600 text-sm leading-relaxed mb-8 flex-grow">
-                <span className="font-semibold text-slate-700">Best for: Families & Nashville commuters</span>
-                Murfreesboro is one of the fastest-growing cities in the state.
+                Best for: Families & Nashville commuters Murfreesboro is one of the fastest-growing cities in the state.
               </p>
               <a href={route('frontend.livingInMurfreesboro')} className="bg-chart-2 text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-slate-700 transition-colors">
                 Explore Living in Murfreesboro
@@ -316,8 +316,7 @@ export default function LiveTennessee() {
             <div className="bg-white rounded-xl p-8 shadow-lg flex flex-col items-center text-center">
               <h3 className="text-2xl font-bold text-slate-800 mb-4">Clarksville</h3>
               <p className="text-slate-600 text-sm leading-relaxed mb-8 flex-grow">
-                <span className="font-semibold text-slate-700">Best for: Military families & affordability</span>
-                Clarksville offers strong job stability and affordable housing near Fort Campbell.
+                Best for: Military families & affordability Clarksville offers strong job stability and affordable housing near Fort Campbell.
               </p>
               <a href={route('frontend.livingInClarksville')} className="bg-chart-2 text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-slate-700 transition-colors">
                 Explore Living in Clarksville
@@ -327,8 +326,7 @@ export default function LiveTennessee() {
             <div className="bg-white rounded-xl p-8 shadow-lg flex flex-col items-center text-center">
               <h3 className="text-2xl font-bold text-slate-800 mb-4">Cookeville</h3>
               <p className="text-slate-600 text-sm leading-relaxed mb-8 flex-grow">
-                <span className="font-semibold text-slate-700">Best for: Small-city living & outdoor access</span>
-                Cookeville is perfect for buyers wanting peace, affordability, and nature.
+                Best for: Small-city living & outdoor access Cookeville is perfect for buyers wanting peace, affordability, and nature.
               </p>
               <a href={route('frontend.livingInCookeville')} className="bg-chart-2 text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-slate-700 transition-colors">
                 Explore Living in Cookeville
