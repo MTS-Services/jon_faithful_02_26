@@ -1,9 +1,9 @@
 export default function FindHomes() {
     return (
         <section className="bg-white px-4 py-20 font-montserrat md:px-10 lg:px-20">
-            <div className="container mx-auto flex flex-col items-center gap-12 md:flex-row">
+            <div className="container mx-auto flex flex-col items-center gap-12 lg:flex-row">
                 {/* Image Area */}
-                <div className="w-full md:w-1/2">
+                <div className="w-full lg:w-1/2">
                     <div className="group relative">
                         <div className="overflow-hidden rounded-xl border-4 shadow-2xl">
                             <img
@@ -15,7 +15,7 @@ export default function FindHomes() {
                     </div>
                 </div>
                 {/* Text Content Area */}
-                <div className="w-full md:w-1/2">
+                <div className="w-full lg:w-1/2">
                     <h2 className="mb-6 text-3xl font-bold text-[#2d3748] md:text-4xl">
                         Find Homes & Realtors in Tennessee
                     </h2>

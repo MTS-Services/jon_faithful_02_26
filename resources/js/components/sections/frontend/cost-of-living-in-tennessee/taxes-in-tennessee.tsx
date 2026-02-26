@@ -3,10 +3,10 @@ import React from 'react';
 export default function TaxesInTennessee() {
     return (
         <section className="bg-white py-20 px-4 md:px-10 lg:px-20 font-montserrat">
-            <div className="container mx-auto flex flex-col md:flex-row items-center gap-12">
+            <div className="container mx-auto flex flex-col lg:flex-row items-center gap-12">
                 
                 {/* Text Content Area */}
-                <div className="w-full md:w-1/2">
+                <div className="w-full lg:w-1/2 order-2 lg:order-1">
                     <h2 className="text-3xl md:text-4xl font-bold text-[#2d3748] mb-6">
                         Taxes in Tennessee
                     </h2>
@@ -50,7 +50,7 @@ export default function TaxesInTennessee() {
                 </div>
 
                 {/* Image Area */}
-                <div className="w-full md:w-1/2">
+                <div className="w-full lg:w-1/2 order-1 lg:order-2">
                     <div className="relative group">
                       
                     
@@ -58,7 +58,7 @@ export default function TaxesInTennessee() {
                             <img
                                 src="/assets/images/pexels-mineiamartins-32775636-2048x1365.jpg"
                                 alt="Nashville Tennessee Cityscape"
-                                className="w-full h-[350px] md:h-[500px] object-cover"
+                                className="w-full h-87.5 lg:h-125 object-cover"
                             />
                         </div>
                     </div>
