@@ -29,17 +29,13 @@ const Partner = () => {
                         <br />
                         Publicly Launches
                     </h1>
-                    <p className="mt-6 max-w-3xl text-lg leading-relaxed text-white/80">
+                    <p className="mt-6 max-w-3xl text-lg leading-relaxed text-white">
                         WhyTennessee.com is a Tennessee-focused relocation and
                         discovery platform built to help people moving into the
                         state confidently choose where to live, rent, or buy.
                     </p>
-                    <p className="mt-3 max-w-3xl text-lg leading-relaxed text-white/80">
-                        We are currently inviting a limited number of local real
-                        estate professionals to join as Founding Realtor
-                        Partners. This early-access opportunity is designed for
-                        agents seeking increased visibility and early exposure
-                        to motivated buyers.
+                    <p className="mt-3 max-w-3xl text-lg leading-relaxed text-white">
+                        We are currently inviting a limited number of local real estate professionals to join as Founding Realtor Partners before public launch. This early-access opportunity is designed for agents who want increased visibility, long-term positioning, and early exposure to motivated buyers relocating to Tennessee.
                     </p>
                     {!auth.user ? (
                         <>
@@ -108,7 +104,7 @@ const Partner = () => {
             {/* WHY DIFFERENT SECTION */}
             <section className="py-20 bg-primary-background">
                 <div className="container mx-auto grid items-center gap-16 px-4 md:grid-cols-2 lg:px-16">
-                    <div>
+                    <div className="order-2 md:order-1">
                         <h2 className="mb-4 text-xl md:text-2xl lg:text-4xl leading-tight font-bold sm:mb-5 md:mb-6">
                             Why WhyTennessee.com Is Different
                         </h2>
@@ -139,7 +135,7 @@ const Partner = () => {
                         </p>
                     </div>
 
-                    <div className="grid h-[500px] grid-cols-1 gap-4 md:grid-cols-2">
+                    <div className="order-1 md:order-2 grid h-[300px] md:h-[500px]  gap-4 grid-cols-2">
                         <img
                             src="assets/images/partners/Apartments-in-2048x1365.jpeg"
                             className="h-full w-full rounded-2xl object-cover shadow-lg"
@@ -155,7 +151,7 @@ const Partner = () => {
             </section>
 
             {/* BENEFIT CARDS */}
-            <section className="rounded-t-[60px] bg-[#f0f0f0] px-6 py-20 md:rounded-t-[100px]">
+            <section className="rounded-t-none bg-[#f0f0f0] px-6 py-20 md:rounded-t-[100px]">
                 <div className="container mx-auto flex flex-col gap-8 md:flex-row">
                     {/* Card 1 */}
                     <div className="flex-1 rounded-2xl bg-primary p-8 text-white shadow-xl">
@@ -174,10 +170,10 @@ const Partner = () => {
                             {[
                                 'Featured property listings',
                                 'Agent profile with contact information',
-                                'Placement on Tennessee city pages',
-                                'Exposure to motivated buyers',
+                                'Placement on relevant city pages',
+                                'Exposure to relocation-focused buyers',
                                 'Priority consideration for future upgrades',
-                                'Early positioning before launch traffic increases',
+                                'Early positioning before public launch traffic increases',
                             ].map((benefit, idx) => (
                                 <li
                                     key={idx}
@@ -264,7 +260,7 @@ const Partner = () => {
 
             <section className="py-20 bg-primary-background">
                 <div className="container mx-auto grid items-center gap-16 px-4 md:grid-cols-2 lg:px-16">
-                    <div>
+                    <div className="order-2 md:order-1">
                         <h2 className="mb-4 text-xl md:text-2xl lg:text-4xl leading-tight font-bold sm:mb-5 md:mb-6">
                             Who This Is Best For
                         </h2>
@@ -292,7 +288,7 @@ const Partner = () => {
                         </p>
                     </div>
 
-                    <div className="grid h-[500px] grid-cols-1 gap-4 md:grid-cols-2">
+                    <div className="order-1 md:order-2 grid h-[300px] md:h-125 gap-4 grid-cols-2">
                         <img
                             src="assets/images/partners/Apartments-in-2048x1365.jpeg"
                             className="h-full w-full rounded-2xl object-cover shadow-lg"
@@ -309,7 +305,7 @@ const Partner = () => {
 
             {/* PROCESS STEPS */}
             <section className="bg-primary px-6 py-20">
-                <h2 className="mb-16 text-center text-4xl font-bold text-white md:text-5xl">
+                <h2 className="mb-16 text-center text-2xl sm:text-4xl font-bold text-white md:text-5xl">
                     How the Process Works
                 </h2>
                 <div className="container mx-auto grid grid-cols-1 gap-4 sm:grid-cols-3 lg:grid-cols-5">

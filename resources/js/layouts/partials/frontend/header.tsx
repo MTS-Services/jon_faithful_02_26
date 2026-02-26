@@ -21,45 +21,69 @@ function FrontendHeader ({activePage, subPage}:Props) {
     setActiveMobileSubmenu(activeMobileSubmenu === id ? null : id);
   };
 
-  const cities = [
-    { name: "Bristol", route: "bristol" },
-    { name: "Chattanooga", route: "chattanooga" },
-    { name: "Cookeville", route: "living-in-cookeville" },
-    { name: "Nashville", route: "living-in-nashville" },
-    { name: "Knoxville", route: "living-in-knoxville" },
-    { name: "Johnson City", route: "living-in-johnson-city" },
-    { name: "Franklin", route: "living-in-franklin" },
-    { name: "Memphis", route: "living-in-memphis" },
-    { name: "Clarksville", route: "living-in-clarksville" },
-    { name: "Murfreesboro", route: "living-in-murfreesboro" },
-    { name: "Kingsport", route: "living-in-kingsport" },
-    { name: "Jackson", route: "living-in-jackson" },
-  ];
-  const movingTopics1 = [
-    { name: 'About Why Tennessee', route: 'why-tennessee' },
-    { name: 'Tennessee Relocation Guide', route: 'tennessee-relocation' },
-    { name: 'Cost of Living in Tennessee', route: 'cost-of-living-in-tennessee' },
-    { name: 'Pros & Cons of Living in Tennessee', route: 'pros-cons-living-in-tennessee' },
-    { name: 'Best Places to Live in Tennessee', route: 'live-tennessee' },
-    // { name: 'Buying', route: 'buying' },
-  ]
-  const movingTopics2 = [
-    { name: 'Renting in Tennessee', route: 'renting-tennessee' },
-    { name: 'Cost of Renting in Tennessee', route: 'cost-of-renting-tennessee' },
-    { name: 'Renting vs Buying in Tennessee', route: 'renting-buy' },
-    { name: 'Moving to Tennessee & Renting First', route: 'moving-tennessee-renting' },
-  ]
-  const movingTopics3 = [
-    { name: 'Moving Checklist', route: 'moving-checklist' },
-    { name: 'City Comparison', route: 'city-comparison' },
-    { name: 'Download Guide (PDF)', route: '#' },
-    { name: 'Real Estate Agents', route: 'real-estate-agents' },
-  ]
+  type NavItem = {
+    name: string;
+    routeName?: string;
+    href?: string;
+    activeKey?: string;
+  };
 
-  const movingTopics4 = [
-    { name: 'Buying in Tennessee', route: '#' },
-    { name: 'Cost of buying in Tennessee', route: '#' },
-  ]
+  const resolveNavHref = (item: NavItem): string => {
+    if (item.routeName) {
+      return route(`frontend.${item.routeName}`);
+    }
+
+    return item.href ?? '#';
+  };
+
+  const cities: NavItem[] = [
+    { name: "Bristol", routeName: "livingInBristol" },
+    { name: "Chattanooga", routeName: "livingInChattanooga" },
+    { name: "Cookeville", routeName: "livingInCookeville" },
+    { name: "Nashville", routeName: "livingInNashville" },
+    { name: "Knoxville", routeName: "livingInKnoxville" },
+    { name: "Johnson City", routeName: "livingInJohnsonCity" },
+    { name: "Franklin", routeName: "livingInFranklin" },
+    { name: "Memphis", routeName: "living-in-memphis" },
+    { name: "Clarksville", routeName: "livingInClarksville" },
+    { name: "Murfreesboro", routeName: "livingInMurfreesboro" },
+    { name: "Kingsport", routeName: "livingInKingsport" },
+    { name: "Jackson", routeName: "livingInJackson" },
+  ];
+
+  const movingTopics1: NavItem[] = [
+    { name: 'About Why Tennessee', routeName: 'why-tennessee' },
+    { name: 'Tennessee Relocation Guide', routeName: 'tennessee-relocation' },
+    { name: 'Cost of Living in Tennessee', routeName: 'cost-of-living-in-tennessee' },
+    { name: 'Pros & Cons of Living in Tennessee', routeName: 'pros-cons-tennessee' },
+    { name: 'Best Places to Live in Tennessee', routeName: 'livetennessee' },
+  ];
+
+  const movingTopics2: NavItem[] = [
+    { name: 'Renting in Tennessee', routeName: 'rentingTennessee' },
+    { name: 'Cost of Renting in Tennessee', routeName: 'cost-of-renting-tennessee' },
+    { name: 'Renting vs Buying in Tennessee', routeName: 'renting-buy' },
+    { name: 'Moving to Tennessee & Renting First', routeName: 'moving-tennessee-renting' },
+  ];
+
+  const movingTopics3: NavItem[] = [
+    { name: 'Moving Checklist', routeName: 'movingChecklist' },
+    { name: 'City Comparison', routeName: 'city-comparison' },
+    { name: 'Download Guide (PDF)', href: '#' },
+    { name: 'Real Estate Agents', routeName: 'realEstateAgents' },
+  ];
+
+  const movingTopics4: NavItem[] = [
+    { name: 'Buying in Tennessee', routeName: 'buying' },
+    { name: 'Cost of buying in Tennessee', href: '#' },
+  ];
+
+  const navigation: NavItem[] = [
+    { name: 'Home', routeName: 'home', activeKey: 'home' },
+    { name: 'Homes for Sale', routeName: 'home-for-sale', activeKey: 'homes-for-sale' },
+    { name: 'Rentals', routeName: 'rentals', activeKey: 'rentals' },
+    { name: 'Partner Program', routeName: 'partnerProgram', activeKey: 'Partner Program' },
+  ];
 
   return (
     <>
@@ -126,10 +150,9 @@ function FrontendHeader ({activePage, subPage}:Props) {
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex space-x-8 items-center h-full">
-              <Link href="/" className={`text-muted-foreground hover:text-secondary font-medium transition-colors ${activePage === 'home' ? 'text-secondary' : 'text-muted-foreground'}`} >Home</Link>
-              <Link href={route('frontend.home-for-sale')} className={`text-muted-foreground hover:text-secondary font-medium transition-colors ${activePage === 'homes-for-sale' ? 'text-secondary' : 'text-muted-foreground'}`}>Homes for Sale</Link>
-              <Link href={route('frontend.rentals')} className={`text-muted-foreground hover:text-secondary font-medium transition-colors ${activePage === 'rentals' ? 'text-secondary' : 'text-muted-foreground'}`}>Rentals</Link>
-
+              {navigation.map((item) => (
+                <Link key={item.name} href={resolveNavHref(item)} className={`text-muted-foreground hover:text-secondary font-medium transition-colors ${activePage === item.name ? 'text-secondary' : 'text-muted-foreground'}`}>{item.name}</Link>
+              ))}
               {/* Cities Dropdown */}
               <div className="relative group h-full flex items-center">
                 <button className={`text-muted-foreground group-hover:text-secondary font-medium flex items-center focus:outline-none transition-colors ${activePage === 'city' ? 'text-secondary' : 'text-muted-foreground'}`}>
@@ -137,7 +160,7 @@ function FrontendHeader ({activePage, subPage}:Props) {
                 </button>
                 <div className="absolute top-full left-0 w-56 bg-white shadow-lg rounded-b-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
                   {cities.map((city) => (
-                    <Link href={`/${city.route}`} className={`block px-4 py-2 text-sm text-muted-foreground hover:text-white hover:bg-secondary transition-colors ${subPage === city.name ? 'text-white bg-secondary' : ''}`}>
+                    <Link key={city.name} href={resolveNavHref(city)} className={`block px-4 py-2 text-sm text-muted-foreground hover:text-white hover:bg-secondary transition-colors ${subPage === city.name ? 'text-white bg-secondary' : ''}`}>
                       {city.name}
                     </Link>
                   ))}
@@ -156,7 +179,7 @@ function FrontendHeader ({activePage, subPage}:Props) {
                     <ul className="space-y-3">
                       {movingTopics1.map((item) => (
                         <li key={item.name}>
-                          <Link href={`/${item.route}`} className={`flex items-center text-sm text-muted-foreground hover:text-secondary transition-colors ${subPage === item.name ? 'text-secondary' : ''}`}>
+                          <Link href={resolveNavHref(item)} className={`flex items-center text-sm text-muted-foreground hover:text-secondary transition-colors ${subPage === item.name ? 'text-secondary' : ''}`}>
                             <span className="text-primary mr-2 font-bold">
                               <MdDoubleArrow size={14} />
                             </span> {item.name}
@@ -171,7 +194,7 @@ function FrontendHeader ({activePage, subPage}:Props) {
                     <ul className="space-y-3">
                       {movingTopics2.map((item) => (
                         <li key={`/${item.name}`} id={item.name}>
-                          <Link href={item.route} className={`flex items-center text-sm text-muted-foreground hover:text-secondary transition-colors ${subPage === item.name ? 'text-secondary' : ''}`}>
+                          <Link href={resolveNavHref(item)} className={`flex items-center text-sm text-muted-foreground hover:text-secondary transition-colors ${subPage === item.name ? 'text-secondary' : ''}`}>
                             <span className="text-primary mr-2 font-bold">
                               <MdDoubleArrow size={14} />
                             </span> {item.name}
@@ -181,12 +204,12 @@ function FrontendHeader ({activePage, subPage}:Props) {
                     </ul>
                   </div>
 
-                   <div>
+                  <div>
                     <h3 className="text-lg font-bold text-primary mb-4 border-b pb-2">Buying:</h3>
                     <ul className="space-y-3">
                       {movingTopics4.map((item) => (
                         <li key={`/${item.name}`} id={item.name}>
-                          <Link href={item.route} className={`flex items-center text-sm text-muted-foreground hover:text-secondary transition-colors ${subPage === item.name ? 'text-secondary' : ''}`}>
+                          <Link href={resolveNavHref(item)} className={`flex items-center text-sm text-muted-foreground hover:text-secondary transition-colors ${subPage === item.name ? 'text-secondary' : ''}`}>
                             <span className="text-primary mr-2 font-bold">
                               <MdDoubleArrow size={14} />
                             </span> {item.name}
@@ -201,7 +224,7 @@ function FrontendHeader ({activePage, subPage}:Props) {
                     <ul className="space-y-3">
                       {movingTopics3.map((item) => (
                         <li key={item.name}>
-                          <Link href={`/${item.route}`} className={`flex items-center text-sm text-muted-foreground hover:text-secondary transition-colors ${subPage === item.name ? 'text-secondary' : ''}`}>
+                          <Link href={resolveNavHref(item)} className={`flex items-center text-sm text-muted-foreground hover:text-secondary transition-colors ${subPage === item.name ? 'text-secondary' : ''}`}>
                             <span className="text-primary mr-2 font-bold">
                               <MdDoubleArrow size={14} />
                             </span> {item.name}
@@ -212,21 +235,19 @@ function FrontendHeader ({activePage, subPage}:Props) {
                   </div>
                 </div>
               </div>
-
-              <Link href="/partner-program" className={`text-muted-foreground hover:text-secondary font-medium transition-colors ${activePage === 'Partner Program' ? 'text-secondary' : 'text-muted-foreground'}`}>Partner Program</Link>
             </nav>
 
             {/* Desktop Right CTA / Mobile Toggle */}
             <div className="flex items-center gap-4">
               {!auth.user ? (
                 <>
-                  <ActionButton rightIcon={ArrowRight} className="hidden sm:flex px-6 py-4 rounded-full" IconNode={ArrowRight} href={route('user.choose')}>
+                  <ActionButton rightIcon={ArrowRight} className="hidden md:flex px-8! py-5! rounded-full" IconNode={ArrowRight} href={route('user.choose')}>
                     Login/Registration
                   </ActionButton>
                 </>
               ) : (
                 <>
-                  <ActionButton rightIcon={ArrowRight} className="hidden sm:flex px-6 py-4 rounded-full" IconNode={ArrowRight} href={route('user.dashboard')}>
+                  <ActionButton rightIcon={ArrowRight} className="hidden md:flex px-8! py-5! rounded-full" IconNode={ArrowRight} href={route('user.dashboard')}>
                     Account
                   </ActionButton>
                 </>
@@ -245,10 +266,9 @@ function FrontendHeader ({activePage, subPage}:Props) {
         {/* Mobile Menu */}
         <div className={`${isMobileMenuOpen ? 'block' : 'hidden'} lg:hidden bg-white border-t border-gray-200 absolute w-full shadow-xl`}>
           <div className="px-4 py-6 space-y-2 max-h-[80vh] overflow-y-auto">
-            <Link href="/" className="block px-3 py-2 rounded-md text-base font-medium text-muted-foreground hover:bg-gray-50">Home</Link>
-            <Link href="#" className="block px-3 py-2 rounded-md text-base font-medium text-muted-foreground hover:bg-gray-50">Homes for Sale</Link>
-            <Link href="#" className="block px-3 py-2 rounded-md text-base font-medium text-muted-foreground hover:bg-gray-50">Rentals</Link>
-
+            {navigation.map((item) => (
+              <Link key={item.name} href={resolveNavHref(item)} className="block px-3 py-2 rounded-md text-base font-medium text-muted-foreground hover:bg-gray-50">{item.name}</Link>
+            ))}
             {/* Mobile Cities Submenu */}
             <div className="border-b border-gray-100 pb-2">
               <button
@@ -260,7 +280,7 @@ function FrontendHeader ({activePage, subPage}:Props) {
               {activeMobileSubmenu === 'cities' && (
                 <div className="pl-6 space-y-1 bg-gray-50 rounded-lg py-2">
                   {cities.map(city => (
-                    <Link key={city.name} href={`/${city.route}`} className="block px-3 py-2 text-sm text-muted-foreground">{city.name}</Link>
+                    <Link key={city.name} href={resolveNavHref(city)} className="block px-3 py-2 text-sm text-muted-foreground">{city.name}</Link>
                   ))}
                 </div>
               )}
@@ -278,23 +298,23 @@ function FrontendHeader ({activePage, subPage}:Props) {
                 <div className="pl-6 space-y-2 bg-gray-50 rounded-lg py-3">
                   <p className="px-3 text-xs font-bold text-secondary uppercase">What You Need to Know:</p>
                   {movingTopics1.map((item) => (
-                    <Link key={item.name} href={`/${item.route}`} className="block px-3 py-1 text-sm text-muted-foreground">{item.name}</Link>
+                    <Link key={item.name} href={resolveNavHref(item)} className="block px-3 py-1 text-sm text-muted-foreground">{item.name}</Link>
                   ))}
 
                   <p className="px-3 text-xs font-bold text-secondary uppercase">Renting:</p>
                   {movingTopics2.map((item) => (
-                    <Link key={item.name} href={`/${item.route}`} className="block px-3 py-1 text-sm text-muted-foreground">{item.name}</Link>
+                    <Link key={item.name} href={resolveNavHref(item)} className="block px-3 py-1 text-sm text-muted-foreground">{item.name}</Link>
                   ))}
 
                   <p className="px-3 text-xs font-bold text-secondary uppercase">Helpful Tools:</p>
                   {movingTopics3.map((item) => (
-                    <Link key={item.name} href={`/${item.route}`} className="block px-3 py-1 text-sm text-muted-foreground">{item.name}</Link>
+                    <Link key={item.name} href={resolveNavHref(item)} className="block px-3 py-1 text-sm text-muted-foreground">{item.name}</Link>
                   ))}
                 </div>
               )}
             </div>
 
-            <Link href="/partner-program" className="block px-3 py-2 text-base font-medium text-muted-foreground hover:bg-gray-50">Partner Program</Link>
+            <Link href={route('frontend.partnerProgram')} className="block px-3 py-2 text-base font-medium text-muted-foreground hover:bg-gray-50">Partner Program</Link>
 
             {/* <Link href={route('login')} className="block w-full text-center mt-6 bg-primary text-white px-5 py-4 rounded-xl font-bold">
               Login / Registration

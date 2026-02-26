@@ -1,13 +1,13 @@
 export default function WhyPeopleMove() {
     return (
         <section className="bg-[#f3f4f6] px-4 py-16 font-montserrat">
-            <div className="mx-auto max-w-7xl">
+            <div className="mx-auto container px-4">
                 {/* Main Heading */}
                 <h2 className="mb-12 text-center text-2xl font-bold text-[#1a1a1a] md:text-4xl">
                     Why People Move to Tennessee for Affordability
                 </h2>
 
-                <div className="grid grid-cols-1 items-stretch gap-8 md:grid-cols-2">
+                <div className="grid grid-cols-1 items-stretch gap-8 lg:grid-cols-2">
                     {/* Left Card: People relocating often cite */}
                     <div className="flex flex-col rounded-lg border-b-4 border-[#1e3a62] bg-white p-8 shadow-sm">
                         <p className="mb-6 text-lg text-gray-800">

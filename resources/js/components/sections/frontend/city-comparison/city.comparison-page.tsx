@@ -105,7 +105,7 @@ export default function CityComparisonPage() {
             <section className="py-16 bg-gray-50">
                 <div className="container mx-auto px-6">
                     <div className="flex flex-col lg:flex-row items-center">
-                        <div className="lg:w-1/2">
+                        <div className="order-2 lg:order-1 lg:w-1/2">
                             <h2 className="text-3xl md:text-4xl font-bold text-dark mb-8">
                                 How to Use This Guide
                             </h2>
@@ -113,26 +113,24 @@ export default function CityComparisonPage() {
                             <ul className="space-y-0">
                                 <li className="flex items-start">
                                     <span className="text-black text-xl mr-3 mt-1">•</span>
-                                    <span className="text-gray-700 text-lg">Compare key metrics across Tennessee's top cities</span>
+                                    <span className="text-gray-700 text-lg">Compare cities quickly</span>
                                 </li>
                                 <li className="flex items-start">
                                     <span className="text-black text-xl mr-3 mt-1">•</span>
-                                    <span className="text-gray-700 text-lg">Find detailed information on housing, jobs, and
-                                        schools</span>
+                                    <span className="text-gray-700 text-lg">Match cities to your lifestyle and budget</span>
                                 </li>
                                 <li className="flex items-start">
                                     <span className="text-black text-xl mr-3 mt-1">•</span>
-                                    <span className="text-gray-700 text-lg">Discover lifestyle amenities and local
-                                        attractions</span>
+                                    <span className="text-gray-700 text-lg">Decide where to rent or buy</span>
                                 </li>
                                 <li className="flex items-start">
                                     <span className="text-black text-xl mr-3 mt-1">•</span>
-                                    <span className="text-gray-700 text-lg">Make informed decisions about your Tennessee move</span>
+                                    <span className="text-gray-700 text-lg">Narrow down your relocation search</span>
                                 </li>
                             </ul>
                         </div>
 
-                        <div className="lg:w-2/5">
+                        <div className="order-1 lg:order-2 lg:w-2/5">
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="flex items-center ">
                                     <img src="assets/images/moving-checklist/Aerial-View-over-the-Buildings-and-Infrastructure-in-Clarksville-Tennessee-2048x1151.jpeg" alt="Tennessee City"
@@ -164,11 +162,11 @@ export default function CityComparisonPage() {
                                     <img src={city.image}
                                         alt={city.name} className="w-full h-48 object-cover" />
                                     <div className="p-6">
-                                        <h3 className="text-xl font-bold text-primary mb-3">{city.name}</h3>
+                                        <h3 className="text-xl font-semibold text-primary mb-3">{city.name}</h3>
                                         <div className="space-y-2 text-md">
-                                            <div className="flex gap-2">
+                                            <div className="flex gap-1">
                                                 <span className="font-bold">Best for:</span>
-                                                <span className="font-medium text-primary">{city.bestFor}</span>
+                                                <span className="font-medium text-primary ">{city.bestFor}</span>
                                             </div>
                                             <div className="flex gap-2">
                                                 <span className="font-bold">Vibe:</span>

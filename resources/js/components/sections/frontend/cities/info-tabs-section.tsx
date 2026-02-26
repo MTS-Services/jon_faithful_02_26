@@ -1,3 +1,4 @@
+import { Link } from 'lucide-react';
 import { useState } from 'react';
 import { FaArrowAltCircleRight } from 'react-icons/fa';
 
@@ -18,6 +19,12 @@ interface TabContent {
         href: string;
         icon: React.ReactNode;
     };
+    cta2?: {
+        label: string;
+        href: string;
+        icon: React.ReactNode;
+    };
+    itemIcon?: React.ReactNode;
 }
 
 export default function InfoTabsSection({ tabs }: { tabs: TabContent[] }) {
@@ -32,10 +39,11 @@ export default function InfoTabsSection({ tabs }: { tabs: TabContent[] }) {
                         <button
                             key={tab.id}
                             onClick={() => setActiveTab(tab.id)}
-                            className={`rounded-full px-3 py-2 font-medium transition sm:px-4 sm:py-3 sm:font-bold md:px-6 md:py-5 ${activeTab === tab.id
+                            className={`rounded-full px-3 py-2 font-medium transition sm:px-4 sm:py-3 sm:font-bold md:px-6 md:py-5 ${
+                                activeTab === tab.id
                                     ? 'scale-105 bg-secondary text-white'
                                     : 'bg-slate-800 text-white hover:bg-secondary'
-                                }`}
+                            }`}
                         >
                             {tab.label}
                         </button>
@@ -46,7 +54,7 @@ export default function InfoTabsSection({ tabs }: { tabs: TabContent[] }) {
                 {tabs.map((tab) => (
                     <div
                         key={tab.id}
-                        className={`${activeTab === tab.id ? 'grid' : 'hidden'} items-center gap-12 md:grid-cols-2 shadow-xl rounded-2xl border-2 border-slate-100`}
+                        className={`${activeTab === tab.id ? 'grid' : 'hidden'} items-center gap-12 rounded-2xl border-2 border-slate-100 shadow-xl md:grid-cols-2`}
                     >
                         {/* <img
                             src={tab.imageUrl}
@@ -71,15 +79,48 @@ export default function InfoTabsSection({ tabs }: { tabs: TabContent[] }) {
                             />
                         ) : null}
 
-                        <div className='p-3'>
+                        <div className="p-3">
                             <h2 className="mb-6 text-4xl font-bold">
                                 {tab.title}
                             </h2>
                             <p className="mb-6 text-gray-600">{tab.intro}</p>
-
                             <p className="mb-2 text-gray-600">{tab.intro2}</p>
-
                             <ul className="space-y-4">
+                                {tab.items.map((item, i) => (
+                                    <li
+                                        key={i}
+                                        className="flex items-center gap-3"
+                                    >
+                                        <div>
+                                            {tab.itemIcon ? (
+                                                tab.itemIcon
+                                            ) : (
+                                                <FaArrowAltCircleRight
+                                                    size={16}
+                                                    className="text-secondary"
+                                                />
+                                            )}
+                                        </div>
+                                        <span>{item}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                            <ul className="space-y-4">
+                                {tab.items2?.map((item, i) => (
+                                    <li
+                                        key={i}
+                                        className="flex items-center gap-3"
+                                    >
+                                        {tab.itemIcon ? (
+                                            tab.itemIcon
+                                        ) : (
+                                            <FaArrowAltCircleRight className="text-secondary" />
+                                        )}
+                                        <span>{item}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                            {/* <ul className="space-y-4">
                                 {tab.items.map((item, i) => (
                                     <li key={i} className="flex gap-3 items-center">
                                         <div>
@@ -103,20 +144,34 @@ export default function InfoTabsSection({ tabs }: { tabs: TabContent[] }) {
                                         <span>{item}</span>
                                     </li>
                                 ))}
-                            </ul>
-
+                            </ul> */}
                             <p className="mt-8 border-l-4 border-secondary pl-4">
                                 {tab.footer}
                             </p>
-
-                            {tab.id === 'tab4' && (
-                                <a
-                                    href={tab.cta?.href}
-                                    className="mt-8 inline-flex items-center gap-2 rounded-full bg-slate-900 px-8 py-4 font-bold text-white"
-                                >
-                                    {tab.cta?.label} {tab.cta?.icon}
-                                </a>
-                            )}
+                          <div>
+                            {
+                            tab.cta && (
+                              <a
+                                href={tab.cta?.href}
+                                className="mt-8 inline-flex items-center gap-2 rounded-full bg-slate-900 px-8 py-4 font-bold text-white"
+                              >
+                                {tab.cta?.label} {tab.cta?.icon}
+                              </a>
+                            )
+                          }
+                          </div>
+                          <div>
+                             {
+                            tab.cta2  && (
+                              <a
+                                href={tab.cta2?.href}
+                                className="mt-4 inline-flex items-center gap-2 rounded-full bg-slate-900 px-8 py-4 font-bold text-white"
+                              >
+                                {tab.cta2?.label} {tab.cta2?.icon}
+                              </a>
+                            )
+                           }
+                          </div>
                         </div>
                     </div>
                 ))}

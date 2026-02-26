@@ -7,7 +7,7 @@ export default function UtilitiesMonthlyBills() {
                         <img
                             src="/assets/images/pexels-kelly-4765246-2048x1151.jpg"
                             alt="Nashville Skyline"
-                            className="h-72 w-full rounded-xl object-cover lg:h-full"
+                            className="h-72 md:h-full w-full rounded-xl object-cover "
                         />
                     </div>
 
