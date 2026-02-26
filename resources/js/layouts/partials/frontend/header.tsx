@@ -241,13 +241,13 @@ function FrontendHeader ({activePage, subPage}:Props) {
             <div className="flex items-center gap-4">
               {!auth.user ? (
                 <>
-                  <ActionButton rightIcon={ArrowRight} className="hidden sm:flex px-6 py-4 rounded-full" IconNode={ArrowRight} href={route('user.choose')}>
+                  <ActionButton rightIcon={ArrowRight} className="hidden md:flex px-8! py-5! rounded-full" IconNode={ArrowRight} href={route('user.choose')}>
                     Login/Registration
                   </ActionButton>
                 </>
               ) : (
                 <>
-                  <ActionButton rightIcon={ArrowRight} className="hidden sm:flex px-6 py-4 rounded-full" IconNode={ArrowRight} href={route('user.dashboard')}>
+                  <ActionButton rightIcon={ArrowRight} className="hidden md:flex px-8! py-5! rounded-full" IconNode={ArrowRight} href={route('user.dashboard')}>
                     Account
                   </ActionButton>
                 </>
