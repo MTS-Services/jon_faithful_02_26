@@ -80,14 +80,14 @@ export default function RentingSections() {
                         </p>
                     </div>
 
-                   <div className="order-1 md:order-2">
-                     <video className="rounded-lg" controls>
-                        <source
-                            src="assets/images/Slider-Shot-of-Luxury-Apartments-in-the-Suburbs.mp4"
-                            type="video/mp4"
-                        />
-                    </video>
-                   </div>
+                    <div className="order-1 md:order-2">
+                        <video className="rounded-lg" controls>
+                            <source
+                                src="assets/images/Slider-Shot-of-Luxury-Apartments-in-the-Suburbs.mp4"
+                                type="video/mp4"
+                            />
+                        </video>
+                    </div>
                 </div>
             </section>
 
@@ -173,7 +173,7 @@ export default function RentingSections() {
             {/* Neighborhoods Section */}
             <section className="container mx-auto px-4 py-16">
                 <div className="mb-12">
-                    <h2 className=" text-center text-xl font-bold md:text-3xl lg:text-4xl">
+                    <h2 className="text-center text-xl font-bold md:text-3xl lg:text-4xl">
                         Average Rent in Tennessee
                     </h2>
                     <p className="mt-4 text-center">
@@ -363,7 +363,6 @@ export default function RentingSections() {
                             </h3>
                             <p className="mb-6 text-sm text-gray-600">
                                 Most Tennessee rentals require:
-
                             </p>
                             <ul className="space-y-1 text-sm">
                                 <li className="text-md flex items-center gap-2">
@@ -457,7 +456,7 @@ export default function RentingSections() {
             {/* Pet Friendly Section */}
             <section className="container mx-auto px-4 py-16">
                 <div className="grid items-center gap-8 md:grid-cols-2">
-                    <div className="flex h-full w-full flex-col justify-center bg-primary-background p-8">
+                    <div className="order-2 flex h-full w-full flex-col justify-center bg-primary-background p-8 md:order-1">
                         <h3 className="mb-6 text-2xl font-semibold lg:text-4xl">
                             Pet Friendly Rentals in Tennessee
                         </h3>
@@ -509,11 +508,13 @@ export default function RentingSections() {
                             apartments.
                         </p>
                     </div>
-                    <img
-                        src="assets/images/renting-tennessee/Four-young-friends-playing-with-a-dog_-spending-time-together-on-a-porch-of-a-country-house-on-the-evening-scaled.jpeg"
-                        alt="Pet friendly"
-                        className="h-full min-h-[400px] w-full rounded-tl-4xl rounded-br-4xl object-cover"
-                    />
+                    <div className="order-1 md:order-2">
+                        <img
+                            src="assets/images/renting-tennessee/Four-young-friends-playing-with-a-dog_-spending-time-together-on-a-porch-of-a-country-house-on-the-evening-scaled.jpeg"
+                            alt="Pet friendly"
+                            className="h-full min-h-[400px] w-full rounded-tl-4xl rounded-br-4xl object-cover"
+                        />
+                    </div>
                     <video
                         className="h-full min-h-[400px] w-full rounded-tl-4xl rounded-br-4xl object-cover"
                         controls
@@ -578,7 +579,6 @@ export default function RentingSections() {
                         </ul>
                         <p className="mt-6 text-sm text-white">
                             Most renters will need a personal vehicle.
-
                         </p>
                     </div>
                 </div>
@@ -683,51 +683,56 @@ export default function RentingSections() {
                 </div>
             </section>
 
-            <section className="w-full bg-[#F2EDE4] py-16 px-8 md:px-20">
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12">
-        
-        {/* Left: Title */}
-        <div className="md:w-2/5 flex-shrink-0">
-          <h2 className="text-4xl font-bold text-[#1A1A1A] leading-tight">
-            Renting First
-          </h2>
-          <h2 className="text-4xl font-bold text-[#B8922A] leading-tight">
-            Buying Later
-          </h2>
-        </div>
+            <section className="w-full bg-[#F2EDE4] px-8 py-16 md:px-20">
+                <div className="mx-auto flex max-w-6xl flex-col items-center gap-12 md:flex-row">
+                    {/* Left: Title */}
+                    <div className="flex-shrink-0 md:w-2/5">
+                        <h2 className="text-4xl leading-tight font-bold text-[#1A1A1A]">
+                            Renting First
+                        </h2>
+                        <h2 className="text-4xl leading-tight font-bold text-[#B8922A]">
+                            Buying Later
+                        </h2>
+                    </div>
 
-        {/* Divider */}
-        <div className="hidden md:block self-stretch border-l border-dashed border-[#C8BCA8]" />
+                    {/* Divider */}
+                    <div className="hidden self-stretch border-l border-dashed border-[#C8BCA8] md:block" />
 
-        {/* Right: Content */}
-        <div className="md:w-3/5 space-y-5">
-          <p className="text-[#2D2D2D] text-base leading-relaxed">
-            Many renters eventually become buyers within 6–24 months.
-            <br />
-            Renting first allows you to:
-          </p>
+                    {/* Right: Content */}
+                    <div className="space-y-5 md:w-3/5">
+                        <p className="text-base leading-relaxed text-[#2D2D2D]">
+                            Many renters eventually become buyers within 6–24
+                            months.
+                            <br />
+                            Renting first allows you to:
+                        </p>
 
-          <ul className="space-y-2">
-            {[
-              "Learn neighborhoods",
-              "Understand pricing",
-              "Build savings",
-              "Make a confident purchase decision",
-            ].map((item) => (
-              <li key={item} className="flex items-center gap-3 text-[#2D2D2D] text-base">
-                <span className="text-[#1B2F5E] font-bold text-xs">»</span>
-                {item}
-              </li>
-            ))}
-          </ul>
+                        <ul className="space-y-2">
+                            {[
+                                'Learn neighborhoods',
+                                'Understand pricing',
+                                'Build savings',
+                                'Make a confident purchase decision',
+                            ].map((item) => (
+                                <li
+                                    key={item}
+                                    className="flex items-center gap-3 text-base text-[#2D2D2D]"
+                                >
+                                    <span className="text-xs font-bold text-[#1B2F5E]">
+                                        »
+                                    </span>
+                                    {item}
+                                </li>
+                            ))}
+                        </ul>
 
-          <p className="text-[#2D2D2D] text-base leading-relaxed pt-2">
-            WhyTennessee.com helps renters transition smoothly into homeownership
-            when the time is right.
-          </p>
-        </div>
-      </div>
-    </section>
+                        <p className="pt-2 text-base leading-relaxed text-[#2D2D2D]">
+                            WhyTennessee.com helps renters transition smoothly
+                            into homeownership when the time is right.
+                        </p>
+                    </div>
+                </div>
+            </section>
 
             {/* Explore Cities Section */}
             <section className="container mx-auto px-4 py-16">
@@ -789,7 +794,10 @@ export default function RentingSections() {
                         Final Thoughts
                     </h2>
                     <p className="text-gray-600">
-                       Renting in Tennessee offers flexibility, affordability, and access to diverse cities and lifestyles. Whether you plan to rent short-term or long-term, Tennessee provides strong value compared to many other states
+                        Renting in Tennessee offers flexibility, affordability,
+                        and access to diverse cities and lifestyles. Whether you
+                        plan to rent short-term or long-term, Tennessee provides
+                        strong value compared to many other states
                     </p>
                 </div>
             </section>
