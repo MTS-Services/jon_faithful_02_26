@@ -5,7 +5,7 @@ export default function HomePriceRanges() {
                 Home Price Ranges by Tennessee Region
             </h2>
             <div className="container mx-auto">
-                <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+                <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
                     <div className="rounded-2xl border border-muted shadow-sm">
                         <div className="h-[300px]">
                             <img

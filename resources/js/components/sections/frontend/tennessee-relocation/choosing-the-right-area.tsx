@@ -7,7 +7,7 @@ export default function ChoosingTheRightArea() {
             <h2 className="text-primary-foreground text-3xl md:text-4xl lg:text-[42px] font-bold font-montserrat mb-12">Choosing the Right Area in
                 Tennessee</h2>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
                 <div className="bg-background p-8 rounded-2xl text-left shadow-sm">
                     <h3 className="text-2xl font-semibold text-secondary-foreground font-montserrat mb-4">East Tennessee</h3>

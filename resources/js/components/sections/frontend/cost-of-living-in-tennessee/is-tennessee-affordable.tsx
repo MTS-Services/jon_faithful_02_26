@@ -2,8 +2,8 @@ export default function IsTennesseeAffordable() {
     return (
         <div>
             <div className="bg-muted px-4 py-16 md:py-36">
-                <div className="container mx-auto flex flex-col items-center gap-12 px-4 py-12 font-montserrat md:flex-row">
-                    <div className="w-full">
+                <div className="container mx-auto flex flex-col items-center gap-12 px-4 py-12 font-montserrat lg:flex-row">
+                    <div className="w-full order-2 lg:order-1">
                         <h2 className="mb-6 font-montserrat text-3xl font-semibold text-secondary-foreground">
                             Is Tennessee Affordable?
                         </h2>
@@ -13,7 +13,7 @@ export default function IsTennesseeAffordable() {
                         </p>
 
                         <ul className="mb-2 ml-4 space-y-3">
-                            <li className="flex items-start gap-3">
+                            <li className="flex items-start items-center gap-3">
                                 <span className="mt-[6px] shrink-0">
                                     <svg
                                         width="6"
@@ -30,7 +30,7 @@ export default function IsTennesseeAffordable() {
                                 </p>
                             </li>
 
-                            <li className="flex items-start gap-3">
+                            <li className="flex items-start items-center gap-3">
                                 <span className="mt-[6px] shrink-0">
                                     <svg
                                         width="6"
@@ -53,7 +53,7 @@ export default function IsTennesseeAffordable() {
                         </p>
                     </div>
 
-                    <div className="relative mb-20 w-full md:mb-0">
+                    <div className="relative mb-20 w-full lg:mb-0 order-1 lg:order-2">
                         <div className="w-[90%] overflow-hidden rounded-2xl shadow-lg md:w-full">
                             <img
                                 src="/assets/images/Aerial-View-of-Murfreesboro_-Tennessee-at-Sunrise-2048x1364 (1).jpeg"

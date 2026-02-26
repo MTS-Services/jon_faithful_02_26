@@ -18,13 +18,12 @@ const tabs = [
             'District boundaries',
             'Commute times',
         ],
-        footer: 'Education access is a major draw for families relocating to the area.',
         imageUrl: '/assets/images/Knoxville-high-school-tn1-scaled-1-2048x944.jpg',
     },
     {
         id: 'tab2',
-        label: 'Healthcare & Employment',
-        title: 'Healthcare & Employment',
+        label: 'Jobs & Employment',
+        title: 'Jobs & Employment',
         intro: 'Tennessee has strong job growth in:',
         intro2: '',
         items: [
@@ -59,7 +58,6 @@ const tabs = [
             'Shorter commutes than many metro areas',
             'Minimal toll roads',
         ],
-        footer: 'Nashville offers big-city energy with Southern hospitality.',
         imageUrl:
             '/assets/images/Downtown-Vintage-Trolley-in-Memphis-Tennessee-2048x1367.jpeg',
     },
@@ -75,11 +73,6 @@ const tabs = [
         ],
         footer: 'Severe weather can occur, but most residents find it manageable.',
         imageUrl: '/assets/images/Hay-bales-in-pasture-on-horse-farm-in-shadow-of-the-Blue-Ridge-Mountains-2048x1000.jpeg',
-        cta: {
-            label: 'Homes for Sale',
-            href: '/homes-for-sale',
-            icon: '',
-        },
     },
 ];
 export default function Tabs() {
