@@ -155,7 +155,7 @@ export default function JacksonPage({ city }: { city: City }) {
                 </p>
 
                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-                    <CostCard title="Mediam home price" value="$225,000" />
+                    <CostCard title="Medium home price" value="$225,000" />
                     <CostCard
                         title="2-bedroom apartment"
                         value="$1,000–$1,300"
@@ -275,7 +275,7 @@ export default function JacksonPage({ city }: { city: City }) {
 
                     footer: 'For many relocating buyers, Jackson offers value, convenience, and comfort.',
                     cities: [
-                        { name: 'Memphis', route: route('frontend.livingInmeMphis') },
+                        { name: 'Memphis', route: route('frontend.living-in-memphis') },
                         { name: 'Nashville', route: route('frontend.livingInNashville') },
                         { name: 'Clarksville', route: route('frontend.livingInClarksville') },
                         { name: 'Cookeville', route: route('frontend.livingInCookeville') },

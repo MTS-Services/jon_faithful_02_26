@@ -163,7 +163,7 @@ const BristolPage: React.FC<{ city: any }> = ({ city }) => {
                 </p>
 
                 <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-                    <CostCard title="Mediam home price" value="$220,000" />
+                    <CostCard title="Medium home price" value="$220,000" />
                     <CostCard title="2-bedroom apartment" value="$900–$1,200" />
                     <CostCard title="Utilities" value="Below national avg" />
                     <CostCard title="Property taxes" value="Very Low" />

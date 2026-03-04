@@ -3,7 +3,7 @@ import React from 'react'
 export default function Hero() {
     return (
         <div
-            className="relative w-full h-[400px] md:h-[500px] bg-foreground flex items-center justify-center overflow-hidden">
+            className="relative w-full h-[200px] md:h-[300px] bg-foreground flex items-center justify-center overflow-hidden">
             <img src="/assets/images/apartment-building-in-sunny-day-scaled.jpeg" alt="Apartment building in Tennessee"
                 className="absolute top-0 left-0 w-full h-full object-cover" />
 

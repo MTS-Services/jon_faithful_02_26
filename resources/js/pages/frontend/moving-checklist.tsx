@@ -11,7 +11,7 @@ export default function MovingChecklist() {
                 ]}
                 title={
                     <>
-                        Moving to Tennessee Checklist
+                        The Ultimate Moving to Tennessee Checklist (2026 Relocation Guide)
                     </>
                 }
                 description={
