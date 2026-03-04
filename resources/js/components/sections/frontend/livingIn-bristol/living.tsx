@@ -5,7 +5,7 @@ const Living: React.FC = () => {
     <div className="font-sans text-gray-900">
       {/* HERO SECTION */}
       <section className="relative h-[70vh] flex items-center">
-        <img 
+        <img
           src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c"
           alt="Living in Bristol"
           className="absolute inset-0 w-full h-full object-cover"
@@ -60,12 +60,12 @@ const Living: React.FC = () => {
           </div>
 
           <div className="w-full grid grid-cols-2 gap-6">
-            <img 
+            <img
               src="assets/images/bristol/Bristol-Virginia-Tennessee-Slogan-Sign-at-night.jpeg"
               alt="Bristol State Line Sign"
               className="rounded-xl h-[500px] mb-16 object-cover"
             />
-            <video className="rounded h-full object-cover" controls>
+            <video className="rounded h-full object-cover" controls autoPlay loop playsInline>
               <source
                 src="assets/images/bristol/Bristol.mp4"
                 type="video/mp4"
@@ -80,7 +80,7 @@ const Living: React.FC = () => {
       <section className="bg-[#f8f5ef] py-16 rounded-[40px] lg:rounded-t-[80px]">
         <div className="container mx-auto px-4 lg:px-16 grid md:grid-cols-2 gap-16 items-center">
           <div className="rounded-md overflow-hidden shadow-lg h-[400px]">
-            <iframe 
+            <iframe
               title="Bristol Map"
               className="w-full h-full border-0"
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d51457.1062024796!2d-82.22271618683415!3d36.588667533816285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8850702df2f8f8b3%3A0x64e8e04e9c71c4c9!2sBristol%2C%20TN!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus"

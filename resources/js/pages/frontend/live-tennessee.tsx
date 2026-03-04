@@ -34,7 +34,7 @@ const tabs = [
     ],
     footer: 'Major healthcare systems and employers support long-term job stability in the region.',
     imageUrl: '/assets/images/Team_of_Medical.jpeg',
-     itemIcon: <MapPinIcon   size={16} />
+    itemIcon: <MapPinIcon size={16} />
   },
   {
     id: 'tab3',
@@ -50,7 +50,7 @@ const tabs = [
     ],
     footer: '',
     imageUrl: '/assets/images/pexels-kelly-2519390-scaled-1-2048x1536.jpg',
-    itemIcon: <MapPinIcon   size={16} />
+    itemIcon: <MapPinIcon size={16} />
   },
   {
     id: 'tab4',
@@ -99,8 +99,8 @@ export default function LiveTennessee() {
 
                 <video
                   className="w-full h-full object-cover"
+                  controls
                   autoPlay
-                  muted
                   loop
                   playsInline
                   poster="assets/images/live-in-tennessee/pexels-chaitaastic-3722911-scaled.jpg"
@@ -223,7 +223,7 @@ export default function LiveTennessee() {
           {/* Right Column: Content */}
           <div className="order-2 space-y-6">
             <h2 className="text-4xl lg:text-5xl font-bold text-slate-800 leading-tight">
-             Best Overall Cities to Live in Tennessee
+              Best Overall Cities to Live in Tennessee
             </h2>
 
             <p className="text-yellow-600 font-semibold uppercase tracking-widest text-sm">
@@ -231,7 +231,7 @@ export default function LiveTennessee() {
             </p>
 
             <p className="text-slate-700 leading-relaxed text-lg">
-             Best for: Families, schools, and upscale living Franklin consistently ranks as one of the best places to live in the Southeast. Why people choose Franklin:
+              Best for: Families, schools, and upscale living Franklin consistently ranks as one of the best places to live in the Southeast. Why people choose Franklin:
             </p>
 
             <ul className="space-y-3 text-slate-700">

@@ -151,8 +151,8 @@ export default function FileUpload({
             const currentFiles = Array.isArray(value)
                 ? value
                 : value
-                  ? [value]
-                  : [];
+                    ? [value]
+                    : [];
             const newFiles = [...currentFiles, ...filesToProcess];
             setFilePreviews([...filePreviews, ...previews]);
             onChange(newFiles);
@@ -272,7 +272,7 @@ export default function FileUpload({
                         'hover:border-primary hover:bg-accent/50',
                         'dark:border-gray-700 dark:hover:border-primary',
                         isDragging &&
-                            'scale-[1.02] border-primary bg-accent/50',
+                        'scale-[1.02] border-primary bg-accent/50',
                         disabled && 'cursor-not-allowed opacity-50',
                         error && 'border-red-500',
                         !multiple && filePreviews.length === 0 ? 'p-12' : 'p-6',
@@ -369,6 +369,9 @@ export default function FileUpload({
                                                         src={file.url}
                                                         className="h-full w-full object-cover"
                                                         controls
+                                                        autoPlay
+                                                        loop
+                                                        playsInline
                                                     />
                                                 ) : (
                                                     <Icon className="h-12 w-12 text-gray-400 dark:text-gray-600" />
@@ -454,6 +457,9 @@ export default function FileUpload({
                                                         src={preview.preview}
                                                         className="h-full w-full object-cover"
                                                         controls
+                                                        autoPlay
+                                                        loop
+                                                        playsInline
                                                     />
                                                 ) : (
                                                     <Icon className="h-12 w-12 text-gray-400 dark:text-gray-600" />

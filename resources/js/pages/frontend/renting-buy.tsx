@@ -724,7 +724,7 @@ const RentingBuy = () => {
                         This reduces risk and leads to better long-term
                         decisions.
                     </p>
-                    <a href={route('frontend.realEstateAgents')} className="rounded bg-secondary px-8 py-3 font-bold text-white shadow-lg transition">
+                    <a href={route('frontend.realtor')} className="rounded bg-secondary px-8 py-3 font-bold text-white shadow-lg transition">
                         Connect With a Tennessee Realtor →
                     </a>
                 </div>

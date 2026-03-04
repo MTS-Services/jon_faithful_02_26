@@ -13,7 +13,6 @@ const Partner = () => {
                     className="absolute inset-0 h-full w-full object-cover"
                     autoPlay
                     loop
-                    muted
                     playsInline
                 >
                     <source

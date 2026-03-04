@@ -39,11 +39,10 @@ export default function InfoTabsSection({ tabs }: { tabs: TabContent[] }) {
                         <button
                             key={tab.id}
                             onClick={() => setActiveTab(tab.id)}
-                            className={`rounded-full px-3 py-2 font-medium transition sm:px-4 sm:py-3 sm:font-bold md:px-6 md:py-5 ${
-                                activeTab === tab.id
+                            className={`rounded-full px-3 py-2 font-medium transition sm:px-4 sm:py-3 sm:font-bold md:px-6 md:py-5 ${activeTab === tab.id
                                     ? 'scale-105 bg-secondary text-white'
                                     : 'bg-slate-800 text-white hover:bg-secondary'
-                            }`}
+                                }`}
                         >
                             {tab.label}
                         </button>
@@ -67,8 +66,8 @@ export default function InfoTabsSection({ tabs }: { tabs: TabContent[] }) {
                                 src={tab.videoUrl}
                                 controls
                                 autoPlay
-                                muted
                                 loop
+                                playsInline
                                 className="h-full w-full object-cover shadow-2xl"
                             />
                         ) : tab.imageUrl ? (
@@ -148,30 +147,30 @@ export default function InfoTabsSection({ tabs }: { tabs: TabContent[] }) {
                             <p className="mt-8 border-l-4 border-secondary pl-4">
                                 {tab.footer}
                             </p>
-                          <div>
-                            {
-                            tab.cta && (
-                              <a
-                                href={tab.cta?.href}
-                                className="mt-8 inline-flex items-center gap-2 rounded-full bg-slate-900 px-8 py-4 font-bold text-white"
-                              >
-                                {tab.cta?.label} {tab.cta?.icon}
-                              </a>
-                            )
-                          }
-                          </div>
-                          <div>
-                             {
-                            tab.cta2  && (
-                              <a
-                                href={tab.cta2?.href}
-                                className="mt-4 inline-flex items-center gap-2 rounded-full bg-slate-900 px-8 py-4 font-bold text-white"
-                              >
-                                {tab.cta2?.label} {tab.cta2?.icon}
-                              </a>
-                            )
-                           }
-                          </div>
+                            <div>
+                                {
+                                    tab.cta && (
+                                        <a
+                                            href={tab.cta?.href}
+                                            className="mt-8 inline-flex items-center gap-2 rounded-full bg-slate-900 px-8 py-4 font-bold text-white"
+                                        >
+                                            {tab.cta?.label} {tab.cta?.icon}
+                                        </a>
+                                    )
+                                }
+                            </div>
+                            <div>
+                                {
+                                    tab.cta2 && (
+                                        <a
+                                            href={tab.cta2?.href}
+                                            className="mt-4 inline-flex items-center gap-2 rounded-full bg-slate-900 px-8 py-4 font-bold text-white"
+                                        >
+                                            {tab.cta2?.label} {tab.cta2?.icon}
+                                        </a>
+                                    )
+                                }
+                            </div>
                         </div>
                     </div>
                 ))}
