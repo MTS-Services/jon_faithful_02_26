@@ -31,7 +31,7 @@ export default function HousingCostsInTennessee() {
                             </span>
                             <div className="">
                                 <p className="font-montserrat text-base font-normal">
-                                    Statewide mediam home price: ~$330,000
+                                    Statewide medium home price: ~$330,000
                                 </p>
                             </div>
                         </div>

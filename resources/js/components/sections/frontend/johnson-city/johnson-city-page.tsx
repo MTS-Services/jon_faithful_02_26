@@ -88,7 +88,7 @@ const tabs = [
             'Proximity to Northeast State Community College',
         ],
         footer: 'Education and healthcare are two of the area’s strongest sectors.',
-        imageUrl: '/assets/images/pexels-denil-33448751-2048x1366 (1).jpg',
+        imageUrl: '/assets/images/johnson-city/JOHNSON-CITY_TN_USA-10-APRIL-2021-An-architectural-brick-sign-identifying-East-Tennessee-State-University.jpeg',
     },
     {
         id: 'tab2',
@@ -102,7 +102,7 @@ const tabs = [
             'Regional medical and specialty centers',
         ],
         footer: 'Healthcare professionals frequently relocate to Johnson City for long-term career opportunities.',
-        imageUrl: '/assets/images/pexels-kelly-2833739-2048x1150.jpg',
+        imageUrl: '/assets/images/johnson-city/nurse-preparing-medication-nursing-home.jpeg',
     },
     {
         id: 'tab3',
@@ -158,7 +158,7 @@ export default function JohnsonCityPage({ city }: { city: City }) {
                 </p>
 
                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-                    <CostCard title="Mediam home price" value="$285,000" />
+                    <CostCard title="Medium home price" value="$285,000" />
                     <CostCard
                         title="2-bedroom apartment"
                         value="$1,100–$1,400"

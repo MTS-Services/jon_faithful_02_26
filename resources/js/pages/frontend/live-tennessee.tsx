@@ -394,7 +394,7 @@ export default function LiveTennessee() {
           </p>
 
           <a
-            href={route('frontend.livingInmeMphis')}
+            href={route('frontend.living-in-memphis')}
             className="inline-block bg-chart-2  text-white text-sm font-medium py-3 px-8 rounded-full transition duration-300 shadow-lg border border-white/10"
           >
             Explore Living In Memphis

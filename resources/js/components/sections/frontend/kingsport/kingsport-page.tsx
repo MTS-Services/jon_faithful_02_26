@@ -158,7 +158,7 @@ export default function KingsportPage({ city }: { city: City }) {
                 </p>
 
                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-                    <CostCard title="Mediam home price" value="$240,000" />
+                    <CostCard title="Medium home price" value="$240,000" />
                     <CostCard title="2-bedroom apartment" value="$950–$1,200" />
                     <CostCard
                         title="Utilities"

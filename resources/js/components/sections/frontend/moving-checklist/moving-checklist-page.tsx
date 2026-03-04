@@ -91,8 +91,13 @@ const MovingChecklistPage = () => {
                                             <path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z" />
                                         </svg>
                                     </span>
-                                    <span>Compare major cities like <span className="text-gray-400">Nashville, Knoxville, Chattanooga,
-                                        Memphis, and Johnson City</span></span>
+                                    <span>Compare major cities like <span className="text-gray-400">
+                                        <Link href={route('frontend.livingInNashville')} className="hover:underline hover:text-black">Nashville</Link>,
+                                        &nbsp;<Link href={route('frontend.livingInKnoxville')} className="hover:underline hover:text-black">Knoxville</Link>,
+                                        &nbsp;<Link href={route('frontend.livingInChattanooga')} className="hover:underline hover:text-black">Chattanooga</Link>,
+                                        &nbsp;<Link href={route('frontend.living-in-memphis')} className="hover:underline hover:text-black">Memphis</Link>, and
+                                        &nbsp;<Link href={route('frontend.livingInJohnsonCity')} className="hover:underline hover:text-black">Johnson City</Link>
+                                    </span></span>
                                 </li>
                                 <li className="flex items-center gap-2">
                                     <span className="flex-shrink-0">
@@ -120,10 +125,10 @@ const MovingChecklistPage = () => {
                                 </li>
                             </ul>
 
-                            <button
+                            <Link href={route('frontend.city-comparison')}
                                 className="mt-4 px-8 py-3 bg-primary text-white font-semibold rounded-full hover:bg-secondary transition-colors">
                                 Explore Tennessee Cities
-                            </button>
+                            </Link>
                         </div>
 
                         <div className="relative order-1 md:order-2">
@@ -292,7 +297,7 @@ const MovingChecklistPage = () => {
 
                 <section className="bg-primary flex flex-col items-center py-16 px-6 font-sans">
                     <h2 className="text-white text-2xl sm:text-3xl md:text-[40px] font-semibold mb-12 tracking-tight">
-                        60 Days Before Moving
+                        8 Weeks Before Moving
                     </h2>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 container w-full">
@@ -385,7 +390,7 @@ const MovingChecklistPage = () => {
                 <section className="py-16 bg-white">
                     <div className="container mx-auto px-4">
                          <h2 className="text-2xl sm:text-3xl md:text-[40px] font-semibold mb-12 tracking-tight text-center">
-                        30 Days Before Moving
+                       4 Weeks Before Moving
                     </h2>
                         <div className="flex flex-wrap justify-center gap-4 mb-12">
                             {tabs.map((tab) => (
@@ -656,7 +661,7 @@ const MovingChecklistPage = () => {
                                     Compare Tennessee Cities
                                 </Link>
 
-                                <Link href={route('frontend.movingChecklist')}
+                                <Link href={route('frontend.rentals')}
                                     className="bg-secondary hover:bg-primary text-white py-4 px-8 rounded-full font-medium transition-colors text-center shadow-sm">
                                     Explore Tennessee Rentals
                                 </Link>
