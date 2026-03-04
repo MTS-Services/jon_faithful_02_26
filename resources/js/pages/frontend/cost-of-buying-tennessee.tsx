@@ -138,62 +138,49 @@ export default function CostOfBuyingTennessee() {
                 <section className="bg-[#1a2b4b] py-20 px-4 text-white">
                     <div className="container mx-auto">
                         <div className="text-center mb-16">
-                            <h2 className="text-3xl md:text-4xl font-bold mb-4">Average Home Prices in Tennessee</h2>
-                            <p className="text-slate-300">Median home price: $320,000 – $350,000</p>
+                            <h2 className="text-3xl md:text-4xl font-bold mb-4 font-['Playfair_Display']">Average Home Prices by City</h2>
+                            <p className="text-slate-300">Median State Price: $320,000 – $350,000</p>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
                             {[
-                                { city: 'Nashville', price: '$450,000 – $520,000' },
-                                { city: 'Franklin', price: '$750,000+' },
-                                { city: 'Knoxville', price: '$310,000 – $360,000' },
-                                { city: 'Chattanooga', price: '$300,000 – $340,000' },
-                                { city: 'Johnson City', price: '$340,000 – $360,000' },
-                                { city: 'Kingsport', price: '$250,000 – $270,000' },
-                                { city: 'Clarksville', price: '$300,000 – $320,000' },
+                                { city: 'Nashville', price: '$450,000 – $520,000', route: 'frontend.livingInNashville' },
+                                { city: 'Franklin', price: '$750,000+', route: 'frontend.livingInFranklin' },
+                                { city: 'Knoxville', price: '$310,000 – $360,000', route: 'frontend.livingInKnoxville' },
+                                { city: 'Chattanooga', price: '$300,000 – $340,000', route: 'frontend.livingInChattanooga' },
+                                { city: 'Johnson City', price: '$340,000 – $360,000', route: 'frontend.livingInJohnsonCity' },
+                                { city: 'Kingsport', price: '$250,000 – $270,000', route: 'frontend.livingInKingsport' },
+                                { city: 'Clarksville', price: '$300,000 – $320,000', route: 'frontend.livingInClarksville' },
                             ].map((item) => (
-                                <div key={item.city} className="bg-white/10 backdrop-blur-md p-6 rounded-xl border border-white/20 hover:bg-[#b89548] transition-all duration-300 group">
-                                    <MapPin className="mb-4 text-[#b89548] group-hover:text-white" />
-                                    <h3 className="text-xl font-bold mb-2">{item.city}</h3>
-                                    <p className="text-slate-300 group-hover:text-white/90">{item.price}</p>
-                                </div>
+                                <Link key={item.city} href={route(`${item.route}`)}>
+                                    <div className="bg-white/10 backdrop-blur-md p-6 rounded-xl border border-white/10 hover:bg-secondary/20 transition-all group">
+                                        <MapPin className="mb-4 text-secondary" />
+                                        <h3 className="text-xl font-bold mb-2">{item.city}</h3>
+                                        <p className="text-slate-300">{item.price}</p>
+                                    </div>
+                                </Link>
                             ))}
                         </div>
                     </div>
                 </section>
 
                 {/* Down Payment */}
-                <section className="container mx-auto px-4 md:px-8 py-14">
-                    <SectionTitle>Down Payment When Buying a House in Tennessee</SectionTitle>
-                    <p className="text-slate-600 mb-8 text-base leading-relaxed max-w-2xl mx-auto text-center">
-                        The down payment depends on the loan type you choose.
-                    </p>
-                    <div className="grid md:grid-cols-2 gap-8">
-                        {/* Loan Type Table */}
-                        <div>
-                            <p className="text-md tracking-widest text-amber-500 font-semibold mb-4">Typical Down Payments</p>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                {[
-                                    { label: "Conventional Loan", value: "5% – 20%" },
-                                    { label: "FHA Loan", value: "3.5%" },
-                                    { label: "VA Loan", value: "0%" },
-                                    { label: "USDA Loan", value: "0%" },
-                                ].map((item, i) => (
-                                    <CostCard key={i} title={item.label} value={item.value} />
-                                ))}
+                <section className="bg-[#f8f7f4] py-16">
+                    <div className="container mx-auto px-4 md:px-8">
+                        <SectionTitle className="text-center">Down Payment Options</SectionTitle>
+                        <div className="grid lg:grid-cols-2 gap-12 mt-12">
+                            <div className="grid grid-cols-2 gap-4">
+                                <CostCard title="Conventional" value="5% – 20%" />
+                                <CostCard title="FHA Loan" value="3.5%" />
+                                <CostCard title="VA Loan" value="0%" />
+                                <CostCard title="USDA Loan" value="0%" />
                             </div>
-                        </div>
-
-                        {/* Example Calculation */}
-                        <div>
-                            <p className="text-md tracking-widest text-amber-500 font-semibold mb-4">Example: $350,000 Home</p>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                {[
-                                    { label: "5% Down Payment", value: "$17,500" },
-                                    { label: "10% Down Payment", value: "$35,000" },
-                                    { label: "20% Down Payment", value: "$70,000" },
-                                ].map((item, i) => (
-                                    <CostCard key={i} title={item.label} value={item.value} />
-                                ))}
+                            <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+                                <h4 className="text-lg font-bold mb-6 text-slate-800 uppercase tracking-wider">Example: $350,000 Home</h4>
+                                <div className="space-y-4">
+                                    <CostItem label="5% Down Payment" value="$17,500" />
+                                    <CostItem label="10% Down Payment" value="$35,000" />
+                                    <CostItem label="20% Down Payment" value="$70,000" />
+                                </div>
                             </div>
                         </div>
                     </div>
