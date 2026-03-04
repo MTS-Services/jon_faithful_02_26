@@ -17,9 +17,9 @@ export default function ListRentalProperty() {
             <section className="relative flex min-h-[80vh] items-center overflow-hidden">
                 <video
                     className="absolute inset-0 h-full w-full object-cover"
+                    controls
                     autoPlay
                     loop
-                    muted
                     playsInline
                 >
                     <source

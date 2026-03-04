@@ -29,7 +29,7 @@ const RentingSections: React.FC = () => {
                 ]}
                 title={
                     <>
-                        Renting in Tennessee
+                        Renting in Tennessee (2026 Guide)
                     </>
                 }
                 description={

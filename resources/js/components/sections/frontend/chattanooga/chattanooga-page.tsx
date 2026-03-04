@@ -169,7 +169,7 @@ export default function ChattanoogaPage({ city }: { city: City }) {
                 </p>
 
                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-                    <CostCard title="Medium home price" value="$325,000" />
+                    <CostCard title="Median home price" value="$325,000" />
                     <CostCard
                         title="2-bedroom apartment"
                         value="$1,300–$1,700"

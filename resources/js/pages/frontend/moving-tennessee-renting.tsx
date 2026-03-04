@@ -14,8 +14,7 @@ const MovingTennesseeRenting = () => {
                 ]}
                 title={
                     <>
-                        Moving to Tennessee and Renting First:
-A Smart Relocation Strategy
+                        Moving to Tennessee and Renting First: A Smart Relocation Strategy
                     </>
                 }
                 description={
