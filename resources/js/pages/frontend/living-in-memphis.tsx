@@ -8,7 +8,7 @@ export default function LivingInMemphis({ city }: { city: City }) {
         <div>
             <FrontendLayout activePage="city" subPage="Memphis">
                 <Hero
-                    slides={['/assets/images/Hero-Aerial-panorama.jpeg']}
+                    slides={['/assets/images/herros/memphis-tennessee-downtown-skyline-aerial-view.jpeg']}
                     title={<>Living in Memphis, Tennessee</>}
                     description={
                         <>
