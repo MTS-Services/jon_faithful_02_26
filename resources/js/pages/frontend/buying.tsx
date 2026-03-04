@@ -8,10 +8,10 @@ import React from 'react'
 export default function Buying() {
   return (
     <FrontendLayout activePage="moving-to-tennessee" subPage="Buying">
-        <ExploreTennessee />
-            <TypesOfHomes />
-            <WhyBuy />
-            <BuyingAHome />
+      <ExploreTennessee />
+      <TypesOfHomes />
+      <WhyBuy />
+      <BuyingAHome />
     </FrontendLayout>
   )
 }

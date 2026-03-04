@@ -5,7 +5,7 @@ export default function WhyBuy() {
         <div className="bg-background mx-auto px-4 py-12">
         <div className="container mx-auto flex flex-col md:flex-row items-center gap-12">
             <div className="w-full h-full">
-                <video className="h-full" controls>
+                <video className="h-full" controls autoPlay loop playsInline>
                     <source className="h-full"
                         src="/assets/images/renting-buy/Blue.mp4"
                         type="video/mp4" />

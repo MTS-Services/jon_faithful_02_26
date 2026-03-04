@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 interface TabContent {
     id: string;
@@ -18,6 +18,16 @@ interface TabContent {
 
 export default function VideoTabsSection({ tabs }: { tabs: TabContent[] }) {
     const [activeTab, setActiveTab] = useState(tabs[0].id);
+    const videoRef = useRef<HTMLVideoElement>(null);
+
+    useEffect(() => {
+        if (videoRef.current) {
+            videoRef.current.currentTime = 0;
+            videoRef.current.play().catch(() => {
+                // Autoplay failed, user interaction might be required
+            });
+        }
+    }, [activeTab]);
 
     return (
         <section className="">
@@ -47,12 +57,13 @@ export default function VideoTabsSection({ tabs }: { tabs: TabContent[] }) {
                         {/* MEDIA SECTION */}
                         {tab.videoUrl ? (
                             <video
+                                ref={activeTab === tab.id ? videoRef : null}
                                 src={tab.videoUrl}
                                 controls
                                 autoPlay
-                                muted
                                 loop
-                                className="h-full w-full object-cover shadow-lg"
+                                playsInline
+                                className="h-full w-full object-cover rounded-lg shadow-lg"
                             />
                         ) : tab.imageUrl ? (
                             <img

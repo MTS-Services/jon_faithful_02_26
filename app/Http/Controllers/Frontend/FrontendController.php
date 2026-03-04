@@ -438,6 +438,10 @@ class FrontendController extends Controller
      {
           return Inertia::render('frontend/buying');
      }
+     public function costOfBuyingTennessee(): Response
+     {
+          return Inertia::render('frontend/cost-of-buying-tennessee');
+     }
 
      public function realtor(Request $request): Response
      {

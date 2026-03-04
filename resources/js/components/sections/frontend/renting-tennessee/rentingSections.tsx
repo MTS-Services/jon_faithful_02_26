@@ -81,7 +81,11 @@ export default function RentingSections() {
                     </div>
 
                     <div className="order-1 md:order-2">
-                        <video className="rounded-lg" controls>
+                        <video className="rounded-lg"
+                            controls
+                            autoPlay
+                            loop
+                            playsInline>
                             <source
                                 src="assets/images/Slider-Shot-of-Luxury-Apartments-in-the-Suburbs.mp4"
                                 type="video/mp4"
@@ -518,6 +522,9 @@ export default function RentingSections() {
                     <video
                         className="h-full min-h-[400px] w-full rounded-tl-4xl rounded-br-4xl object-cover"
                         controls
+                        autoPlay
+                        loop
+                        playsInline
                     >
                         <source
                             src="assets/images/renting-tennessee/Aerial-close-following-behind-grey-Sports-Car-nearby-a-river-at-sunset_-US-National-Park.mp4"
@@ -760,7 +767,7 @@ export default function RentingSections() {
                             city: 'Explore Cities',
                             desc: "Learn about Tennessee's neighborhoods",
                             button: 'Explore Cities →',
-                            href: route('frontend.livingInBristol'),
+                            href: route('frontend.city-comparison'),
                         },
                     ].map((item, i) => (
                         <div

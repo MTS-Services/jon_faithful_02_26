@@ -476,7 +476,7 @@ export default function MovingTennesseeRentingPage() {
                 <p className="text-slate-600 text-md mb-8">Ready to start your move?</p>
 
                 <div className="flex flex-wrap justify-center gap-4">
-                    <a href={route('frontend.city-comparison')} className="bg-primary text-white px-6 py-5 rounded-full text-md font-semibold flex items-center gap-2 hover:bg-secondary">
+                    <a href={route('frontend.rentals')} className="bg-primary text-white px-6 py-5 rounded-full text-md font-semibold flex items-center gap-2 hover:bg-secondary">
                         Browse Tennessee rental listings <ArrowRight size={14} />
                     </a>
                     <a href={route('frontend.city-comparison')} className="bg-primary text-white px-6 py-5 rounded-full text-md font-semibold flex items-center gap-2 hover:bg-secondary">
@@ -484,7 +484,7 @@ export default function MovingTennesseeRentingPage() {
                     </a>
                 </div>
                 <div className="mt-4 flex justify-center">
-                    <a href={route('frontend.realEstateAgents')} className="bg-primary text-white px-6 py-5 rounded-full text-md font-semi flex items-center gap-2 hover:bg-secondary">
+                    <a href={route('frontend.realtor')} className="bg-primary text-white px-6 py-5 rounded-full text-md font-semi flex items-center gap-2 hover:bg-secondary">
                         Connect with trusted local real estate professionals <ArrowRight size={14} />
                     </a>
                 </div>

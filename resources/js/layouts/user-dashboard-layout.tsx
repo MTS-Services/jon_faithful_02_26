@@ -13,8 +13,8 @@ export default function UserDashboardLayout({
             <FrontendLayout>
                 <div className="relative h-[400px] w-full items-center justify-center overflow-hidden md:h-[500px]">
                     <video
+                        controls
                         autoPlay
-                        muted
                         loop
                         playsInline
                         className="absolute top-0 left-0 h-full w-full object-cover"

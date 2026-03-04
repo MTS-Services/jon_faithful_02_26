@@ -3,9 +3,10 @@ export default function Hero() {
         <div className="relative flex h-[500px] w-full items-center justify-center overflow-hidden bg-foreground">
             <video
                 className="absolute top-0 left-0 h-full w-full object-cover"
+                controls
                 autoPlay
-                muted
                 loop
+                playsInline
             >
                 <source
                     src="/assets/images/homes-for-sale/Dolly-Zoom-Pool.mp4"
