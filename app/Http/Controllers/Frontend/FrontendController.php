@@ -472,4 +472,13 @@ class FrontendController extends Controller
                'selectedCityIds' => $selectedCityIds,
           ]);
      }
+     public function tennesseeRelocatedGuidePdf()
+     {
+          $path = public_path('assets/pdfs/Tennessee-Relocation-Guide.pdf');
+          if (!file_exists($path)) {
+               abort(404, 'PDF file not found');
+          }
+
+          return response()->download($path, 'Tennessee-Relocation-Guide.pdf');
+     }
 }

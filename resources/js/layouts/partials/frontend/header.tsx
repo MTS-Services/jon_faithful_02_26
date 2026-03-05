@@ -69,7 +69,7 @@ function FrontendHeader ({activePage, subPage}:Props) {
   const movingTopics3: NavItem[] = [
     { name: 'Moving Checklist', routeName: 'movingChecklist' },
     { name: 'City Comparison', routeName: 'city-comparison' },
-    { name: 'Download Guide (PDF)', href: '#' },
+    { name: 'Download Guide (PDF)', href: 'tennessee-relocated-guide-pdf' },
     { name: 'Real Estate Agents', routeName: 'realEstateAgents' },
   ];
 
