@@ -91,7 +91,7 @@ export default function CostOfBuyingTennessee() {
                 <Hero
                     height={"h-[calc(100vh-80px)] md:h-[500px]"}
                     slides={[
-                        // 'assets/images/moving-tennessee-renting/moving-tennessee-renting-banner.jpeg',
+                        'assets/images/moving-tennessee-renting/moving-tennessee-renting-banner.jpeg',
                     ]}
                     title={<>Cost of Buying a Home in Tennessee (2026 Guide)</>}
                     description={<>If you're thinking about moving to Tennessee, one of the biggest questions is:<br></br>
@@ -380,10 +380,11 @@ export default function CostOfBuyingTennessee() {
 
                 <section className="bg-[#f8f7f4] py-16 px-4 md:px-8">
                     <div className="container mx-auto max-w-5xl text-center">
-                        <SectionTitle className="mb-6">Thinking About Moving to Tennessee?</SectionTitle>
-                        <p className="text-slate-600 mb-10 text-lg max-w-3xl mx-auto leading-relaxed">
+                        <SectionTitle>Thinking About Moving to Tennessee?</SectionTitle>
+                        <p className="text-slate-600 text-lg max-w-3xl mx-auto leading-relaxed">
                             If you’re considering relocating to Tennessee, explore our guides to learn more about:
                         </p>
+                        <p className="text-slate-600 mb-6">These resources can help make your move easier and more informed.</p>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                             {[
@@ -409,7 +410,6 @@ export default function CostOfBuyingTennessee() {
                                 </Link>
                             ))}
                         </div>
-                        <p className="text-slate-600 mt-6">These resources can help make your move easier and more informed.</p>
                     </div>
                 </section>
             </FrontendLayout>
