@@ -307,10 +307,10 @@ export default function CityComparisonPage() {
                     </div>
 
                     <div className="flex flex-col lg:flex-row gap-4">
-                        <a href="#"
+                        {/* <a href="#"
                             className="px-8 py-4 bg-secondary hover:bg-primary text-white rounded-full font-semibold transition-all shadow-lg text-center whitespace-nowrap">
                             Explore Tennessee Cities
-                        </a>
+                        </a> */}
                         <a href={route('frontend.tennessee-relocation')}
                             className="px-8 py-4 bg-secondary hover:bg-primary text-white rounded-full font-semibold transition-all shadow-lg text-center whitespace-nowrap">
                             Get the Tennessee Relocation Guide
