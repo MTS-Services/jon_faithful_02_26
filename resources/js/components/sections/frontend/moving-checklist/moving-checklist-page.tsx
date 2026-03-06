@@ -634,10 +634,10 @@ const MovingChecklistPage = () => {
                         <h2 className="text-white text-4xl font-bold mb-6">Want a Printable Checklist?</h2>
                         <p className="text-gray-300 text-lg mb-10">Download our Tennessee Moving Checklist PDF and keep everything
                             organized in one place.</p>
-                        <Link href={route('frontend.tennessee-relocation.pdf')}
+                        <a href={route('frontend.tennessee-relocated-guide-pdf')}
                             className="bg-secondary text-white px-10 py-4 rounded-full text-md transition-all shadow-lg hover:cursor-pointer">
                             Download the Tennessee Relocation Guide
-                        </Link>
+                        </a>
                     </div>
                 </section>
 
