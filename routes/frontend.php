@@ -52,4 +52,6 @@ Route::name('frontend.')->controller(FrontendController::class)->group(function 
 
     // realtor
     Route::get('/realtor/{city_id?}', 'realtor')->name('realtor');
+
+    Route::get('/tennessee-relocated-guide-pdf', 'tennesseeRelocatedGuidePdf')->name('tennessee-relocated-guide-pdf');
 });

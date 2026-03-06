@@ -12,7 +12,7 @@ interface Props {
   activePage?: string;
   subPage?: string
 }
-function FrontendHeader ({activePage, subPage}:Props) {
+function FrontendHeader({ activePage, subPage }: Props) {
   const { auth } = usePage<SharedData>().props;
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeMobileSubmenu, setActiveMobileSubmenu] = useState<string | null>(null);
@@ -69,7 +69,7 @@ function FrontendHeader ({activePage, subPage}:Props) {
   const movingTopics3: NavItem[] = [
     { name: 'Moving Checklist', routeName: 'movingChecklist' },
     { name: 'City Comparison', routeName: 'city-comparison' },
-    { name: 'Download Guide (PDF)', href: '#' },
+    { name: 'Download Guide (PDF)', routeName: 'tennessee-relocated-guide-pdf' },
     { name: 'Real Estate Agents', routeName: 'realEstateAgents' },
   ];
 
@@ -224,11 +224,19 @@ function FrontendHeader ({activePage, subPage}:Props) {
                     <ul className="space-y-3">
                       {movingTopics3.map((item) => (
                         <li key={item.name}>
-                          <Link href={resolveNavHref(item)} className={`flex items-center text-sm text-muted-foreground hover:text-secondary transition-colors ${subPage === item.name ? 'text-secondary' : ''}`}>
-                            <span className="text-primary mr-2 font-bold">
-                              <MdDoubleArrow size={14} />
-                            </span> {item.name}
-                          </Link>
+                          {item.name === 'Download Guide (PDF)' ? (
+                            <a href={route('frontend.tennessee-relocated-guide-pdf')} className="flex items-center text-sm text-muted-foreground hover:text-secondary transition-colors">
+                              <span className="text-primary mr-2 font-bold">
+                                <MdDoubleArrow size={14} />
+                              </span> {item.name}
+                            </a>
+                          ) : (
+                            <Link href={resolveNavHref(item)} className={`flex items-center text-sm text-muted-foreground hover:text-secondary transition-colors ${subPage === item.name ? 'text-secondary' : ''}`}>
+                              <span className="text-primary mr-2 font-bold">
+                                <MdDoubleArrow size={14} />
+                              </span> {item.name}
+                            </Link>
+                          )}
                         </li>
                       ))}
                     </ul>

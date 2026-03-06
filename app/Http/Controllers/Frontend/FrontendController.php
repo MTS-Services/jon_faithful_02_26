@@ -298,7 +298,6 @@ class FrontendController extends Controller
                $listings = Listing::where('user_id', $decryptedId)
                     ->with(['city', 'galleries'])
                     ->get();
-               // dd($listings);
 
                return Inertia::render('frontend/user-details', [
                     'user' => $user,
@@ -471,5 +470,15 @@ class FrontendController extends Controller
                'realtors' => $realtors,
                'selectedCityIds' => $selectedCityIds,
           ]);
+     }
+     public function tennesseeRelocatedGuidePdf()
+     {
+          $path = public_path('assets/pdfs/Tennessee-Relocation-Guide.pdf');
+
+         if (!file_exists($path)) {
+              abort(404, 'PDF file not found');
+         }
+
+         return response()->download($path, 'Tennessee-Relocation-Guide.pdf');
      }
 }
