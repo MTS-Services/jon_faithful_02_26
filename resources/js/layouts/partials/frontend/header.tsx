@@ -75,7 +75,7 @@ function FrontendHeader({ activePage, subPage }: Props) {
 
   const movingTopics4: NavItem[] = [
     { name: 'Buying in Tennessee', routeName: 'buying' },
-    { name: 'Cost of buying in Tennessee', href: 'cost-of-buying-tennessee' },
+    { name: 'Cost of buying in Tennessee', routeName: 'cost-of-buying-tennessee' },
   ];
 
   const navigation: NavItem[] = [
