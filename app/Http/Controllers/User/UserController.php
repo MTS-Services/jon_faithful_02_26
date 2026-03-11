@@ -43,7 +43,7 @@ class UserController extends Controller
                 'name' => ['required', 'string', 'max:255'],
                 'phone' => ['nullable', 'string', 'max:20'],
                 'city_id' => ['required', 'exists:cities,id'],
-                'your_self' => ['nullable', 'string'],
+                'your_self' => ['required', 'string'],
                 'brokerage_name' => ['nullable', 'string', 'max:255'],
                 'license_number' => ['nullable', 'string', 'max:255'],
                 'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg,webp', 'max:10240'], // 10MB max

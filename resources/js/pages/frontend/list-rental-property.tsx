@@ -17,10 +17,7 @@ export default function ListRentalProperty() {
             <section className="relative flex min-h-[80vh] items-center overflow-hidden">
                 <video
                     className="absolute inset-0 h-full w-full object-cover"
-                    controls
                     autoPlay
-                    loop
-                    playsInline
                 >
                     <source
                         src="video/Family_ready_to_move_into_a_new_home.mp4"
