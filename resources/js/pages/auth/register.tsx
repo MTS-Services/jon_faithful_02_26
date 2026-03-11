@@ -171,13 +171,13 @@ export default function Register({ cities }: RegisterProps) {
                                 htmlFor="phone"
                                 className="mb-1 block text-sm font-medium text-gray-700"
                             >
-                                License number
+                                Phone number
                             </label>
                             <input
                                 type="tel"
                                 id="phone"
                                 className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
-                                placeholder="Enter Your License number"
+                                placeholder="Enter Your Phone number"
                                 onChange={(e) =>
                                     setData('phone', e.target.value.trim())
                                 }
