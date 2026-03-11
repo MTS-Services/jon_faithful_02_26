@@ -13,7 +13,6 @@ use App\Models\User;
 use App\Services\DataTableService;
 use App\Services\ListingHomeService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Enum;
@@ -57,7 +56,6 @@ class ListingController extends Controller
             ],
         ]);
 
-        Log::info($result);
         $users = User::where('is_verified', true)->where('status', ActiveInactive::ACTIVE)->get();
 
         return Inertia::render('admin/listings/index', [
@@ -68,7 +66,15 @@ class ListingController extends Controller
             'search' => $result['search'],
             'sortBy' => $result['sort_by'],
             'sortOrder' => $result['sort_order'],
-            'users' => $users
+            'users' => $users,
+            'propertyTypes' => collect(ListingProperty::cases())->map(fn ($type) => [
+                'value' => $type->value,
+                'label' => $type->label(),
+            ]),
+            'listingStatuses' => collect(ListingStatus::cases())->map(fn ($status) => [
+                'value' => $status->value,
+                'label' => $status->label(),
+            ]),
         ]);
     }
 

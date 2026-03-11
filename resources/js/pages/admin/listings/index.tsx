@@ -10,6 +10,11 @@ import { Eye, Pencil, Plus, Trash2 } from 'lucide-react'
 import { ActionButton } from '@/components/ui/action-button'
 import { Button } from '@/components/ui/button'
 
+interface FilterOption {
+  value: string
+  label: string
+}
+
 interface Props {
   listings: Listing[]
   pagination: PaginationData
@@ -19,6 +24,8 @@ interface Props {
   sortBy: string
   sortOrder: 'asc' | 'desc'
   users: { id: number; name: string }[]
+  propertyTypes: FilterOption[]
+  listingStatuses: FilterOption[]
 }
 
 export default function index({
@@ -30,6 +37,8 @@ export default function index({
   sortBy,
   sortOrder,
   users,
+  propertyTypes,
+  listingStatuses,
 }: Props) {
 
   const {
@@ -39,7 +48,9 @@ export default function index({
     handleSort,
     handlePerPageChange,
     handlePageChange,
-  } = useDataTable();
+  } = useDataTable({
+    only: ['listings', 'pagination', 'offset', 'filters', 'search', 'sortBy', 'sortOrder', 'users', 'propertyTypes', 'listingStatuses'],
+  });
 
   const columns: ColumnConfig<Listing>[] = [
     {
@@ -156,34 +167,26 @@ export default function index({
           offset={offset}
           showNumbering={true}
           actions={actions}
-          // filters={[
-          //   {
-          //     key: 'user_id',
-          //     label: 'User',
-          //     options: users.map(u => ({
-          //       label: u.name,
-          //       value: u.id,
-          //     })),
-          //   },
-          //   {
-          //     key: 'listing_status',
-          //     label: 'Listing Status',
-          //     options: [
-          //       { label: 'Sale', value: 'sale' },
-          //       { label: 'Rent', value: 'rent' },
-          //     ],
-          //   },
-          //   {
-          //     key: 'property_type',
-          //     label: 'Property Type',
-          //     options: [
-          //       { label: 'House', value: 'house' },
-          //       { label: 'Apartment', value: 'apartment' },
-          //       { label: 'Villa', value: 'villa' },
-          //     ],
-          //   },
-          // ]}
-
+          filters={[
+            {
+              key: 'user_id',
+              label: 'User',
+              options: users.map(u => ({ label: u.name, value: String(u.id) })),
+              placeholder: 'All users',
+            },
+            {
+              key: 'listing_status',
+              label: 'Listing Status',
+              options: listingStatuses.map(s => ({ label: s.label, value: s.value })),
+              placeholder: 'All statuses',
+            },
+            {
+              key: 'property_type',
+              label: 'Property Type',
+              options: propertyTypes.map(t => ({ label: t.label, value: t.value })),
+              placeholder: 'All types',
+            },
+          ]}
           onSearch={handleSearch}
           onFilterChange={handleFilterChange}
           onSort={handleSort}

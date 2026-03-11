@@ -44,6 +44,14 @@ export function DataTable<T extends Record<string, unknown>>({
     const [localSearch, setLocalSearch] = useState(searchValue);
     const [localFilters, setLocalFilters] = useState(filterValues);
 
+    // Sync local state when server props change (e.g. after navigation)
+    useEffect(() => {
+        setLocalSearch(searchValue);
+    }, [searchValue]);
+    useEffect(() => {
+        setLocalFilters(filterValues);
+    }, [filterValues]);
+
     useEffect(() => {
         const timer = setTimeout(() => {
             if (localSearch !== searchValue) {

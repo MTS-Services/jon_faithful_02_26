@@ -1,4 +1,4 @@
-import { Form, Head, usePage } from '@inertiajs/react';
+import { Form, Head, Link, usePage } from '@inertiajs/react';
 
 import InputError from '@/components/input-error';
 import TextLink from '@/components/text-link';
@@ -86,6 +86,14 @@ export default function Login({ status, userType }: LoginProps) {
                                     <InputError message={errors.password} />
                                 </div>
                             </div>
+                            <div className="mt-2 text-right">
+                                <Link
+                                    href={route('forgot-password')}
+                                    className="text-sm text-gray-600 hover:text-gray-800 underline underline-[#b8912a]"
+                                >
+                                    Forgot your password?
+                                </Link>
+                            </div>
 
                             <Button
                                 type="submit"
@@ -119,23 +127,13 @@ export default function Login({ status, userType }: LoginProps) {
                         {status}
                     </div>
                 )}
-
-                <div className="mt-2 text-right">
-                    <a
-                        href={route('forgot-password')}
-                        className="text-sm text-gray-600 hover:text-gray-800 underline underline-[#b8912a]"
-                    >
-                        Forgot your password?
-                    </a>
-                </div>
-
                 <div className="mt-6 text-center">
-                    <a
+                    <Link
                         href={route('register', { type: userType })}
-                        className="text-sm text-gray-600 hover:text-gray-800"
+                        className="text-sm text-gray-600 hover:text-gray-800 hover:underline"
                     >
-                        Singn Up
-                    </a>
+                        Sign Up
+                    </Link>
                 </div>
             </div>
         </AuthLayout>
