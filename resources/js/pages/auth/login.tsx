@@ -120,6 +120,15 @@ export default function Login({ status, userType }: LoginProps) {
                     </div>
                 )}
 
+                <div className="mt-2 text-right">
+                    <a
+                        href={route('forgot-password')}
+                        className="text-sm text-gray-600 hover:text-gray-800 underline underline-[#b8912a]"
+                    >
+                        Forgot your password?
+                    </a>
+                </div>
+
                 <div className="mt-6 text-center">
                     <a
                         href={route('register', { type: userType })}
