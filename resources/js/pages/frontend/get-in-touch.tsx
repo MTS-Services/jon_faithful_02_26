@@ -36,7 +36,7 @@ export default function GetInTouch({ cities, interested_in_options }: Props) {
         post(route('frontend.contact.submit'), {
             onSuccess: () => {
                 reset();
-                toast.success('Listing created successfully.');
+                toast.success('Form submitted successfully.');
             },
         });
     };
@@ -118,7 +118,7 @@ export default function GetInTouch({ cities, interested_in_options }: Props) {
                                 </div>
 
                                 <div className="grid gap-2">
-                                    <Label htmlFor="phone_number">Phone Number *</Label>
+                                    <Label htmlFor="phone_number">Phone Number (Optional)</Label>
                                     <input
                                         id="phone_number"
                                         type="text"

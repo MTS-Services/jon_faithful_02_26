@@ -2,7 +2,7 @@ import InputError from '@/components/input-error';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { PasswordInput } from '@/components/ui/password-input';
-import { useForm } from '@inertiajs/react';
+import { Link, useForm } from '@inertiajs/react';
 import React from 'react';
 
 type CityOption = {
@@ -135,7 +135,7 @@ export default function Register({ cities }: RegisterProps) {
                                 License number
                             </label>
                             <input
-                                type="tel"
+                                type="text"
                                 id="license_number"
                                 className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
                                 placeholder="Enter Your License number"
@@ -189,7 +189,7 @@ export default function Register({ cities }: RegisterProps) {
                                 htmlFor="your_self"
                                 className="mb-1 block text-sm font-medium text-gray-700"
                             >
-                                About Youself
+                                About Me
                             </label>
                             <textarea
                                 name=""
@@ -270,14 +270,17 @@ export default function Register({ cities }: RegisterProps) {
                         </button>
                     </form>
 
-                    {/* <div className="mt-6 text-center">
-                        <a
-                            href=""
-                            className="text-sm text-gray-600 hover:text-gray-800"
+                    <div className="mt-6 text-center flex gap-2 justify-center items-center">
+                        <p className="text-sm text-gray-600">
+                            Already have an account?
+                        </p>
+                        <Link
+                            href={route('login')}
+                            className="text-sm text-secondary hover:text-primary hover:underline"
                         >
-                            Singn Up
-                        </a>
-                    </div> */}
+                            Login
+                        </Link>
+                    </div>
                 </div>
             </div>
         </div>

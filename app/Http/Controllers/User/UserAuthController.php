@@ -18,6 +18,7 @@ use App\Concerns\PasswordValidationRules;
 use Illuminate\Support\Facades\Validator;
 use App\Mail\FoundingAdminRegistrationMail;
 use App\Mail\FoundingPartnerRegistrationMail;
+use App\Mail\UserPasswordResetOtpMail;
 
 class UserAuthController extends Controller
 {
@@ -102,5 +103,106 @@ class UserAuthController extends Controller
         $request->session()->regenerateToken();
 
         return redirect()->route('frontend.home');
+    }
+
+
+    public function forgotPassword()
+    {
+        return Inertia::render('auth/forgot-password');
+    }
+
+    public function forgotPasswordStore(Request $request)
+    {
+        $request->validate([
+            'email' => ['required', 'email', 'exists:users,email'],
+        ], [
+            'email.exists' => 'No account found with this email address.',
+        ]);
+        $otp = str_pad(random_int(100000, 999999), 6, '0', STR_PAD_LEFT);
+
+        $request->session()->put('password_reset', [
+            'otp'        => $otp,
+            'email'      => $request->email,
+            'expires_at' => now()->addMinutes(10)->timestamp,
+            'verified'   => false,
+        ]);
+        $data = [
+            'email' => $request->email,
+            'otp'   => $otp,
+        ];
+        Mail::to($request->email)->send(new UserPasswordResetOtpMail($data));
+
+        return redirect()->route('otp-verification');
+    }
+    public function otpVerification()
+    {
+        if (!session()->has('password_reset')) {
+            return redirect()->route('forgot-password');
+        }
+        return Inertia::render('auth/otp-verification');
+    }
+
+        public function otpVerificationStore(Request $request)
+    {
+        $request->validate([
+            'otp' => ['required', 'numeric', 'digits:6'],
+        ]);
+
+        $resetData = session()->get('password_reset');
+
+        if (!$resetData) {
+            return redirect()->route('forgot-password')
+                ->withErrors(['email' => 'Session expired. Please start over.']);
+        }
+
+        if ($resetData['otp'] != $request->otp) {
+            return redirect()->route('otp-verification')
+                ->withErrors(['otp' => 'Invalid OTP. Please try again.']);
+        }
+
+        if ($resetData['expires_at'] < now()->timestamp) {
+            return redirect()->route('otp-verification')
+                ->withErrors(['otp' => 'Session expired. Please start over.']);
+        }
+
+        $resetData['verified'] = true;
+        session()->put('password_reset', $resetData);
+
+        return redirect()->route('reset-password');
+    }
+    public function resetPassword()
+    {
+        if (!session()->has('password_reset')) {
+            return redirect()->route('forgot-password');
+        }
+        return Inertia::render('auth/reset-password');
+    }
+    public function resetPasswordStore(Request $request)
+    {
+        $request->validate([
+            'password'              => $this->passwordRules(),
+            'password_confirmation' => ['required', 'same:password'],
+        ]);
+
+        $resetData = $request->session()->get('password_reset');
+
+        if (!$resetData || !$resetData['verified']) {
+            return redirect()->route('forgot-password')
+                ->withErrors(['email' => 'Session expired. Please start over.']);
+        }
+
+        $user = User::where('email', $resetData['email'])->first();
+
+        if (!$user) {
+            return redirect()->route('forgot-password')
+                ->withErrors(['email' => 'User not found.']);
+        }
+
+        $user->update(['password' => Hash::make($request->password)]);
+
+        $request->session()->forget('password_reset');
+
+        return redirect()->route('login')
+            ->with('status', 'Your password has been reset successfully. Please log in.');
     }
 }

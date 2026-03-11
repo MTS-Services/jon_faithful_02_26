@@ -36,7 +36,9 @@ export default function All({
     handleSort,
     handlePerPageChange,
     handlePageChange,
-  } = useDataTable();
+  } = useDataTable({
+    only: ['admins', 'pagination', 'offset', 'filters', 'search', 'sortBy', 'sortOrder'],
+  });
 
   const columns: ColumnConfig<Admin>[] = [
     {

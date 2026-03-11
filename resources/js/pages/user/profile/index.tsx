@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input';
 import { CardContent } from '@/components/ui/card';
 import InputError from '@/components/input-error';
 import { PasswordInput } from '@/components/ui/password-input';
+import { Textarea } from '@/components/ui/textarea';
 
 
 interface Props {
@@ -116,6 +117,16 @@ export default function Index({ user, cities }: Props) {
                                     />
                                 </div>
                                 <div></div>
+                                <div className="grid gap-2 col-span-2">
+                                    <Label htmlFor="your_self">About Me</Label>
+                                    <Textarea
+                                        id="your_self"
+                                        value={data.your_self}
+                                        onChange={(e) => setData('your_self', e.target.value)}
+                                        required
+                                    />
+                                    {errors.your_self && <div className="text-red-500 text-sm">{errors.your_self}</div>}
+                                </div>
                                 <div className="grid gap-2">
                                     <Label htmlFor="username">Username</Label>
                                     <Input
@@ -123,7 +134,6 @@ export default function Index({ user, cities }: Props) {
                                         type="text"
                                         value={data.username}
                                         onChange={(e) => setData('username', e.target.value)}
-                                        required
                                     />
                                     {errors.username && <div className="text-red-500 text-sm">{errors.username}</div>}
                                 </div>

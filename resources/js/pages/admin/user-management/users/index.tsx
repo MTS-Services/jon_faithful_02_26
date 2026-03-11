@@ -37,7 +37,9 @@ export default function index({
     handleSort,
     handlePerPageChange,
     handlePageChange,
-  } = useDataTable();
+  } = useDataTable({
+    only: ['users', 'pagination', 'offset', 'filters', 'search', 'sortBy', 'sortOrder'],
+  });
 
   const [selectedUser, setSelectedUser] = React.useState<User | null>(null);
   const [isModalOpen, setIsModalOpen] = React.useState(false);
@@ -54,11 +56,13 @@ export default function index({
       key: 'image',
       label: 'Avatar',
       render: (user) => (
-        <img
-          src={user.image_url ? `${user.image_url}` : '/no-user-image-icon.png'}
-          alt={user.name}
-          className="h-8 w-8 rounded-full object-cover"
-        />
+        <Link href={route('admin.um.user.view', user?.id)}>
+          <img
+            src={user.image_url ? `${user.image_url}` : '/no-user-image-icon.png'}
+            alt={user.name}
+            className="h-8 w-8 rounded-full object-cover"
+          />
+        </Link>
       ),
     },
     {

@@ -374,14 +374,14 @@ class FrontendController extends Controller
                'interested_in_options' => collect(InterestedIn::cases())->map(fn($status) => [
                     'value' => $status->value,
                     'label' => $status->label(),
-               ])
+               ]),
           ]);
      }
      public function submitGetInTouch(Request $request)
      {
           $validated = $request->validate([
                'full_name'      => ['required', 'string', 'max:255'],
-               'phone_number'   => ['required', 'string', 'max:20'],
+               'phone_number'   => ['nullable', 'string', 'max:20'],
                'email'          => ['required', 'email', 'max:255'],
                'interested_in'  => ['required', 'string'],
                'city_id'        => ['required', 'exists:cities,id'],
@@ -393,7 +393,7 @@ class FrontendController extends Controller
 
           $contact = ContactUs::create([
                'full_name'      => $validated['full_name'],
-               'phone_number'   => $validated['phone_number'],
+               'phone_number'   => data_get($validated, 'phone_number') ?: null,
                'email'          => $validated['email'],
                'interested_in'  => $validated['interested_in'],
                'city_id'        => $validated['city_id'],
