@@ -2,26 +2,26 @@
 
 namespace App\Http\Controllers\Admin\UserManagement;
 
-use App\Models\City;
-use App\Models\User;
-use Inertia\Inertia;
-use Inertia\Response;
-use App\Enums\UserType;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
-use App\Services\DataTableService;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\FoundingUserVerifiedMail;
-use Illuminate\Support\Facades\Storage;
 use App\Concerns\PasswordValidationRules;
 use App\Enums\ActiveInactive;
+use App\Enums\UserType;
+use App\Http\Controllers\Controller;
+use App\Mail\FoundingUserVerifiedMail;
+use App\Models\City;
+use App\Models\User;
+use App\Services\DataTableService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class UserController extends Controller
 {
     use PasswordValidationRules;
+
     public function __construct(protected DataTableService $dataTableService) {}
 
     public function index(): Response
@@ -48,13 +48,14 @@ class UserController extends Controller
     public function create(): Response
     {
         return Inertia::render('admin/user-management/users/create', [
-            'user_types' => collect(UserType::cases())->map(fn($type) => [
+            'user_types' => collect(UserType::cases())->map(fn ($type) => [
                 'value' => $type->value,
                 'label' => $type->label(),
             ]),
             'cities' => City::orderBy('name')->get(['id', 'name']),
         ]);
     }
+
     public function store(Request $request)
     {
         $data = Validator::make($request->all(), [
@@ -80,43 +81,58 @@ class UserController extends Controller
         // File upload logic
         if ($request->hasFile('image')) {
             $file = $request->file('image');
-            $imageName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $imageName = time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
             $file->storeAs('user_images', $imageName);
             $data['image'] = $imageName;
         }
 
         $user = User::create($data);
-        if (!$user) {
+        if (! $user) {
             return redirect()->back()->withErrors(['error' => 'Failed to create user.'])->withInput();
         }
+
         return redirect()->route('admin.um.users.index');
     }
-    public function show($id): Response
+
+    public function show(int $id): Response
     {
         $user = User::findOrFail($id);
-        if (!$user) {
-            abort(404);
-        }
-        return Inertia::render('admin/user-management/users/view', ['user' => $user]);
+
+        $listings = $user->listings()
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+        $rentals = $user->rentals()
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+
+        return Inertia::render('admin/user-management/users/view', [
+            'user' => $user,
+            'listings' => $listings,
+            'rentals' => $rentals,
+        ]);
     }
+
     public function edit($id): Response
     {
         $user = User::findOrFail($id);
-        if (!$user) {
+        if (! $user) {
             abort(404);
         }
+
         return Inertia::render('admin/user-management/users/edit', [
             'user' => $user->load('city'),
             'cities' => City::orderBy('name')->get(['id', 'name']),
         ]);
     }
+
     public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);
-        if (!$user) {
+        if (! $user) {
             abort(404);
         }
-
 
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -144,13 +160,13 @@ class UserController extends Controller
         if ($request->hasFile('image')) {
 
             // delete old image
-            if ($user->image && Storage::disk('public')->exists('user_images/' . $user->image)) {
-                Storage::disk('public')->delete('user_images/' . $user->image);
+            if ($user->image && Storage::disk('public')->exists('user_images/'.$user->image)) {
+                Storage::disk('public')->delete('user_images/'.$user->image);
             }
 
             // store new image
             $file = $request->file('image');
-            $imageName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $imageName = time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
             $file->storeAs('user_images', $imageName);
 
             $data['image'] = $imageName;
@@ -162,10 +178,11 @@ class UserController extends Controller
 
         return redirect()->route('admin.um.users.index');
     }
+
     public function destroy($id)
     {
         $user = User::find($id);
-        if (!$user) {
+        if (! $user) {
             abort(404);
         }
         $user->delete();
@@ -177,13 +194,11 @@ class UserController extends Controller
     {
         $queryBody = User::query()->where('is_verified', false);
 
-
         $result = $this->dataTableService->process($queryBody, request(), [
             'searchable' => ['name', 'email'],
             'sortable' => ['id', 'name', 'email', 'created_at'],
             'filterable' => ['user_type', 'is_verified', 'status'],
         ]);
-
 
         return Inertia::render('admin/user-management/users/pending-verification', [
             'users' => $result['data'],
@@ -192,15 +207,16 @@ class UserController extends Controller
             'filters' => $result['filters'],
             'search' => $result['search'],
             'sortBy' => $result['sort_by'],
-            'sortOrder' => $result['sort_order']
+            'sortOrder' => $result['sort_order'],
         ]);
     }
+
     public function verified($id)
     {
         $user = User::findOrFail($id);
         $user->update(['is_verified' => true, 'status' => ActiveInactive::ACTIVE->value]);
 
-        if (!$user) {
+        if (! $user) {
             return redirect()->back()->withErrors(['error' => 'Failed to create user.'])->withInput();
         }
         if ($user->email) {
