@@ -32,7 +32,7 @@ export default function View({ listing }: Props) {
         <AdminLayout activeSlug={'listings'}>
             <Head title={`Listing Details - ${listing.title}`} />
 
-            <div className="container mx-auto py-6">
+            <div className="">
                 <div className="mb-6 flex items-center justify-between">
                     <h1 className="text-2xl font-bold">Listing Detail</h1>
 

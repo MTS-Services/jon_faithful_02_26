@@ -13,7 +13,7 @@ import { edit, index } from '@/actions/App/Http/Controllers/Admin/UserManagement
 export default function View({ user }: User | any) {
 
     return (
-        <AdminLayout activeSlug={'admin-users'}>
+        <AdminLayout activeSlug={'users'}>
             <Head title="User Details" />
 
             <div className="container mx-auto py-6">
