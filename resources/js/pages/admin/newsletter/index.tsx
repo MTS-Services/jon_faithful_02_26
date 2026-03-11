@@ -43,7 +43,9 @@ export default function Index({
         handleSort,
         handlePerPageChange,
         handlePageChange,
-    } = useDataTable();
+    } = useDataTable({
+        only: ['newsletters', 'pagination', 'offset', 'filters', 'search', 'sortBy', 'sortOrder'],
+    });
 
     const columns: ColumnConfig<Newasletter>[] = [
         {

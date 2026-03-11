@@ -135,7 +135,7 @@ export default function Register({ cities }: RegisterProps) {
                                 License number
                             </label>
                             <input
-                                type="tel"
+                                type="text"
                                 id="license_number"
                                 className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
                                 placeholder="Enter Your License number"

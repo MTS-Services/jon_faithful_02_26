@@ -37,7 +37,9 @@ export default function index({
     handleSort,
     handlePerPageChange,
     handlePageChange,
-  } = useDataTable();
+  } = useDataTable({
+    only: ['users', 'pagination', 'offset', 'filters', 'search', 'sortBy', 'sortOrder'],
+  });
 
   const [selectedUser, setSelectedUser] = React.useState<User | null>(null);
   const [isModalOpen, setIsModalOpen] = React.useState(false);

@@ -12,6 +12,11 @@ import {
 import { Head, Link, router } from '@inertiajs/react';
 import { Pencil, SquarePen, Trash2 } from 'lucide-react';
 
+interface FilterOption {
+    value: string;
+    label: string;
+}
+
 interface Props {
     rentals: Rental[];
     pagination: PaginationData;
@@ -20,6 +25,9 @@ interface Props {
     search: string;
     sortBy: string;
     sortOrder: 'asc' | 'desc';
+    users: { id: number; name: string }[];
+    propertyTypes: FilterOption[];
+    statuses: FilterOption[];
 }
 
 export default function Index({
@@ -30,6 +38,9 @@ export default function Index({
     search,
     sortBy,
     sortOrder,
+    users,
+    propertyTypes,
+    statuses,
 }: Props) {
     const {
         isLoading,
@@ -38,7 +49,9 @@ export default function Index({
         handleSort,
         handlePerPageChange,
         handlePageChange,
-    } = useDataTable();
+    } = useDataTable({
+        only: ['rentals', 'pagination', 'offset', 'filters', 'search', 'sortBy', 'sortOrder', 'users', 'propertyTypes', 'statuses'],
+    });
 
     const columns: ColumnConfig<Rental>[] = [
         {
@@ -171,6 +184,26 @@ export default function Index({
                     offset={offset}
                     showNumbering={true}
                     actions={actions}
+                    filters={[
+                        {
+                            key: 'user_id',
+                            label: 'User',
+                            options: users.map((u) => ({ label: u.name, value: String(u.id) })),
+                            placeholder: 'All users',
+                        },
+                        {
+                            key: 'property_type',
+                            label: 'Property Type',
+                            options: propertyTypes.map((t) => ({ label: t.label, value: t.value })),
+                            placeholder: 'All types',
+                        },
+                        {
+                            key: 'status',
+                            label: 'Status',
+                            options: statuses.map((s) => ({ label: s.label, value: s.value })),
+                            placeholder: 'All statuses',
+                        },
+                    ]}
                     onSearch={handleSearch}
                     onFilterChange={handleFilterChange}
                     onSort={handleSort}

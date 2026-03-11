@@ -34,7 +34,9 @@ export default function index({
         handleSort,
         handlePerPageChange,
         handlePageChange,
-    } = useDataTable();
+    } = useDataTable({
+        only: ['users', 'pagination', 'offset', 'filters', 'search', 'sortBy', 'sortOrder'],
+    });
 
     const USER_TYPE_LABELS: Record<string, string> = {
         property_owner: 'Property Owner / Manager',
@@ -72,6 +74,16 @@ export default function index({
             render: (user) => (
                 <div className="text-gray-600 dark:text-gray-400">
                     {user.email}
+                </div>
+            ),
+        },
+        {
+            key: 'license_number',
+            label: 'License Number',
+            sortable: true,
+            render: (user) => (
+                <div className="text-gray-600 dark:text-gray-400">
+                    {user.license_number}
                 </div>
             ),
         },

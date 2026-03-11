@@ -51,7 +51,9 @@ export default function FeatureCategoryIndex({
         handleSort,
         handlePerPageChange,
         handlePageChange,
-    } = useDataTable();
+    } = useDataTable({
+        only: ['categories', 'pagination', 'offset', 'filters', 'search', 'sortBy', 'sortOrder'],
+    });
 
     const [createOpen, setCreateOpen] = useState(false);
     const [editingCategory, setEditingCategory] = useState<FeatureCategory | null>(null);
