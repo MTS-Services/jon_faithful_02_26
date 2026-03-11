@@ -1,4 +1,4 @@
-﻿import { Head, router, Link } from '@inertiajs/react';
+import { Head, router, Link } from '@inertiajs/react';
 import { Eye, Trash2 } from 'lucide-react';
 import React from 'react';
 
@@ -28,7 +28,9 @@ interface Props {
 }
 
 export default function Index({ contacts, pagination, offset, filters, search, sortBy, sortOrder }: Props) {
-  const { isLoading, handleSearch, handleFilterChange, handleSort, handlePerPageChange, handlePageChange } = useDataTable();
+  const { isLoading, handleSearch, handleFilterChange, handleSort, handlePerPageChange, handlePageChange } = useDataTable({
+    only: ['contacts', 'pagination', 'offset', 'filters', 'search', 'sortBy', 'sortOrder'],
+  });
 
   const columns: ColumnConfig<Contact>[] = [
     {

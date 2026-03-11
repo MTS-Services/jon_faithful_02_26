@@ -34,7 +34,9 @@ export default function index({
         handleSort,
         handlePerPageChange,
         handlePageChange,
-    } = useDataTable();
+    } = useDataTable({
+        only: ['users', 'pagination', 'offset', 'filters', 'search', 'sortBy', 'sortOrder'],
+    });
 
     const USER_TYPE_LABELS: Record<string, string> = {
         property_owner: 'Property Owner / Manager',
@@ -48,11 +50,13 @@ export default function index({
             key: 'image',
             label: 'Avatar',
             render: (user) => (
-                <img
-                    src={user.image_url ? `${user.image_url}` : '/no-user-image-icon.png'}
-                    alt={user.name}
-                    className="h-8 w-8 rounded-full object-cover"
-                />
+                <Link href={route('admin.um.user.view', user?.id)}>
+                    <img
+                        src={user.image_url ? `${user.image_url}` : '/no-user-image-icon.png'}
+                        alt={user.name}
+                        className="h-8 w-8 rounded-full object-cover"
+                    />
+                </Link>
             ),
         },
         {
@@ -72,6 +76,16 @@ export default function index({
             render: (user) => (
                 <div className="text-gray-600 dark:text-gray-400">
                     {user.email}
+                </div>
+            ),
+        },
+        {
+            key: 'license_number',
+            label: 'License Number',
+            sortable: true,
+            render: (user) => (
+                <div className="text-gray-600 dark:text-gray-400">
+                    {user.license_number}
                 </div>
             ),
         },
@@ -120,6 +134,13 @@ export default function index({
 
     const actions: ActionConfig<User>[] = [
         {
+            label: 'View',
+            icon: <Eye className="h-4 w-4" />,
+            onClick: (user) => {
+                router.visit(route('admin.um.user.view', user?.id));
+            },
+        },
+        {
             label: 'Verify',
             icon: <Eye className="h-4 w-4" />,
             onClick: (user) => {
@@ -145,13 +166,13 @@ export default function index({
                     actions={actions}
                     filters={[
                         {
-                        key: 'user_type',
-                        label: 'User Type',
-                        options: [
-                            { value: 'property_owner', label: 'Property Owner' },
-                            { value: 'realtor', label: 'Realtor' },
-                            { value: 'both', label: 'Both' },
-                        ],
+                            key: 'user_type',
+                            label: 'User Type',
+                            options: [
+                                { value: 'property_owner', label: 'Property Owner' },
+                                { value: 'realtor', label: 'Realtor' },
+                                { value: 'both', label: 'Both' },
+                            ],
                         },
                     ]}
                     onSearch={handleSearch}

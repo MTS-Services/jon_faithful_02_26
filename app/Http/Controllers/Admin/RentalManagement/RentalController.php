@@ -26,11 +26,30 @@ class RentalController extends Controller
 
     public function index(): Response
     {
-        $queryBody = Rental::query();
+        $queryBody = Rental::query()->with(['user']);
+
         $result = $this->dataTableService->process($queryBody, request(), [
             'searchable' => ['title', 'description'],
-            'sortable' => ['id', 'title', 'created_at'],
+            'filterable' => [
+                'user_id',
+                'property_type',
+                'status',
+            ],
+            'sortable' => [
+                'id',
+                'title',
+                'purchase_price',
+                'bedrooms',
+                'bathrooms',
+                'square_feet',
+                'property_type',
+                'status',
+                'created_at',
+            ],
         ]);
+
+        $users = User::where('is_verified', true)->where('status', ActiveInactive::ACTIVE)->get();
+
         return Inertia::render('admin/rental-management/rentals/index', [
             'rentals' => $result['data'],
             'pagination' => $result['pagination'],
@@ -38,7 +57,16 @@ class RentalController extends Controller
             'filters' => $result['filters'],
             'search' => $result['search'],
             'sortBy' => $result['sort_by'],
-            'sortOrder' => $result['sort_order']
+            'sortOrder' => $result['sort_order'],
+            'users' => $users,
+            'propertyTypes' => collect(RentalProperty::cases())->map(fn ($type) => [
+                'value' => $type->value,
+                'label' => $type->label(),
+            ]),
+            'statuses' => collect(ActiveInactive::cases())->map(fn ($status) => [
+                'value' => $status->value,
+                'label' => $status->label(),
+            ]),
         ]);
     }
 

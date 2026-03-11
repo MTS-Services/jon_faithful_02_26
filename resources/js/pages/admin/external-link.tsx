@@ -37,7 +37,9 @@ export default function ExternalLink({
         handleSort,
         handlePerPageChange,
         handlePageChange,
-    } = useDataTable();
+    } = useDataTable({
+        only: ['externalLinks', 'pagination', 'offset', 'filters', 'search', 'sortBy', 'sortOrder'],
+    });
 
     const LISTING_TYPE_LABEL: Record<string, string> = {
         listing: 'Listing',
