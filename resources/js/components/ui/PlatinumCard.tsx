@@ -1,23 +1,25 @@
 import listing from "@/routes/admin/listing";
-import { Link } from "@inertiajs/react";
+import { Auth } from "@/types";
+import { Link, usePage } from "@inertiajs/react";
 import React from "react";
 import { FaBath, FaBed, FaClone, FaMapMarkerAlt } from "react-icons/fa";
 
-// type Property = {
-//     title: string;
-//     location: string;
-//     sqft: string;
-//     beds: number;
-//     baths: number;
-//     price: string;
-//     img: string;
-// };
+type CardType =
+    | 'rental'
+    | 'listing'
+    | 'admin-listing'
+    | 'admin-rental';
 
-const PlatinumCard: React.FC<{ property: any; type: string }> = ({ property, type }) => {
-    const isRental = type === 'rental';
-    const isListing = type === 'listing';
-    const isRoute = isRental ? 'frontend.single-product.rental' : isListing ? 'frontend.single-product.listing' : 'frontend.single-product.rental';
+const PlatinumCard: React.FC<{ property: any; type: CardType }> = ({ property, type }) => {
 
+    const routeMap: Record<CardType, string> = {
+        rental: 'frontend.single-product.rental',
+        listing: 'frontend.single-product.listing',
+        'admin-listing': 'admin.listing.details',
+        'admin-rental': 'admin.rentals.details',
+    };
+
+    const isRoute = routeMap[type];
     return (
         <Link href={route(isRoute, property.id)}>
             <div className="border border-gray-100 rounded-lg overflow-hidden shadow-xl transition duration-300 group bg-white">

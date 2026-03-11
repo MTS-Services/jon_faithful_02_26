@@ -2,15 +2,14 @@
 
 namespace App\Models;
 
-use App\Enums\UserType;
 use App\Enums\ActiveInactive;
-use Illuminate\Notifications\Notifiable;
+use App\Enums\UserType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 /** @var class-string<\App\Models\City> */
-use App\Models\City;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -61,14 +60,24 @@ class User extends Authenticatable
         if (filter_var($this->image, FILTER_VALIDATE_URL)) {
             return $this->image;
         }
-        if (!$this->image) {
+        if (! $this->image) {
             return asset('no-user-image-icon.png');
         }
-        return asset('storage/user_images/' . $this->image);
+
+        return asset('storage/user_images/'.$this->image);
     }
 
     public function city(): BelongsTo
     {
         return $this->belongsTo(City::class);
+    }
+
+    public function listings(): HasMany
+    {
+        return $this->hasMany(Listing::class);
+    }
+    public function rentals(): HasMany
+    {
+        return $this->hasMany(Rental::class);
     }
 }

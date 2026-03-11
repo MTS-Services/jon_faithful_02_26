@@ -6,6 +6,7 @@ use App\Enums\ActiveInactive;
 use App\Enums\RentalProperty;
 use App\Jobs\SendRentalNotificationJob;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Rental extends Model
 {
