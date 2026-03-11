@@ -760,7 +760,7 @@ export default function RentingSections() {
                             city: 'Homes for Sale',
                             desc: 'Discover properties across Tennessee',
                             button: 'View Homes →',
-                            href: route('frontend.rentals'),
+                            href: route('frontend.home'),
                         },
                         {
                             icon: MapPin,

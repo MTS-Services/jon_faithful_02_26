@@ -18,14 +18,14 @@ const exploreCitiesData = [
         city: 'Homes for Sale',
         desc: 'Discover properties across Tennessee',
         button: 'View Homes →',
-         href: route('frontend.home-for-sale'),
+         href: route('frontend.home'),
     },
     {
         icon: MapPin,
         city: 'Explore Cities',
         desc: "Learn about Tennessee's neighborhoods",
         button: 'Explore Cities →',
-        href: route('frontend.livingInBristol'),
+        href: route('frontend.city-comparison'),
     },
 ];
 

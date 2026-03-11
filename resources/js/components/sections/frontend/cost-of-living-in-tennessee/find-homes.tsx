@@ -1,3 +1,5 @@
+import { Link } from "@inertiajs/react";
+
 export default function FindHomes() {
     return (
         <section className="bg-white px-4 py-20 font-montserrat md:px-10 lg:px-20">
@@ -26,7 +28,7 @@ export default function FindHomes() {
                     </p>
 
                     <p className="mb-4 text-gray-700">
-                        Whether you’re just researching or ready to move, WhyTennessee.com helps you: 
+                        Whether you’re just researching or ready to move, WhyTennessee.com helps you:
                     </p>
 
                     {/* Income Tax List */}
@@ -37,14 +39,16 @@ export default function FindHomes() {
                     </ul>
                     <div className="mt-5">
                         <div className="">
-                            <button className="cursor-pointer rounded-lg bg-[#1e3a62] px-8 py-3 font-medium text-white transition-colors hover:bg-secondary hover:text-primary">
+                            <Link href={route('frontend.home-for-sale')} className="cursor-pointer rounded-lg bg-[#1e3a62] px-8 py-3 font-medium text-white transition-colors hover:bg-secondary hover:text-primary">
                                 View Homes for Sale in Tennessee
-                            </button>
+                            </Link>
                         </div>
                         <div className="mt-5">
-                            <button className="cursor-pointer rounded-lg bg-[#1e3a62] px-8 py-3 font-medium text-white transition-colors hover:bg-secondary hover:text-primary">
-                                Explore the Best Places to Live in Tennessee
-                            </button>
+                            <Link href={route('frontend.livetennessee')}>
+                                <button className="cursor-pointer rounded-lg bg-[#1e3a62] px-8 py-3 font-medium text-white transition-colors hover:bg-secondary hover:text-primary">
+                                    Explore the Best Places to Live in Tennessee
+                                </button>
+                            </Link>
                         </div>
                     </div>
                 </div>
