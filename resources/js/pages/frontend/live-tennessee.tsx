@@ -33,7 +33,7 @@ const tabs = [
       'Johnson City',
     ],
     footer: 'Major healthcare systems and employers support long-term job stability in the region.',
-    imageUrl: '/assets/images/Team_of_Medical.jpeg',
+    imageUrl: '/assets/images/live-in-tennessee/active-lifestyle-couple-cycling-mountain-forest.jpeg',
     itemIcon: <MapPinIcon size={16} />
   },
   {
@@ -49,7 +49,7 @@ const tabs = [
       'Knoxville',
     ],
     footer: '',
-    imageUrl: '/assets/images/pexels-kelly-2519390-scaled-1-2048x1536.jpg',
+    imageUrl: '/assets/images/live-in-tennessee/tennessee-state-capitol-building-nashville-aerial.jpeg',
     itemIcon: <MapPinIcon size={16} />
   },
   {

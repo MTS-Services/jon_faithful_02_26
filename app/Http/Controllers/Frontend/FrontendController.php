@@ -123,53 +123,49 @@ class FrontendController extends Controller
      {
           return Inertia::render('frontend/city-comparison');
      }
-     public function realEstateAgents(): Response
+     public function realEstateAgents(Request $request): Response
      {
-          // Get users and encrypt their IDs
-          $owners = User::where('user_type', 'property_owner')
-               ->get()
-               ->map(function ($user) {
-                    return [
-                         'id' => Crypt::encryptString($user->id),
-                         'name' => $user->name,
-                         'email' => $user->email,
-                         'phone' => $user->phone,
-                         'image_url' => $user->image_url,
-                         'your_self' => $user->your_self,
+          $cities = City::orderBy('name')->get();
+          $selectedCityIds = $request->input('cities') ? explode(',', $request->input('cities')) : [];
 
-                    ];
-               });
+          $filterByCity = function ($query) use ($selectedCityIds) {
+               if (!empty($selectedCityIds)) {
+                    $query->whereIn('city_id', $selectedCityIds);
+               }
+          };
+
+          $mapUser = function ($user) {
+               return [
+                    'id' => Crypt::encryptString($user->id),
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'phone' => $user->phone,
+                    'image_url' => $user->image_url,
+                    'your_self' => $user->your_self,
+               ];
+          };
+
+          $owners = User::where('user_type', 'property_owner')
+               ->when(!empty($selectedCityIds), $filterByCity)
+               ->get()
+               ->map($mapUser);
 
           $realtors = User::where('user_type', 'realtor')
+               ->when(!empty($selectedCityIds), $filterByCity)
                ->get()
-               ->map(function ($user) {
-                    return [
-                         'id' => Crypt::encryptString($user->id),
-                         'name' => $user->name,
-                         'email' => $user->email,
-                         'phone' => $user->phone,
-                         'image_url' => $user->image_url,
-                         'your_self' => $user->your_self,
-                    ];
-               });
+               ->map($mapUser);
 
           $boths = User::where('user_type', 'both')
+               ->when(!empty($selectedCityIds), $filterByCity)
                ->get()
-               ->map(function ($user) {
-                    return [
-                         'id' => Crypt::encryptString($user->id),
-                         'name' => $user->name,
-                         'email' => $user->email,
-                         'phone' => $user->phone,
-                         'image_url' => $user->image_url,
-                         'your_self' => $user->your_self,
-                    ];
-               });
+               ->map($mapUser);
 
           return Inertia::render('frontend/real-estate-agents', [
                'owners' => $owners,
                'realtors' => $realtors,
-               'boths' => $boths
+               'boths' => $boths,
+               'cities' => $cities,
+               'selectedCityIds' => $selectedCityIds,
           ]);
      }
      public function whyTennessee(): Response
