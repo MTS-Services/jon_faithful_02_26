@@ -2,16 +2,18 @@ import React from 'react'
 import { ActionButton } from '@/components/ui/action-button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import AdminLayout from '@/layouts/admin-layout'
-import { Listing } from '@/types'
-import { Head } from '@inertiajs/react'
+import type { Listing } from '@/types/model'
+import { Head, Link } from '@inertiajs/react'
 import { ArrowLeft, SquarePen, Youtube, CheckCircle2 } from 'lucide-react'
 import { edit, index } from '@/actions/App/Http/Controllers/Admin/ListingController'
 import { Badge } from '@/components/ui/badge'
+import { User } from '@/types'
 
 interface Props {
     listing: Listing & {
         features?: { id: number; name: string }[]
         youtube_video_url?: string
+        user?: User
     }
 }
 
@@ -27,6 +29,12 @@ export default function View({ listing }: Props) {
     };
 
     const embedUrl = getEmbedUrl(listing.youtube_video_url);
+    const primaryImageUrl =
+        typeof (listing as any).image_url === 'string'
+            ? ((listing as any).image_url as string)
+            : Array.isArray((listing as any).image_url)
+                ? (((listing as any).image_url[0] as string | undefined) ?? '')
+                : '';
 
     return (
         <AdminLayout activeSlug={'listings'}>
@@ -63,33 +71,6 @@ export default function View({ listing }: Props) {
                                     <p className="text-muted-foreground whitespace-pre-line text-sm leading-relaxed">
                                         {listing.description ?? 'No description provided.'}
                                     </p>
-                                </div>
-                            </CardContent>
-                        </Card>
-
-                        {/* features */}
-                        <Card>
-                            <CardHeader>
-                                <CardTitle className="text-lg flex items-center gap-2">
-                                    <CheckCircle2 className="w-5 h-5 text-green-500" />
-                                    features & Amenities
-                                </CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                <div className="flex flex-wrap gap-2">
-                                    {listing.features && listing.features.length > 0 ? (
-                                        listing.features.map((facility) => {
-                                            console.log(listing.features);
-                                            return (
-                                                <Badge key={facility.id} variant="secondary" className="px-3 py-1">
-                                                    {facility.name}
-                                                </Badge>
-                                            );
-                                        })
-
-                                    ) : (
-                                        <p className="text-sm text-muted-foreground">No features listed.</p>
-                                    )}
                                 </div>
                             </CardContent>
                         </Card>
@@ -156,6 +137,38 @@ export default function View({ listing }: Props) {
                     <div className="space-y-6">
                         <Card>
                             <CardHeader>
+                                <CardTitle>Listed By</CardTitle>
+                            </CardHeader>
+                            <CardContent className="space-y-2">
+                                <div className="flex justify-between items-center border-b pb-2">
+                                    <span className="text-sm text-muted-foreground">Name</span>
+                                    <Link href={route('admin.um.user.view', listing.user?.id)} className="text-sm font-medium hover:underline">
+                                        {listing.user?.name ?? 'N/A'}
+                                    </Link>
+                                </div>
+                                <div className="flex justify-between items-center border-b pb-2">
+                                    <span className="text-sm text-muted-foreground">Email</span>
+                                    <span className="text-sm font-medium">
+                                        {listing.user?.email ?? 'N/A'}
+                                    </span>
+                                </div>
+                                <div className="flex justify-between items-center border-b pb-2">
+                                    <span className="text-sm text-muted-foreground">License Number</span>
+                                    <span className="text-sm font-medium">
+                                        {listing.user?.license_number ?? 'N/A'}
+                                    </span>
+                                </div>
+                                {listing.user?.license_verification_status && (
+                                    <div className="flex justify-between items-center border-b pb-2">
+                                        <span className="text-sm text-muted-foreground">License Verification</span>
+                                        <Badge variant={listing.user?.license_verification_status === 'approved' ? 'default' : 'destructive'}>{listing.user?.license_verification_status}</Badge>
+                                    </div>
+                                )}
+                            </CardContent>
+                        </Card>
+
+                        <Card>
+                            <CardHeader>
                                 <CardTitle>Listing Status</CardTitle>
                             </CardHeader>
                             <CardContent className="space-y-4">
@@ -183,7 +196,7 @@ export default function View({ listing }: Props) {
                             </CardHeader>
                             <CardContent>
                                 <img
-                                    src={listing.image_url}
+                                    src={primaryImageUrl}
                                     alt="primary"
                                     className="w-full h-48 object-cover rounded-md border"
                                 />

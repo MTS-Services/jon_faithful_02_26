@@ -80,7 +80,7 @@ class ListingController extends Controller
 
     public function details(Listing $listing): Response
     {
-        $listing->load(['galleries', 'features']);
+        $listing->load(['user', 'city', 'galleries']);
 
         return Inertia::render('admin/listings/view', [
             'listing' => $listing
@@ -89,7 +89,6 @@ class ListingController extends Controller
     public function create($user_id = null): Response
     {
         $cities = City::all(['id', 'name']);
-        $features = Feature::all(['id', 'name']);
         if ($user_id) {
             $users = User::where('is_verified', true)->where('status', ActiveInactive::ACTIVE)->where('id', $user_id)->get();
         } else {
