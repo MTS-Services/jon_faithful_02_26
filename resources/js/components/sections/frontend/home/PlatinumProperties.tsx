@@ -16,7 +16,7 @@ const PlatinumProperties: React.FC<{ listings: any }> = ({ listings }) => {
 
                 <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
                     {listings?.data?.map((listing: any) => (
-                        <PlatinumCard key={listing.id} property={listing} />
+                        <PlatinumCard key={listing.id} property={listing} type="listing" />
                     ))}
                 </div>
 
