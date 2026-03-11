@@ -12,8 +12,6 @@ const Partner = () => {
                 <video
                     className="absolute inset-0 h-full w-full object-cover"
                     autoPlay
-                    loop
-                    playsInline
                 >
                     <source
                         src="assets/images/partners/Family_ready_to_move_into_a_new_home__real_estate_house_purchase.mp4"
