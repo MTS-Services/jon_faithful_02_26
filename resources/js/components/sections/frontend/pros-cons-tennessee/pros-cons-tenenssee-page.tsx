@@ -1,3 +1,5 @@
+import { Link } from "@inertiajs/react";
+
 const ProsConsTennesseePage = () => {
     return (
         <>
@@ -797,9 +799,9 @@ const ProsConsTennesseePage = () => {
                             Best for culture: Memphis
                         </li>
                     </ul>
-                    <button className="rounded-lg bg-primary px-6 py-3 font-medium text-white transition hover:bg-secondary">
+                    <Link href={route('frontend.city-comparison')} className="rounded-lg bg-primary px-6 py-3 font-medium text-white transition hover:bg-secondary">
                         Explore Tennessee Cities →
-                    </button>
+                    </Link>
                 </div>
             </section>
 
@@ -833,12 +835,12 @@ const ProsConsTennesseePage = () => {
                                 ))}
                             </ul>
 
-                            <a
-                                href="#"
+                            <Link
+                                href={route('frontend.city-comparison')}
                                 className="inline-flex items-center gap-2 rounded-xl bg-slate-800 px-6 py-3 font-semibold text-white transition hover:bg-slate-700"
                             >
                                 Explore Tennessee Cities →
-                            </a>
+                            </Link>
                         </div>
 
                         {/* Right — Gold decorative line */}

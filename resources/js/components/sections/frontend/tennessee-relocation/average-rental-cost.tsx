@@ -14,15 +14,15 @@ export default function AverageRentalCost() {
                     <div className="bg-secondary text-black py-3 sm:py-4 font-semibold text-lg sm:text-xl lg:text-2xl px-4">
                         Rent</div>
                     <div
-                        className="bg-muted flex-1 flex items-center justify-center py-6 sm:py-10 text-sm sm:text-[25px] font-extrabold font-montserrat text-muted-foreground">
-                        $220,000</div>
+                        className="bg-muted flex-1 flex items-center justify-center py-6 sm:py-10 text-sm sm:text-[25px] font-extrabold font-montserrat text-black">
+                        $1,300 - $1,700</div>
                 </div>
                 <div className="rorounded-xl overflow-hidden shadow-md flex flex-col rounded-xl">
                     <div className="bg-secondary text-black py-3 sm:py-4 font-semibold text-lg sm:text-xl lg:text-2xl px-4">
                         Utilities</div>
                     <div
-                        className="bg-muted flex-1 flex items-center justify-center py-6 sm:py-10 text-sm sm:text-[25px] font-extrabold font-montserrat text-muted-foreground">
-                        $900–$1,200</div>
+                        className="bg-muted flex-1 flex items-center justify-center py-6 sm:py-10 text-sm sm:text-[25px] font-extrabold font-montserrat text-black">
+                        $195 - $250</div>
                 </div>
                 <div className="rorounded-xl overflow-hidden shadow-md flex flex-col rounded-xl">
                     <div className="bg-secondary text-black py-3 sm:py-4 font-semibold text-lg sm:text-xl lg:text-2xl px-4">

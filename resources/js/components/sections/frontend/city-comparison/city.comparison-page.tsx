@@ -1,3 +1,4 @@
+import { Link } from '@inertiajs/react';
 import React from 'react'
 
 const cityHighlights = [
@@ -8,6 +9,7 @@ const cityHighlights = [
         vibe: 'Energetic, fast-growing',
         cost: 'Higher than state average',
         housing: 'Condos, apartments, suburban homes',
+        route: 'livingInNashville',
     },
     {
         name: 'Knoxville',
@@ -16,6 +18,7 @@ const cityHighlights = [
         vibe: 'Balanced & relaxed',
         cost: 'Moderate',
         housing: 'Homes, rentals, condos',
+        route: 'livingInKnoxville',
     },
     {
         name: 'Chattanooga',
@@ -24,6 +27,7 @@ const cityHighlights = [
         vibe: 'Active & growing',
         cost: 'Moderate',
         housing: 'Homes and rentals',
+        route: 'livingInChattanooga',
     },
     {
         name: 'Johnson City',
@@ -32,6 +36,7 @@ const cityHighlights = [
         vibe: 'Small-city charm',
         cost: 'Low',
         housing: 'Homes, rentals',
+        route: 'livingInJohnsonCity',
     },
     {
         name: 'Kingsport',
@@ -40,6 +45,7 @@ const cityHighlights = [
         vibe: 'Suburban',
         cost: 'Low',
         housing: 'Primarily homes',
+        route: 'livingInKingsport',
     },
     {
         name: 'Bristol',
@@ -48,6 +54,7 @@ const cityHighlights = [
         vibe: 'Laid-back',
         cost: 'Low',
         housing: 'Homes and rentals',
+        route: 'livingInBristol',
     },
     {
         name: 'Memphis',
@@ -56,6 +63,7 @@ const cityHighlights = [
         vibe: 'Urban & historic',
         cost: 'Low-moderate',
         housing: 'Homes and rentals',
+        route: 'living-in-memphis',
     },
     {
         name: 'Franklin',
@@ -64,6 +72,7 @@ const cityHighlights = [
         vibe: 'Historic & refined',
         cost: 'Higher',
         housing: 'Primarily homes',
+        route: 'livingInFranklin',
     },
     {
         name: 'Murfreesboro',
@@ -72,6 +81,7 @@ const cityHighlights = [
         vibe: 'Suburban growth',
         cost: 'Moderate',
         housing: 'Homes and rentals',
+        route: 'livingInMurfreesboro',
     },
     {
         name: 'Clarksville',
@@ -80,6 +90,7 @@ const cityHighlights = [
         vibe: 'Growing & family-friendly',
         cost: 'Moderate',
         housing: 'Homes and rentals',
+        route: 'livingInClarksville',
     },
     {
         name: 'Cookeville',
@@ -88,6 +99,7 @@ const cityHighlights = [
         vibe: 'Quiet & relaxed',
         cost: 'Low',
         housing: 'Homes and rentals',
+        route: 'livingInCookeville',
     },
     {
         name: 'Jackson',
@@ -96,6 +108,7 @@ const cityHighlights = [
         vibe: 'Small city',
         cost: 'Low',
         housing: 'Homes and rentals',
+        route: 'livingInJackson',
     },
 ];
 
@@ -159,29 +172,31 @@ export default function CityComparisonPage() {
                             <>
                                 <div
                                     className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-                                    <img src={city.image}
-                                        alt={city.name} className="w-full h-48 object-cover" />
-                                    <div className="p-6">
-                                        <h3 className="text-xl font-semibold text-primary mb-3">{city.name}</h3>
-                                        <div className="space-y-2 text-md">
-                                            <div className="flex gap-1">
-                                                <span className="font-bold">Best for:</span>
-                                                <span className="font-medium text-primary ">{city.bestFor}</span>
-                                            </div>
-                                            <div className="flex gap-2">
-                                                <span className="font-bold">Vibe:</span>
-                                                <span className="font-medium text-primary">{city.vibe}</span>
-                                            </div>
-                                            <div className="flex gap-2">
-                                                <span className="font-bold">Cost:</span>
-                                                <span className="font-medium text-primary">{city.cost}</span>
-                                            </div>
-                                            <div className="flex gap-2">
-                                                <span className="font-bold">Housing:</span>
-                                                <span className="font-medium text-primary">{city.housing}</span>
+                                    <Link href={route(`frontend.${city.route}`)} className="block">
+                                        <img src={city.image}
+                                            alt={city.name} className="w-full h-48 object-cover" />
+                                        <div className="p-6">
+                                            <h3 className="text-xl font-semibold text-primary mb-3">{city.name}</h3>
+                                            <div className="space-y-2 text-md">
+                                                <div className="flex gap-1">
+                                                    <span className="font-bold">Best for:</span>
+                                                    <span className="font-medium text-primary ">{city.bestFor}</span>
+                                                </div>
+                                                <div className="flex gap-2">
+                                                    <span className="font-bold">Vibe:</span>
+                                                    <span className="font-medium text-primary">{city.vibe}</span>
+                                                </div>
+                                                <div className="flex gap-2">
+                                                    <span className="font-bold">Cost:</span>
+                                                    <span className="font-medium text-primary">{city.cost}</span>
+                                                </div>
+                                                <div className="flex gap-2">
+                                                    <span className="font-bold">Housing:</span>
+                                                    <span className="font-medium text-primary">{city.housing}</span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </Link>
                                 </div>
                             </>
 
