@@ -1,15 +1,7 @@
 export default function Hero() {
     return (
         <div className="relative flex h-[500px] w-full items-center justify-center overflow-hidden bg-foreground">
-            <video
-                className="absolute top-0 left-0 h-full w-full object-cover"
-                autoPlay
-            >
-                <source
-                    src="/assets/images/homes-for-sale/Dolly-Zoom-Pool.mp4"
-                    type="video/mp4"
-                />
-            </video>
+            <img className="absolute top-0 left-0 h-full w-full object-cover" src="/assets/images/homes-for-sale/modern-luxury-home-for-sale-nashville-tennessee.png" alt="" />
             <div className="absolute inset-0 bg-black/40 z-10" />
             <div className="container">
                 <div className="relative z-10 px-4 text-center md:px-16">

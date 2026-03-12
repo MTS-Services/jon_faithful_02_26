@@ -66,14 +66,14 @@ function FrontendHeader({ activePage, subPage }: Props) {
     { name: 'Moving to Tennessee & Renting First', routeName: 'moving-tennessee-renting' },
   ];
 
-  const movingTopics3: NavItem[] = [
+  const movingTopics4: NavItem[] = [
     { name: 'Moving Checklist', routeName: 'movingChecklist' },
     { name: 'City Comparison', routeName: 'city-comparison' },
     { name: 'Download Guide (PDF)', routeName: 'tennessee-relocated-guide-pdf' },
     { name: 'Real Estate Agents', routeName: 'realEstateAgents' },
   ];
 
-  const movingTopics4: NavItem[] = [
+  const movingTopics3: NavItem[] = [
     { name: 'Buying in Tennessee', routeName: 'buying' },
     { name: 'Cost of buying in Tennessee', routeName: 'cost-of-buying-tennessee' },
   ];
@@ -207,7 +207,7 @@ function FrontendHeader({ activePage, subPage }: Props) {
                   <div>
                     <h3 className="text-lg font-bold text-primary mb-4 border-b pb-2">Buying:</h3>
                     <ul className="space-y-3">
-                      {movingTopics4.map((item) => (
+                      {movingTopics3.map((item) => (
                         <li key={`/${item.name}`} id={item.name}>
                           <Link href={resolveNavHref(item)} className={`flex items-center text-sm text-muted-foreground hover:text-secondary transition-colors ${subPage === item.name ? 'text-secondary' : ''}`}>
                             <span className="text-primary mr-2 font-bold">
@@ -222,7 +222,7 @@ function FrontendHeader({ activePage, subPage }: Props) {
                   <div>
                     <h3 className="text-lg font-bold text-primary mb-4 border-b pb-2">Helpful Tools:</h3>
                     <ul className="space-y-3">
-                      {movingTopics3.map((item) => (
+                      {movingTopics4.map((item) => (
                         <li key={item.name}>
                           {item.name === 'Download Guide (PDF)' ? (
                             <a href={route('frontend.tennessee-relocated-guide-pdf')} className="flex items-center text-sm text-muted-foreground hover:text-secondary transition-colors">
@@ -313,9 +313,12 @@ function FrontendHeader({ activePage, subPage }: Props) {
                   {movingTopics2.map((item) => (
                     <Link key={item.name} href={resolveNavHref(item)} className="block px-3 py-1 text-sm text-muted-foreground">{item.name}</Link>
                   ))}
-
-                  <p className="px-3 text-xs font-bold text-secondary uppercase">Helpful Tools:</p>
+                  <p className="px-3 text-xs font-bold text-secondary uppercase">Buying:</p>
                   {movingTopics3.map((item) => (
+                    <Link key={item.name} href={resolveNavHref(item)} className="block px-3 py-1 text-sm text-muted-foreground">{item.name}</Link>
+                  ))}
+                  <p className="px-3 text-xs font-bold text-secondary uppercase">Helpful Tools:</p>
+                  {movingTopics4.map((item) => (
                     <Link key={item.name} href={resolveNavHref(item)} className="block px-3 py-1 text-sm text-muted-foreground">{item.name}</Link>
                   ))}
                 </div>
