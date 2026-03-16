@@ -65,7 +65,11 @@ function FrontendHeader({ activePage, subPage }: Props) {
     { name: 'Renting vs Buying in Tennessee', routeName: 'renting-buy' },
     { name: 'Moving to Tennessee & Renting First', routeName: 'moving-tennessee-renting' },
   ];
-
+  const movingTopics3: NavItem[] = [
+    { name: 'Buying in Tennessee', routeName: 'buying' },
+    { name: 'Cost of buying in Tennessee', routeName: 'cost-of-buying-tennessee' },
+    { name: 'Mortgage Calculator', routeName: 'mortgage-calculator' },
+  ];
   const movingTopics4: NavItem[] = [
     { name: 'Moving Checklist', routeName: 'movingChecklist' },
     { name: 'City Comparison', routeName: 'city-comparison' },
@@ -73,10 +77,6 @@ function FrontendHeader({ activePage, subPage }: Props) {
     { name: 'Real Estate Agents', routeName: 'realEstateAgents' },
   ];
 
-  const movingTopics3: NavItem[] = [
-    { name: 'Buying in Tennessee', routeName: 'buying' },
-    { name: 'Cost of buying in Tennessee', routeName: 'cost-of-buying-tennessee' },
-  ];
 
   const navigation: NavItem[] = [
     { name: 'Home', routeName: 'home', activeKey: 'home' },
