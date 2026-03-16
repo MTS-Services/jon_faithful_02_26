@@ -5,6 +5,7 @@ import { type NavItemType, type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
 import {
     Building2,
+    Calculator,
     ClipboardList,
     ExternalLink,
     Home,
@@ -94,6 +95,13 @@ const adminNavItems: NavItemType[] = [
         icon: ExternalLink,
         permission: 'view analytics',
         slug: 'externa-links',
+    },
+    {
+        title: 'Mortgage Settings',
+        href: route('admin.mortgage-settings.index'),
+        icon: Calculator,
+        permission: 'view analytics',
+        slug: 'mortgage-settings',
     },
     {
         title: 'Contact Us',

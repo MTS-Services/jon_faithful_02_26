@@ -13,6 +13,8 @@ class DatabaseSeeder extends Seeder
             CitySeeder::class,
             UserSeeder::class,
             AdminSeeder::class,
+            CitySeeder::class,
+            CityMortgageSettingSeeder::class,
             FeatureCategorySeeder::class,
             FeatureSeeder::class,
             ListingSeeder::class,
