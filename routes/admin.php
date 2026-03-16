@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\ContactUsController;
 use App\Http\Controllers\Admin\ExternalLinkSubmiition;
 use App\Http\Controllers\Admin\NewsletterController;
+use App\Http\Controllers\Admin\CityMortgageSettingController;
 use App\Http\Controllers\Admin\RentalManagement\RentalController;
 use App\Http\Controllers\Admin\UserManagement\UserController;
 use App\Http\Controllers\Admin\RentalManagement\FeatureCategoryController;
@@ -90,6 +91,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::prefix('newsletter')->as('newsletter.')->controller(NewsletterController::class)->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('/delete/{newsletter}', 'delete')->name('delete');
+        });
+
+        Route::prefix('mortgage-settings')->as('mortgage-settings.')->controller(CityMortgageSettingController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('/', 'store')->name('store');
+            Route::put('/{cityMortgageSetting}', 'update')->name('update');
+            Route::delete('/{cityMortgageSetting}', 'destroy')->name('destroy');
         });
     });
 });
