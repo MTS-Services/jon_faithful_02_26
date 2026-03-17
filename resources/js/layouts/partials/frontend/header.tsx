@@ -49,6 +49,7 @@ function FrontendHeader({ activePage, subPage }: Props) {
     { name: "Murfreesboro", routeName: "livingInMurfreesboro" },
     { name: "Kingsport", routeName: "livingInKingsport" },
     { name: "Jackson", routeName: "livingInJackson" },
+    { name: "California", routeName: "moving-from-california" },
   ];
 
   const movingTopics1: NavItem[] = [
@@ -56,6 +57,7 @@ function FrontendHeader({ activePage, subPage }: Props) {
     { name: 'Tennessee Relocation Guide', routeName: 'tennessee-relocation' },
     { name: 'Cost of Living in Tennessee', routeName: 'cost-of-living-in-tennessee' },
     { name: 'Pros & Cons of Living in Tennessee', routeName: 'pros-cons-tennessee' },
+    { name: 'Moving from California to Tennessee', routeName: 'moving-from-california' },
     { name: 'Best Places to Live in Tennessee', routeName: 'livetennessee' },
   ];
 

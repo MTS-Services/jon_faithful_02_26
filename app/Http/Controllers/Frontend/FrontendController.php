@@ -57,6 +57,11 @@ class FrontendController extends Controller
           return Inertia::render('frontend/rentingTennessee');
      }
 
+     public function movingFromCalifornia(): Response
+     {
+          return Inertia::render('frontend/moving-from-california');
+     }
+
      public function livingInChattanooga(): Response
      {
           return $this->renderCityPage('Chattanooga', 'frontend/living-in-chattanooga');
