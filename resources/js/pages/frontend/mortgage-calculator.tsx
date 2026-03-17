@@ -76,8 +76,13 @@ function computeResults(form: FormState): Results {
 
     const monthlyTaxes = form.propertyTax / 12;
     const monthlyInsurance = form.insurance / 12;
+
+    // Treat PMI as a monthly percentage of the loan amount.
+    const monthlyPmi =
+        form.pmi > 0 && loanAmount > 0 ? loanAmount * (form.pmi / 100) : 0;
+
     const totalMonthly =
-        principalInterest + monthlyTaxes + monthlyInsurance + form.hoa + form.pmi;
+        principalInterest + monthlyTaxes + monthlyInsurance + form.hoa + monthlyPmi;
 
     return {
         loanAmount,
@@ -85,7 +90,7 @@ function computeResults(form: FormState): Results {
         monthlyTaxes,
         monthlyInsurance,
         hoa: form.hoa,
-        pmi: form.pmi,
+        pmi: monthlyPmi,
         totalMonthly,
     };
 }
@@ -99,6 +104,16 @@ interface FieldProps {
 }
 
 function Field({ id, label, value, step = 1, onChange }: FieldProps) {
+    const [focused, setFocused] = useState(false);
+    const [localStr, setLocalStr] = useState(() => String(value));
+
+    // When not focused, keep local string in sync with parent value (e.g. preset or reset).
+    useEffect(() => {
+        if (!focused) setLocalStr(String(value));
+    }, [value, focused]);
+
+    const displayValue = focused ? localStr : String(value);
+
     return (
         <div className="flex flex-col gap-2">
             <label htmlFor={id} className="text-[0.95rem] font-bold text-[#374151]">
@@ -107,10 +122,25 @@ function Field({ id, label, value, step = 1, onChange }: FieldProps) {
             <input
                 id={id}
                 type="number"
-                value={value}
+                value={displayValue}
                 min={0}
                 step={step}
-                onChange={(e) => onChange(id, parseFloat(e.target.value) || 0)}
+                onFocus={() => {
+                    setFocused(true);
+                    setLocalStr(String(value));
+                }}
+                onBlur={() => {
+                    setFocused(false);
+                    const num = parseFloat(localStr);
+                    if (!Number.isNaN(num) && num >= 0) onChange(id, num);
+                    else onChange(id, 0);
+                }}
+                onChange={(e) => {
+                    const raw = e.target.value;
+                    setLocalStr(raw);
+                    const num = parseFloat(raw);
+                    onChange(id, Number.isNaN(num) || num < 0 ? 0 : num);
+                }}
                 className="w-full px-3.5 py-3.5 border border-[#e5e7eb] rounded-xl text-[15px] outline-none bg-white text-[#1f2937] focus:ring-2 focus:ring-[#163a63] focus:border-[#163a63]"
             />
         </div>
@@ -342,7 +372,7 @@ export default function MortgageCalculator() {
                                         <Field id="propertyTax" label="Annual Property Taxes ($)" value={form.propertyTax} step={100} onChange={handleChange} />
                                         <Field id="insurance" label="Annual Home Insurance ($)" value={form.insurance} step={100} onChange={handleChange} />
                                         <Field id="hoa" label="Monthly HOA ($)" value={form.hoa} step={25} onChange={handleChange} />
-                                        <Field id="pmi" label="Monthly PMI ($)" value={form.pmi} step={25} onChange={handleChange} />
+                                        <Field id="pmi" label="Monthly PMI (%)" value={form.pmi} step={0.01} onChange={handleChange} />
                                     </div>
                                     <button
                                         type="button"
