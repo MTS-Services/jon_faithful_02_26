@@ -105,14 +105,16 @@ interface FieldProps {
 
 function Field({ id, label, value, step = 1, onChange }: FieldProps) {
     const [focused, setFocused] = useState(false);
-    const [localStr, setLocalStr] = useState(() => String(value));
+    const [localStr, setLocalStr] = useState(() =>
+        value === 0 ? "" : String(value),
+    );
 
     // When not focused, keep local string in sync with parent value (e.g. preset or reset).
     useEffect(() => {
-        if (!focused) setLocalStr(String(value));
+        if (!focused) setLocalStr(value === 0 ? "" : String(value));
     }, [value, focused]);
 
-    const displayValue = focused ? localStr : String(value);
+    const displayValue = focused ? localStr : value === 0 ? "" : String(value);
 
     return (
         <div className="flex flex-col gap-2">
@@ -127,18 +129,47 @@ function Field({ id, label, value, step = 1, onChange }: FieldProps) {
                 step={step}
                 onFocus={() => {
                     setFocused(true);
-                    setLocalStr(String(value));
+                    setLocalStr(value === 0 ? "" : String(value));
                 }}
                 onBlur={() => {
                     setFocused(false);
                     const num = parseFloat(localStr);
-                    if (!Number.isNaN(num) && num >= 0) onChange(id, num);
-                    else onChange(id, 0);
+                    if (!Number.isNaN(num) && num >= 0) {
+                        // Normalize value so leading zeros like 0252 become 252
+                        const normalized = num === 0 ? "" : String(num);
+                        setLocalStr(normalized);
+                        onChange(id, num);
+                    } else {
+                        setLocalStr("");
+                        onChange(id, 0);
+                    }
                 }}
                 onChange={(e) => {
                     const raw = e.target.value;
-                    setLocalStr(raw);
-                    const num = parseFloat(raw);
+
+                    // Allow empty while typing
+                    if (raw === "") {
+                        setLocalStr("");
+                        onChange(id, 0);
+                        return;
+                    }
+
+                    let normalized = raw;
+
+                    // Handle decimals and strip leading zeros from integer part
+                    if (raw.includes(".")) {
+                        const [intPart, fracPart] = raw.split(".");
+                        const trimmedInt = intPart.replace(/^0+(?=\d)/, "");
+                        const safeInt = trimmedInt === "" ? "0" : trimmedInt;
+                        normalized =
+                            fracPart !== undefined ? `${safeInt}.${fracPart}` : safeInt;
+                    } else {
+                        const trimmed = raw.replace(/^0+(?=\d)/, "");
+                        normalized = trimmed === "" ? "0" : trimmed;
+                    }
+
+                    setLocalStr(normalized);
+                    const num = parseFloat(normalized);
                     onChange(id, Number.isNaN(num) || num < 0 ? 0 : num);
                 }}
                 className="w-full px-3.5 py-3.5 border border-[#e5e7eb] rounded-xl text-[15px] outline-none bg-white text-[#1f2937] focus:ring-2 focus:ring-[#163a63] focus:border-[#163a63]"
@@ -188,8 +219,24 @@ export default function MortgageCalculator() {
             ? calculatorConfig.cityPresets
             : FALLBACK_CITY_PRESETS;
 
-    const [form, setForm] = useState<FormState>(resolvedDefaults);
-    const [results, setResults] = useState<Results>(computeResults(resolvedDefaults));
+    const initialCity = resolvedCityPresets[0] ?? null;
+
+    const initialForm: FormState =
+        initialCity == null
+            ? resolvedDefaults
+            : {
+                  ...resolvedDefaults,
+                  homePrice: initialCity.price,
+                  downPayment: Math.round(initialCity.price * 0.1),
+                  propertyTax: initialCity.tax,
+                  insurance: initialCity.insurance,
+              };
+
+    const [form, setForm] = useState<FormState>(initialForm);
+    const [results, setResults] = useState<Results>(computeResults(initialForm));
+    const [activeCity, setActiveCity] = useState<string | null>(
+        initialCity ? initialCity.label : null,
+    );
 
     useEffect(() => {
         setResults(computeResults(form));
@@ -197,10 +244,23 @@ export default function MortgageCalculator() {
 
     useEffect(() => {
         // If admin updates defaults in the backend, keep the UI in sync
-        setForm(resolvedDefaults);
-        setResults(computeResults(resolvedDefaults));
+        const updatedInitialCity = resolvedCityPresets[0] ?? null;
+        const updatedForm =
+            updatedInitialCity == null
+                ? resolvedDefaults
+                : {
+                      ...resolvedDefaults,
+                      homePrice: updatedInitialCity.price,
+                      downPayment: Math.round(updatedInitialCity.price * 0.1),
+                      propertyTax: updatedInitialCity.tax,
+                      insurance: updatedInitialCity.insurance,
+                  };
+
+        setForm(updatedForm);
+        setResults(computeResults(updatedForm));
+        setActiveCity(updatedInitialCity ? updatedInitialCity.label : null);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [JSON.stringify(resolvedDefaults)]);
+    }, [JSON.stringify(resolvedDefaults), JSON.stringify(resolvedCityPresets)]);
 
     const handleChange = useCallback((id: keyof FormState, value: number) => {
         setForm((prev) => ({ ...prev, [id]: value }));
@@ -214,9 +274,13 @@ export default function MortgageCalculator() {
             propertyTax: preset.tax,
             insurance: preset.insurance,
         }));
+        setActiveCity(preset.label);
     }, []);
 
-    const handleReset = useCallback(() => setForm(resolvedDefaults), [resolvedDefaults]);
+    const handleReset = useCallback(() => {
+        setForm(resolvedDefaults);
+        setActiveCity(null);
+    }, [resolvedDefaults]);
 
     // Lead form state (for "Get Matched" hero card — can be sent to LendingTree or internal lead form)
     const [leadHomePrice, setLeadHomePrice] = useState("");
@@ -352,16 +416,23 @@ export default function MortgageCalculator() {
                                 <div className="bg-white border border-[#e5e7eb] rounded-[18px] p-6 shadow-[0_12px_30px_rgba(0,0,0,.08)]">
                                     <span className="block mb-2.5 text-[.92rem] font-bold text-[#374151]">Quick city examples</span>
                                     <div className="flex flex-wrap gap-2.5 mb-5">
-                                        {resolvedCityPresets.map((preset) => (
-                                            <button
-                                                key={preset.label}
-                                                type="button"
-                                                onClick={() => handlePreset(preset)}
-                                                className="border border-[#e5e7eb] bg-white text-[#1f2937] px-3.5 py-2.5 rounded-full text-[.92rem] font-bold cursor-pointer hover:bg-[#f7f8fb] hover:border-[#163a63] transition-colors"
-                                            >
-                                                {preset.label}
-                                            </button>
-                                        ))}
+                                        {resolvedCityPresets.map((preset) => {
+                                            const isActive = activeCity === preset.label;
+                                            return (
+                                                <button
+                                                    key={preset.label}
+                                                    type="button"
+                                                    onClick={() => handlePreset(preset)}
+                                                    className={`px-3.5 py-2.5 rounded-full text-[.92rem] font-bold cursor-pointer border transition-colors ${
+                                                        isActive
+                                                            ? "border-[#163a63] bg-[#163a63] text-white"
+                                                            : "border-[#e5e7eb] bg-white text-[#1f2937] hover:bg-[#f7f8fb] hover:border-[#163a63]"
+                                                    }`}
+                                                >
+                                                    {preset.label}
+                                                </button>
+                                            );
+                                        })}
                                     </div>
                                     <h3 className="m-0 mb-4 text-[1.1rem] font-bold text-[#1f2937]">Enter your home buying details</h3>
                                     <div className="grid grid-cols-2 gap-4">
