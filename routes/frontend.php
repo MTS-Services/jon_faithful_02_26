@@ -13,6 +13,7 @@ Route::group(['as' => 'frontend.'], function () {
         Route::get('/partner-program', 'partnerProgram')->name('partnerProgram');
         Route::get('/bristol', 'livingInBristol')->name('livingInBristol');
         Route::get('/renting-tennessee', 'rentingTennessee')->name('rentingTennessee');
+        Route::get('/moving-from-california-to-tennessee', 'movingFromCalifornia')->name('moving-from-california');
         Route::get('/chattanooga', 'livingInChattanooga')->name('livingInChattanooga');
         Route::get('/homes-for-sale', 'homesForSale')->name('home-for-sale');
         Route::get('/moving-checklist', 'movingChecklist')->name('movingChecklist');
