@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tennessee Mortgage Calculator | WhyTennessee.com</title>
+    <style>
+        :root {
+            --brand: #163a63;
+            --brand-dark: #0f2743;
+            --accent: #c58b2b;
+            --bg: #f7f8fb;
+            --text: #1f2937;
+            --muted: #6b7280;
+            --white: #ffffff;
+            --border: #e5e7eb;
+            --success: #166534;
+            --shadow: 0 12px 30px rgba(0, 0, 0, .08);
+            --radius: 18px;
+            --max: 1180px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.55;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .container {
+            width: min(var(--max), calc(100% - 32px));
+            margin: 0 auto;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 22px;
+            border-radius: 12px;
+            font-weight: 700;
+            transition: .2s ease;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #111827;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 1px solid rgba(255, 255, 255, .35);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, rgba(22, 58, 99, .96), rgba(15, 39, 67, .94));
+            color: var(--white);
+            padding: 72px 0 56px;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.1fr .9fr;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            margin-bottom: 14px;
+            padding: 7px 12px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, .12);
+            font-size: 13px;
+            letter-spacing: .04em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: 0 0 16px;
+            font-size: clamp(2rem, 5vw, 3.6rem);
+            line-height: 1.05;
+        }
+
+        .hero p {
+            margin: 0 0 22px;
+            color: rgba(255, 255, 255, .9);
+            font-size: 1.06rem;
+            max-width: 58ch;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .hero-points {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .hero-points div {
+            background: rgba(255, 255, 255, .08);
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 14px;
+            padding: 14px;
+            font-size: .95rem;
+        }
+
+        .hero-card {
+            background: var(--white);
+            color: var(--text);
+            border-radius: var(--radius);
+            padding: 24px;
+            box-shadow: var(--shadow);
+        }
+
+        .hero-card h3 {
+            margin: 0 0 8px;
+            font-size: 1.35rem;
+        }
+
+        .hero-card p {
+            color: var(--muted);
+            margin: 0 0 16px;
+        }
+
+        .quick-form {
+            display: grid;
+            gap: 12px;
+        }
+
+        .quick-form input,
+        .quick-form select {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            font-size: 15px;
+        }
+
+        .quick-form small {
+            color: var(--muted);
+            display: block;
+            margin-top: 6px;
+        }
+
+        section {
+            padding: 64px 0;
+        }
+
+        .section-head {
+            text-align: center;
+            max-width: 760px;
+            margin: 0 auto 28px;
+        }
+
+        .section-head h2 {
+            margin: 0 0 10px;
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            line-height: 1.12;
+            color: var(--brand-dark);
+        }
+
+        .section-head p {
+            margin: 0;
+            color: var(--muted);
+        }
+
+        .card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            box-shadow: var(--shadow);
+        }
+
+        .calc-wrap {
+            display: grid;
+            grid-template-columns: 1fr 360px;
+            gap: 24px;
+            align-items: start;
+        }
+
+        .calc-placeholder {
+            min-height: 540px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed #cbd5e1;
+            background: #fafafa;
+            border-radius: 16px;
+            color: var(--muted);
+            text-align: center;
+            padding: 24px;
+        }
+
+        .results-box h3 {
+            margin-top: 0;
+        }
+
+        .result-stat {
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .result-stat:last-child {
+            border-bottom: 0;
+        }
+
+        .result-stat strong {
+            display: block;
+            font-size: 1.5rem;
+            color: var(--brand-dark);
+            margin-top: 3px;
+        }
+
+        .trust-list {
+            display: grid;
+            gap: 10px;
+            margin: 16px 0 18px;
+        }
+
+        .trust-item {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            color: var(--muted);
+        }
+
+        .benefits {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .benefits h3 {
+            margin-top: 0;
+        }
+
+        .benefits p {
+            color: var(--muted);
+            margin-bottom: 0;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .step-num {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: rgba(197, 139, 43, .12);
+            color: var(--brand-dark);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+
+        .quote {
+            background: linear-gradient(180deg, #fff, #f8fafc);
+            border-left: 4px solid var(--accent);
+        }
+
+        .faq {
+            display: grid;
+            gap: 12px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        details {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 18px 18px 8px;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: 700;
+            color: var(--brand-dark);
+            margin-bottom: 10px;
+        }
+
+        .cta-final {
+            background: var(--brand-dark);
+            color: var(--white);
+            text-align: center;
+            border-radius: 26px;
+            padding: 40px 24px;
+        }
+
+        .cta-final h2 {
+            color: var(--white);
+            margin-top: 0;
+        }
+
+        .cta-final p {
+            color: rgba(255, 255, 255, .9);
+            max-width: 720px;
+            margin: 0 auto 20px;
+        }
+
+        .fine-print {
+            text-align: center;
+            color: var(--muted);
+            font-size: .9rem;
+            margin-top: 18px;
+        }
+
+        @media (max-width: 980px) {
+
+            .hero-grid,
+            .calc-wrap,
+            .benefits,
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-points {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="hero">
+        <div class="container hero-grid">
+            <div>
+                <span class="eyebrow">WhyTennessee.com Mortgage Tools</span>
+                <h1>See What Home You Can Afford in Tennessee</h1>
+                <p>Use our Tennessee mortgage calculator to estimate your payment, then compare real offers from trusted
+                    lenders and get pre-approved with confidence.</p>
+                <div class="hero-actions">
+                    <a href="#calculator" class="btn btn-primary">Use the Mortgage Calculator</a>
+                    <a href="#rates" class="btn btn-secondary">Check Today’s Rates</a>
+                </div>
+                <div class="hero-points">
+                    <div><strong>Estimate monthly payments</strong><br>Principal, interest, taxes, and insurance.</div>
+                    <div><strong>Compare lender offers</strong><br>See what financing may fit your move.</div>
+                    <div><strong>Built for relocation buyers</strong><br>Helpful for out-of-state buyers moving to
+                        Tennessee.</div>
+                </div>
+            </div>
+            <aside class="hero-card" id="rates">
+                <h3>Get Matched With Tennessee Mortgage Options</h3>
+                <p>This short form can send high-intent buyers to your LendingTree partner flow or internal lead form.
+                </p>
+                <form class="quick-form">
+                    <input type="text" placeholder="Target home price" />
+                    <select>
+                        <option>Estimated credit range</option>
+                        <option>760+</option>
+                        <option>700-759</option>
+                        <option>640-699</option>
+                        <option>Below 640</option>
+                    </select>
+                    <select>
+                        <option>Down payment</option>
+                        <option>3%-5%</option>
+                        <option>10%</option>
+                        <option>20%+</option>
+                    </select>
+                    <a href="#" class="btn btn-primary" style="text-align:center;">Check Today’s Mortgage Rates</a>
+                    <small>No obligation. You can route this button to your LendingTree link, popup, or embedded lead
+                        form.</small>
+                </form>
+            </aside>
+        </div>
+    </header>
+
+    <main>
+        <section id="calculator">
+            <div class="container">
+                <div class="section-head">
+                    <h2>Tennessee Mortgage Calculator</h2>
+                    <p>This section is where your current calculator should live. Keep it near the top of the page, then
+                        place a strong lender call-to-action next to the results.</p>
+                </div>
+                <div class="calc-wrap">
+                    <div class="card">
+                        <div class="calc-placeholder">
+                            Replace this area with your existing mortgage calculator embed or Laravel calculator
+                            component.
+                        </div>
+                    </div>
+                    <aside class="card results-box">
+                        <h3>After They Calculate, Give Them the Next Step</h3>
+                        <div class="result-stat">
+                            Estimated Payment
+                            <strong>$2,145/mo</strong>
+                        </div>
+                        <div class="result-stat">
+                            Estimated Home Budget
+                            <strong>$325,000</strong>
+                        </div>
+                        <div class="result-stat">
+                            Next Best Action
+                            <strong>Compare Real Lender Offers</strong>
+                        </div>
+                        <div class="trust-list">
+                            <div class="trust-item">✔ See options from multiple lenders</div>
+                            <div class="trust-item">✔ Great for Tennessee homebuyers and relocators</div>
+                            <div class="trust-item">✔ Fast next step after using the calculator</div>
+                        </div>
+                        <a href="#" class="btn btn-primary" style="width:100%; text-align:center;">Get Pre-Approved in
+                            Minutes</a>
+                        <p style="margin:14px 0 0; color:var(--muted); font-size:.95rem;">Tip: make this button sticky
+                            on mobile and visible immediately after the user sees their payment result.</p>
+                    </aside>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <div class="section-head">
+                    <h2>Why Buyers Use This Page</h2>
+                    <p>Your page should do more than calculate numbers. It should move a visitor from curiosity to
+                        action.</p>
+                </div>
+                <div class="benefits">
+                    <div class="card">
+                        <h3>Know Your Budget</h3>
+                        <p>Help buyers understand what monthly payment fits their move to Tennessee before they start
+                            house hunting.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Compare Lending Options</h3>
+                        <p>After calculating, give them a direct path to compare rates, check eligibility, or start
+                            pre-approval.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Reduce Friction</h3>
+                        <p>Keep the path simple: calculator first, lender CTA second, optional lead capture third.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <div class="section-head">
+                    <h2>How It Works</h2>
+                    <p>Use this simple 3-step flow to turn calculator traffic into mortgage leads.</p>
+                </div>
+                <div class="steps">
+                    <div class="card">
+                        <div class="step-num">1</div>
+                        <h3>Enter Loan Details</h3>
+                        <p>Visitors plug in home price, down payment, term, taxes, insurance, and interest rate
+                            assumptions.</p>
+                    </div>
+                    <div class="card">
+                        <div class="step-num">2</div>
+                        <h3>Review Estimated Payment</h3>
+                        <p>Show principal and interest clearly, plus taxes and insurance so the result feels realistic.
+                        </p>
+                    </div>
+                    <div class="card">
+                        <div class="step-num">3</div>
+                        <h3>Compare Real Offers</h3>
+                        <p>Present a strong CTA to view lender options, begin pre-approval, or get matched with a
+                            mortgage partner.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <div class="card quote">
+                    <h2 style="margin-top:0; color:var(--brand-dark);">For maximum lead generation, do this next</h2>
+                    <p style="margin-bottom:0; color:var(--muted);">Place one primary CTA above the calculator, one
+                        beside or below the results, and one final CTA near the bottom of the page. That gives visitors
+                        a clear next step whether they are ready immediately or need more trust first.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <div class="section-head">
+                    <h2>Frequently Asked Questions</h2>
+                    <p>These FAQs help with trust, SEO, and conversion.</p>
+                </div>
+                <div class="faq">
+                    <details open>
+                        <summary>How accurate is this mortgage calculator?</summary>
+                        <p>This calculator gives an estimate based on the numbers you enter. Your actual rate, monthly
+                            payment, taxes, insurance, and loan terms may vary based on lender guidelines and your
+                            credit profile.</p>
+                    </details>
+                    <details>
+                        <summary>Does checking mortgage options hurt my credit?</summary>
+                        <p>You can phrase this carefully based on your lender partner’s approved language. Keep your
+                            wording aligned with the lender’s compliance requirements.</p>
+                    </details>
+                    <details>
+                        <summary>Can I use this calculator if I am moving to Tennessee from another state?</summary>
+                        <p>Yes. This page is designed to help relocation buyers estimate affordability before speaking
+                            with a lender or local real estate professional.</p>
+                    </details>
+                    <details>
+                        <summary>What should I do after I calculate my payment?</summary>
+                        <p>The best next step is to compare real mortgage offers, check current rates, or begin the
+                            pre-approval process with a trusted lending partner.</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <div class="cta-final">
+                    <h2>Ready to See Real Tennessee Mortgage Options?</h2>
+                    <p>Use the calculator, review your estimated payment, and then take the next step with a trusted
+                        lending partner. This is where you place your main LendingTree link, embedded widget, or lead
+                        form handoff.</p>
+                    <a href="#" class="btn btn-primary">Check Today’s Rates</a>
+                    <div class="fine-print">Example disclosure area: WhyTennessee.com may be compensated by lending
+                        partners when visitors click or submit information through certain links or forms.</div>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>

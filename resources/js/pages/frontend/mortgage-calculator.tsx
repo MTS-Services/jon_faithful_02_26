@@ -1,6 +1,9 @@
 import { useState, useEffect, useCallback } from "react";
-import { Link, usePage } from "@inertiajs/react";
+import { usePage } from "@inertiajs/react";
 import FrontendLayout from "@/layouts/frontend-layout";
+
+// Set your LendingTree (or lendertree.com) partner URL when ready. Leave as '#' until then.
+const LENDER_RATES_URL = "#";
 
 const currency = new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -73,8 +76,13 @@ function computeResults(form: FormState): Results {
 
     const monthlyTaxes = form.propertyTax / 12;
     const monthlyInsurance = form.insurance / 12;
+
+    // Treat PMI as a monthly percentage of the loan amount.
+    const monthlyPmi =
+        form.pmi > 0 && loanAmount > 0 ? loanAmount * (form.pmi / 100) : 0;
+
     const totalMonthly =
-        principalInterest + monthlyTaxes + monthlyInsurance + form.hoa + form.pmi;
+        principalInterest + monthlyTaxes + monthlyInsurance + form.hoa + monthlyPmi;
 
     return {
         loanAmount,
@@ -82,7 +90,7 @@ function computeResults(form: FormState): Results {
         monthlyTaxes,
         monthlyInsurance,
         hoa: form.hoa,
-        pmi: form.pmi,
+        pmi: monthlyPmi,
         totalMonthly,
     };
 }
@@ -96,19 +104,75 @@ interface FieldProps {
 }
 
 function Field({ id, label, value, step = 1, onChange }: FieldProps) {
+    const [focused, setFocused] = useState(false);
+    const [localStr, setLocalStr] = useState(() =>
+        value === 0 ? "" : String(value),
+    );
+
+    // When not focused, keep local string in sync with parent value (e.g. preset or reset).
+    useEffect(() => {
+        if (!focused) setLocalStr(value === 0 ? "" : String(value));
+    }, [value, focused]);
+
+    const displayValue = focused ? localStr : value === 0 ? "" : String(value);
+
     return (
         <div className="flex flex-col gap-2">
-            <label htmlFor={id} className="text-[0.95rem] font-bold text-text-secondary">
+            <label htmlFor={id} className="text-[0.95rem] font-bold text-[#374151]">
                 {label}
             </label>
             <input
                 id={id}
                 type="number"
-                value={value}
+                value={displayValue}
                 min={0}
                 step={step}
-                onChange={(e) => onChange(id, parseFloat(e.target.value) || 0)}
-                className="w-full px-[15px] py-[15px] border border-border rounded-[14px] text-base outline-none bg-white text-foreground transition-[border-color,box-shadow] duration-200 focus:border-primary focus:shadow-[0_0_0_4px_rgba(27,42,74,0.12)]"
+                onFocus={() => {
+                    setFocused(true);
+                    setLocalStr(value === 0 ? "" : String(value));
+                }}
+                onBlur={() => {
+                    setFocused(false);
+                    const num = parseFloat(localStr);
+                    if (!Number.isNaN(num) && num >= 0) {
+                        // Normalize value so leading zeros like 0252 become 252
+                        const normalized = num === 0 ? "" : String(num);
+                        setLocalStr(normalized);
+                        onChange(id, num);
+                    } else {
+                        setLocalStr("");
+                        onChange(id, 0);
+                    }
+                }}
+                onChange={(e) => {
+                    const raw = e.target.value;
+
+                    // Allow empty while typing
+                    if (raw === "") {
+                        setLocalStr("");
+                        onChange(id, 0);
+                        return;
+                    }
+
+                    let normalized = raw;
+
+                    // Handle decimals and strip leading zeros from integer part
+                    if (raw.includes(".")) {
+                        const [intPart, fracPart] = raw.split(".");
+                        const trimmedInt = intPart.replace(/^0+(?=\d)/, "");
+                        const safeInt = trimmedInt === "" ? "0" : trimmedInt;
+                        normalized =
+                            fracPart !== undefined ? `${safeInt}.${fracPart}` : safeInt;
+                    } else {
+                        const trimmed = raw.replace(/^0+(?=\d)/, "");
+                        normalized = trimmed === "" ? "0" : trimmed;
+                    }
+
+                    setLocalStr(normalized);
+                    const num = parseFloat(normalized);
+                    onChange(id, Number.isNaN(num) || num < 0 ? 0 : num);
+                }}
+                className="w-full px-3.5 py-3.5 border border-[#e5e7eb] rounded-xl text-[15px] outline-none bg-white text-[#1f2937] focus:ring-2 focus:ring-[#163a63] focus:border-[#163a63]"
             />
         </div>
     );
@@ -123,11 +187,10 @@ interface ResultRowProps {
 function ResultRow({ label, value, last = false }: ResultRowProps) {
     return (
         <div
-            className={`flex justify-between gap-4 py-[11px] ${last ? "" : "border-b border-border"
-                }`}
+            className={`flex justify-between gap-4 py-2.5 ${last ? "" : "border-b border-[#e5e7eb]"}`}
         >
-            <span className="text-text-muted font-semibold">{label}</span>
-            <span className="font-extrabold text-right text-text-primary">
+            <span className="text-[#6b7280] font-semibold text-sm">{label}</span>
+            <span className="font-bold text-right text-[#0f2743]">
                 {currency.format(value)}
             </span>
         </div>
@@ -140,8 +203,11 @@ export default function MortgageCalculator() {
         | {
             defaults?: Partial<FormState>;
             cityPresets?: CityPreset[];
+            lenderRatesUrl?: string;
         }
         | undefined;
+
+    const lenderRatesUrl = calculatorConfig?.lenderRatesUrl ?? LENDER_RATES_URL;
 
     const resolvedDefaults: FormState = {
         ...FALLBACK_DEFAULTS,
@@ -153,8 +219,24 @@ export default function MortgageCalculator() {
             ? calculatorConfig.cityPresets
             : FALLBACK_CITY_PRESETS;
 
-    const [form, setForm] = useState<FormState>(resolvedDefaults);
-    const [results, setResults] = useState<Results>(computeResults(resolvedDefaults));
+    const initialCity = resolvedCityPresets[0] ?? null;
+
+    const initialForm: FormState =
+        initialCity == null
+            ? resolvedDefaults
+            : {
+                  ...resolvedDefaults,
+                  homePrice: initialCity.price,
+                  downPayment: Math.round(initialCity.price * 0.1),
+                  propertyTax: initialCity.tax,
+                  insurance: initialCity.insurance,
+              };
+
+    const [form, setForm] = useState<FormState>(initialForm);
+    const [results, setResults] = useState<Results>(computeResults(initialForm));
+    const [activeCity, setActiveCity] = useState<string | null>(
+        initialCity ? initialCity.label : null,
+    );
 
     useEffect(() => {
         setResults(computeResults(form));
@@ -162,10 +244,23 @@ export default function MortgageCalculator() {
 
     useEffect(() => {
         // If admin updates defaults in the backend, keep the UI in sync
-        setForm(resolvedDefaults);
-        setResults(computeResults(resolvedDefaults));
+        const updatedInitialCity = resolvedCityPresets[0] ?? null;
+        const updatedForm =
+            updatedInitialCity == null
+                ? resolvedDefaults
+                : {
+                      ...resolvedDefaults,
+                      homePrice: updatedInitialCity.price,
+                      downPayment: Math.round(updatedInitialCity.price * 0.1),
+                      propertyTax: updatedInitialCity.tax,
+                      insurance: updatedInitialCity.insurance,
+                  };
+
+        setForm(updatedForm);
+        setResults(computeResults(updatedForm));
+        setActiveCity(updatedInitialCity ? updatedInitialCity.label : null);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [JSON.stringify(resolvedDefaults)]);
+    }, [JSON.stringify(resolvedDefaults), JSON.stringify(resolvedCityPresets)]);
 
     const handleChange = useCallback((id: keyof FormState, value: number) => {
         setForm((prev) => ({ ...prev, [id]: value }));
@@ -179,210 +274,355 @@ export default function MortgageCalculator() {
             propertyTax: preset.tax,
             insurance: preset.insurance,
         }));
+        setActiveCity(preset.label);
     }, []);
 
-    const handleReset = useCallback(() => setForm(resolvedDefaults), [resolvedDefaults]);
+    const handleReset = useCallback(() => {
+        setForm(resolvedDefaults);
+        setActiveCity(null);
+    }, [resolvedDefaults]);
+
+    // Lead form state (for "Get Matched" hero card — can be sent to LendingTree or internal lead form)
+    const [leadHomePrice, setLeadHomePrice] = useState("");
+    const [leadCredit, setLeadCredit] = useState("");
+    const [leadDownPayment, setLeadDownPayment] = useState("");
+
+    const handleLeadSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        // When LendingTree/lendertree.com is ready: open their URL (with optional query params from form).
+        window.open(lenderRatesUrl, "_blank", "noopener,noreferrer");
+    };
+
+    const scrollToCalculator = () => {
+        document.getElementById("calculator")?.scrollIntoView({ behavior: "smooth" });
+    };
+
+    const scrollToTodayRates = (e: React.MouseEvent<HTMLAnchorElement>) => {
+        e.preventDefault();
+        document.getElementById("rates")?.scrollIntoView({ behavior: "smooth" });
+    };
 
     return (
         <FrontendLayout activePage="buying" subPage="mortgage-calculator">
-            <div
-                className="min-h-screen p-6 font-[Arial,Helvetica,sans-serif] text-foreground leading-relaxed"
-                style={{ background: "linear-gradient(180deg,var(--background) 0%,var(--primary-background) 100%)" }}
-            >
-                <div className="container px-4 mx-auto">
-
-                    {/* Brand pill */}
-                    <div
-                        className="inline-flex items-center gap-[10px] rounded-full px-[14px] py-2 text-[0.95rem] font-bold mb-4 border border-border text-primary bg-primary/10"
-                    >
-                        WhyTennessee.com • Relocation Home Cost Tool
-                    </div>
-
-                    {/* Hero strip */}
-                    <div className="grid grid-cols-1 md:grid-cols-[1.2fr_0.8fr] gap-[18px] mb-[18px] items-stretch">
-
-                        {/* Hero copy */}
-                        <div
-                            className="rounded-[24px] p-[26px_28px] border border-border overflow-hidden relative bg-card"
-                            style={{
-                                boxShadow: "var(--shadow-card)",
-                            }}
-                        >
-                            <h1 className="m-0 mb-[10px] text-[2.25rem] leading-[1.05] text-text-primary">
-                                Estimate Your Tennessee Monthly Mortgage Payment
+            <div className="min-h-screen font-[Arial,Helvetica,sans-serif] text-[#1f2937] leading-relaxed bg-[#f7f8fb]">
+                {/* ── Hero (Tennessee design) ── */}
+                <header
+                    className="text-white pt-[72px] pb-14 px-4"
+                    style={{ background: "linear-gradient(135deg, rgba(22,58,99,.96), rgba(15,39,67,.94))" }}
+                >
+                    <div className="max-w-[1180px] mx-auto grid grid-cols-1 md:grid-cols-[1.1fr_0.9fr] gap-7 items-center">
+                        <div>
+                            <span className="inline-block mb-3.5 px-3 py-1.5 rounded-full bg-white/10 text-[13px] tracking-wider uppercase">
+                                WhyTennessee.com Mortgage Tools
+                            </span>
+                            <h1 className="m-0 mb-4 text-[clamp(2rem,5vw,3.6rem)] leading-tight">
+                                See What Home You Can Afford in Tennessee
                             </h1>
-                            <p className="m-0 text-text-muted text-[1.02rem]">
-                                Compare the cost of buying a home across Tennessee with a calculator designed for
-                                relocation buyers, families, and anyone planning a move to the Volunteer State.
+                            <p className="m-0 mb-5 text-white/90 text-[1.06rem] max-w-[58ch]">
+                                Use our Tennessee mortgage calculator to estimate your payment, then compare real offers from trusted
+                                lenders and get pre-approved with confidence.
                             </p>
-                        </div>
-
-                        {/* Hero badges (can be driven by admin presets) */}
-                        <div
-                            className="rounded-[24px] p-[26px_28px] border border-border flex flex-wrap gap-[10px] content-center bg-card"
-                            style={{
-                                boxShadow: "var(--shadow-card)",
-                            }}
-                        >
-                            {resolvedCityPresets.map((c) => (
-                                <span
-                                    key={c.label}
-                                    className="inline-flex items-center px-[14px] py-[11px] rounded-full text-[0.95rem] font-extrabold text-primary border border-border bg-primary/10"
+                            <div className="flex flex-wrap gap-3 mb-4">
+                                <button
+                                    type="button"
+                                    onClick={scrollToCalculator}
+                                    className="inline-block px-5 py-3.5 rounded-xl font-bold transition-transform hover:-translate-y-px bg-[#c58b2b] text-[#111827]"
                                 >
-                                    {c.label}
-                                </span>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* Calculator card */}
-                    <div
-                        className="rounded-[24px] border border-border overflow-hidden bg-card"
-                        style={{
-                            boxShadow: "var(--shadow-card)",
-                        }}
-                    >
-                        {/* Card header */}
-                        <div
-                            className="px-[34px] pt-[34px] pb-[22px] border-b border-border bg-primary/5"
-                        >
-                            <div className="inline-flex items-center gap-[10px] mb-[10px] font-black text-primary">
-                                <div className="logo-mark"><span className="logo-mountains"></span><span>WhyTennessee.com</span></div>
+                                    Use the Mortgage Calculator
+                                </button>
+                                <a
+                                    href="#rates"
+                                    onClick={scrollToTodayRates}
+                                    className="inline-block px-5 py-3.5 rounded-xl font-bold border border-white/35 text-white hover:bg-white/10 transition-colors"
+                                >
+                                    Check Today&apos;s Rates
+                                </a>
                             </div>
-                            <h2 className="m-0 mb-[10px] text-[2.2rem] leading-[1.1] text-text-primary">
-                                WhyTennessee.com Mortgage Payment Calculator
-                            </h2>
-                            <p className="m-0 text-text-muted text-[1.02rem] max-w-[760px]">
-                                Estimate your monthly Tennessee mortgage payment, including principal, interest,
-                                property taxes, homeowners insurance, HOA dues, and PMI. Built for families and
-                                buyers relocating to Tennessee.
-                            </p>
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 mt-5">
+                                <div className="bg-white/5 border border-white/10 rounded-[14px] p-3.5 text-[.95rem]">
+                                    <strong>Estimate monthly payments</strong><br />Principal, interest, taxes, and insurance.
+                                </div>
+                                <div className="bg-white/5 border border-white/10 rounded-[14px] p-3.5 text-[.95rem]">
+                                    <strong>Compare lender offers</strong><br />See what financing may fit your move.
+                                </div>
+                                <div className="bg-white/5 border border-white/10 rounded-[14px] p-3.5 text-[.95rem]">
+                                    <strong>Built for relocation buyers</strong><br />Helpful for out-of-state buyers moving to Tennessee.
+                                </div>
+                            </div>
                         </div>
+                        {/* Lead capture card (LendingTree / lendertree.com style) */}
+                        <aside className="bg-white text-[#1f2937] rounded-[18px] p-6 shadow-[0_12px_30px_rgba(0,0,0,.08)]" id="rates">
+                            <h3 className="m-0 mb-2 text-[1.35rem] text-[#0f2743]">Get Matched With Tennessee Mortgage Options</h3>
+                            <p className="text-[#6b7280] m-0 mb-4 text-[.95rem]">
+                                Compare rates from multiple lenders. When your LendingTree (or lendertree.com) account is linked, this can send high-intent visitors to your partner flow.
+                            </p>
+                            <form onSubmit={handleLeadSubmit} className="grid gap-3">
+                                <input
+                                    type="text"
+                                    placeholder="Target home price"
+                                    value={leadHomePrice}
+                                    onChange={(e) => setLeadHomePrice(e.target.value)}
+                                    className="w-full px-3.5 py-3.5 rounded-xl border border-[#e5e7eb] text-[15px] outline-none focus:ring-2 focus:ring-[#163a63] focus:border-[#163a63]"
+                                />
+                                <select
+                                    value={leadCredit}
+                                    onChange={(e) => setLeadCredit(e.target.value)}
+                                    className="w-full px-3.5 py-3.5 rounded-xl border border-[#e5e7eb] text-[15px] outline-none focus:ring-2 focus:ring-[#163a63] focus:border-[#163a63] bg-white"
+                                >
+                                    <option value="">Estimated credit range</option>
+                                    <option value="760+">760+</option>
+                                    <option value="700-759">700-759</option>
+                                    <option value="640-699">640-699</option>
+                                    <option value="below-640">Below 640</option>
+                                </select>
+                                <select
+                                    value={leadDownPayment}
+                                    onChange={(e) => setLeadDownPayment(e.target.value)}
+                                    className="w-full px-3.5 py-3.5 rounded-xl border border-[#e5e7eb] text-[15px] outline-none focus:ring-2 focus:ring-[#163a63] focus:border-[#163a63] bg-white"
+                                >
+                                    <option value="">Down payment</option>
+                                    <option value="3-5">3%-5%</option>
+                                    <option value="10">10%</option>
+                                    <option value="20">20%+</option>
+                                </select>
+                                <button
+                                    type="submit"
+                                    className="w-full py-3.5 px-5 rounded-xl font-bold bg-[#c58b2b] text-[#111827] text-center hover:-translate-y-px transition-transform"
+                                >
+                                    Check Today&apos;s Mortgage Rates
+                                </button>
+                                <small className="block mt-1.5 text-[#6b7280]">
+                                    No obligation. This button routes to your LendingTree (or lendertree.com) link when configured.
+                                </small>
+                            </form>
+                        </aside>
+                    </div>
+                </header>
 
-                        {/* Two-column body */}
-                        <div className="grid grid-cols-1 md:grid-cols-[1.15fr_0.85fr]">
-
-                            {/* ── Form side ── */}
-                            <div className="p-8">
-                                {/* City preset buttons */}
-                                <span className="block mb-[10px] text-[0.92rem] font-extrabold text-text-secondary">
-                                    Quick city examples
-                                </span>
-                                <div className="flex flex-wrap gap-[10px] mb-[22px]">
-                                    {resolvedCityPresets.map((preset) => (
-                                        <button
-                                            key={preset.label}
-                                            type="button"
-                                            onClick={() => handlePreset(preset)}
-                                            className="border border-border bg-white text-foreground px-[14px] py-[10px] rounded-full text-[0.92rem] font-extrabold cursor-pointer hover:bg-muted hover:border-primary transition-colors duration-150"
-                                        >
-                                            {preset.label}
-                                        </button>
-                                    ))}
-                                </div>
-
-                                <h3 className="m-0 mb-[18px] text-[1.1rem] font-extrabold text-text-primary">
-                                    Enter your home buying details
-                                </h3>
-
-                                <div className="grid grid-cols-2 gap-[18px]">
-                                    <Field id="homePrice" label="Home Price ($)" value={form.homePrice} step={1000} onChange={handleChange} />
-                                    <Field id="downPayment" label="Down Payment ($)" value={form.downPayment} step={1000} onChange={handleChange} />
-                                    <Field id="interestRate" label="Interest Rate (%)" value={form.interestRate} step={0.01} onChange={handleChange} />
-                                    <Field id="loanTerm" label="Loan Term (Years)" value={form.loanTerm} step={1} onChange={handleChange} />
-                                    <Field id="propertyTax" label="Annual Property Taxes ($)" value={form.propertyTax} step={100} onChange={handleChange} />
-                                    <Field id="insurance" label="Annual Home Insurance ($)" value={form.insurance} step={100} onChange={handleChange} />
-                                    <Field id="hoa" label="Monthly HOA ($)" value={form.hoa} step={25} onChange={handleChange} />
-                                    <Field id="pmi" label="Monthly PMI ($)" value={form.pmi} step={25} onChange={handleChange} />
-                                </div>
-
-                                <div className="flex gap-3 mt-6 flex-wrap">
-                                    {/* <button
-                                        type="button"
-                                        onClick={() => setResults(computeResults(form))}
-                                        className="rounded-[14px] px-5 py-[14px] text-base font-extrabold text-primary-foreground cursor-pointer border-0 active:translate-y-px transition-transform duration-75 bg-primary hover:bg-text-secondary shadow-[0_10px_20px_rgba(27,42,74,0.08)]"
-                                    >
-                                        Calculate Payment
-                                    </button> */}
+                <main>
+                    {/* ── Calculator section ── */}
+                    <section id="calculator" className="py-16 px-4">
+                        <div className="max-w-[1180px] mx-auto">
+                            <div className="text-center max-w-[760px] mx-auto mb-7">
+                                <h2 className="m-0 mb-2.5 text-[clamp(1.8rem,4vw,2.6rem)] leading-tight text-[#0f2743]">
+                                    Tennessee Mortgage Calculator
+                                </h2>
+                                <p className="m-0 text-[#6b7280]">
+                                    Estimate your monthly payment, then take the next step with a trusted lending partner.
+                                </p>
+                            </div>
+                            <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-6 items-start">
+                                {/* Calculator form card */}
+                                <div className="bg-white border border-[#e5e7eb] rounded-[18px] p-6 shadow-[0_12px_30px_rgba(0,0,0,.08)]">
+                                    <span className="block mb-2.5 text-[.92rem] font-bold text-[#374151]">Quick city examples</span>
+                                    <div className="flex flex-wrap gap-2.5 mb-5">
+                                        {resolvedCityPresets.map((preset) => {
+                                            const isActive = activeCity === preset.label;
+                                            return (
+                                                <button
+                                                    key={preset.label}
+                                                    type="button"
+                                                    onClick={() => handlePreset(preset)}
+                                                    className={`px-3.5 py-2.5 rounded-full text-[.92rem] font-bold cursor-pointer border transition-colors ${
+                                                        isActive
+                                                            ? "border-[#163a63] bg-[#163a63] text-white"
+                                                            : "border-[#e5e7eb] bg-white text-[#1f2937] hover:bg-[#f7f8fb] hover:border-[#163a63]"
+                                                    }`}
+                                                >
+                                                    {preset.label}
+                                                </button>
+                                            );
+                                        })}
+                                    </div>
+                                    <h3 className="m-0 mb-4 text-[1.1rem] font-bold text-[#1f2937]">Enter your home buying details</h3>
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <Field id="homePrice" label="Home Price ($)" value={form.homePrice} step={1000} onChange={handleChange} />
+                                        <Field id="downPayment" label="Down Payment ($)" value={form.downPayment} step={1000} onChange={handleChange} />
+                                        <Field id="interestRate" label="Interest Rate (%)" value={form.interestRate} step={0.01} onChange={handleChange} />
+                                        <Field id="loanTerm" label="Loan Term (Years)" value={form.loanTerm} step={1} onChange={handleChange} />
+                                        <Field id="propertyTax" label="Annual Property Taxes ($)" value={form.propertyTax} step={100} onChange={handleChange} />
+                                        <Field id="insurance" label="Annual Home Insurance ($)" value={form.insurance} step={100} onChange={handleChange} />
+                                        <Field id="hoa" label="Monthly HOA ($)" value={form.hoa} step={25} onChange={handleChange} />
+                                        <Field id="pmi" label="Monthly PMI (%)" value={form.pmi} step={0.01} onChange={handleChange} />
+                                    </div>
                                     <button
                                         type="button"
                                         onClick={handleReset}
-                                        className="rounded-[14px] px-5 py-[14px] text-base font-extrabold text-white cursor-pointer bg-primary border border-border hover:bg-secondary transition-colors duration-200"
+                                        className="mt-5 rounded-[14px] px-5 py-3.5 text-base font-bold text-[#1f2937] bg-[#f3f4f6] border border-[#e5e7eb] hover:bg-[#e5e7eb] transition-colors"
                                     >
                                         Reset
                                     </button>
                                 </div>
+
+                                {/* Results + CTA sidebar */}
+                                <aside className="bg-white border border-[#e5e7eb] rounded-[18px] p-6 shadow-[0_12px_30px_rgba(0,0,0,.08)] lg:sticky lg:top-6">
+                                    <h3 className="mt-0 mb-4 text-[1.1rem] font-bold text-[#0f2743]">After They Calculate, Give Them the Next Step</h3>
+                                    <div className="border-b border-[#e5e7eb] py-3.5">
+                                        <span className="text-[#6b7280] text-sm">Estimated Payment</span>
+                                        <strong className="block text-[1.5rem] text-[#0f2743] mt-0.5">{currency.format(results.totalMonthly)}/mo</strong>
+                                    </div>
+                                    <div className="border-b border-[#e5e7eb] py-3.5">
+                                        <span className="text-[#6b7280] text-sm">Loan Amount</span>
+                                        <strong className="block text-[1.5rem] text-[#0f2743] mt-0.5">{currency.format(results.loanAmount)}</strong>
+                                    </div>
+                                    <div className="border-b border-[#e5e7eb] py-3.5">
+                                        <span className="text-[#6b7280] text-sm">Next Best Action</span>
+                                        <strong className="block text-[1.1rem] text-[#0f2743] mt-0.5">Compare Real Lender Offers</strong>
+                                    </div>
+                                    <div className="my-4 space-y-2">
+                                        <div className="flex gap-2.5 items-start text-[#6b7280] text-sm">✔ See options from multiple lenders</div>
+                                        <div className="flex gap-2.5 items-start text-[#6b7280] text-sm">✔ Great for Tennessee homebuyers and relocators</div>
+                                        <div className="flex gap-2.5 items-start text-[#6b7280] text-sm">✔ Fast next step after using the calculator</div>
+                                    </div>
+                                    <a
+                                        href={lenderRatesUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="block w-full py-3.5 px-5 rounded-xl font-bold bg-[#c58b2b] text-[#111827] text-center hover:-translate-y-px transition-transform"
+                                    >
+                                        Get Pre-Approved in Minutes
+                                    </a>
+                                    <p className="mt-3.5 text-[#6b7280] text-[.95rem] mb-0">
+                                        Tip: make this button sticky on mobile and visible right after the user sees their payment result.
+                                    </p>
+                                    <div className="mt-4 pt-4 border-t border-[#e5e7eb]">
+                                        <ResultRow label="Principal & Interest" value={results.principalInterest} />
+                                        <ResultRow label="Property Taxes" value={results.monthlyTaxes} />
+                                        <ResultRow label="Home Insurance" value={results.monthlyInsurance} />
+                                        <ResultRow label="HOA" value={results.hoa} />
+                                        <ResultRow label="PMI" value={results.pmi} last />
+                                    </div>
+                                </aside>
                             </div>
+                        </div>
+                    </section>
 
-                            {/* ── Result side ── */}
-                            <div
-                                className="p-8 border-t md:border-t-0 md:border-l border-border"
-                                style={{
-                                    background: "linear-gradient(180deg,var(--background) 0%,var(--primary-background) 100%)",
-                                }}
-                            >
-                                <div className="text-[0.9rem] font-extrabold tracking-[0.08em] uppercase text-primary mb-2">
-                                    Estimated Monthly Payment
+                    {/* ── Why Buyers Use This Page ── */}
+                    <section className="py-16 px-4 bg-white">
+                        <div className="max-w-[1180px] mx-auto">
+                            <div className="text-center max-w-[760px] mx-auto mb-7">
+                                <h2 className="m-0 mb-2.5 text-[clamp(1.8rem,4vw,2.6rem)] leading-tight text-[#0f2743]">Why Buyers Use This Page</h2>
+                                <p className="m-0 text-[#6b7280]">Your page should do more than calculate numbers. It should move a visitor from curiosity to action.</p>
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div className="bg-white border border-[#e5e7eb] rounded-[18px] p-6 shadow-[0_12px_30px_rgba(0,0,0,.08)]">
+                                    <h3 className="mt-0 mb-2 text-[1.1rem] font-bold text-[#0f2743]">Know Your Budget</h3>
+                                    <p className="text-[#6b7280] m-0 text-sm">Help buyers understand what monthly payment fits their move to Tennessee before they start house hunting.</p>
                                 </div>
+                                <div className="bg-white border border-[#e5e7eb] rounded-[18px] p-6 shadow-[0_12px_30px_rgba(0,0,0,.08)]">
+                                    <h3 className="mt-0 mb-2 text-[1.1rem] font-bold text-[#0f2743]">Compare Lending Options</h3>
+                                    <p className="text-[#6b7280] m-0 text-sm">After calculating, give them a direct path to compare rates, check eligibility, or start pre-approval.</p>
+                                </div>
+                                <div className="bg-white border border-[#e5e7eb] rounded-[18px] p-6 shadow-[0_12px_30px_rgba(0,0,0,.08)]">
+                                    <h3 className="mt-0 mb-2 text-[1.1rem] font-bold text-[#0f2743]">Reduce Friction</h3>
+                                    <p className="text-[#6b7280] m-0 text-sm">Keep the path simple: calculator first, lender CTA second, optional lead capture third.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
 
-                                <div
-                                    className="rounded-[16px] p-[14px_16px] text-[0.95rem] text-text-secondary mb-4 border border-border bg-secondary/10"
+                    {/* ── How It Works ── */}
+                    <section className="py-16 px-4">
+                        <div className="max-w-[1180px] mx-auto">
+                            <div className="text-center max-w-[760px] mx-auto mb-7">
+                                <h2 className="m-0 mb-2.5 text-[clamp(1.8rem,4vw,2.6rem)] leading-tight text-[#0f2743]">How It Works</h2>
+                                <p className="m-0 text-[#6b7280]">Use this simple 3-step flow to turn calculator traffic into mortgage leads.</p>
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div className="bg-white border border-[#e5e7eb] rounded-[18px] p-6 shadow-[0_12px_30px_rgba(0,0,0,.08)]">
+                                    <div className="w-10 h-10 rounded-full bg-[#c58b2b]/20 text-[#0f2743] flex items-center justify-center font-bold mb-3.5">1</div>
+                                    <h3 className="mt-0 mb-2 text-[1.1rem] font-bold text-[#0f2743]">Enter Loan Details</h3>
+                                    <p className="text-[#6b7280] m-0 text-sm">Visitors plug in home price, down payment, term, taxes, insurance, and interest rate assumptions.</p>
+                                </div>
+                                <div className="bg-white border border-[#e5e7eb] rounded-[18px] p-6 shadow-[0_12px_30px_rgba(0,0,0,.08)]">
+                                    <div className="w-10 h-10 rounded-full bg-[#c58b2b]/20 text-[#0f2743] flex items-center justify-center font-bold mb-3.5">2</div>
+                                    <h3 className="mt-0 mb-2 text-[1.1rem] font-bold text-[#0f2743]">Review Estimated Payment</h3>
+                                    <p className="text-[#6b7280] m-0 text-sm">Show principal and interest clearly, plus taxes and insurance so the result feels realistic.</p>
+                                </div>
+                                <div className="bg-white border border-[#e5e7eb] rounded-[18px] p-6 shadow-[0_12px_30px_rgba(0,0,0,.08)]">
+                                    <div className="w-10 h-10 rounded-full bg-[#c58b2b]/20 text-[#0f2743] flex items-center justify-center font-bold mb-3.5">3</div>
+                                    <h3 className="mt-0 mb-2 text-[1.1rem] font-bold text-[#0f2743]">Compare Real Offers</h3>
+                                    <p className="text-[#6b7280] m-0 text-sm">Present a strong CTA to view lender options, begin pre-approval, or get matched with a mortgage partner.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* ── Quote ── */}
+                    <section className="py-16 px-4">
+                        <div className="max-w-[1180px] mx-auto">
+                            <div className="bg-gradient-to-b from-white to-[#f8fafc] border-l-4 border-[#c58b2b] rounded-[18px] p-6 border border-[#e5e7eb]">
+                                <h2 className="mt-0 mb-2 text-[1.35rem] font-bold text-[#0f2743]">For maximum lead generation, do this next</h2>
+                                <p className="m-0 text-[#6b7280]">Place one primary CTA above the calculator, one beside or below the results, and one final CTA near the bottom of the page. That gives visitors a clear next step whether they are ready immediately or need more trust first.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* ── FAQ ── */}
+                    <section className="py-16 px-4 bg-white">
+                        <div className="max-w-[1180px] mx-auto">
+                            <div className="text-center max-w-[760px] mx-auto mb-7">
+                                <h2 className="m-0 mb-2.5 text-[clamp(1.8rem,4vw,2.6rem)] leading-tight text-[#0f2743]">Frequently Asked Questions</h2>
+                                <p className="m-0 text-[#6b7280]">These FAQs help with trust, SEO, and conversion.</p>
+                            </div>
+                            <div className="max-w-[900px] mx-auto space-y-3">
+                                <details className="bg-white border border-[#e5e7eb] rounded-[14px] px-4 py-4 [&>summary]:cursor-pointer [&>summary]:font-bold [&>summary]:text-[#0f2743] [&>summary]:mb-2" open>
+                                    <summary>How accurate is this mortgage calculator?</summary>
+                                    <p className="text-[#6b7280] m-0 text-sm">This calculator gives an estimate based on the numbers you enter. Your actual rate, monthly payment, taxes, insurance, and loan terms may vary based on lender guidelines and your credit profile.</p>
+                                </details>
+                                <details className="bg-white border border-[#e5e7eb] rounded-[14px] px-4 py-4 [&>summary]:cursor-pointer [&>summary]:font-bold [&>summary]:text-[#0f2743] [&>summary]:mb-2">
+                                    <summary>Does checking mortgage options hurt my credit?</summary>
+                                    <p className="text-[#6b7280] m-0 text-sm">You can phrase this carefully based on your lender partner&apos;s approved language. Keep your wording aligned with the lender&apos;s compliance requirements.</p>
+                                </details>
+                                <details className="bg-white border border-[#e5e7eb] rounded-[14px] px-4 py-4 [&>summary]:cursor-pointer [&>summary]:font-bold [&>summary]:text-[#0f2743] [&>summary]:mb-2">
+                                    <summary>Can I use this calculator if I am moving to Tennessee from another state?</summary>
+                                    <p className="text-[#6b7280] m-0 text-sm">Yes. This page is designed to help relocation buyers estimate affordability before speaking with a lender or local real estate professional.</p>
+                                </details>
+                                <details className="bg-white border border-[#e5e7eb] rounded-[14px] px-4 py-4 [&>summary]:cursor-pointer [&>summary]:font-bold [&>summary]:text-[#0f2743] [&>summary]:mb-2">
+                                    <summary>What should I do after I calculate my payment?</summary>
+                                    <p className="text-[#6b7280] m-0 text-sm">The best next step is to compare real mortgage offers, check current rates, or begin the pre-approval process with a trusted lending partner.</p>
+                                </details>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* ── Final CTA ── */}
+                    <section className="py-16 px-4">
+                        <div className="max-w-[1180px] mx-auto">
+                            <div className="bg-[#0f2743] text-white text-center rounded-[26px] py-10 px-6">
+                                <h2 className="text-white mt-0 mb-4 text-[clamp(1.5rem,3vw,2rem)]">Ready to See Real Tennessee Mortgage Options?</h2>
+                                <p className="text-white/90 max-w-[720px] mx-auto mb-5">
+                                    Use the calculator, review your estimated payment, and then take the next step with a trusted lending partner. This is where you place your main LendingTree link, embedded widget, or lead form handoff.
+                                </p>
+                                <a
+                                    href="#rates"
+                                    onClick={scrollToTodayRates}
+                                    className="inline-block py-3.5 px-5 rounded-xl font-bold bg-[#c58b2b] text-[#111827] hover:-translate-y-px transition-transform"
                                 >
-                                    Planning a move to Tennessee? Use this calculator to compare the cost of buying in
-                                    places like Knoxville, Nashville, Clarksville, Chattanooga, Johnson City, and Kingsport.
-                                </div>
-
-                                <div className="text-[2.8rem] font-black mb-[18px] text-text-primary leading-none">
-                                    {currency.format(results.totalMonthly)}
-                                </div>
-
-                                <div
-                                    className="bg-white border border-border rounded-[20px] p-[18px] mb-4"
-                                    style={{ boxShadow: "var(--shadow-card)" }}
-                                >
-                                    <ResultRow label="Loan Amount" value={results.loanAmount} />
-                                    <ResultRow label="Principal & Interest" value={results.principalInterest} />
-                                    <ResultRow label="Property Taxes" value={results.monthlyTaxes} />
-                                    <ResultRow label="Home Insurance" value={results.monthlyInsurance} />
-                                    <ResultRow label="HOA" value={results.hoa} />
-                                    <ResultRow label="PMI" value={results.pmi} last />
-                                </div>
-
-                                <p className="text-[0.9rem] text-text-muted mt-[10px]">
-                                    This calculator provides an estimate only and does not include every possible fee.
-                                    Actual mortgage payments may vary based on lender, credit score, taxes, insurance,
-                                    and loan program.
+                                    Check Today&apos;s Rates
+                                </a>
+                                <p className="text-[#9ca3af] text-[.9rem] mt-4 mb-0">
+                                    WhyTennessee.com may be compensated by lending partners when visitors click or submit information through certain links or forms.
                                 </p>
                             </div>
-
                         </div>
-                    </div>
+                    </section>
 
-                    {/* SEO copy */}
-                    <div
-                        className="bg-white mt-5 border border-border rounded-[24px] p-[30px]"
-                        style={{ boxShadow: "var(--shadow-card)" }}
-                    >
-                        <h3 className="mt-0 mb-[14px] text-[1.5rem] text-text-primary">
-                            WhyTennessee.com Tennessee Mortgage Calculator
-                        </h3>
-                        <p>
-                            Use the WhyTennessee.com mortgage payment calculator to estimate your monthly home payment
-                            based on home price, down payment, interest rate, property taxes, home insurance, HOA fees,
-                            and PMI. This calculator is built for people moving to Tennessee and comparing the cost of
-                            buying a home in Knoxville, Nashville, Chattanooga, Clarksville, Franklin, Johnson City,
-                            and Kingsport.
-                        </p>
-                        <p className="mb-0">
-                            If you are relocating to Tennessee, understanding your estimated monthly mortgage payment
-                            is one of the most important parts of planning your budget. A full house payment usually
-                            includes principal, interest, Tennessee property taxes, homeowners insurance, and sometimes
-                            HOA dues or private mortgage insurance. This calculator helps buyers get a realistic estimate
-                            before they start house hunting and makes it easier to compare affordable cities in Tennessee.
-                        </p>
-                    </div>
-
-                </div>
+                    {/* SEO copy ── */}
+                    <section className="py-10 px-4 bg-[#f7f8fb]">
+                        <div className="max-w-[1180px] mx-auto">
+                            <div className="bg-white border border-[#e5e7eb] rounded-[18px] p-6 shadow-[0_12px_30px_rgba(0,0,0,.08)]">
+                                <h3 className="mt-0 mb-3 text-[1.35rem] font-bold text-[#0f2743]">WhyTennessee.com Tennessee Mortgage Calculator</h3>
+                                <p className="text-[#6b7280] m-0 mb-3">
+                                    Use the WhyTennessee.com mortgage payment calculator to estimate your monthly home payment based on home price, down payment, interest rate, property taxes, home insurance, HOA fees, and PMI. This calculator is built for people moving to Tennessee and comparing the cost of buying a home in Knoxville, Nashville, Chattanooga, Clarksville, Franklin, Johnson City, and Kingsport.
+                                </p>
+                                <p className="text-[#6b7280] m-0">
+                                    If you are relocating to Tennessee, understanding your estimated monthly mortgage payment is one of the most important parts of planning your budget. A full house payment usually includes principal, interest, Tennessee property taxes, homeowners insurance, and sometimes HOA dues or private mortgage insurance. This calculator helps buyers get a realistic estimate before they start house hunting and makes it easier to compare affordable cities in Tennessee.
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+                </main>
             </div>
         </FrontendLayout>
     );
