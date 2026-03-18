@@ -50,6 +50,7 @@ function FrontendHeader({ activePage, subPage }: Props) {
     { name: "Kingsport", routeName: "livingInKingsport" },
     { name: "Jackson", routeName: "livingInJackson" },
     { name: "California", routeName: "moving-from-california" },
+    { name: "New York City", routeName: "moving-from-new-york-city" },
   ];
 
   const movingTopics1: NavItem[] = [
