@@ -1,21 +1,23 @@
 import FrontendLayout from '@/layouts/frontend-layout';
 import {
+  ArrowRight,
   Building2,
+  CheckCircle2,
   KeyRound,
-  MapPin,
   Minus,
   Mountain,
   Plus,
   ThumbsDown,
   ThumbsUp,
   Tractor,
+  TrendingDown,
 } from 'lucide-react';
 import { Hero } from '@/components/sections/frontend/hero';
 import WhyMoveSection from '@/components/sections/frontend/cities/why-move';
 import MoveLocationSection from '@/components/sections/frontend/cities/move-location-section';
 import InfoTabsSection from '@/components/sections/frontend/cities/info-tabs-section';
 import FinalInfoSection from '@/components/sections/frontend/cities/final-info-section';
-import React from 'react';
+import { Link } from '@inertiajs/react';
 
 const whyMoveData = {
   title: 'Why New Yorkers Are Moving to Tennessee',
@@ -59,28 +61,6 @@ const locationData = {
 };
 
 const tabs = [
-  {
-    id: 'tab1',
-    label: 'Cost of Living',
-    title: 'Cost of Living: Tennessee vs New York',
-    intro: 'The difference in cost of living is often the biggest shock - in a good way.',
-    intro2: 'Housing costs',
-    intro3: null,
-    items: [
-      'Housing prices in Tennessee are dramatically lower than in most New York markets.',
-      'A single-family home in Tennessee may cost less than a condo or co-op in New York.',
-      'Property taxes are lower in most Tennessee counties.',
-      'New construction and land are far more accessible.',
-      'Renters relocating from New York also find lower monthly rent, fewer application fees, larger living spaces, and more parking and storage options.',
-    ],
-    items2: [
-      'Groceries, utilities, car insurance, and healthcare costs are generally lower in Tennessee.',
-      'Gas prices and vehicle registration fees are also typically far less than in New York.',
-    ],
-    footer:
-      'For former New Yorkers, Tennessee often offers something that has become harder to find back home: financial breathing room.',
-    imageUrl: '/assets/images/live-in-tennessee/tennessee-state-capitol-building-nashville-aerial.jpeg',
-  },
   {
     id: 'tab2',
     label: 'Taxes',
@@ -166,23 +146,21 @@ const bestPlaces = [
   {
     id: 'middle',
     name: 'Middle Tennessee',
+    description: 'Strong job market & suburban communities.',
     icon: Building2,
-    bulletPoints: [
-      'Strong job market',
-      'Suburban communities',
-      'Access to major healthcare systems',
-      'Higher prices than other TN regions, but still far lower than NY',
-    ],
+    bulletPoints: ['Strong job market', 'Suburban communities', 'Access to major healthcare systems', 'Higher prices than other TN regions, but still far lower than NY'],
   },
   {
     id: 'east',
     name: 'East Tennessee',
+    description: 'Mountain scenery & outdoor recreation.',
     icon: Mountain,
     bulletPoints: ['Mountain scenery', 'Outdoor recreation', 'Lower housing costs', 'Slower pace of life'],
   },
   {
     id: 'west',
     name: 'West Tennessee',
+    description: 'Traditional Southern lifestyle.',
     icon: Tractor,
     bulletPoints: ['Very affordable housing', 'Fewer transplants', 'More traditional Southern lifestyle'],
   },
@@ -193,7 +171,7 @@ export default function MovingFromNewYorkCity() {
     <FrontendLayout activePage="city" subPage="New York City">
       <Hero
         slides={['/assets/images/moving-checklist/pexels-chaitaastic-3722911-scaled.jpg']}
-        title={<>Moving to Tennessee from New York: A Complete 2026 Relocation Guide</>}
+        title={<>Moving to Tennessee from New York: <br /> A Complete 2026 Relocation Guide</>}
         description={
           <>
             <p className="mb-2">
@@ -217,46 +195,150 @@ export default function MovingFromNewYorkCity() {
       <MoveLocationSection location={locationData} />
       <InfoTabsSection tabs={tabs} />
 
+      {/* Regions Section */}
       <section
-        className="relative py-16 bg-fixed bg-cover bg-center"
+        className="relative py-24 bg-fixed bg-cover bg-center"
         style={{ backgroundImage: "url('/assets/images/live-in-tennessee/pexels-kelly-2833713-2048x1150.jpg')" }}
       >
-        <div className="absolute inset-0 bg-black/80"></div>
-        <div className="container mx-auto px-4 relative z-10">
-          <h2 className="text-2xl font-semibold tracking-tight text-white mb-4">Best Places in Tennessee for New Yorkers</h2>
-          <p className="text-base leading-relaxed mb-8 text-white">
-            Choosing the right area is critical for a successful relocation.
+        <div className="absolute inset-0 bg-slate-900/85"></div>
+        <div className="container mx-auto px-4 relative z-10 text-center">
+          <h2 className="text-3xl font-bold text-white mb-4">Best Places in Tennessee for New Yorkers </h2>
+          <p className="text-slate-300 max-w-2xl mx-auto mb-16">
+           Choosing the right area is critical for a successful relocation.
           </p>
 
-          <div className="grid sm:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-3 gap-8">
             {bestPlaces.map((place) => {
               const Icon = place.icon;
-
               return (
-                <button
-                  key={place.id}
-                  type="button"
-                  className="group text-left border border-slate-200 rounded-2xl p-6 hover:border-slate-300 transition-transform hover:-translate-y-1 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 cursor-pointer bg-white/95 backdrop-blur-sm"
-                >
-                  <div className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center mb-4 border border-slate-100">
-                    <Icon className="w-5 h-5 text-slate-900 group-hover:scale-110 transition-transform" />
+                <div key={place.id} className="bg-white/95 backdrop-blur-sm rounded-3xl p-8 transition-all hover:shadow-2xl hover:-translate-y-2 border border-white">
+                  <div className="w-14 h-14 rounded-2xl bg-primary-50 flex items-center justify-center mb-6 mx-auto">
+                    <Icon className="w-7 h-7 text-primary-600" />
                   </div>
-                  <h3 className="text-base font-medium tracking-tight text-slate-900 mb-3">{place.name}</h3>
-                  <ul className="space-y-2">
+                  <h3 className="text-xl font-bold text-slate-900 mb-2">{place.name}</h3>
+                  <p className="text-sm text-slate-500 mb-6">{place.description}</p>
+                  <ul className="space-y-3 mb-8 text-left">
                     {place.bulletPoints.map((point) => (
-                      <li key={point} className="text-sm text-slate-500 flex items-start gap-1.5">
-                        <span className="text-slate-300">•</span>
-                        {point}
+                      <li key={point} className="text-sm text-slate-600 flex items-start gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-primary-500 mt-0.5 flex-shrink-0" /> {point}
                       </li>
                     ))}
                   </ul>
-                </button>
+                  <Link href={route('frontend.city-comparison')} className="inline-flex items-center gap-2 text-primary-600 text-sm font-bold hover:gap-3 transition-all">
+                    Explore Region <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
               );
             })}
           </div>
-          <p className="text-sm text-white mt-6 text-center">
-            Each region offers a different balance of affordability, amenities, and pace.
-          </p>
+        </div>
+      </section>
+
+      {/* Buying a Home / Renting First */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="p-8 rounded-3xl border border-slate-200 bg-slate-50">
+              <h2 className="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+                <Building2 className="text-primary-600" /> Buying a Home in Tennessee as a New Yorker
+              </h2>
+              <p className="text-slate-600 mb-6 text-sm leading-relaxed">
+                The home-buying process in Tennessee is often less complex than in New York. Key differences:
+              </p>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="flex items-center gap-2 text-xs font-medium text-slate-700 bg-white p-3 rounded-xl border border-slate-100">
+                  <TrendingDown className="w-4 h-4 text-emerald-500" /> Fewer bidding wars in many markets
+                </div>
+                <div className="flex items-center gap-2 text-xs font-medium text-slate-700 bg-white p-3 rounded-xl border border-slate-100">
+                  <KeyRound className="w-4 h-4 text-emerald-500" /> Lower closing costs
+                </div>
+              </div>
+              <ul className="mt-4 space-y-2 text-xs text-slate-600">
+                <li>Less reliance on co-ops or HOA-heavy properties</li>
+                <li>More single-family homes and new builds</li>
+              </ul>
+              <p className="mt-4 text-[11px] text-slate-500 leading-relaxed">
+                However, local expertise matters. Zoning, school districts, and county taxes can vary widely.
+              </p>
+            </div>
+            <div className="p-8 rounded-3xl border border-slate-200 bg-slate-50">
+              <h2 className="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+                <KeyRound className="text-primary-600" /> Renting First: A Smart Strategy
+              </h2>
+              <p className="text-slate-600 mb-6 text-sm leading-relaxed">
+                Many New Yorkers choose to rent before buying in Tennessee. Benefits include:
+              </p>
+              <ul className="space-y-2">
+                {[
+                  'Learning neighborhoods and commute patterns',
+                  'Understanding regional differences',
+                  'Avoiding rushed buying decisions',
+                  'Flexibility during the transition',
+                ].map((txt) => (
+                  <li key={txt} className="text-xs flex items-center gap-2 text-slate-500">
+                    <Plus className="w-3 h-3 text-primary-400" /> {txt}
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-4 text-[11px] text-slate-500 leading-relaxed">
+                This approach is especially popular among remote workers and families.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Trade-offs Section */}
+      <section className="py-20 bg-primary text-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center mb-16">
+            <h2 className="text-3xl font-bold mb-4 text-white">What Some New Yorkers Miss After Moving</h2>
+            <p className="text-slate-200">
+              Relocation always involves tradeoffs. Some former New Yorkers miss things Tennessee doesn’t fully replace.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            <div className="bg-white/10 backdrop-blur-md p-10 rounded-3xl border border-white/20">
+              <div className="flex items-center gap-3 mb-6">
+                <ThumbsUp className="w-6 h-6 text-emerald-400" />
+                <h3 className="text-xl font-bold">Tennessee tends to be a great fit if you value:</h3>
+              </div>
+              <ul className="space-y-4">
+                {[
+                  'Lower living costs',
+                  'Homeownership opportunities',
+                  'More space and privacy',
+                  'A calmer pace of life',
+                  'Community-focused living',
+                ].map((txt, i) => (
+                  <li key={i} className="flex gap-3 text-slate-100 text-sm">
+                    <Plus className="w-4 h-4 text-emerald-400 mt-1 flex-shrink-0" /> {txt}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="bg-white/10 backdrop-blur-md p-10 rounded-3xl border border-white/20">
+              <div className="flex items-center gap-3 mb-6">
+                <ThumbsDown className="w-6 h-6 text-orange-400" />
+                <h3 className="text-xl font-bold">It may be less ideal if you rely heavily on:</h3>
+              </div>
+              <ul className="space-y-4 text-sm text-slate-100">
+                {[
+                  'Public transit',
+                  'Dense, walkable urban cores',
+                  'Fast-paced city lifestyles',
+                  'Late-night dining options',
+                  'Certain cultural and food diversity',
+                ].map((txt, i) => (
+                  <li key={i} className="flex gap-3">
+                    <Minus className="w-4 h-4 text-orange-400 mt-1 flex-shrink-0" /> {txt}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -282,7 +364,7 @@ export default function MovingFromNewYorkCity() {
         }}
       />
 
-      <section className="py-16 bg-primary">
+      {/* <section className="py-16 bg-primary">
         <div className="container mx-auto px-4">
           <div className="grid sm:grid-cols-2 gap-12">
             <div className="group rounded-2xl border border-slate-200 bg-white p-6 transition-all hover:-translate-y-0.5 hover:shadow-md focus-within:ring-2 focus-within:ring-slate-200">
@@ -398,7 +480,7 @@ export default function MovingFromNewYorkCity() {
             Understanding these differences upfront helps prevent disappointment.
           </p>
         </div>
-      </section>
+      </section> */}
 
       <section className="bg-primary-background px-4 py-24 text-center">
         <div className="mx-auto max-w-3xl">
