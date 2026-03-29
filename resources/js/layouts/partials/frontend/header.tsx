@@ -49,8 +49,6 @@ function FrontendHeader({ activePage, subPage }: Props) {
     { name: "Murfreesboro", routeName: "livingInMurfreesboro" },
     { name: "Kingsport", routeName: "livingInKingsport" },
     { name: "Jackson", routeName: "livingInJackson" },
-    { name: "California", routeName: "moving-from-california" },
-    { name: "New York City", routeName: "moving-from-new-york-city" },
   ];
 
   const movingTopics1: NavItem[] = [
@@ -71,6 +69,11 @@ function FrontendHeader({ activePage, subPage }: Props) {
     { name: 'Buying in Tennessee', routeName: 'buying' },
     { name: 'Cost of buying in Tennessee', routeName: 'cost-of-buying-tennessee' },
     { name: 'Mortgage Calculator', routeName: 'mortgage-calculator' },
+    { name: 'Moving from California to Tennessee', routeName: 'moving-from-california' },
+    { name: 'Moving from New York City to Tennessee', routeName: 'moving-from-new-york-city' },
+    { name: 'Moving from Florida to Tennessee', routeName: 'moving-from-florida' },
+    { name: 'Moving from Texas to Tennessee', routeName: 'moving-from-texas' },
+    { name: 'Moving from Arizona to Tennessee', routeName: 'moving-from-arizona' },
   ];
   const movingTopics4: NavItem[] = [
     { name: 'Moving Checklist', routeName: 'movingChecklist' },
@@ -135,7 +138,7 @@ function FrontendHeader({ activePage, subPage }: Props) {
         </div>
       </div>
 
-      <header className="bg-white shadow-md relative z-50">
+      <header className="bg-white shadow-md relative z-50 sticky top-0">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-24">
 

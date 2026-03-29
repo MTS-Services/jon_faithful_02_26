@@ -1,10 +1,14 @@
+import type { ComponentType } from 'react';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { HiArrowRight } from 'react-icons/hi';
 
+type CityLinkIconProps = { className?: string };
 
 type CityItem = {
     name: string;
     route: string;
+    /** Overrides `property.cityLinkIcon` / default for this link only */
+    cityLinkIcon?: ComponentType<CityLinkIconProps>;
 };
 type property = {
     title?: string;
@@ -13,10 +17,13 @@ type property = {
     rightTitle?: string;
     points?: string[]; // UL list
     footer?: string;
+    /** Optional icon for each city link; defaults to map pin */
+    cityLinkIcon?: ComponentType<CityLinkIconProps>;
 };
 
 export default function FinalInfoSection({ property }: { property: property }) {
-    const { title, description, cities, rightTitle, points, footer } = property;
+    const { title, description, cities, rightTitle, points, footer, cityLinkIcon } = property;
+    const LinkIcon = cityLinkIcon ?? FaMapMarkerAlt;
     // const citiesList = cities || [
     //    { name: 'Johnson City, TN', route: route('frontend.city', { city: 'johnson-city' }) },
     //     { name: 'Kingsport, TN',    route: route('frontend.city', { city: 'kingsport' }) },
@@ -55,16 +62,19 @@ export default function FinalInfoSection({ property }: { property: property }) {
                     </h2>
 
                     <div className="mb-8 grid grid-cols-2 gap-4">
-                        {cities?.map((city) => (
+                        {cities?.map((city) => {
+                            const ItemIcon = city.cityLinkIcon ?? LinkIcon;
+                            return (
                             <a
                                 key={city.name}
                                 href={city.route}
-                                className="flex gap-3 rounded-xl bg-slate-50 p-3 hover:bg-slate-100 transition-colors"
+                                className="flex items-center gap-3 rounded-xl bg-slate-50 p-3 hover:bg-slate-100 transition-colors"
                             >
-                                <FaMapMarkerAlt className="text-secondary" />
+                                <ItemIcon className="text-secondary shrink-0" />
                                 {city.name}
                             </a>
-                        ))}
+                            );
+                        })}
                     </div>
 
                     {/* <div className="mb-8 grid grid-cols-2 gap-4">
