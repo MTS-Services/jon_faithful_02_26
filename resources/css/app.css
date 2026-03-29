@@ -79,6 +79,15 @@
     --shadow-card: var(--shadow-card);
 
     --color-primary-background: var(--primary-background);
+
+    /* Tennessee relocation guide pages */
+    --color-tn-dark: #0b3b3f;
+    --color-tn-mid: #1e5a5f;
+    --color-tn-light: #0f2c2f;
+    --color-tn-gold: #f4b942;
+    --color-tn-green: #0f6e4a;
+    --color-tn-green-bg: #eef9f2;
+    --color-tn-blue-bg: #eef2ff;
 }
 
 :root {
