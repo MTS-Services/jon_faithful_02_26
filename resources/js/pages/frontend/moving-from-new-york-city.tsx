@@ -172,7 +172,9 @@ export default function MovingFromNewYorkCity() {
       <Head title="Moving to Tennessee from New York: A Complete 2026 Relocation Guide" />
       <Hero
         slides={['/assets/images/moving-checklist/pexels-chaitaastic-3722911-scaled.jpg']}
-        title={<>Moving to Tennessee from New York: <br /> A Complete 2026 Relocation Guide</>}
+        title={<>
+        {/* Moving to Tennessee from New York: <br /> */}
+         A Complete 2026 Relocation Guide</>}
         description={
           <>
             <p className="mb-2">

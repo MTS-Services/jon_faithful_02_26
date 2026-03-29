@@ -11,7 +11,7 @@ interface TabContent {
     intro3: string | null;
     items: string[];
     items2: string[] | null;
-    footer: string;
+    footer?: string;
     imageUrl: string;
     videoUrl?: string;
     cta?: {
@@ -74,7 +74,7 @@ export default function InfoTabsSection({ tabs }: { tabs: TabContent[] }) {
                             <img
                                 src={tab.imageUrl}
                                 alt={tab.title}
-                                className="h-full w-full rounded-2xl object-cover shadow-2xl"
+                                className="h-full max-h-[650px] w-full rounded-2xl object-cover shadow-2xl"
                             />
                         ) : null}
 
@@ -83,7 +83,9 @@ export default function InfoTabsSection({ tabs }: { tabs: TabContent[] }) {
                                 {tab.title}
                             </h2>
                             <p className="mb-6 text-gray-600">{tab.intro}</p>
-                            <p className="mb-2 text-gray-600">{tab.intro2}</p>
+                            {tab.intro2 ? (
+                                <p className="mb-2 text-gray-600">{tab.intro2}</p>
+                            ) : null}
                             <ul className="space-y-4">
                                 {tab.items.map((item, i) => (
                                     <li
@@ -144,9 +146,9 @@ export default function InfoTabsSection({ tabs }: { tabs: TabContent[] }) {
                                     </li>
                                 ))}
                             </ul> */}
-                            <p className="mt-8 border-l-4 border-secondary pl-4">
-                                {tab.footer}
-                            </p>
+                            {tab.footer ? (
+                                <p className="mt-8 border-l-4 border-secondary pl-4">{tab.footer}</p>
+                            ) : null}
                             <div>
                                 {
                                     tab.cta && (

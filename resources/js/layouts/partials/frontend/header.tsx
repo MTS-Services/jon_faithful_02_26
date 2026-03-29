@@ -71,6 +71,8 @@ function FrontendHeader({ activePage, subPage }: Props) {
     { name: 'Mortgage Calculator', routeName: 'mortgage-calculator' },
     { name: 'Moving from California to Tennessee', routeName: 'moving-from-california' },
     { name: 'Moving from New York City to Tennessee', routeName: 'moving-from-new-york-city' },
+    { name: 'Moving from Florida to Tennessee', routeName: 'moving-from-florida' },
+    { name: 'Moving from Texas to Tennessee', routeName: 'moving-from-texas' },
   ];
   const movingTopics4: NavItem[] = [
     { name: 'Moving Checklist', routeName: 'movingChecklist' },
@@ -135,7 +137,7 @@ function FrontendHeader({ activePage, subPage }: Props) {
         </div>
       </div>
 
-      <header className="bg-white shadow-md relative z-50">
+      <header className="bg-white shadow-md relative z-50 sticky top-0">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-24">
 

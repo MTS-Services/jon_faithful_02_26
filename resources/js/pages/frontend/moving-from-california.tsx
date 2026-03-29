@@ -197,7 +197,9 @@ export default function MovingFromCalifornia() {
       <Head title="Moving to Tennessee from California: A Complete 2026 Relocation Guide" />
       <Hero
         slides={['/assets/images/moving-checklist/pexels-chaitaastic-3722911-scaled.jpg']}
-        title={<>Moving to Tennessee from California: What You Need to Know Before You Relocate</>}
+        title={<>
+        {/* Moving to Tennessee from California: */}
+         What You Need to Know Before You Relocate</>}
         description={
           <>
             <p className="mb-2">
