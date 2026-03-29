@@ -49,8 +49,6 @@ function FrontendHeader({ activePage, subPage }: Props) {
     { name: "Murfreesboro", routeName: "livingInMurfreesboro" },
     { name: "Kingsport", routeName: "livingInKingsport" },
     { name: "Jackson", routeName: "livingInJackson" },
-    { name: "California", routeName: "moving-from-california" },
-    { name: "New York City", routeName: "moving-from-new-york-city" },
   ];
 
   const movingTopics1: NavItem[] = [
@@ -71,6 +69,8 @@ function FrontendHeader({ activePage, subPage }: Props) {
     { name: 'Buying in Tennessee', routeName: 'buying' },
     { name: 'Cost of buying in Tennessee', routeName: 'cost-of-buying-tennessee' },
     { name: 'Mortgage Calculator', routeName: 'mortgage-calculator' },
+    { name: 'Moving from California to Tennessee', routeName: 'moving-from-california' },
+    { name: 'Moving from New York City to Tennessee', routeName: 'moving-from-new-york-city' },
   ];
   const movingTopics4: NavItem[] = [
     { name: 'Moving Checklist', routeName: 'movingChecklist' },

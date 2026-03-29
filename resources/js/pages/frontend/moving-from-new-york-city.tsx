@@ -17,7 +17,7 @@ import WhyMoveSection from '@/components/sections/frontend/cities/why-move';
 import MoveLocationSection from '@/components/sections/frontend/cities/move-location-section';
 import InfoTabsSection from '@/components/sections/frontend/cities/info-tabs-section';
 import FinalInfoSection from '@/components/sections/frontend/cities/final-info-section';
-import { Link } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 
 const whyMoveData = {
   title: 'Why New Yorkers Are Moving to Tennessee',
@@ -168,7 +168,8 @@ const bestPlaces = [
 
 export default function MovingFromNewYorkCity() {
   return (
-    <FrontendLayout activePage="city" subPage="New York City">
+    <FrontendLayout activePage="moving-to-tennessee" subPage="Moving from New York City to Tennessee">
+      <Head title="Moving to Tennessee from New York: A Complete 2026 Relocation Guide" />
       <Hero
         slides={['/assets/images/moving-checklist/pexels-chaitaastic-3722911-scaled.jpg']}
         title={<>Moving to Tennessee from New York: <br /> A Complete 2026 Relocation Guide</>}

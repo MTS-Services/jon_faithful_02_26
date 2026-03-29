@@ -17,6 +17,7 @@ import MoveLocationSection from '@/components/sections/frontend/cities/move-loca
 import InfoTabsSection from '@/components/sections/frontend/cities/info-tabs-section';
 import FinalInfoSection from '@/components/sections/frontend/cities/final-info-section';
 import React from 'react';
+import { Head } from '@inertiajs/react';
 
 const whyMoveData = {
   title: 'Why Californians Are Moving to Tennessee',
@@ -192,7 +193,8 @@ const bestPlaces = [
 
 export default function MovingFromCalifornia() {
   return (
-    <FrontendLayout activePage="city" subPage="California">
+    <FrontendLayout activePage="moving-to-tennessee" subPage="Moving from California to Tennessee">
+      <Head title="Moving to Tennessee from California: A Complete 2026 Relocation Guide" />
       <Hero
         slides={['/assets/images/moving-checklist/pexels-chaitaastic-3722911-scaled.jpg']}
         title={<>Moving to Tennessee from California: What You Need to Know Before You Relocate</>}
