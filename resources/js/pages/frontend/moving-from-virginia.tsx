@@ -71,7 +71,7 @@ export default function MovingFromVirginia() {
                                         <iconify-icon icon="solar:chart-square-linear" className="text-lg text-white" aria-hidden />
                                         2026 comparison
                                     </div>
-                                    <h2 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+                                    <h2 className="text-2xl font-semibold tracking-tight text-white lg:text-3xl">
                                         Virginia vs Tennessee: Key Stats
                                     </h2>
                                     <p className="mt-2 text-sm leading-relaxed text-white/80">
@@ -215,7 +215,7 @@ export default function MovingFromVirginia() {
                     <section className="py-20 bg-white font-sans text-gray-700 antialiased">
                     <div className="max-w-7xl mx-auto px-6">
                         <div className="text-center mb-16 max-w-2xl mx-auto">
-                        <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-4 text-gray-700">
+                        <h2 className="text-3xl lg:text-5xl font-black tracking-tight mb-4 text-gray-700">
                             Virginia vs. Tennessee
                         </h2>
                         <p className="text-xl text-gray-500">
@@ -361,7 +361,7 @@ export default function MovingFromVirginia() {
                             <iconify-icon icon="solar:home-smile-bold" />
                             Real Estate Focus
                         </div>
-                        <h2 className="text-4xl md:text-5xl font-black tracking-tight text-gray-700 mb-4">
+                        <h2 className="text-3xl lg:text-5xl font-black tracking-tight text-gray-700 mb-4">
                             Housing Market: <span className="text-secondary!">Where You Save</span>
                         </h2>
                         <p className="text-xl text-gray-600 max-w-3xl">
@@ -557,7 +557,7 @@ export default function MovingFromVirginia() {
                     <div className="max-w-7xl mx-auto px-6">
                         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
                         <div className="max-w-2xl">
-                            <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-gray-700 mb-4">
+                            <h1 className="text-3xl lg:text-5xl font-black tracking-tighter text-gray-700 mb-4">
                             Taxes: Why Tennessee Is a Major Upgrade
                             </h1>
 
@@ -817,7 +817,7 @@ export default function MovingFromVirginia() {
                             >
                             <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
                                 <div className="mb-12 border-l-4 border-orange-500 pl-6">
-                                <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
+                                <h1 className="text-3xl font-bold tracking-tight text-white lg:text-5xl">
                                     Best Places in <span className="text-orange-500">Tennessee</span>
                                 </h1>
                                 <p className="mt-2 text-lg text-slate-400">
@@ -918,7 +918,7 @@ export default function MovingFromVirginia() {
                                 />
                             </div>
                             <div className="text-center mb-10">
-                                <h1 className="text-3xl font-bold text-blue-900 mb-2">
+                                <h1 className="text-2xl lg:text-3xl font-bold text-blue-900 mb-2">
                                 Job Market &amp; Moving Analysis
                                 </h1>
                                 <p className="text-gray-600 italic">
@@ -1054,7 +1054,7 @@ export default function MovingFromVirginia() {
                 </div>
                 <div className="container mx-auto my-10 p-8 bg-white  rounded border border-gray-100 font-sans text-gray-800">
   <header className="text-center mb-10">
-    <h1 className="text-3xl md:text-4xl font-extrabold text-gray-700 mb-2">
+    <h1 className="text-3xl lg:text-4xl font-extrabold text-gray-700 mb-2">
       Moving from Virginia to Tennessee
     </h1>
     <p className="text-lg text-gray-600 italic">

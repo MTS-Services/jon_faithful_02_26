@@ -75,6 +75,7 @@ function FrontendHeader({ activePage, subPage }: Props) {
     { name: 'Moving from Texas to Tennessee', routeName: 'moving-from-texas' },
     { name: 'Moving from Arizona to Tennessee', routeName: 'moving-from-arizona' },
     { name: 'Moving From Virginia to Tennessee', routeName: 'moving-from-virginia' },
+    { name: 'Moving From Illinois to Tennessee', routeName: 'moving-from-illinois' },
   ];
   const movingTopics4: NavItem[] = [
     { name: 'Moving Checklist', routeName: 'movingChecklist' },
