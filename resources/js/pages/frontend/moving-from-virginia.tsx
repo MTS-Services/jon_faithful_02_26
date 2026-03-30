@@ -810,9 +810,12 @@ export default function MovingFromVirginia() {
                     </div>
                     </div>
 
-                            {/* Moving Costs & Jobs */}
-                            <div className="min-h-screen bg-neutral-950 p-8 font-sans text-slate-200 rounded">
-                            <div className="mx-auto max-w-5xl">
+                            {/* Best places — full-width background */}
+                            <section
+                                id="best-places"
+                                className="w-screen max-w-[100vw] scroll-mt-24 bg-primary! py-12 font-sans text-slate-200 sm:py-16 md:py-20 ml-[calc(50%-50vw)]"
+                            >
+                            <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
                                 <div className="mb-12 border-l-4 border-orange-500 pl-6">
                                 <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
                                     Best Places in <span className="text-orange-500">Tennessee</span>
@@ -902,154 +905,154 @@ export default function MovingFromVirginia() {
                                 </div>
                                 </div>
                             </div>
-                            </div>
+                            </section>
 
 
                             {/* Final Verdict & CTA */}
                             <div className="container mx-auto p-6 bg-gray-50 font-sans text-gray-900">
-  <div className="mb-8 rounded-xl overflow-hidden shadow-lg border border-gray-200">
-    <img
-      src="https://rx2solutions.com/assets/images/EConOutlook.jpeg"
-      alt="Virginia and Tennessee Landscape"
-      className="w-full h-64 object-cover"
-    />
-  </div>
-  <div className="text-center mb-10">
-    <h1 className="text-3xl font-bold text-blue-900 mb-2">
-      Job Market &amp; Moving Analysis
-    </h1>
-    <p className="text-gray-600 italic">
-      Comparing Virginia and Tennessee opportunities
-    </p>
-  </div>
-  <div className="grid md:grid-cols-2 gap-6 mb-12">
-    <div className="bg-white p-6 rounded-xl shadow-sm border border-blue-100">
-      <div className="flex items-center mb-4">
-        <span className="text-2xl mr-2">🏛️</span>
-        <h2 className="text-xl font-bold text-blue-800">Virginia Strengths</h2>
-      </div>
-      <ul className="space-y-3">
-        <li className="flex items-start">
-          <span className="text-blue-500 mr-2">•</span>
-          <span>
-            <strong>Government:</strong> Major hub (DC Metro area)
-          </span>
-        </li>
-        <li className="flex items-start">
-          <span className="text-blue-500 mr-2">•</span>
-          <span>
-            <strong>Tech &amp; Defense:</strong> High concentration of
-            contractors
-          </span>
-        </li>
-        <li className="flex items-start">
-          <span className="text-blue-500 mr-2">•</span>
-          <span>
-            <strong>Finance:</strong> Growing corporate presence
-          </span>
-        </li>
-      </ul>
-    </div>
-    <div className="bg-white p-6 rounded-xl shadow-sm border border-orange-100">
-      <div className="flex items-center mb-4">
-        <span className="text-2xl mr-2">🎸</span>
-        <h2 className="text-xl font-bold text-orange-800">
-          Tennessee Strengths
-        </h2>
-      </div>
-      <ul className="space-y-3">
-        <li className="flex items-start">
-          <span className="text-orange-500 mr-2">•</span>
-          <span>
-            <strong>Healthcare:</strong> Nashville national hub
-          </span>
-        </li>
-        <li className="flex items-start">
-          <span className="text-orange-500 mr-2">•</span>
-          <span>
-            <strong>Manufacturing:</strong> Automotive and industrial growth
-          </span>
-        </li>
-        <li className="flex items-start">
-          <span className="text-orange-500 mr-2">•</span>
-          <span>
-            <strong>Logistics:</strong> Centralized shipping &amp; distribution
-          </span>
-        </li>
-      </ul>
-      <div className="mt-6 pt-4 border-t border-gray-100">
-        <p className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-2">
-          High Growth Cities:
-        </p>
-        <div className="flex flex-wrap gap-2">
-          <span className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-xs font-bold">
-            Nashville
-          </span>
-          <span className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-xs font-bold">
-            Knoxville
-          </span>
-          <span className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-xs font-bold">
-            Chattanooga
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
-    <div className="bg-slate-800 p-4">
-      <h2 className="text-white font-bold flex items-center">
-        <span className="mr-2">🚚</span> Cost to Move: Virginia to Tennessee
-      </h2>
-    </div>
-    <div className="p-6">
-      <table className="w-full text-left border-collapse">
-        <thead>
-          <tr className="border-b-2 border-gray-100">
-            <th className="py-3 px-4 text-gray-600 font-semibold uppercase text-sm">
-              Move Type
-            </th>
-            <th className="py-3 px-4 text-gray-600 font-semibold uppercase text-sm text-right">
-              Estimated Cost
-            </th>
-          </tr>
-        </thead>
-        <tbody className="divide-y divide-gray-100">
-          <tr className="hover:bg-gray-50 transition-colors">
-            <td className="py-4 px-4 font-medium">DIY Truck Rental</td>
-            <td className="py-4 px-4 text-right text-green-600 font-bold">
-              $800 – $2,500
-            </td>
-          </tr>
-          <tr className="hover:bg-gray-50 transition-colors">
-            <td className="py-4 px-4 font-medium">Standard Moving Company</td>
-            <td className="py-4 px-4 text-right text-green-600 font-bold">
-              $2,500 – $6,500
-            </td>
-          </tr>
-          <tr className="hover:bg-gray-50 transition-colors">
-            <td className="py-4 px-4 font-medium">
-              Full-Service (Pack &amp; Move)
-            </td>
-            <td className="py-4 px-4 text-right text-green-600 font-bold">
-              $4,000 – $9,000
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <div className="mt-6 p-4 bg-blue-50 rounded-lg flex items-center">
-        <span className="text-blue-600 mr-3">💡</span>
-        <p className="text-sm text-blue-800">
-          <strong>Pro-tip:</strong> This route is generally more affordable than
-          long-distance cross-country moves due to regional proximity.
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
+                            <div className="mb-8 rounded-xl overflow-hidden shadow-lg border border-gray-200">
+                                <img
+                                src="https://rx2solutions.com/assets/images/EConOutlook.jpeg"
+                                alt="Virginia and Tennessee Landscape"
+                                className="w-full h-64 object-cover"
+                                />
+                            </div>
+                            <div className="text-center mb-10">
+                                <h1 className="text-3xl font-bold text-blue-900 mb-2">
+                                Job Market &amp; Moving Analysis
+                                </h1>
+                                <p className="text-gray-600 italic">
+                                Comparing Virginia and Tennessee opportunities
+                                </p>
+                            </div>
+                            <div className="grid md:grid-cols-2 gap-6 mb-12">
+                                <div className="bg-white p-6 rounded-xl shadow-sm border border-blue-100">
+                                <div className="flex items-center mb-4">
+                                    <span className="text-2xl mr-2">🏛️</span>
+                                    <h2 className="text-xl font-bold text-blue-800">Virginia Strengths</h2>
+                                </div>
+                                <ul className="space-y-3">
+                                    <li className="flex items-start">
+                                    <span className="text-blue-500 mr-2">•</span>
+                                    <span>
+                                        <strong>Government:</strong> Major hub (DC Metro area)
+                                    </span>
+                                    </li>
+                                    <li className="flex items-start">
+                                    <span className="text-blue-500 mr-2">•</span>
+                                    <span>
+                                        <strong>Tech &amp; Defense:</strong> High concentration of
+                                        contractors
+                                    </span>
+                                    </li>
+                                    <li className="flex items-start">
+                                    <span className="text-blue-500 mr-2">•</span>
+                                    <span>
+                                        <strong>Finance:</strong> Growing corporate presence
+                                    </span>
+                                    </li>
+                                </ul>
+                                </div>
+                                <div className="bg-white p-6 rounded-xl shadow-sm border border-orange-100">
+                                <div className="flex items-center mb-4">
+                                    <span className="text-2xl mr-2">🎸</span>
+                                    <h2 className="text-xl font-bold text-orange-800">
+                                    Tennessee Strengths
+                                    </h2>
+                                </div>
+                                <ul className="space-y-3">
+                                    <li className="flex items-start">
+                                    <span className="text-orange-500 mr-2">•</span>
+                                    <span>
+                                        <strong>Healthcare:</strong> Nashville national hub
+                                    </span>
+                                    </li>
+                                    <li className="flex items-start">
+                                    <span className="text-orange-500 mr-2">•</span>
+                                    <span>
+                                        <strong>Manufacturing:</strong> Automotive and industrial growth
+                                    </span>
+                                    </li>
+                                    <li className="flex items-start">
+                                    <span className="text-orange-500 mr-2">•</span>
+                                    <span>
+                                        <strong>Logistics:</strong> Centralized shipping &amp; distribution
+                                    </span>
+                                    </li>
+                                </ul>
+                                <div className="mt-6 pt-4 border-t border-gray-100">
+                                    <p className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-2">
+                                    High Growth Cities:
+                                    </p>
+                                    <div className="flex flex-wrap gap-2">
+                                    <span className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-xs font-bold">
+                                        Nashville
+                                    </span>
+                                    <span className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-xs font-bold">
+                                        Knoxville
+                                    </span>
+                                    <span className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-xs font-bold">
+                                        Chattanooga
+                                    </span>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
+                                <div className="bg-slate-800 p-4">
+                                <h2 className="text-white font-bold flex items-center">
+                                    <span className="mr-2">🚚</span> Cost to Move: Virginia to Tennessee
+                                </h2>
+                                </div>
+                                <div className="p-6">
+                                <table className="w-full text-left border-collapse">
+                                    <thead>
+                                    <tr className="border-b-2 border-gray-100">
+                                        <th className="py-3 px-4 text-gray-600 font-semibold uppercase text-sm">
+                                        Move Type
+                                        </th>
+                                        <th className="py-3 px-4 text-gray-600 font-semibold uppercase text-sm text-right">
+                                        Estimated Cost
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody className="divide-y divide-gray-100">
+                                    <tr className="hover:bg-gray-50 transition-colors">
+                                        <td className="py-4 px-4 font-medium">DIY Truck Rental</td>
+                                        <td className="py-4 px-4 text-right text-green-600 font-bold">
+                                        $800 – $2,500
+                                        </td>
+                                    </tr>
+                                    <tr className="hover:bg-gray-50 transition-colors">
+                                        <td className="py-4 px-4 font-medium">Standard Moving Company</td>
+                                        <td className="py-4 px-4 text-right text-green-600 font-bold">
+                                        $2,500 – $6,500
+                                        </td>
+                                    </tr>
+                                    <tr className="hover:bg-gray-50 transition-colors">
+                                        <td className="py-4 px-4 font-medium">
+                                        Full-Service (Pack &amp; Move)
+                                        </td>
+                                        <td className="py-4 px-4 text-right text-green-600 font-bold">
+                                        $4,000 – $9,000
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div className="mt-6 p-4 bg-blue-50 rounded-lg flex items-center">
+                                    <span className="text-blue-600 mr-3">💡</span>
+                                    <p className="text-sm text-blue-800">
+                                    <strong>Pro-tip:</strong> This route is generally more affordable than
+                                    long-distance cross-country moves due to regional proximity.
+                                    </p>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
 
 
                 </div>
-                <div className="max-w-7xl mx-auto my-10 p-8 bg-white shadow-xl rounded border border-gray-100 font-sans text-gray-800">
+                <div className="container mx-auto my-10 p-8 bg-white shadow-xl rounded border border-gray-100 font-sans text-gray-800">
   <header className="text-center mb-10">
     <h1 className="text-3xl md:text-4xl font-extrabold text-gray-700 mb-2">
       Moving from Virginia to Tennessee
