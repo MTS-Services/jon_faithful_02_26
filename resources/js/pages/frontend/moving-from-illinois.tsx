@@ -84,8 +84,8 @@ const whyLeavingData = {
     'Better quality of life',
   ],
   conclusion: 'Tennessee addresses the pain points many Illinois residents cite most often: taxes and long-term cost of ownership.',
-  imageUrl: '/assets/images/moving-checklist/pexels-chaitaastic-3722911-scaled.jpg',
-  imageUrl2: '/assets/images/live-in-tennessee/pexels-kelly-2833713-2048x1150.jpg',
+  imageUrl: '/assets/images/illinois-tennessee/northerly-island-TK-Photography-3-1.jpg',
+  imageUrl2: '/assets/images/illinois-tennessee/Illinois-vs-Tennessee.jpg',
 };
 
 export default function MovingFromIllinois() {
@@ -93,7 +93,7 @@ export default function MovingFromIllinois() {
     <FrontendLayout activePage="moving-to-tennessee" subPage="Moving from Illinois to Tennessee">
       <Head title="Moving From Illinois to Tennessee (2026 Guide): Cost, Taxes, Housing & Lifestyle" />
       <Hero
-        slides={['/assets/images/moving-checklist/pexels-chaitaastic-3722911-scaled.jpg']}
+        slides={['/assets/images/illinois-tennessee/moving-to-tennessee.jpg']}
         title={
           <>
             Cost, Taxes, Housing &amp; Lifestyle
@@ -166,7 +166,7 @@ export default function MovingFromIllinois() {
             <div className="relative">
               <div className="absolute inset-0 -z-10 translate-x-2 translate-y-2 rotate-2 rounded-2xl bg-slate-100" />
               <img
-                src="/assets/images/live-in-tennessee/tennessee-state-capitol-building-nashville-aerial.jpeg"
+                src="/assets/images/illinois-tennessee/llinois.jpg"
                 alt="Tennessee skyline and Capitol area"
                 className="aspect-[4/3] h-auto w-full rounded-2xl object-cover shadow-lg"
                 loading="lazy"
@@ -348,13 +348,13 @@ export default function MovingFromIllinois() {
             </div>
             <div className="relative order-1 hidden h-[600px] lg:order-2 lg:block">
               <img
-                src="/assets/images/live-in-tennessee/tennessee-state-capitol-building-nashville-aerial.jpeg"
+                src="/assets/images/illinois-tennessee/housing-market-tennessee.jpg"
                 alt="City night"
                 className="absolute top-0 right-0 z-10 h-2/3 w-2/3 rounded-2xl object-cover shadow-xl"
                 loading="lazy"
               />
               <img
-                src="/assets/images/live-in-tennessee/pexels-kelly-2833713-2048x1150.jpg"
+                src="/assets/images/illinois-tennessee/twin_rivers_aerials_4.jpg"
                 alt="Suburbs and landscape"
                 className="absolute bottom-0 left-0 z-20 h-2/3 w-2/3 rounded-2xl border-4 border-white object-cover shadow-lg"
                 loading="lazy"
@@ -431,7 +431,7 @@ export default function MovingFromIllinois() {
 
       <section
         className="relative py-24 bg-fixed bg-cover bg-center"
-        style={{ backgroundImage: "url('/assets/images/live-in-tennessee/pexels-kelly-2833713-2048x1150.jpg')" }}
+        style={{ backgroundImage: "url('/assets/images/illinois-tennessee/llionois.jpg')" }}
       >
         <div className="absolute inset-0 bg-slate-900/85"></div>
         <div className="container mx-auto px-4 relative z-10 text-center">

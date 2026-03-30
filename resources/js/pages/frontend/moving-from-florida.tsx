@@ -38,8 +38,8 @@ const whyLeavingData = {
     'Desire for land and space',
   ],
   conclusion: 'Tennessee checks all those boxes.',
-  imageUrl: '/assets/images/moving-checklist/pexels-chaitaastic-3722911-scaled.jpg',
-  imageUrl2: '/assets/images/live-in-tennessee/pexels-kelly-2833713-2048x1150.jpg',
+  imageUrl: '/assets/images/florida-tennessee/UF-MH.png',
+  imageUrl2: '/assets/images/florida-tennessee/florida3.jpg',
 };
 
 const tabs = [
@@ -63,7 +63,7 @@ const tabs = [
       'Tennessee average: $1,200–$2,000 per year',
     ],
     footer: 'That’s $2,000–$4,000/year savings just in insurance',
-    imageUrl: '/assets/images/live-in-tennessee/tennessee-state-capitol-building-nashville-aerial.jpeg',
+    imageUrl: '/assets/images/florida-tennessee/key-biscayne.jpg',
   },
   {
     id: 'tab-housing',
@@ -188,7 +188,7 @@ export default function MovingFromFlorida() {
     <FrontendLayout activePage="moving-to-tennessee" subPage="Moving from Florida to Tennessee">
       <Head title="Moving From Florida to Tennessee (2026 Guide): Cost, Taxes, Housing & Lifestyle Differences" />
       <Hero
-        slides={['/assets/images/moving-checklist/pexels-chaitaastic-3722911-scaled.jpg']}
+        slides={['/assets/images/florida-tennessee/gettyimages-643977867.jpg']}
         title={
           <>
             {/* Moving From Florida to Tennessee (2026 Guide):
@@ -252,7 +252,7 @@ export default function MovingFromFlorida() {
 
       <section
         className="relative py-24 bg-fixed bg-cover bg-center"
-        style={{ backgroundImage: "url('/assets/images/live-in-tennessee/pexels-kelly-2833713-2048x1150.jpg')" }}
+        style={{ backgroundImage: "url('/assets/images/florida-tennessee/south-beach-miami-florida_HERO.jpg')" }}
       >
         <div className="absolute inset-0 bg-slate-900/85"></div>
         <div className="container mx-auto px-4 relative z-10 text-center">

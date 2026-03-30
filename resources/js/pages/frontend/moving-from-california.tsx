@@ -34,8 +34,8 @@ const whyMoveData = {
   ],
   conclusion:
     'For many former Californians, Tennessee offers something increasingly rare back west: affordability without sacrificing quality of life.',
-  imageUrl: '/assets/images/moving-checklist/pexels-chaitaastic-3722911-scaled.jpg',
-  imageUrl2: '/assets/images/live-in-tennessee/pexels-kelly-2833713-2048x1150.jpg',
+  imageUrl: '/assets/images/california-tennessee/GettyImages.jpg',
+  imageUrl2: '/assets/images/california-tennessee/photos.jpg',
 };
 
 const locationData = {
@@ -81,7 +81,7 @@ const tabs = [
     ],
     footer:
       'For Californians used to high state costs, these differences can free up room in the budget for savings, travel, and a more sustainable lifestyle.',
-    imageUrl: '/assets/images/live-in-tennessee/tennessee-state-capitol-building-nashville-aerial.jpeg',
+    imageUrl: '/assets/images/california-tennessee/la-jolla-california-veranda.jpg',
   },
   {
     id: 'tab2',
@@ -196,7 +196,7 @@ export default function MovingFromCalifornia() {
     <FrontendLayout activePage="moving-to-tennessee" subPage="Moving from California to Tennessee">
       <Head title="Moving to Tennessee from California: A Complete 2026 Relocation Guide" />
       <Hero
-        slides={['/assets/images/moving-checklist/pexels-chaitaastic-3722911-scaled.jpg']}
+        slides={['/assets/images/california-tennessee/CAHeader3-1568x790.jpg']}
         title={<>
         {/* Moving to Tennessee from California: */}
          What You Need to Know Before You Relocate</>}
@@ -227,7 +227,7 @@ export default function MovingFromCalifornia() {
       {/* Best Places */}
       <section
         className="relative py-16 bg-fixed bg-cover bg-center"
-        style={{ backgroundImage: "url('/assets/images/live-in-tennessee/pexels-kelly-2833713-2048x1150.jpg')" }}
+        style={{ backgroundImage: "url('/assets/images/california-tennessee/photo-.jpg')" }}
       >
         <div className="absolute inset-0 bg-black/80"></div>
         <div className="container mx-auto px-4 relative z-10">

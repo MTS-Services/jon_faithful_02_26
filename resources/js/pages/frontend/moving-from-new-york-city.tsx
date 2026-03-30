@@ -34,8 +34,8 @@ const whyMoveData = {
   ],
   conclusion:
     'For many former New Yorkers, Tennessee offers something that has become harder to find back home: financial breathing room.',
-  imageUrl: '/assets/images/moving-checklist/pexels-chaitaastic-3722911-scaled.jpg',
-  imageUrl2: '/assets/images/live-in-tennessee/pexels-kelly-2833713-2048x1150.jpg',
+  imageUrl: '/assets/images/new-york-city/where-to-stay-in-new-york.jpg',
+  imageUrl2: '/assets/images/new-york-city/roosevelt-island-new-york.jpg',
 };
 
 const locationData = {
@@ -78,7 +78,7 @@ const tabs = [
     ],
     footer:
       'New Yorkers accustomed to state, city, and local income taxes often save thousands of dollars per year after relocating.',
-    imageUrl: '/assets/images/live-in-tennessee/tennessee-state-capitol-building-nashville-aerial.jpeg',
+    imageUrl: '/assets/images/new-york-city/New-York-City.jpg',
   },
   {
     id: 'tab3',
@@ -171,7 +171,7 @@ export default function MovingFromNewYorkCity() {
     <FrontendLayout activePage="moving-to-tennessee" subPage="Moving from New York City to Tennessee">
       <Head title="Moving to Tennessee from New York: A Complete 2026 Relocation Guide" />
       <Hero
-        slides={['/assets/images/moving-checklist/pexels-chaitaastic-3722911-scaled.jpg']}
+        slides={['/assets/images/new-york-city/newnycguidemain.jpeg']}
         title={<>
         {/* Moving to Tennessee from New York: <br /> */}
          A Complete 2026 Relocation Guide</>}
@@ -201,7 +201,7 @@ export default function MovingFromNewYorkCity() {
       {/* Regions Section */}
       <section
         className="relative py-24 bg-fixed bg-cover bg-center"
-        style={{ backgroundImage: "url('/assets/images/live-in-tennessee/pexels-kelly-2833713-2048x1150.jpg')" }}
+        style={{ backgroundImage: "url('/assets/images/new-york-city/GettyImages-523538287.jpg')" }}
       >
         <div className="absolute inset-0 bg-slate-900/85"></div>
         <div className="container mx-auto px-4 relative z-10 text-center">

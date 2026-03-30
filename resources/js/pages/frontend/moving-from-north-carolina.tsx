@@ -87,8 +87,8 @@ const whyLeavingData = {
     'Growing Tennessee economy',
   ],
   conclusion: 'Tennessee consistently attracts NC residents seeking stronger long-term value.',
-  imageUrl: '/assets/images/moving-checklist/pexels-chaitaastic-3722911-scaled.jpg',
-  imageUrl2: '/assets/images/live-in-tennessee/pexels-kelly-2833713-2048x1150.jpg',
+  imageUrl: '/assets/images/north-carolina-tennessee/Point-Park-Chattanooga-view-horseshoe-bend.jpg',
+  imageUrl2: '/assets/images/north-carolina-tennessee/16-North-Carolina.jpg',
 };
 
 export default function MovingFromNorthCarolina() {
@@ -96,7 +96,7 @@ export default function MovingFromNorthCarolina() {
     <FrontendLayout activePage="moving-to-tennessee" subPage="Moving from North Carolina to Tennessee">
       <Head title="Moving From North Carolina to Tennessee (2026 Guide): Cost, Taxes, Housing & Lifestyle" />
       <Hero
-        slides={['/assets/images/moving-checklist/pexels-chaitaastic-3722911-scaled.jpg']}
+        slides={['/assets/images/north-carolina-tennessee/lin-cove-viaduct-blue-ridge-parkway.jpg']}
         title={
           <>
             Cost, Taxes, Housing &amp; Lifestyle
@@ -169,7 +169,7 @@ export default function MovingFromNorthCarolina() {
             <div className="relative">
               <div className="absolute inset-0 -z-10 translate-x-2 translate-y-2 rotate-2 rounded-2xl bg-slate-100" />
               <img
-                src="/assets/images/live-in-tennessee/tennessee-state-capitol-building-nashville-aerial.jpeg"
+                src="/assets/images/north-carolina-tennessee/Cades-Cove-Tennessee-bike-ride.jpg"
                 alt="Tennessee skyline and Capitol area"
                 className="aspect-[4/3] h-auto w-full rounded-2xl object-cover shadow-lg"
                 loading="lazy"
@@ -316,13 +316,13 @@ export default function MovingFromNorthCarolina() {
             </div>
             <div className="relative order-1 hidden h-[600px] lg:order-2 lg:block">
               <img
-                src="/assets/images/live-in-tennessee/tennessee-state-capitol-building-nashville-aerial.jpeg"
+                src="/assets/images/north-carolina-tennessee/original.jpg"
                 alt="City night"
                 className="absolute top-0 right-0 z-10 h-2/3 w-2/3 rounded-2xl object-cover shadow-xl"
                 loading="lazy"
               />
               <img
-                src="/assets/images/live-in-tennessee/pexels-kelly-2833713-2048x1150.jpg"
+                src="/assets/images/north-carolina-tennessee/stock_blue_ridge_parkway.jpg"
                 alt="Suburbs and landscape"
                 className="absolute bottom-0 left-0 z-20 h-2/3 w-2/3 rounded-2xl border-4 border-white object-cover shadow-lg"
                 loading="lazy"
@@ -396,7 +396,7 @@ export default function MovingFromNorthCarolina() {
 
       <section
         className="relative py-24 bg-fixed bg-cover bg-center"
-        style={{ backgroundImage: "url('/assets/images/live-in-tennessee/pexels-kelly-2833713-2048x1150.jpg')" }}
+        style={{ backgroundImage: "url('/assets/images/north-carolina-tennessee/chimney-rock-north-carolina-2.jpg')" }}
       >
         <div className="absolute inset-0 bg-slate-900/85"></div>
         <div className="container mx-auto px-4 relative z-10 text-center">

@@ -87,8 +87,8 @@ const whyLeavingData = {
     'Growing Tennessee economy',
   ],
   conclusion: 'Many Virginia residents find Tennessee offers a stronger balance of cost, lifestyle, and long-term value.',
-  imageUrl: '/assets/images/moving-checklist/pexels-chaitaastic-3722911-scaled.jpg',
-  imageUrl2: '/assets/images/live-in-tennessee/pexels-kelly-2833713-2048x1150.jpg',
+  imageUrl: '/assets/images/virginia-tennessee/1.jpg',
+  imageUrl2: '/assets/images/virginia-tennessee/alexandria-view.jpg',
 };
 
 export default function MovingFromVirginia() {
@@ -96,7 +96,7 @@ export default function MovingFromVirginia() {
     <FrontendLayout activePage="moving-to-tennessee" subPage="Moving from Virginia to Tennessee">
       <Head title="Moving From Virginia to Tennessee (2026 Guide): Cost, Taxes, Housing & Lifestyle" />
       <Hero
-        slides={['/assets/images/moving-checklist/pexels-chaitaastic-3722911-scaled.jpg']}
+        slides={['/assets/images/virginia-tennessee/pexels-kelly.jpg']}
         title={
           <>
             Cost, Taxes, Housing &amp; Lifestyle
@@ -169,7 +169,7 @@ export default function MovingFromVirginia() {
             <div className="relative">
               <div className="absolute inset-0 -z-10 translate-x-2 translate-y-2 rotate-2 rounded-2xl bg-slate-100" />
               <img
-                src="/assets/images/live-in-tennessee/tennessee-state-capitol-building-nashville-aerial.jpeg"
+                src="/assets/images/virginia-tennessee/pexels-kelly-2350459-1.jpg"
                 alt="Tennessee skyline and Capitol area"
                 className="aspect-[4/3] h-auto w-full rounded-2xl object-cover shadow-lg"
                 loading="lazy"
@@ -326,13 +326,13 @@ export default function MovingFromVirginia() {
             </div>
             <div className="relative order-1 hidden h-[600px] lg:order-2 lg:block">
               <img
-                src="/assets/images/live-in-tennessee/tennessee-state-capitol-building-nashville-aerial.jpeg"
+                src="/assets/images/virginia-tennessee/pexels-chait-goli-3722923.jpg"
                 alt="City night"
                 className="absolute top-0 right-0 z-10 h-2/3 w-2/3 rounded-2xl object-cover shadow-xl"
                 loading="lazy"
               />
               <img
-                src="/assets/images/live-in-tennessee/pexels-kelly-2833713-2048x1150.jpg"
+                src="/assets/images/virginia-tennessee/pexels-styves-exantus-15983962-1.jpg"
                 alt="Suburbs and landscape"
                 className="absolute bottom-0 left-0 z-20 h-2/3 w-2/3 rounded-2xl border-4 border-white object-cover shadow-lg"
                 loading="lazy"
@@ -406,7 +406,7 @@ export default function MovingFromVirginia() {
 
       <section
         className="relative py-24 bg-fixed bg-cover bg-center"
-        style={{ backgroundImage: "url('/assets/images/live-in-tennessee/pexels-kelly-2833713-2048x1150.jpg')" }}
+        style={{ backgroundImage: "url('/assets/images/virginia-tennessee/pexels-lavdrim-mustafi-13993975.jpg')" }}
       >
         <div className="absolute inset-0 bg-slate-900/85"></div>
         <div className="container mx-auto px-4 relative z-10 text-center">
