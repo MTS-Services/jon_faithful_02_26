@@ -187,10 +187,10 @@ export default function MovingFromVirginia() {
 
                             <div className="relative mt-8 border-t border-white/10 pt-6 sm:pt-8">
                                 <div className="absolute right-6 top-6 hidden opacity-[0.07] sm:block" aria-hidden>
-                                    <iconify-icon icon="solar:map-point-wave-linear" width="120" height="120" className="text-[#b8912a]" />
+                                    <iconify-icon icon="solar:map-point-wave-linear" width="120" height="120" className="text-secondary!" />
                                 </div>
                                 <div className="relative flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-5">
-                                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#b8912a] text-white shadow-md shadow-[#b8912a]/25">
+                                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-secondary! text-white shadow-md shadow-secondary!/25">
                                         <iconify-icon icon="solar:lightbulb-bolt-linear" className="text-2xl" aria-hidden />
                                     </div>
                                     <div>
@@ -1052,7 +1052,7 @@ export default function MovingFromVirginia() {
 
 
                 </div>
-                <div className="container mx-auto my-10 p-8 bg-white shadow-xl rounded border border-gray-100 font-sans text-gray-800">
+                <div className="container mx-auto my-10 p-8 bg-white  rounded border border-gray-100 font-sans text-gray-800">
   <header className="text-center mb-10">
     <h1 className="text-3xl md:text-4xl font-extrabold text-gray-700 mb-2">
       Moving from Virginia to Tennessee
