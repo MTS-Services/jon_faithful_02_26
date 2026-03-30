@@ -51,7 +51,7 @@ const tabs = [
       'Groceries: slightly higher in TN in some areas',
     ],
     footer: '👉 Bottom line: Your money generally stretches further in Tennessee — especially outside Nashville.',
-    imageUrl: '/assets/images/live-in-tennessee/tennessee-state-capitol-building-nashville-aerial.jpeg',
+    imageUrl: '/assets/images/texas-to-tennessee/PLACES_Cities.jpg',
   },
   {
     id: 'tab-housing',
@@ -72,7 +72,7 @@ const tabs = [
     ],
     footer:
       'Real Example: Houston homes average ~$421K vs Nashville ~$534K. But Tennessee property taxes are ~60–70% lower. 👉 Investor insight (important for you): Tennessee is often better for long-term cash flow and equity, while Texas can be more competitive upfront.',
-    imageUrl: '/assets/images/live-in-tennessee/tennessee-state-capitol-building-nashville-aerial.jpeg',
+    imageUrl: '/assets/images/texas-to-tennessee/House.jpg',
   },
   {
     id: 'tab-taxes',
@@ -94,7 +94,7 @@ const tabs = [
       'Tennessee total tax burden ≈ 5.75%',
       'Texas ≈ 8.22%',
     ],
-    imageUrl: '/assets/images/live-in-tennessee/tennessee-state-capitol-building-nashville-aerial.jpeg',
+    imageUrl: '/assets/images/texas-to-tennessee/pigeon-forge-tennessee-Kevin-Ruck.jpg',
   },
   {
     id: 'tab-lifestyle',
@@ -166,7 +166,7 @@ export default function MovingFromTexas() {
     <FrontendLayout activePage="moving-to-tennessee" subPage="Moving from Texas to Tennessee">
       <Head title="Moving From Texas to Tennessee (2026 Guide): Cost, Taxes, Housing & What to Expect" />
       <Hero
-        slides={['/assets/images/moving-checklist/pexels-chaitaastic-3722911-scaled.jpg']}
+        slides={['/assets/images/texas-to-tennessee/TXHeader2.jpg']}
         title={
           <>
             {/* Moving From Texas to Tennessee (2026 Guide):
@@ -279,14 +279,14 @@ export default function MovingFromTexas() {
 
             <div className="relative h-[600px] hidden lg:block order-1 lg:order-2">
               <img
-                src="/assets/images/live-in-tennessee/tennessee-state-capitol-building-nashville-aerial.jpeg"
+                src="/assets/images/texas-to-tennessee/GettyImages-1681066662.jpg"
                 alt="Nashville and Middle Tennessee — metro housing context"
                 className="absolute top-0 right-0 w-2/3 h-2/3 object-cover rounded-2xl shadow-xl z-10"
                 loading="lazy"
                 decoding="async"
               />
               <img
-                src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1600&q=80"
+                src="/assets/images/texas-to-tennessee/texas.jpg"
                 alt="Tennessee landscape and open space — residential and lifestyle appeal"
                 className="absolute bottom-0 left-0 w-2/3 h-2/3 object-cover rounded-2xl shadow-lg border-4 border-white z-20"
                 loading="lazy"
@@ -299,7 +299,7 @@ export default function MovingFromTexas() {
 
       <section
         className="relative py-24 bg-fixed bg-cover bg-center"
-        style={{ backgroundImage: "url('/assets/images/live-in-tennessee/pexels-kelly-2833713-2048x1150.jpg')" }}
+        style={{ backgroundImage: "url('/assets/images/texas-to-tennessee/iStock-1559191177.jpg')" }}
       >
         <div className="absolute inset-0 bg-slate-900/85"></div>
         <div className="container mx-auto px-4 relative z-10 text-center">
