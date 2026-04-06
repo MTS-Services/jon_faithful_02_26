@@ -77,7 +77,10 @@ function FrontendHeader({ activePage, subPage }: Props) {
     { name: 'Moving from North Carolina to Tennessee', routeName: 'moving-from-north-carolina' },
     { name: 'Moving from Virginia to Tennessee', routeName: 'moving-from-virginia' },
     { name: 'Moving from Illinois to Tennessee', routeName: 'moving-from-illinois' },
+    { name: 'Is Tennessee cheaper than Texas? (2026)', routeName: 'is-tennessee-cheaper-than-texas' },
+    { name: 'Is Tennessee cheaper than Florida? (2026)', routeName: 'is-tennessee-cheaper-than-florida' },
   ];
+
   const movingTopics4: NavItem[] = [
     { name: 'Moving Checklist', routeName: 'movingChecklist' },
     { name: 'City Comparison', routeName: 'city-comparison' },
@@ -216,11 +219,12 @@ function FrontendHeader({ activePage, subPage }: Props) {
                     <h3 className="text-lg font-bold text-primary mb-4 border-b pb-2">Buying:</h3>
                     <ul className="space-y-3">
                       {movingTopics3.map((item) => (
-                        <li key={`/${item.name}`} id={item.name}>
+                        <li key={item.name} id={item.name}>
                           <Link href={resolveNavHref(item)} className={`flex items-center text-sm text-muted-foreground hover:text-secondary transition-colors ${subPage === item.name ? 'text-secondary' : ''}`}>
                             <span className="text-primary mr-2 font-bold">
                               <MdDoubleArrow size={14} />
-                            </span> {item.name}
+                            </span>
+                            <span className="leading-snug">{item.name}</span>
                           </Link>
                         </li>
                       ))}

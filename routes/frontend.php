@@ -21,6 +21,8 @@ Route::group(['as' => 'frontend.'], function () {
         Route::get('/moving-from-north-carolina-to-tennessee', 'movingFromNorthCarolina')->name('moving-from-north-carolina');
         Route::get('/moving-from-virginia-to-tennessee', 'movingFromVirginia')->name('moving-from-virginia');
         Route::get('/moving-from-illinois-to-tennessee', 'movingFromIllinois')->name('moving-from-illinois');
+        Route::get('/is-tennessee-cheaper-than-texas', 'isTennesseeCheaperThanTexas')->name('is-tennessee-cheaper-than-texas');
+        Route::get('/is-tennessee-cheaper-than-florida', 'isTennesseeCheaperThanFlorida')->name('is-tennessee-cheaper-than-florida');
         Route::get('/chattanooga', 'livingInChattanooga')->name('livingInChattanooga');
         Route::get('/homes-for-sale', 'homesForSale')->name('home-for-sale');
         Route::get('/moving-checklist', 'movingChecklist')->name('movingChecklist');
