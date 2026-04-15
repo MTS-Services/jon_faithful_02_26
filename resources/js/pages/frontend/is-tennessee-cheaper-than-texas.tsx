@@ -400,37 +400,7 @@ export default function IsTennesseeCheaperThanTexas() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden border-t border-slate-800 bg-primary py-24 text-center">
-        <img
-          src="/assets/images/live-in-tennessee/pexels-kelly-2833713-2048x1150.jpg"
-          alt=""
-          className="absolute inset-0 h-full w-full object-cover opacity-20"
-          loading="lazy"
-        />
-        <div className="absolute inset-0 bg-primary/92" />
-        <div className="relative z-10 mx-auto max-w-3xl px-6">
-          <h2 className="mb-6 flex items-center justify-center gap-3 text-3xl font-semibold text-white">
-            <Flame className="h-10 w-10 text-secondary" aria-hidden />
-            Final Verdict
-          </h2>
-          <p className="mb-8 text-lg text-slate-200">
-            Tennessee is cheaper than Texas for most people — especially long-term homeowners.
-          </p>
-          <p className="mb-4 font-medium text-white">You’ll typically:</p>
-          <div className="mx-auto mb-10 inline-block text-left text-slate-200">
-            {[
-              'Pay significantly less in property taxes',
-              'Have lower monthly expenses',
-              'Get more value for your money',
-            ].map((line) => (
-              <p key={line} className="mb-2 flex items-center gap-2">
-                <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-400" aria-hidden />
-                {line}
-              </p>
-            ))}
-          </div>
-        </div>
-      </section>
+
 
       <section className="border-b border-slate-200 bg-indigo-50 py-16">
         <div className="mx-auto max-w-5xl px-6">
@@ -508,6 +478,31 @@ export default function IsTennesseeCheaperThanTexas() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="relative overflow-hidden border-t border-slate-200 bg-slate-50 py-24 text-center">
+        <div className="relative z-10 mx-auto max-w-3xl px-6">
+          <h2 className="mb-6 flex items-center justify-center gap-3 text-3xl font-semibol">
+            <Flame className="h-10 w-10 text-secondary" aria-hidden />
+            Final Verdict
+          </h2>
+          <p className="mb-8 text-lg text-slate-700">
+            Tennessee is cheaper than Texas for most people — especially long-term homeowners.
+          </p>
+          <p className="mb-4 font-medium">You’ll typically:</p>
+          <div className="mx-auto inline-block text-left text-slate-700">
+            {[
+              'Pay significantly less in property taxes',
+              'Have lower monthly expenses',
+              'Get more value for your money',
+            ].map((line) => (
+              <p key={line} className="mb-2 flex items-center gap-2">
+                <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-400" aria-hidden />
+                {line}
+              </p>
+            ))}
           </div>
         </div>
       </section>
