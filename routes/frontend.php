@@ -4,9 +4,6 @@ use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\MortgageCalculator;
 use Illuminate\Support\Facades\Route;
 
-
-
-
 Route::group(['as' => 'frontend.'], function () {
     Route::controller(FrontendController::class)->group(function () {
         Route::get('/', 'index')->name('home');
@@ -69,4 +66,5 @@ Route::group(['as' => 'frontend.'], function () {
         Route::get('/tennessee-relocated-guide-pdf', 'tennesseeRelocatedGuidePdf')->name('tennessee-relocated-guide-pdf');
     });
     Route::get('/mortgage-calculator', [MortgageCalculator::class, 'index'])->name('mortgage-calculator');
+    Route::post('/mortgage-leads', [MortgageCalculator::class, 'storeLead'])->name('mortgage-leads.store');
 });

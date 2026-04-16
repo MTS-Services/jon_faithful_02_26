@@ -112,6 +112,13 @@ const adminNavItems: NavItemType[] = [
         slug: 'seo-pages',
     },
     {
+        title: 'Mortgage Leads',
+        href: route('admin.mortgage-leads.index'),
+        icon: ClipboardList,
+        permission: 'view analytics',
+        slug: 'mortgage-leads',
+    },
+    {
         title: 'Contact Us',
         href: route('admin.contact.index'),
         icon: MessageSquare,
@@ -142,9 +149,7 @@ export const AdminSidebar = React.memo<AdminSidebarProps>(
 
             return (
                 auth?.user?.permissions ||
-                auth?.user?.all_permissions ||
-                auth?.permissions ||
-                []
+                auth?.user?.all_permissions
             );
         }, [props.auth]);
 

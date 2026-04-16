@@ -1,11 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\ListingController;
 use App\Http\Controllers\Admin\AdminAuthController;
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ContactUsController;
 use App\Http\Controllers\Admin\ExternalLinkSubmiition;
+use App\Http\Controllers\Admin\ListingController;
+use App\Http\Controllers\Admin\MortgageLeadController;
 use App\Http\Controllers\Admin\NewsletterController;
 use App\Http\Controllers\Admin\SeoPageController;
 use App\Http\Controllers\Admin\CityMortgageSettingController;
@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\RentalManagement\RentalController;
 use App\Http\Controllers\Admin\UserManagement\UserController;
 use App\Http\Controllers\Admin\RentalManagement\FeatureCategoryController;
 use App\Http\Controllers\Admin\RentalManagement\FeatureController;
+use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware('guest:admin')->group(function () {
@@ -105,6 +106,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/', 'index')->name('index');
             Route::put('/{seoPage}', 'update')->name('update');
             Route::post('/generate-sitemap', 'generateSitemap')->name('generate-sitemap');
+        });
+        
+        Route::prefix('mortgage-leads')->as('mortgage-leads.')->controller(MortgageLeadController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/delete/{mortgageLead}', 'delete')->name('delete');
         });
     });
 });
