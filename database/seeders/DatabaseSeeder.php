@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             FeatureSeeder::class,
             ListingSeeder::class,
             RentalSeeder::class,
+            SeoPageSeeder::class,
         ]);
     }
 }

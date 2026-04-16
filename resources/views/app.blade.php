@@ -32,6 +32,8 @@
     </style>
 
     <title inertia>{{ config('app.name', 'Laravel') }}</title>
+    <meta name="description" content="{{ config('app.name', 'Laravel') }}">
+    <link rel="canonical" href="{{ url()->current() }}">
 
     <link rel="icon" href="/assets/logo/why-tennessee-logo.png" type="image/png">
 

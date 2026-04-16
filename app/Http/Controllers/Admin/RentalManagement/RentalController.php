@@ -12,6 +12,7 @@ use App\Models\Rental;
 use App\Models\User;
 use App\Services\DataTableService;
 use App\Services\RentalService;
+use App\Services\SitemapService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -20,7 +21,8 @@ class RentalController extends Controller
 {
     public function __construct(
         protected DataTableService $dataTableService,
-        protected RentalService $rentalService
+        protected RentalService $rentalService,
+        protected SitemapService $sitemapService
     ) {}
 
 
@@ -140,6 +142,7 @@ class RentalController extends Controller
 
         // Use RentalService to create the rental
         $rental = $this->rentalService->createRental($request->all(), $request, $validated);
+        $this->sitemapService->generate();
 
         // Using sync ensures the pivot table is updated correctly
         if ($request->has('features')) {
@@ -229,6 +232,7 @@ class RentalController extends Controller
         $rental = Rental::findOrFail($id);
 
         $rentalUpdated = $this->rentalService->updateRental($rental, $validated, $request);
+        $this->sitemapService->generate();
 
         if ($request->has('features')) {
             $rentalUpdated->features()->sync($request->input('features', []));
@@ -265,6 +269,7 @@ class RentalController extends Controller
     {
         $rental = Rental::findOrFail($id);
         $this->rentalService->deleteRental($rental);
+        $this->sitemapService->generate();
         return redirect()->route('admin.rentals.index')
             ->with('success', 'Rental deleted successfully!');
     }

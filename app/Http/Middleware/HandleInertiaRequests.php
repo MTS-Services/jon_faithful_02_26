@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\SeoPage;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Laravel\Fortify\Features;
@@ -36,6 +37,9 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $routeName = $request->route()?->getName();
+        $seoPage = $routeName ? SeoPage::where('route_name', $routeName)->first() : null;
+
         return [
             ...parent::share($request),
             'name' => config('app.name'),
@@ -53,6 +57,13 @@ class HandleInertiaRequests extends Middleware
                 'canResetPassword' => false,
                 'canVerifyEmail' => false,
                 'canUseTwoFactorAuthentication' => false,
+            ],
+            'seo' => [
+                'route_name' => $routeName,
+                'title' => $seoPage?->meta_title,
+                'description' => $seoPage?->meta_description,
+                'keywords' => $seoPage?->meta_keywords,
+                'canonical_url' => $request->url(),
             ],
         ];
     }

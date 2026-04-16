@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\ContactUsController;
 use App\Http\Controllers\Admin\ExternalLinkSubmiition;
 use App\Http\Controllers\Admin\NewsletterController;
+use App\Http\Controllers\Admin\SeoPageController;
 use App\Http\Controllers\Admin\CityMortgageSettingController;
 use App\Http\Controllers\Admin\RentalManagement\RentalController;
 use App\Http\Controllers\Admin\UserManagement\UserController;
@@ -98,6 +99,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::post('/', 'store')->name('store');
             Route::put('/{cityMortgageSetting}', 'update')->name('update');
             Route::delete('/{cityMortgageSetting}', 'destroy')->name('destroy');
+        });
+
+        Route::prefix('seo-pages')->as('seo-pages.')->controller(SeoPageController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::put('/{seoPage}', 'update')->name('update');
+            Route::post('/generate-sitemap', 'generateSitemap')->name('generate-sitemap');
         });
     });
 });
