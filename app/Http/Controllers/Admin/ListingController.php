@@ -12,6 +12,7 @@ use App\Models\Listing;
 use App\Models\User;
 use App\Services\DataTableService;
 use App\Services\ListingHomeService;
+use App\Services\SitemapService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -23,10 +24,12 @@ class ListingController extends Controller
 {
     protected DataTableService $dataTableService;
     protected ListingHomeService $listingService;
-    public function __construct(DataTableService $dataTableService, ListingHomeService $listingService)
+    protected SitemapService $sitemapService;
+    public function __construct(DataTableService $dataTableService, ListingHomeService $listingService, SitemapService $sitemapService)
     {
         $this->dataTableService = $dataTableService;
         $this->listingService = $listingService;
+        $this->sitemapService = $sitemapService;
     }
 
     public function index(): Response
@@ -141,6 +144,7 @@ class ListingController extends Controller
 
 
         $listing = $this->listingService->createListing($validated, $request);
+        $this->sitemapService->generate();
 
         // Using sync ensures the pivot table is updated correctly
         // if ($request->has('features')) {
@@ -217,6 +221,7 @@ class ListingController extends Controller
         ]);
 
         $listing = $this->listingService->updateListing($listing, $validated, $request);
+        $this->sitemapService->generate();
 
         // Sync features (this removes old ones and adds new ones automatically)
         // if ($request->has('features')) {
@@ -240,6 +245,7 @@ class ListingController extends Controller
                 }
             }
             $listing->delete();
+            $this->sitemapService->generate();
 
             return redirect()->route('admin.listing.index')->with('success', 'Listing deleted successfully.');
         } catch (\Exception $e) {

@@ -8,6 +8,7 @@ import {
     Calculator,
     ClipboardList,
     ExternalLink,
+    Search,
     Home,
     Layers,
     LayoutGrid,
@@ -102,6 +103,13 @@ const adminNavItems: NavItemType[] = [
         icon: Calculator,
         permission: 'view analytics',
         slug: 'mortgage-settings',
+    },
+    {
+        title: 'SEO',
+        href: route('admin.seo-pages.index'),
+        icon: Search,
+        permission: 'view analytics',
+        slug: 'seo-pages',
     },
     {
         title: 'Contact Us',

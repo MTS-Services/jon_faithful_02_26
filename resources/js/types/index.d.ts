@@ -48,6 +48,13 @@ export interface SharedData {
     auth: Auth;
     admin: Admin;
     sidebarOpen: boolean;
+    seo?: {
+        route_name?: string | null;
+        title?: string | null;
+        description?: string | null;
+        keywords?: string | null;
+        canonical_url?: string | null;
+    };
     [key: string]: unknown;
 }
 

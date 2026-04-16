@@ -65,10 +65,19 @@ function FrontendHeader({ activePage, subPage }: Props) {
     { name: 'Renting vs Buying in Tennessee', routeName: 'renting-buy' },
     { name: 'Moving to Tennessee & Renting First', routeName: 'moving-tennessee-renting' },
   ];
-  const movingTopics3: NavItem[] = [
+
+  /** Purchase-focused links (keep these under “Buying”). */
+  const buyingTopics: NavItem[] = [
     { name: 'Buying in Tennessee', routeName: 'buying' },
     { name: 'Cost of buying in Tennessee', routeName: 'cost-of-buying-tennessee' },
     { name: 'Mortgage Calculator', routeName: 'mortgage-calculator' },
+  ];
+
+  /**
+   * Client request: SEO pages should not live under “Buying”.
+   * Move “moving-from-*” and “is-tennessee-cheaper-*” pages under a new section.
+   */
+  const movingFromAnotherStateTopics: NavItem[] = [
     { name: 'Moving from California to Tennessee', routeName: 'moving-from-california' },
     { name: 'Moving from New York City to Tennessee', routeName: 'moving-from-new-york-city' },
     { name: 'Moving from Florida to Tennessee', routeName: 'moving-from-florida' },
@@ -93,7 +102,6 @@ function FrontendHeader({ activePage, subPage }: Props) {
     { name: 'Home', routeName: 'home', activeKey: 'home' },
     { name: 'Homes for Sale', routeName: 'home-for-sale', activeKey: 'homes-for-sale' },
     { name: 'Rentals', routeName: 'rentals', activeKey: 'rentals' },
-    { name: 'Partner Program', routeName: 'partnerProgram', activeKey: 'Partner Program' },
   ];
 
   return (
@@ -184,7 +192,7 @@ function FrontendHeader({ activePage, subPage }: Props) {
                   Moving to Tennessee <FaChevronDown className="ml-1 text-[10px]" />
                 </button>
 
-                <div className="absolute top-full -right-90 w-[1200px] bg-white shadow-2xl rounded-b-lg p-8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 grid grid-cols-4 gap-8">
+                <div className="absolute top-full -right-140 w-[min(1500px,95vw)] bg-white shadow-2xl rounded-b-lg p-8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 grid grid-cols-5 gap-6">
                   <div>
                     <h3 className="text-lg font-bold text-primary mb-4 border-b pb-2">What You Need to Know:</h3>
                     <ul className="space-y-3">
@@ -218,10 +226,26 @@ function FrontendHeader({ activePage, subPage }: Props) {
                   <div>
                     <h3 className="text-lg font-bold text-primary mb-4 border-b pb-2">Buying:</h3>
                     <ul className="space-y-3">
-                      {movingTopics3.map((item) => (
+                      {buyingTopics.map((item) => (
                         <li key={item.name} id={item.name}>
                           <Link href={resolveNavHref(item)} className={`flex items-center text-sm text-muted-foreground hover:text-secondary transition-colors ${subPage === item.name ? 'text-secondary' : ''}`}>
                             <span className="text-primary mr-2 font-bold">
+                              <MdDoubleArrow size={14} />
+                            </span>
+                            <span className="leading-snug">{item.name}</span>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h3 className="text-lg font-bold text-primary mb-4 border-b pb-2">Moving From Another State:</h3>
+                    <ul className="space-y-3">
+                      {movingFromAnotherStateTopics.map((item) => (
+                        <li key={item.name} id={item.name}>
+                          <Link href={resolveNavHref(item)} className={`flex items-center text-sm text-muted-foreground hover:text-secondary transition-colors ${subPage === item.name ? 'text-secondary' : ''}`}>
+                            <span className="text-primary mr-2 font-bold shrink-0">
                               <MdDoubleArrow size={14} />
                             </span>
                             <span className="leading-snug">{item.name}</span>
@@ -255,6 +279,13 @@ function FrontendHeader({ activePage, subPage }: Props) {
                   </div>
                 </div>
               </div>
+
+              <Link
+                href={route('frontend.partnerProgram')}
+                className={`text-muted-foreground hover:text-secondary font-medium transition-colors ${activePage === 'Partner Program' ? 'text-secondary' : 'text-muted-foreground'}`}
+              >
+                Partner Program
+              </Link>
             </nav>
 
             {/* Desktop Right CTA / Mobile Toggle */}
@@ -326,7 +357,11 @@ function FrontendHeader({ activePage, subPage }: Props) {
                     <Link key={item.name} href={resolveNavHref(item)} className="block px-3 py-1 text-sm text-muted-foreground">{item.name}</Link>
                   ))}
                   <p className="px-3 text-xs font-bold text-secondary uppercase">Buying:</p>
-                  {movingTopics3.map((item) => (
+                  {buyingTopics.map((item) => (
+                    <Link key={item.name} href={resolveNavHref(item)} className="block px-3 py-1 text-sm text-muted-foreground">{item.name}</Link>
+                  ))}
+                  <p className="px-3 text-xs font-bold text-secondary uppercase">Moving From Another State:</p>
+                  {movingFromAnotherStateTopics.map((item) => (
                     <Link key={item.name} href={resolveNavHref(item)} className="block px-3 py-1 text-sm text-muted-foreground">{item.name}</Link>
                   ))}
                   <p className="px-3 text-xs font-bold text-secondary uppercase">Helpful Tools:</p>
@@ -337,7 +372,7 @@ function FrontendHeader({ activePage, subPage }: Props) {
               )}
             </div>
 
-            <Link href={route('frontend.partnerProgram')} className="block px-3 py-2 text-base font-medium text-muted-foreground hover:bg-gray-50">Partner Program</Link>
+            <Link href={route('frontend.partnerProgram')} className={`block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-50 ${activePage === 'Partner Program' ? 'text-secondary bg-gray-50' : 'text-muted-foreground'}`}>Partner Program</Link>
 
             {/* <Link href={route('login')} className="block w-full text-center mt-6 bg-primary text-white px-5 py-4 rounded-xl font-bold">
               Login / Registration

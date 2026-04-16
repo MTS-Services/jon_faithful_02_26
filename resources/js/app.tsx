@@ -3,13 +3,14 @@ import '../css/datatable.css';
 
 import { createInertiaApp } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
-import { StrictMode } from 'react';
+import { StrictMode, type ComponentType } from 'react';
 import { createRoot } from 'react-dom/client';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Toaster } from 'sonner';
 
 import ErrorFallback from './components/error-fallback';
 import { ErrorBadge, ErrorOverlay } from './components/error-overlay';
+import GlobalSeoHead from './components/global-seo-head';
 import { initializeTheme } from './hooks/use-appearance';
 import { ErrorObservabilityProvider } from './lib/errors/error-context';
 
@@ -18,10 +19,24 @@ const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 createInertiaApp({
     title: (title) => (title ? `${title} - ${appName}` : appName),
     resolve: (name) =>
-        resolvePageComponent(
-            `./pages/${name}.tsx`,
-            import.meta.glob('./pages/**/*.tsx'),
-        ),
+        Promise.resolve(
+            resolvePageComponent(
+                `./pages/${name}.tsx`,
+                import.meta.glob('./pages/**/*.tsx'),
+            ),
+        ).then((module: { default: ComponentType<any> }) => {
+            const Page = module.default;
+
+            return {
+                ...module,
+                default: (props: any) => (
+                    <>
+                        <GlobalSeoHead />
+                        <Page {...props} />
+                    </>
+                ),
+            };
+        }),
     setup({ el, App, props }) {
         const root = createRoot(el);
 
