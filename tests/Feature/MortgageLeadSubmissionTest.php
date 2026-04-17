@@ -1,5 +1,6 @@
 <?php
 
+use App\Mail\MortgageLeadThankYouMail;
 use App\Mail\NewMortgageLeadMail;
 use App\Models\MortgageLead;
 use Illuminate\Support\Facades\Mail;
@@ -39,5 +40,9 @@ test('mortgage leads can be submitted and emailed', function () {
 
     Mail::assertSent(NewMortgageLeadMail::class, function (NewMortgageLeadMail $mail) {
         return $mail->hasTo('info@whytennessee.com');
+    });
+
+    Mail::assertSent(MortgageLeadThankYouMail::class, function (MortgageLeadThankYouMail $mail) {
+        return $mail->hasTo('jon@example.com');
     });
 });

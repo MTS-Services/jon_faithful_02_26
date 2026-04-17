@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreMortgageLeadRequest;
+use App\Mail\MortgageLeadThankYouMail;
 use App\Mail\NewMortgageLeadMail;
 use App\Models\City;
 use App\Models\MortgageLead;
@@ -19,38 +20,38 @@ class MortgageCalculator extends Controller
     {
         $calculatorConfig = [
             'defaults' => [
-                'homePrice'    => 350000,
-                'downPayment'  => 35000,
+                'homePrice' => 350000,
+                'downPayment' => 35000,
                 'interestRate' => 6.75,
-                'loanTerm'     => 30,
-                'propertyTax'  => 2100,
-                'insurance'    => 1800,
-                'hoa'          => 0,
-                'pmi'          => 0,
+                'loanTerm' => 30,
+                'propertyTax' => 2100,
+                'insurance' => 1800,
+                'hoa' => 0,
+                'pmi' => 0,
             ],
         ];
 
         // City presets come dynamically from admin-managed settings.
         $cityPresets = City::with('mortgageSetting')
-            ->whereHas('mortgageSetting', fn ($query) => $query->where('is_active', true))
+            ->whereHas('mortgageSetting', fn($query) => $query->where('is_active', true))
             ->orderBy('name')
             ->get()
             ->map(function (City $city) {
                 return [
-                    'label'     => $city->name,
-                    'price'     => (float) ($city->mortgageSetting->base_price ?? 0),
-                    'tax'       => (float) ($city->mortgageSetting->annual_tax ?? 0),
+                    'label' => $city->name,
+                    'price' => (float) ($city->mortgageSetting->base_price ?? 0),
+                    'tax' => (float) ($city->mortgageSetting->annual_tax ?? 0),
                     'insurance' => (float) ($city->mortgageSetting->annual_insurance ?? 0),
                 ];
             })
             ->values()
             ->all();
 
-        $calculatorConfig['cityPresets']        = $cityPresets;
-        $calculatorConfig['leadSubmitUrl']       = route('frontend.mortgage-leads.store');
+        $calculatorConfig['cityPresets'] = $cityPresets;
+        $calculatorConfig['leadSubmitUrl'] = route('frontend.mortgage-leads.store');
 
         // Set your LendingTree (or partner) URL here once available.
-        $calculatorConfig['lenderRatesUrl']      = config('mortgage.lender_rates_url', '#');
+        $calculatorConfig['lenderRatesUrl'] = config('mortgage.lender_rates_url', '#');
 
         // Fallback destination when the primary lead route cannot accept the lead
         // (e.g. the lead is a duplicate, outside serviceable area, etc.).
@@ -70,6 +71,15 @@ class MortgageCalculator extends Controller
                 ->send(new NewMortgageLeadMail($lead));
         } catch (\Throwable $exception) {
             Log::error('Mortgage lead email failed', [
+                'lead_id' => $lead->id,
+                'message' => $exception->getMessage(),
+            ]);
+        }
+
+        try {
+            Mail::to($lead->email)->send(new MortgageLeadThankYouMail($lead));
+        } catch (\Throwable $exception) {
+            Log::error('Mortgage lead thank-you email failed', [
                 'lead_id' => $lead->id,
                 'message' => $exception->getMessage(),
             ]);
