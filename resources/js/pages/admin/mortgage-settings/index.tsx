@@ -27,6 +27,7 @@ interface MortgageSetting extends Record<string, unknown> {
     id: number;
     city_id: number;
     base_price: number;
+    down_payment: number;
     annual_tax: number;
     annual_insurance: number;
     is_active: boolean;
@@ -72,6 +73,7 @@ export default function MortgageSettingsIndex({
     const createForm = useForm({
         city_id: '',
         base_price: '',
+        down_payment: '',
         annual_tax: '',
         annual_insurance: '',
         is_active: true,
@@ -80,6 +82,7 @@ export default function MortgageSettingsIndex({
     const editForm = useForm({
         city_id: '',
         base_price: '',
+        down_payment: '',
         annual_tax: '',
         annual_insurance: '',
         is_active: true,
@@ -101,6 +104,12 @@ export default function MortgageSettingsIndex({
             label: 'Base Price ($)',
             sortable: true,
             render: (item) => <span>${Number(item.base_price).toLocaleString()}</span>,
+        },
+        {
+            key: 'down_payment',
+            label: 'Down Payment ($)',
+            sortable: true,
+            render: (item) => <span>${Number(item.down_payment).toLocaleString()}</span>,
         },
         {
             key: 'annual_tax',
@@ -135,6 +144,7 @@ export default function MortgageSettingsIndex({
                 editForm.setData({
                     city_id: String(item.city_id),
                     base_price: String(item.base_price),
+                    down_payment: String(item.down_payment ?? ''),
                     annual_tax: String(item.annual_tax),
                     annual_insurance: String(item.annual_insurance),
                     is_active: item.is_active,
@@ -255,7 +265,7 @@ export default function MortgageSettingsIndex({
                             </select>
                             <InputError message={createForm.errors.city_id} />
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                             <div className="space-y-1.5">
                                 <Label htmlFor="base_price">Base Price ($)</Label>
                                 <Input
@@ -267,6 +277,18 @@ export default function MortgageSettingsIndex({
                                     className='border-gray-300'
                                 />
                                 <InputError message={createForm.errors.base_price} />
+                            </div>
+                            <div className="space-y-1.5">
+                                <Label htmlFor="down_payment">Down Payment ($)</Label>
+                                <Input
+                                    id="down_payment"
+                                    type="number"
+                                    value={createForm.data.down_payment}
+                                    onChange={(event) => createForm.setData('down_payment', event.target.value)}
+                                    min={0}
+                                    className="border-gray-300"
+                                />
+                                <InputError message={createForm.errors.down_payment} />
                             </div>
                             <div className="space-y-1.5">
                                 <Label htmlFor="annual_tax">Annual Tax ($)</Label>
@@ -342,7 +364,7 @@ export default function MortgageSettingsIndex({
                             </select>
                             <InputError message={editForm.errors.city_id} />
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                             <div className="space-y-1.5">
                                 <Label htmlFor="edit_base_price">Base Price ($)</Label>
                                 <Input
@@ -353,6 +375,17 @@ export default function MortgageSettingsIndex({
                                     min={0}
                                 />
                                 <InputError message={editForm.errors.base_price} />
+                            </div>
+                            <div className="space-y-1.5">
+                                <Label htmlFor="edit_down_payment">Down Payment ($)</Label>
+                                <Input
+                                    id="edit_down_payment"
+                                    type="number"
+                                    value={editForm.data.down_payment}
+                                    onChange={(event) => editForm.setData('down_payment', event.target.value)}
+                                    min={0}
+                                />
+                                <InputError message={editForm.errors.down_payment} />
                             </div>
                             <div className="space-y-1.5">
                                 <Label htmlFor="edit_annual_tax">Annual Tax ($)</Label>

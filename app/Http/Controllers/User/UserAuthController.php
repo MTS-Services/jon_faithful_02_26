@@ -85,11 +85,10 @@ class UserAuthController extends Controller
         if (! $user) {
             return redirect()->back()->withErrors(['error' => 'Failed to register user.'])->withInput();
         }
-        // Mail::to($user->email)->send(new FoundingPartnerRegistrationMail($user));
         if ($user->email) {
-            Mail::to($user->email)->later(now()->addSeconds(5), new FoundingPartnerRegistrationMail($user));
+            Mail::to($user->email)->send(new FoundingPartnerRegistrationMail($user));
         }
-        Mail::to(config('mail.from.address'))->send(new FoundingAdminRegistrationMail($user));
+        Mail::to(config('mail.from.address'))->queue((new FoundingAdminRegistrationMail($user))->delay(now()->addSeconds(60)));
         Auth::login($user);
 
         return redirect()->route('user.pending-verification');
@@ -142,7 +141,7 @@ class UserAuthController extends Controller
         return Inertia::render('auth/otp-verification');
     }
 
-        public function otpVerificationStore(Request $request)
+    public function otpVerificationStore(Request $request)
     {
         $request->validate([
             'otp' => ['required', 'numeric', 'digits:6'],

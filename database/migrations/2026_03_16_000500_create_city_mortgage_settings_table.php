@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('city_id')->constrained('cities')->cascadeOnDelete();
             $table->unsignedBigInteger('base_price')->default(0);
+            $table->unsignedBigInteger('down_payment')->default(0);
             $table->unsignedInteger('annual_tax')->default(0);
             $table->unsignedInteger('annual_insurance')->default(0);
             $table->boolean('is_active')->default(true);

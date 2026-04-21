@@ -13,9 +13,7 @@ use Inertia\Response;
 
 class CityMortgageSettingController extends Controller
 {
-    public function __construct(private DataTableService $dataTableService)
-    {
-    }
+    public function __construct(private DataTableService $dataTableService) {}
 
     public function index(): Response
     {
@@ -27,7 +25,7 @@ class CityMortgageSettingController extends Controller
 
         $result = $this->dataTableService->process($query, request(), [
             'searchable' => ['cities.name'],
-            'sortable' => ['id', 'base_price', 'annual_tax', 'annual_insurance', 'is_active', 'created_at'],
+            'sortable' => ['id', 'base_price', 'down_payment', 'annual_tax', 'annual_insurance', 'is_active', 'created_at'],
         ]);
 
         $cities = City::orderBy('name')->get(['id', 'name']);
@@ -49,6 +47,7 @@ class CityMortgageSettingController extends Controller
         $data = $request->validate([
             'city_id' => ['required', 'exists:cities,id', 'unique:city_mortgage_settings,city_id'],
             'base_price' => ['required', 'numeric', 'min:0'],
+            'down_payment' => ['required', 'numeric', 'min:0'],
             'annual_tax' => ['required', 'numeric', 'min:0'],
             'annual_insurance' => ['required', 'numeric', 'min:0'],
             'is_active' => ['sometimes', 'boolean'],
@@ -57,6 +56,7 @@ class CityMortgageSettingController extends Controller
         CityMortgageSetting::create([
             'city_id' => $data['city_id'],
             'base_price' => $data['base_price'],
+            'down_payment' => $data['down_payment'],
             'annual_tax' => $data['annual_tax'],
             'annual_insurance' => $data['annual_insurance'],
             'is_active' => $data['is_active'] ?? true,
@@ -68,8 +68,9 @@ class CityMortgageSettingController extends Controller
     public function update(Request $request, CityMortgageSetting $cityMortgageSetting): RedirectResponse
     {
         $data = $request->validate([
-            'city_id' => ['required', 'exists:cities,id', 'unique:city_mortgage_settings,city_id,' . $cityMortgageSetting->id],
+            'city_id' => ['required', 'exists:cities,id', 'unique:city_mortgage_settings,city_id,'.$cityMortgageSetting->id],
             'base_price' => ['required', 'numeric', 'min:0'],
+            'down_payment' => ['required', 'numeric', 'min:0'],
             'annual_tax' => ['required', 'numeric', 'min:0'],
             'annual_insurance' => ['required', 'numeric', 'min:0'],
             'is_active' => ['sometimes', 'boolean'],
@@ -78,6 +79,7 @@ class CityMortgageSettingController extends Controller
         $cityMortgageSetting->update([
             'city_id' => $data['city_id'],
             'base_price' => $data['base_price'],
+            'down_payment' => $data['down_payment'],
             'annual_tax' => $data['annual_tax'],
             'annual_insurance' => $data['annual_insurance'],
             'is_active' => $data['is_active'] ?? $cityMortgageSetting->is_active,
@@ -93,4 +95,3 @@ class CityMortgageSettingController extends Controller
         return back()->with('success', 'Mortgage setting deleted successfully.');
     }
 }
-

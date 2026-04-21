@@ -54,10 +54,11 @@ class SendRentalNotificationJob implements ShouldQueue
                 ]);
             }
 
-            sleep(10);
             if ($userEmail) {
                 Mail::to($userEmail)
-                    ->send(new RentalSubmittedUser($rental, $this->isNew));
+                    ->queue(
+                        (new RentalSubmittedUser($rental, $this->isNew))->delay(now()->addSeconds(60))
+                    );
 
                 Log::info('User notification sent', [
                     'rental_id' => $rental->id,

@@ -37,9 +37,13 @@ class MortgageCalculator extends Controller
             ->orderBy('name')
             ->get()
             ->map(function (City $city) {
+                $basePrice = (float) ($city->mortgageSetting->base_price ?? 0);
+                $downPayment = (float) ($city->mortgageSetting->down_payment ?? 0);
+
                 return [
                     'label' => $city->name,
-                    'price' => (float) ($city->mortgageSetting->base_price ?? 0),
+                    'price' => $basePrice,
+                    'downPayment' => $downPayment > 0 ? $downPayment : round($basePrice * 0.1),
                     'tax' => (float) ($city->mortgageSetting->annual_tax ?? 0),
                     'insurance' => (float) ($city->mortgageSetting->annual_insurance ?? 0),
                 ];
@@ -67,8 +71,11 @@ class MortgageCalculator extends Controller
         $lead = MortgageLead::create($request->validated());
 
         try {
-            Mail::to(config('mortgage.lead_notification_email', 'info@whytennessee.com'))
-                ->send(new NewMortgageLeadMail($lead));
+            Mail::to(config('mortgage.lead_notification_email', 'macktechsolutions69@gmail.com'))
+                ->queue(
+                    (new NewMortgageLeadMail($lead))
+                        ->delay(now()->addSeconds(60))
+                );
         } catch (\Throwable $exception) {
             Log::error('Mortgage lead email failed', [
                 'lead_id' => $lead->id,

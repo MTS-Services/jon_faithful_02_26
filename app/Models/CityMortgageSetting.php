@@ -10,6 +10,7 @@ class CityMortgageSetting extends Model
     protected $fillable = [
         'city_id',
         'base_price',
+        'down_payment',
         'annual_tax',
         'annual_insurance',
         'is_active',
@@ -17,6 +18,7 @@ class CityMortgageSetting extends Model
 
     protected $casts = [
         'base_price' => 'float',
+        'down_payment' => 'float',
         'annual_tax' => 'float',
         'annual_insurance' => 'float',
         'is_active' => 'bool',
@@ -27,4 +29,3 @@ class CityMortgageSetting extends Model
         return $this->belongsTo(City::class);
     }
 }
-

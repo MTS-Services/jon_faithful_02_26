@@ -6,6 +6,7 @@ type CityPreset = {
     price: number;
     tax: number;
     insurance: number;
+    downPayment?: number;
 };
 
 type LeadFormData = {
@@ -722,9 +723,8 @@ export default function MortgageCalculatorLeadInline({
 
     return (
         <section className="mt-10 rounded-[18px] border border-[#e5e7eb] bg-white p-6 shadow-[0_12px_30px_rgba(0,0,0,.08)] sm:p-8">
-            <p className="text-center text-sm font-bold uppercase tracking-wide text-[#085952]">Lead capture</p>
             <div className="mb-6 mt-2 text-center">
-                <h2 className="text-2xl font-bold text-primary sm:text-3xl">Want to See What You Qualify For?</h2>
+                <h2 className="text-2xl font-bold text-primary sm:text-3xl">You're Closer Than You Think - See What You Quality For</h2>
                 <p className="mx-auto mt-3 max-w-2xl text-[#6b7280]">
                     Get matched with a local Tennessee lender and see loan options based on your estimated budget.
                 </p>

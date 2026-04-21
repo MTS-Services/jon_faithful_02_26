@@ -23,16 +23,25 @@ interface CityPreset {
     price: number;
     tax: number;
     insurance: number;
+    /** When omitted, down payment defaults to 10% of home price. */
+    downPayment?: number;
+}
+
+function presetDownPayment(preset: CityPreset): number {
+    if (preset.downPayment != null && preset.downPayment >= 0) {
+        return preset.downPayment;
+    }
+    return Math.round(preset.price * 0.1);
 }
 
 const FALLBACK_CITY_PRESETS: CityPreset[] = [
-    { label: "Knoxville", price: 360000, tax: 2200, insurance: 1900 },
-    { label: "Murfreesboro", price: 395000, tax: 2400, insurance: 1950 },
-    { label: "Johnson City", price: 285000, tax: 1700, insurance: 1750 },
-    { label: "Kingsport", price: 255000, tax: 1500, insurance: 1700 },
-    { label: "Clarksville", price: 325000, tax: 1950, insurance: 1800 },
-    { label: "Chattanooga", price: 340000, tax: 2100, insurance: 1850 },
-    { label: "Nashville", price: 470000, tax: 2800, insurance: 2100 },
+    { label: "Knoxville", price: 375000, downPayment: 37500, tax: 2300, insurance: 1950 },
+    { label: "Murfreesboro", price: 325000, downPayment: 32500, tax: 2350, insurance: 1920 },
+    { label: "Johnson City", price: 260000, downPayment: 26000, tax: 1720, insurance: 1760 },
+    { label: "Kingsport", price: 240000, downPayment: 24000, tax: 1580, insurance: 1700 },
+    { label: "Clarksville", price: 300000, downPayment: 30000, tax: 2000, insurance: 1820 },
+    { label: "Chattanooga", price: 350000, downPayment: 35000, tax: 2150, insurance: 1880 },
+    { label: "Nashville", price: 550000, downPayment: 55000, tax: 3000, insurance: 2200 },
 ];
 
 interface FormState {
@@ -230,7 +239,7 @@ export default function MortgageCalculator() {
             : {
                 ...resolvedDefaults,
                 homePrice: initialCity.price,
-                downPayment: Math.round(initialCity.price * 0.1),
+                downPayment: presetDownPayment(initialCity),
                 propertyTax: initialCity.tax,
                 insurance: initialCity.insurance,
             };
@@ -253,7 +262,7 @@ export default function MortgageCalculator() {
                 : {
                     ...resolvedDefaults,
                     homePrice: updatedInitialCity.price,
-                    downPayment: Math.round(updatedInitialCity.price * 0.1),
+                    downPayment: presetDownPayment(updatedInitialCity),
                     propertyTax: updatedInitialCity.tax,
                     insurance: updatedInitialCity.insurance,
                 };
@@ -272,7 +281,7 @@ export default function MortgageCalculator() {
         setForm((prev) => ({
             ...prev,
             homePrice: preset.price,
-            downPayment: Math.round(preset.price * 0.1),
+            downPayment: presetDownPayment(preset),
             propertyTax: preset.tax,
             insurance: preset.insurance,
         }));
@@ -378,7 +387,7 @@ export default function MortgageCalculator() {
                             <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-6 items-start">
                                 {/* Calculator form card */}
                                 <div className="bg-white border border-[#e5e7eb] rounded-[18px] p-6 shadow-[0_12px_30px_rgba(0,0,0,.08)]">
-                                    <span className="block mb-2.5 text-[.92rem] font-bold text-[#374151]">Quick city examples</span>
+                                    <span className="block mb-2.5 text-[.92rem] font-bold text-[#374151]">Tab a city to load real homve price examples</span>
                                     <div className="flex flex-wrap gap-2.5 mb-5">
                                         {resolvedCityPresets.map((preset) => {
                                             const isActive = activeCity === preset.label;

@@ -54,10 +54,9 @@ class SendListingNotificationJob implements ShouldQueue
                 ]);
             }
 
-            sleep(10);
             if ($userEmail) {
                 Mail::to($userEmail)
-                    ->send(new ListingSubmittedUserMail($listing, $this->isNew));
+                    ->queue((new ListingSubmittedUserMail($listing, $this->isNew))->delay(now()->addSeconds(60)));
 
                 Log::info('User notification sent', [
                     'listing_id' => $listing->id,
