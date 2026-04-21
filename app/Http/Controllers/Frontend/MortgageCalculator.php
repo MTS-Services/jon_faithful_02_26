@@ -71,7 +71,7 @@ class MortgageCalculator extends Controller
         $lead = MortgageLead::create($request->validated());
 
         try {
-            Mail::to(config('mortgage.lead_notification_email', 'macktechsolutions69@gmail.com'))
+            Mail::to(config('mortgage.lead_notification_email', 'info@whytennessee.com'))
                 ->queue(
                     (new NewMortgageLeadMail($lead))
                         ->delay(now()->addSeconds(60))

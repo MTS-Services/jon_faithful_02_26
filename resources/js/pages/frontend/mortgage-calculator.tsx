@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { Link, usePage } from "@inertiajs/react";
+import { Head, Link, usePage } from "@inertiajs/react";
 import FrontendLayout from "@/layouts/frontend-layout";
 import MortgageCalculatorLeadInline from "@/components/ui/mortgage-calculator-lead-inline";
 
@@ -319,6 +319,7 @@ export default function MortgageCalculator() {
 
     return (
         <FrontendLayout activePage="buying" subPage="mortgage-calculator">
+            <Head title="Tennessee Mortgage Calculator (2026) | Estimate Payments" />
             <div className="min-h-screen font-[Arial,Helvetica,sans-serif] text-[#1f2937] leading-relaxed bg-[#f7f8fb]">
                 {/* ── Hero ── */}
                 <header
