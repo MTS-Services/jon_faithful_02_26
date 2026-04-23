@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
 import { Link } from "@inertiajs/react";
+import { useEffect, useState } from "react";
 
 type CityPreset = {
     label: string;
@@ -142,7 +142,7 @@ function getCityExploreHref(label: string): string {
     return route("frontend.home-for-sale");
 }
 
-function selectPersonalizedCities(presets: CityPreset[], homePrice: number, max: number): CityPreset[] {
+export function selectPersonalizedCities(presets: CityPreset[], homePrice: number, max: number): CityPreset[] {
     const valid = presets.filter((p) => p.price > 0);
     if (valid.length === 0) {
         return [];
@@ -162,13 +162,26 @@ function selectPersonalizedCities(presets: CityPreset[], homePrice: number, max:
     return out;
 }
 
-function PersonalizedCityResults({ cities, budgetHomePrice }: { cities: CityPreset[]; budgetHomePrice: number }) {
+export function PersonalizedCityResults({
+    cities,
+    budgetHomePrice,
+    embedded = false,
+}: {
+    cities: CityPreset[];
+    budgetHomePrice: number;
+    /** When true, omit top divider spacing (e.g. nested inside a bordered card). */
+    embedded?: boolean;
+}) {
     if (cities.length === 0) {
         return null;
     }
 
+    const shellClass = embedded
+        ? "mt-6 pt-2 text-left"
+        : "mt-10 border-t border-[#e5e7eb] pt-10 text-left";
+
     return (
-        <div className="mt-10 border-t border-[#e5e7eb] pt-10 text-left">
+        <div className={shellClass}>
             <p className="text-sm font-bold uppercase tracking-wide text-[#085952]">Personalized results</p>
             <h3 className="mt-2 text-2xl font-bold text-primary sm:text-3xl">Based on Your Budget, You Should Explore:</h3>
             <p className="mt-2 text-[#6b7280]">
@@ -673,7 +686,7 @@ function InlineLeadCaptureForm({
                             disabled={isSubmitting}
                             className="rounded-xl bg-secondary px-6 py-3 text-base font-bold text-white hover:bg-primary disabled:opacity-60"
                         >
-                            {isSubmitting ? "Submitting…" : "Show Me Homes in My Budget"}
+                            {isSubmitting ? "Submitting…" : "Get Matched with a Tennessee Lender"}
                         </button>
                     </div>
                 </div>
@@ -724,7 +737,9 @@ export default function MortgageCalculatorLeadInline({
     return (
         <section className="mt-10 rounded-[18px] border border-[#e5e7eb] bg-white p-6 shadow-[0_12px_30px_rgba(0,0,0,.08)] sm:p-8">
             <div className="mb-6 mt-2 text-center">
-                <h2 className="text-2xl font-bold text-primary sm:text-3xl">You're Closer Than You Think - See What You Quality For</h2>
+                <h2 className="text-2xl font-bold text-primary sm:text-3xl">
+                    You&apos;re closer than you think — see what you qualify for
+                </h2>
                 <p className="mx-auto mt-3 max-w-2xl text-[#6b7280]">
                     Get matched with a local Tennessee lender and see loan options based on your estimated budget.
                 </p>

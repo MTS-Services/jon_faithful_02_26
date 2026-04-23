@@ -1,7 +1,11 @@
-import { useState, useEffect, useCallback } from "react";
 import { Head, Link, usePage } from "@inertiajs/react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+
+import MortgageCalculatorLeadInline, {
+    PersonalizedCityResults,
+    selectPersonalizedCities,
+} from "@/components/ui/mortgage-calculator-lead-inline";
 import FrontendLayout from "@/layouts/frontend-layout";
-import MortgageCalculatorLeadInline from "@/components/ui/mortgage-calculator-lead-inline";
 
 // Set your LendingTree (or lendertree.com) partner URL when ready. Leave as '#' until then.
 const LENDER_RATES_URL = "#";
@@ -124,7 +128,11 @@ function Field({ id, label, value, step = 1, onChange }: FieldProps) {
     );
 
     useEffect(() => {
-        if (!focused) setLocalStr(value === 0 ? "" : String(value));
+        if (!focused) {
+            queueMicrotask(() => {
+                setLocalStr(value === 0 ? "" : String(value));
+            });
+        }
     }, [value, focused]);
 
     const displayValue = focused ? localStr : value === 0 ? "" : String(value);
@@ -207,29 +215,37 @@ function ResultRow({ label, value, last = false }: ResultRowProps) {
     );
 }
 
+type MortgageCalculatorPageProps = {
+    calculatorConfig?: {
+        defaults?: Partial<FormState>;
+        cityPresets?: CityPreset[];
+        lenderRatesUrl?: string;
+        leadSubmitUrl?: string;
+        siteUrl?: string;
+    };
+};
+
 export default function MortgageCalculator() {
-    const page = usePage();
-    const calculatorConfig = (page.props as any)?.calculatorConfig as
-        | {
-            defaults?: Partial<FormState>;
-            cityPresets?: CityPreset[];
-            lenderRatesUrl?: string;
-            leadSubmitUrl?: string;
-        }
-        | undefined;
+    const { calculatorConfig } = usePage<MortgageCalculatorPageProps>().props;
 
     const lenderRatesUrl = calculatorConfig?.lenderRatesUrl ?? LENDER_RATES_URL;
+    const siteUrl = calculatorConfig?.siteUrl ?? "https://whytennessee.com";
     const leadSubmitUrl = calculatorConfig?.leadSubmitUrl ?? "/mortgage-leads";
 
-    const resolvedDefaults: FormState = {
-        ...FALLBACK_DEFAULTS,
-        ...(calculatorConfig?.defaults ?? {}),
-    };
+    const resolvedDefaults = useMemo(
+        (): FormState => ({
+            ...FALLBACK_DEFAULTS,
+            ...(calculatorConfig?.defaults ?? {}),
+        }),
+        [calculatorConfig?.defaults],
+    );
 
-    const resolvedCityPresets: CityPreset[] =
-        calculatorConfig?.cityPresets && calculatorConfig.cityPresets.length > 0
-            ? calculatorConfig.cityPresets
-            : FALLBACK_CITY_PRESETS;
+    const resolvedCityPresets = useMemo((): CityPreset[] => {
+        if (calculatorConfig?.cityPresets && calculatorConfig.cityPresets.length > 0) {
+            return calculatorConfig.cityPresets;
+        }
+        return FALLBACK_CITY_PRESETS;
+    }, [calculatorConfig?.cityPresets]);
 
     const initialCity = resolvedCityPresets[0] ?? null;
 
@@ -300,9 +316,23 @@ export default function MortgageCalculator() {
         document.getElementById("calculator")?.scrollIntoView({ behavior: "smooth" });
     };
 
-    const scrollToLenderMatch = (e: React.MouseEvent<HTMLAnchorElement>) => {
-        e.preventDefault();
-        document.getElementById("lender-match")?.scrollIntoView({ behavior: "smooth" });
+    const scrollToLenderLeadForm = () => {
+        document.getElementById("lead-capture-form-section")?.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+        });
+    };
+
+    const scrollToHomesInBudget = () => {
+        const el = document.getElementById("homes-in-budget");
+        if (el) {
+            el.scrollIntoView({ behavior: "smooth", block: "start" });
+            return;
+        }
+        document.getElementById("after-calculator-results")?.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+        });
     };
 
     const handleCalculatePayment = () => {
@@ -317,9 +347,70 @@ export default function MortgageCalculator() {
         }, 50);
     };
 
+    const budgetPreviewCities = useMemo(
+        () => selectPersonalizedCities(resolvedCityPresets, form.homePrice, 4),
+        [resolvedCityPresets, form.homePrice],
+    );
+
+    const structuredData = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "WebSite",
+                name: "WhyTennessee",
+                alternateName: "WhyTennessee.com",
+                url: siteUrl,
+                description:
+                    "Guides, tools, and local expertise for people moving to Tennessee — including mortgage estimates, city comparisons, and homebuying resources.",
+            },
+            {
+                "@type": "FAQPage",
+                mainEntity: [
+                    {
+                        "@type": "Question",
+                        name: "How accurate is this mortgage calculator?",
+                        acceptedAnswer: {
+                            "@type": "Answer",
+                            text: "This calculator gives an estimate based on the numbers you enter. Your actual rate, monthly payment, taxes, insurance, and loan terms may vary based on lender guidelines and your credit profile.",
+                        },
+                    },
+                    {
+                        "@type": "Question",
+                        name: "Does checking mortgage options hurt my credit?",
+                        acceptedAnswer: {
+                            "@type": "Answer",
+                            text: "Whether a credit check affects your score depends on the lender and product. Ask your lender how they run credit and whether it is a soft or hard inquiry before you apply.",
+                        },
+                    },
+                    {
+                        "@type": "Question",
+                        name: "Can I use this calculator if I am moving to Tennessee from another state?",
+                        acceptedAnswer: {
+                            "@type": "Answer",
+                            text: "Yes. This page is designed to help relocation buyers estimate affordability before speaking with a lender or local real estate professional.",
+                        },
+                    },
+                    {
+                        "@type": "Question",
+                        name: "What should I do after I calculate my payment?",
+                        acceptedAnswer: {
+                            "@type": "Answer",
+                            text: "The best next step is to compare real mortgage offers, check current rates, or begin the pre-approval process with a trusted lending partner.",
+                        },
+                    },
+                ],
+            },
+        ],
+    };
+
     return (
         <FrontendLayout activePage="buying" subPage="mortgage-calculator">
-            <Head title="Tennessee Mortgage Calculator (2026) | Estimate Payments" />
+            <Head title="Tennessee Mortgage Calculator (2026) | Estimate Payments">
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+                />
+            </Head>
             <div className="min-h-screen font-[Arial,Helvetica,sans-serif] text-[#1f2937] leading-relaxed bg-[#f7f8fb]">
                 {/* ── Hero ── */}
                 <header
@@ -347,11 +438,18 @@ export default function MortgageCalculator() {
                                     Start Your Calculation
                                 </button>
                                 <a
-                                    href="#lender-match"
-                                    onClick={scrollToLenderMatch}
+                                    href={hasCalculated ? "#lead-capture-form-section" : "#calculator"}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        if (hasCalculated) {
+                                            scrollToLenderLeadForm();
+                                        } else {
+                                            scrollToCalculator();
+                                        }
+                                    }}
                                     className="inline-flex items-center px-5 py-3.5 rounded-xl font-bold border border-white/35 text-white hover:bg-white/10 transition-colors"
                                 >
-                                    Get matched with a lender
+                                    Get Matched with a Tennessee Lender
                                 </a>
                             </div>
                             <p className="m-0 text-sm text-white/80 sm:text-[0.95rem]">
@@ -388,7 +486,9 @@ export default function MortgageCalculator() {
                             <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-6 items-start">
                                 {/* Calculator form card */}
                                 <div className="bg-white border border-[#e5e7eb] rounded-[18px] p-6 shadow-[0_12px_30px_rgba(0,0,0,.08)]">
-                                    <span className="block mb-2.5 text-[.92rem] font-bold text-[#374151]">Tab a city to load real homve price examples</span>
+                                    <span className="block mb-2.5 text-[.92rem] font-bold text-[#374151]">
+                                        Tap a city to load real home price examples
+                                    </span>
                                     <div className="flex flex-wrap gap-2.5 mb-5">
                                         {resolvedCityPresets.map((preset) => {
                                             const isActive = activeCity === preset.label;
@@ -464,7 +564,9 @@ export default function MortgageCalculator() {
                                     )}
                                     <div className={!hasCalculated ? "relative z-20 blur-[0.5px]" : ""}>
                                         <h3 className="mt-0 mb-1 text-[1.15rem] font-bold text-primary">
-                                            {hasCalculated ? "Here&apos;s What You Can Afford in Tennessee" : "Your results"}
+                                            {hasCalculated
+                                                ? "Here's what you can afford in Tennessee"
+                                                : "Your results"}
                                         </h3>
                                         {!hasCalculated && (
                                             <p className="text-sm text-[#6b7280] mb-4">
@@ -500,24 +602,33 @@ export default function MortgageCalculator() {
                                                     <ResultRow label="HOA" value={results.hoa} />
                                                     <ResultRow label="PMI" value={results.pmi} last />
                                                 </div>
-                                                {lenderRatesUrl === "#" ? (
-                                                    <a
-                                                        href="#lender-match"
-                                                        onClick={scrollToLenderMatch}
-                                                        className="mt-5 block w-full py-3.5 px-5 rounded-xl font-bold bg-secondary hover:bg-primary text-white text-center transition-transform hover:-translate-y-px"
+                                                <div className="mt-5 flex flex-col gap-3">
+                                                    <button
+                                                        type="button"
+                                                        onClick={scrollToHomesInBudget}
+                                                        className="w-full py-3.5 px-5 rounded-xl font-bold text-center border-2 border-primary text-primary bg-white hover:bg-[#f0f4f8] transition-colors"
                                                     >
-                                                        Get matched with a lender
-                                                    </a>
-                                                ) : (
-                                                    <a
-                                                        href={lenderRatesUrl}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        className="mt-5 block w-full py-3.5 px-5 rounded-xl font-bold bg-secondary hover:bg-primary text-white text-center transition-transform hover:-translate-y-px"
-                                                    >
-                                                        Get matched with a lender
-                                                    </a>
-                                                )}
+                                                        Show Me Homes in My Budget
+                                                    </button>
+                                                    {lenderRatesUrl === "#" ? (
+                                                        <button
+                                                            type="button"
+                                                            onClick={scrollToLenderLeadForm}
+                                                            className="w-full py-3.5 px-5 rounded-xl font-bold bg-secondary hover:bg-primary text-white text-center transition-transform hover:-translate-y-px"
+                                                        >
+                                                            Get Matched with a Tennessee Lender
+                                                        </button>
+                                                    ) : (
+                                                        <a
+                                                            href={lenderRatesUrl}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="block w-full py-3.5 px-5 rounded-xl font-bold bg-secondary hover:bg-primary text-white text-center transition-transform hover:-translate-y-px"
+                                                        >
+                                                            Get Matched with a Tennessee Lender
+                                                        </a>
+                                                    )}
+                                                </div>
                                             </>
                                         )}
                                     </div>
@@ -526,8 +637,32 @@ export default function MortgageCalculator() {
 
                             <div id="after-calculator-results" className="scroll-mt-24" />
 
+                            {hasCalculated && budgetPreviewCities.length > 0 && (
+                                <section
+                                    id="homes-in-budget"
+                                    className="mt-12 scroll-mt-24 rounded-[18px] border border-[#e5e7eb] bg-white p-6 shadow-[0_12px_30px_rgba(0,0,0,.08)] sm:p-8"
+                                    aria-labelledby="homes-in-budget-heading"
+                                >
+                                    <h2
+                                        id="homes-in-budget-heading"
+                                        className="m-0 text-center text-[clamp(1.35rem,3vw,1.85rem)] font-bold text-primary"
+                                    >
+                                        Show me homes in my budget
+                                    </h2>
+                                    <p className="mx-auto mt-3 mb-0 max-w-[52ch] text-center text-[#6b7280]">
+                                        Explore Tennessee markets near the price you modeled—then connect with a lender
+                                        when you&apos;re ready.
+                                    </p>
+                                    <PersonalizedCityResults
+                                        cities={budgetPreviewCities}
+                                        budgetHomePrice={form.homePrice}
+                                        embedded
+                                    />
+                                </section>
+                            )}
+
                             {hasCalculated && (
-                                <div id="lead-capture-form-section">
+                                <div id="lead-capture-form-section" className="scroll-mt-24">
                                     <MortgageCalculatorLeadInline
                                         homePrice={form.homePrice}
                                         downPayment={form.downPayment}
@@ -551,7 +686,7 @@ export default function MortgageCalculator() {
                     <section id="lender-match" className="py-16 px-4 bg-white scroll-mt-24">
                         <div className="max-w-[760px] mx-auto text-center rounded-[22px] border border-[#e5e7eb] bg-[#f7f8fb] px-6 py-10 shadow-[0_12px_30px_rgba(0,0,0,.06)]">
                             <h2 className="m-0 text-[clamp(1.5rem,3vw,2rem)] font-bold text-primary">
-                                Get pre-approved with a Tennessee lender
+                                Get Matched with a Tennessee Lender
                             </h2>
                             <p className="mt-3 mb-6 text-[#6b7280] leading-relaxed">
                                 We&apos;ll connect you with a trusted local lender who understands Tennessee markets.
@@ -559,10 +694,10 @@ export default function MortgageCalculator() {
                             {lenderRatesUrl === "#" ? (
                                 <button
                                     type="button"
-                                    onClick={scrollToCalculator}
+                                    onClick={scrollToLenderLeadForm}
                                     className="inline-block py-3.5 px-8 rounded-xl font-bold bg-secondary text-white hover:bg-primary transition-colors"
                                 >
-                                    Get matched with a lender
+                                    Get Matched with a Tennessee Lender
                                 </button>
                             ) : (
                                 <a
@@ -571,7 +706,7 @@ export default function MortgageCalculator() {
                                     rel="noopener noreferrer"
                                     className="inline-block py-3.5 px-8 rounded-xl font-bold bg-secondary text-white hover:bg-primary transition-colors"
                                 >
-                                    Get matched with a lender
+                                    Get Matched with a Tennessee Lender
                                 </a>
                             )}
                             <p className="mt-5 text-xs text-[#9ca3af] mb-0">

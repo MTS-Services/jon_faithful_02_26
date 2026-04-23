@@ -56,6 +56,7 @@ class MortgageCalculator extends Controller
 
         // Set your LendingTree (or partner) URL here once available.
         $calculatorConfig['lenderRatesUrl'] = config('mortgage.lender_rates_url', '#');
+        $calculatorConfig['siteUrl'] = rtrim((string) config('app.url'), '/');
 
         // Fallback destination when the primary lead route cannot accept the lead
         // (e.g. the lead is a duplicate, outside serviceable area, etc.).
