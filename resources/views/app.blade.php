@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    {{-- Inline script to detect system dark mode preference and apply it immediately --}}
+    {{-- Dark mode script --}}
     <script>
         (function() {
             const appearance = '{{ $appearance ?? 'system' }}';
@@ -21,20 +21,39 @@
         })();
     </script>
 
-    {{-- Inline style to set the HTML background color based on our theme in app.css --}}
+    @verbatim
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "WHY TENNESSEE",
+      "url": "https://whytennessee.com/",
+      "email": "info@whytennessee.com",
+      "description": "WhyTennessee.com is your all-in-one guide to living, moving and buying a home in Tennessee.",
+      "areaServed": "United States",
+      "sameAs": [
+        "https://www.facebook.com/61585187906493/"
+      ]
+    }
+    </script>
+    @endverbatim
+
+    {{-- Theme background --}}
     <style>
         html {
             background-color: oklch(1 0 0);
         }
-
         html.dark {
             background-color: oklch(0.145 0 0);
         }
     </style>
 
-    <title inertia>{{ config('app.name', 'Why Tennessee') }}</title>
-    <meta name="description" content="{{ config('app.name', 'Why Tennessee') }}">
-    <link rel="canonical" href="{{ url()->current() }}">
+    <title inertia>@yield('title', config('app.name', 'Why Tennessee'))</title>
+
+    <meta name="description"
+          content="@yield('meta_description', 'Why Tennessee – Your complete guide to living, moving, and buying homes in Tennessee.')">
+
+    <link rel="canonical" href="{{ request()->url() }}">
 
     <link rel="icon" href="/assets/logo/why-tennessee-logo.png" type="image/png">
 
