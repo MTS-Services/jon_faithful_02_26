@@ -70,6 +70,10 @@ const FrontendFooter: React.FC = () => {
                             src="/assets/logo/why-tennessee-logo.png"
                             alt="Why Tennessee"
                             className="mb-6 h-16"
+                            width={256}
+                            height={64}
+                            loading="lazy"
+                            decoding="async"
                         />
                         <p className="text-sm leading-relaxed text-gray-500">
                             WhyTennessee.com is a marketing and discovery

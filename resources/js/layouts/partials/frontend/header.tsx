@@ -1,12 +1,12 @@
-import { ActionButton } from '@/components/ui/action-button';
-import { Button } from '@/components/ui/button';
-import { SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
 import { ArrowRight } from 'lucide-react';
 import React, { useState } from 'react';
-import { FaChevronDown, FaArrowRight, FaChevronRight } from 'react-icons/fa';
+import { FaChevronDown } from 'react-icons/fa';
 import { HiMenuAlt3, HiX } from 'react-icons/hi';
 import { MdDoubleArrow } from 'react-icons/md';
+
+import { ActionButton } from '@/components/ui/action-button';
+import { SharedData } from '@/types';
 
 interface Props {
   activePage?: string;
@@ -163,6 +163,10 @@ function FrontendHeader({ activePage, subPage }: Props) {
                   className="h-16 w-auto"
                   src="/assets/logo/why-tennessee-logo.png"
                   alt="Why Tennessee Logo"
+                  width={256}
+                  height={64}
+                  decoding="async"
+                  fetchPriority="high"
                 />
               </Link>
             </div>

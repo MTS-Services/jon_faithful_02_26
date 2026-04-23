@@ -1,11 +1,12 @@
 import { Head, Link, usePage } from "@inertiajs/react";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from "react";
 
-import MortgageCalculatorLeadInline, {
-    PersonalizedCityResults,
-    selectPersonalizedCities,
-} from "@/components/ui/mortgage-calculator-lead-inline";
+import { PersonalizedCityResults, selectPersonalizedCities } from "@/components/ui/mortgage-calculator-lead-inline";
 import FrontendLayout from "@/layouts/frontend-layout";
+
+const MortgageCalculatorLeadInline = lazy(
+    () => import("@/components/ui/mortgage-calculator-lead-inline"),
+);
 
 // Set your LendingTree (or lendertree.com) partner URL when ready. Leave as '#' until then.
 const LENDER_RATES_URL = "#";
@@ -663,20 +664,28 @@ export default function MortgageCalculator() {
 
                             {hasCalculated && (
                                 <div id="lead-capture-form-section" className="scroll-mt-24">
-                                    <MortgageCalculatorLeadInline
-                                        homePrice={form.homePrice}
-                                        downPayment={form.downPayment}
-                                        region={leadRegion}
-                                        leadSubmitUrl={leadSubmitUrl}
-                                        cityPresets={resolvedCityPresets}
-                                        calculatorSnapshot={{
-                                            home_price: form.homePrice,
-                                            down_payment: form.downPayment,
-                                            interest_rate: form.interestRate,
-                                            loan_term: form.loanTerm,
-                                            monthly_payment: results.totalMonthly,
-                                        }}
-                                    />
+                                    <Suspense
+                                        fallback={
+                                            <div className="rounded-[18px] border border-[#e5e7eb] bg-white p-6 text-sm text-[#6b7280]">
+                                                Loading lender match form...
+                                            </div>
+                                        }
+                                    >
+                                        <MortgageCalculatorLeadInline
+                                            homePrice={form.homePrice}
+                                            downPayment={form.downPayment}
+                                            region={leadRegion}
+                                            leadSubmitUrl={leadSubmitUrl}
+                                            cityPresets={resolvedCityPresets}
+                                            calculatorSnapshot={{
+                                                home_price: form.homePrice,
+                                                down_payment: form.downPayment,
+                                                interest_rate: form.interestRate,
+                                                loan_term: form.loanTerm,
+                                                monthly_payment: results.totalMonthly,
+                                            }}
+                                        />
+                                    </Suspense>
                                 </div>
                             )}
                         </div>
