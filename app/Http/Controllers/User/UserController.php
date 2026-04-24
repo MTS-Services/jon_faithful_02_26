@@ -19,6 +19,7 @@ class UserController extends Controller
     {
         return Inertia::render('user/dashboard');
     }
+
     public function accountPending(): Response
     {
         return Inertia::render('user/account-pending-verification');
@@ -31,7 +32,6 @@ class UserController extends Controller
             'cities' => City::orderBy('name')->get(['id', 'name']),
         ]);
     }
-
 
     public function accountSettingsUpdate(Request $request): RedirectResponse
     {
@@ -60,23 +60,24 @@ class UserController extends Controller
                     'max:255',
                     Rule::unique(User::class)->ignore($user->id),
                 ],
+                'current_password' => ['required_with:password', 'current_password'],
                 'password' => ['nullable', 'string', 'min:8', 'confirmed'],
             ]);
 
-            $validated = $request->except(['password', 'password_confirmation', 'image']);
+            $validated = $request->except(['password', 'password_confirmation', 'current_password', 'image']);
 
             if ($request->filled('password')) {
                 $validated['password'] = bcrypt($request->password);
             }
 
             if ($request->hasFile('image')) {
-                if ($user->image && Storage::disk('public')->exists('user_images/' . $user->image)) {
-                    Storage::disk('public')->delete('user_images/' . $user->image);
+                if ($user->image && Storage::disk('public')->exists('user_images/'.$user->image)) {
+                    Storage::disk('public')->delete('user_images/'.$user->image);
                 }
 
                 // Store new image
                 $file = $request->file('image');
-                $imageName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $imageName = time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
                 $file->storeAs('user_images', $imageName, 'public');
 
                 $validated['image'] = $imageName;
@@ -98,6 +99,7 @@ class UserController extends Controller
             return back()->with('error', 'Something went wrong. Please try again.');
         }
     }
+
     public function licenceVerificationStatus(Request $request): Response
     {
         return Inertia::render('user/license-verification-status', [
@@ -105,7 +107,7 @@ class UserController extends Controller
                 'license_verification_status' => $request->user()->license_verification_status,
                 'license_number' => $request->user()->license_number,
                 'updated_at' => $request->user()->updated_at,
-            ]
+            ],
         ]);
     }
 }

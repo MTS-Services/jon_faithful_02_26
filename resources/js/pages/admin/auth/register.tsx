@@ -1,3 +1,4 @@
+import InputError from '@/components/input-error';
 import { useForm } from '@inertiajs/react';
 import React from 'react';
 
@@ -41,7 +42,7 @@ export default function Register() {
                                 className="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-secondary focus:outline-none"
                             />
                             {/* error message (optional) */}
-                            <p className="mt-1 text-sm text-red-500">{errors.image}</p>
+                            <InputError message={errors.image} className="mt-1" />
 
                             {/* hint text */}
                             <p className="mt-1 text-xs text-gray-500">
@@ -64,7 +65,7 @@ export default function Register() {
                                     setData('username', e.target.value.trim())
                                 }
                             />
-                            <p className="mt-1 text-sm text-red-500">{errors.username}</p>
+                            <InputError message={errors.username} className="mt-1" />
                         </div>
                         <div>
                             <label
@@ -82,7 +83,7 @@ export default function Register() {
                                     setData('name', e.target.value.trim())
                                 }
                             />
-                            <p className="mt-1 text-sm text-red-500">{errors.name}</p>
+                            <InputError message={errors.name} className="mt-1" />
                         </div>
                         <div>
                             <label
@@ -100,7 +101,7 @@ export default function Register() {
                                     setData('phone', e.target.value.trim())
                                 }
                             />
-                            <p className="mt-1 text-sm text-red-500">{errors.phone}</p>
+                            <InputError message={errors.phone} className="mt-1" />
                         </div>
                         <div>
                             <label
@@ -118,7 +119,7 @@ export default function Register() {
                                 }
                             ></textarea>
 
-                            <p className="mt-1 text-sm text-red-500">{errors.your_self}</p>
+                            <InputError message={errors.your_self} className="mt-1" />
                         </div>
                         <div>
                             <label
@@ -136,7 +137,7 @@ export default function Register() {
                                     setData('email', e.target.value.trim())
                                 }
                             />
-                            <p className="mt-1 text-sm text-red-500">{errors.email}</p>
+                            <InputError message={errors.email} className="mt-1" />
                         </div>
 
                         <div>
@@ -155,7 +156,7 @@ export default function Register() {
                                     setData('password', e.target.value.trim())
                                 }
                             />
-                            <p className="mt-1 text-sm text-red-500">{errors.password}</p>
+                            <InputError message={errors.password} className="mt-1" />
                         </div>
                         <div>
                             <label
@@ -176,7 +177,10 @@ export default function Register() {
                                     )
                                 }
                             />
-                            <p className="mt-1 text-sm text-red-500">{errors.password_confirmation}</p>
+                            <InputError
+                                message={errors.password_confirmation}
+                                className="mt-1"
+                            />
                         </div>
 
                         <div className="flex items-center">

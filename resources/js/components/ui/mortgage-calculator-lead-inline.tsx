@@ -65,71 +65,71 @@ const CITY_CARD_CONTENT: Record<
     Nashville: {
         features: ["Higher price range", "Strong job market"],
         images: [
-            "/assets/images/nashville/nashville-skyline-tennessee-aerial-view.jpg",
-            "/assets/images/homes-for-sale/modern-luxury-home-for-sale-nashville-tennessee.png",
+            "/assets/images/Colorful_Nashville_Broadway_at_night_-_NASHVILLE1-scaled.jpeg",
+            "/assets/images/FirstBank_Stadium_is_home.jpeg",
         ],
     },
     Murfreesboro: {
         features: ["More affordable", "Fast-growing"],
         images: [
-            "/assets/images/texas-to-tennessee/House.jpg",
-            "/assets/images/texas-to-tennessee/PLACES_Cities.jpg",
+            "/assets/images/Cannon-At-The-Stones-River-National-Battlefield-And-Cemetery-2048x1367.jpeg",
+            "/assets/images/Four_young_friends_playing_with_a_dog__spending_time_together_on_a_porch_of_a_country_house_on_the_evening1-2048x1366.jpeg",
         ],
     },
     Knoxville: {
         features: ["Balanced lifestyle", "Outdoor access"],
         images: [
-            "/assets/images/north-carolina-tennessee/Cades-Cove-Tennessee-bike-ride.jpg",
-            "/assets/images/texas-to-tennessee/pigeon-forge-tennessee-Kevin-Ruck.jpg",
+            "/assets/images/Paddling_on_the_Tennessee_River_in_Knoxville1-2048x1367.jpeg",
+            "/assets/images/University_of_Tennessee_football_stadium_and_campus_in_the_early_morning_light1-2048x1149.jpeg",
         ],
     },
     Chattanooga: {
         features: ["Mid-size city amenities", "Scenic river and mountains"],
         images: [
-            "/assets/images/north-carolina-tennessee/Point-Park-Chattanooga-view-horseshoe-bend.jpg",
-            "/assets/images/illinois-tennessee/housing-market-tennessee.jpg",
+            "/assets/images/chattanooga/girl on rock Sunset Rock Chattanooga Tennessee.jpeg",
+            "/assets/images/pexels-kelly-2519390-scaled-1-2048x1536.jpg",
         ],
     },
     Clarksville: {
         features: ["Military community", "Value relative to Nashville"],
         images: [
-            "/assets/images/illinois-tennessee/twin_rivers_aerials_4.jpg",
-            "/assets/images/illinois-tennessee/moving-to-tennessee.jpg",
+            "/assets/images/Montgomery-County-Courthouse.in-Clarksville_-Tennessee_-on-a-sunny-autumn-day-with-a-blue-sky-scaled.jpeg",
+            "/assets/images/Aerial-View-over-the-Buildings-and-Infrastructure-in-Clarksville-Tennessee-scaled (1).jpeg",
         ],
     },
     "Johnson City": {
         features: ["Lower cost of living", "Mountain views"],
         images: [
-            "/assets/images/illinois-tennessee/pexels-kelly.jpg",
-            "/assets/images/north-carolina-tennessee/stock_blue_ridge_parkway.jpg",
+            "/assets/images/Johnson_City__TN-8-30-2018_Large_sign_in_downtown_proclaiming_Johnson_City__Tennessee1-scaled.jpeg",
+            "/assets/images/johnson-city/JOHNSON-CITY_TN_USA-10-APRIL-2021-An-architectural-brick-sign-identifying-East-Tennessee-State-University.jpeg",
         ],
     },
     Kingsport: {
         features: ["Quiet suburbs", "Strong sense of community"],
         images: [
-            "/assets/images/texas-to-tennessee/iStock-1559191177.jpg",
-            "/assets/images/illinois-tennessee/northerly-island-TK-Photography-3-1.jpg",
+            "/assets/images/View-From-Fire-Tower-Bays-Mountain-Park-Kingsport-TN-2048x1362 (1).jpeg",
+            "/assets/images/Beautiful_Home_Exterior1-2048x1493.jpeg",
         ],
     },
     Franklin: {
         features: ["Top schools", "Upscale suburban living"],
         images: [
-            "/assets/images/homes-for-sale/modern-luxury-home-for-sale-nashville-tennessee.png",
-            "/assets/images/nashville/nashville-skyline-tennessee-aerial-view.jpg",
+            "/assets/images/Franklin-Tennessee-Cityscape.jpeg",
+            "/assets/images/LEAD-Franklin-Square-jpeg-scaled-1-2048x1378.jpeg",
         ],
     },
     Memphis: {
         features: ["Urban culture", "Lower median home prices"],
         images: [
-            "/assets/images/texas-to-tennessee/GettyImages-1681066662.jpg",
-            "/assets/images/texas-to-tennessee/texas.jpg",
+            "/assets/images/Memphis_-Tennessee_-USA-Downtown-Skyline-Aerial-1-1-2048x1151.jpeg",
+            "/assets/images/Best_Memphis_Neighborhoods_Harbor_Town.jpg",
         ],
     },
     Cookeville: {
         features: ["College town energy", "Central location"],
         images: [
-            "/assets/images/illinois-tennessee/housing-market-tennessee.jpg",
-            "/assets/images/texas-to-tennessee/House.jpg",
+            "assets/images/Why_Cookeville_is_a_Great_Place_to_Call_Home (1).jpg",
+            "/assets/images/cookeville/everyone-was-enjoying-1024x969.jpg",
         ],
     },
 };
@@ -201,7 +201,7 @@ export function PersonalizedCityResults({
                         features: ["Curated Tennessee market", "Explore homes and local insights"],
                         images: [
                             "/assets/images/illinois-tennessee/moving-to-tennessee.jpg",
-                            "/assets/images/homes-for-sale/modern-luxury-home-for-sale-nashville-tennessee.png",
+                            "/assets/images/Skyline-Cumberland-River-Nashville.webp",
                         ] as [string, string],
                     };
                     const exploreHref = getCityExploreHref(city.label);
@@ -212,7 +212,7 @@ export function PersonalizedCityResults({
                                 {content.images.map((src) => (
                                     <div
                                         key={src}
-                                        className="aspect-[4/3] overflow-hidden rounded-2xl border border-[#e5e7eb] bg-[#f3f4f6]"
+                                        className="aspect-4/3 overflow-hidden rounded-2xl border border-[#e5e7eb] bg-[#f3f4f6]"
                                     >
                                         <img
                                             src={src}

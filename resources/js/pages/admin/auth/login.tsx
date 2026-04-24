@@ -1,19 +1,40 @@
+import InputError from '@/components/input-error';
 import AuthLayout from '@/layouts/auth-layout';
 import { login } from '@/routes/admin';
-import { useForm } from '@inertiajs/react';
+import { useForm, usePage } from '@inertiajs/react';
+import React, { useMemo } from 'react';
 
-export default function Login() {
-    const { data, setData, post, processing, errors } = useForm({
-        email: '',
+interface AdminLoginProps {
+    defaultEmail?: string;
+}
+
+function mergeFormErrors(
+    pageErrors: unknown,
+    slotErrors: Record<string, string | undefined>,
+): Record<string, string | string[] | undefined> {
+    const fromPage =
+        pageErrors && typeof pageErrors === 'object' && !Array.isArray(pageErrors)
+            ? { ...(pageErrors as Record<string, string | string[] | undefined>) }
+            : {};
+    return { ...fromPage, ...slotErrors };
+}
+
+export default function Login({ defaultEmail = '' }: AdminLoginProps) {
+    const page = usePage<{ errors?: Record<string, string | string[] | undefined> }>();
+    const { data, setData, post, processing, errors: formErrors } = useForm({
+        email: defaultEmail,
         password: '',
         remember: false,
     });
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const errors = useMemo(
+        () => mergeFormErrors(page.props.errors, formErrors),
+        [page.props.errors, formErrors],
+    );
 
-        // Send data to Laravel login route
-        post(login.url()); // Laravel route URL
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        post(login.url());
     };
 
     return (
@@ -22,6 +43,7 @@ export default function Login() {
             description="Enter your credentials to access your account"
         >
             <form className="space-y-4" onSubmit={handleSubmit}>
+                <InputError message={errors['error']} className="text-center" />
                 <div>
                     <label
                         htmlFor="email"
@@ -38,11 +60,7 @@ export default function Login() {
                         placeholder="you@example.com"
                         required
                     />
-                    {errors.email && (
-                        <p className="mt-1 text-sm text-red-500">
-                            {errors.email}
-                        </p>
-                    )}
+                    <InputError message={errors.email} className="mt-1" />
                 </div>
 
                 <div>
@@ -61,11 +79,7 @@ export default function Login() {
                         placeholder="••••••••"
                         required
                     />
-                    {errors.password && (
-                        <p className="mt-1 text-sm text-red-500">
-                            {errors.password}
-                        </p>
-                    )}
+                    <InputError message={errors.password} className="mt-1" />
                 </div>
 
                 <div className="flex items-center">

@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Fortify\ResetUserPassword;
 use App\Http\Responses\LoginResponse;
+use App\Models\City;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
@@ -56,6 +57,8 @@ class FortifyServiceProvider extends ServiceProvider
             'canResetPassword' => Features::enabled(Features::resetPasswords()),
             'canRegister' => Features::enabled(Features::registration()),
             'status' => $request->session()->get('status'),
+            'userType' => $request->query('type'),
+            'defaultEmail' => (string) old('email', ''),
         ]));
 
         Fortify::resetPasswordView(fn (Request $request) => Inertia::render('auth/reset-password', [
@@ -71,7 +74,20 @@ class FortifyServiceProvider extends ServiceProvider
             'status' => $request->session()->get('status'),
         ]));
 
-        Fortify::registerView(fn () => Inertia::render('auth/register'));
+        Fortify::registerView(fn (Request $request) => Inertia::render('auth/register', [
+            'cities' => City::orderBy('name')->get(['id', 'name']),
+            'formDefaults' => [
+                'username' => (string) old('username', ''),
+                'name' => (string) old('name', ''),
+                'email' => (string) old('email', ''),
+                'phone' => (string) old('phone', ''),
+                'city_id' => old('city_id') !== null ? (string) old('city_id') : '',
+                'license_number' => (string) old('license_number', ''),
+                'brokerage_name' => (string) old('brokerage_name', ''),
+                'your_self' => (string) old('your_self', ''),
+                'type' => old('type', $request->query('type')),
+            ],
+        ]));
 
         Fortify::twoFactorChallengeView(fn () => Inertia::render('auth/two-factor-challenge'));
 

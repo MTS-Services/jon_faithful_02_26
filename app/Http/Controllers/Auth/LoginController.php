@@ -18,6 +18,7 @@ class LoginController extends Controller
         if ($userType) {
             return Inertia::render('auth/login', [
                 'userType' => $userType,
+                'defaultEmail' => (string) old('email', ''),
             ]);
         } else {
             return redirect(route('user.choose'));

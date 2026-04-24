@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { CheckCircle, XCircle, Clock, ShieldIcon } from 'lucide-react';
 import { User } from '@/types';
 import { toast } from 'sonner';
+import InputError from '@/components/input-error';
 
 interface Props {
     user: User | null;
@@ -16,7 +17,7 @@ interface Props {
 }
 
 export function UserVerificationModal({ user, isOpen, onClose }: Props) {
-    const { post, processing } = useForm({
+    const { post, processing, errors } = useForm({
         status: '',
     });
 
@@ -44,6 +45,8 @@ export function UserVerificationModal({ user, isOpen, onClose }: Props) {
                 </DialogHeader>
 
                 <div className="py-6 space-y-6">
+                    <InputError message={errors.error} />
+                    <InputError message={errors.status} />
                     {/* User Basic Info */}
                     <div className="flex items-center gap-4 p-4 rounded-lg bg-white/5 border border-white/10">
                         <img

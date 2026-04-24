@@ -12,7 +12,9 @@ class AdminAuthController extends Controller
 {
     public function showLogin()
     {
-        return Inertia::render('admin/auth/login');
+        return Inertia::render('admin/auth/login', [
+            'defaultEmail' => (string) old('email', ''),
+        ]);
     }
 
     public function login(Request $request)
@@ -25,6 +27,7 @@ class AdminAuthController extends Controller
 
         if (Auth::guard('admin')->attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
+
             return redirect()->intended(route('admin.dashboard'));
         }
 
@@ -38,6 +41,7 @@ class AdminAuthController extends Controller
         Auth::guard('admin')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+
         return redirect()->route('frontend.home');
     }
 
@@ -46,15 +50,13 @@ class AdminAuthController extends Controller
         return Inertia::render('admin/auth/register');
     }
 
-
-
     public function registerStore(Request $request)
     {
 
-        $data =  $request ->validate([
+        $data = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:admins,email',
-            'password' => 'required|string|min:8|confirmed', 
+            'password' => 'required|string|min:8|confirmed',
             'phone' => 'required|string',
             'username' => 'required|string',
             'your_self' => 'nullable|string',

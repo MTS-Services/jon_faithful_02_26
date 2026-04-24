@@ -48,6 +48,12 @@ export interface SharedData {
     auth: Auth;
     admin: Admin;
     sidebarOpen: boolean;
+    features?: {
+        canRegister?: boolean;
+        canResetPassword?: boolean;
+        canVerifyEmail?: boolean;
+        canUseTwoFactorAuthentication?: boolean;
+    };
     seo?: {
         route_name?: string | null;
         title?: string | null;

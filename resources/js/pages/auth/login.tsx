@@ -12,16 +12,44 @@ import AuthLayout from '@/layouts/auth-layout';
 import { SharedData } from '@/types';
 import { store } from '@/actions/App/Http/Controllers/Auth/LoginController';
 
-const userType = new URLSearchParams(window.location.search).get('type');
 interface LoginProps {
-    userType: string;
+    userType?: string | null;
+    defaultEmail?: string;
     status?: string;
-    canResetPassword: boolean;
-    canRegister: boolean;
+    canResetPassword?: boolean;
+    canRegister?: boolean;
 }
 
-export default function Login({ status, userType }: LoginProps) {
-    const { features } = usePage<SharedData>().props;
+function mergeFormErrors(
+    pageErrors: unknown,
+    slotErrors: Record<string, string | undefined>,
+): Record<string, string | string[] | undefined> {
+    const fromPage =
+        pageErrors && typeof pageErrors === 'object' && !Array.isArray(pageErrors)
+            ? { ...(pageErrors as Record<string, string | string[] | undefined>) }
+            : {};
+    return { ...fromPage, ...slotErrors };
+}
+
+export default function Login({
+    status,
+    userType: userTypeProp,
+    defaultEmail = '',
+    canResetPassword: canResetPasswordProp,
+    canRegister: canRegisterProp,
+}: LoginProps) {
+    const page = usePage<SharedData>();
+    const { features } = page.props;
+    const searchParams =
+        typeof window !== 'undefined'
+            ? new URLSearchParams(window.location.search)
+            : null;
+    const userType =
+        userTypeProp ?? searchParams?.get('type') ?? '';
+
+    const canResetPassword =
+        canResetPasswordProp ?? features?.canResetPassword ?? false;
+    const canRegister = canRegisterProp ?? features?.canRegister ?? false;
 
     return (
         <AuthLayout
@@ -36,8 +64,17 @@ export default function Login({ status, userType }: LoginProps) {
                     resetOnSuccess={['password']}
                     className="space-y-5"
                 >
-                    {({ processing, errors }) => (
+                    {({ processing, errors: slotErrors }) => {
+                        const errors = mergeFormErrors(
+                            page.props.errors,
+                            slotErrors,
+                        );
+                        return (
                         <>
+                            <InputError
+                                message={errors['error']}
+                                className="text-center"
+                            />
                             <div className="space-y-4">
                                 <div className="grid gap-1.5">
                                     <Input type="hidden" name="user_type" value={userType} />
@@ -53,6 +90,7 @@ export default function Login({ status, userType }: LoginProps) {
                                         name="email"
                                         required
                                         autoFocus
+                                        defaultValue={defaultEmail}
                                         placeholder="name@company.com"
                                         className="h-11 border-gray-200 px-4! py-3! bg-white/50 transition-all focus:border-secondary! focus:ring-secondary!"
                                     />
@@ -67,7 +105,7 @@ export default function Login({ status, userType }: LoginProps) {
                                         >
                                             Password
                                         </Label>
-                                        {features.canResetPassword && (
+                                        {canResetPassword && (
                                             <TextLink
                                                 href="#"
                                                 className="text-xs font-semibold text-violet-600 transition-colors hover:text-violet-500"
@@ -107,10 +145,11 @@ export default function Login({ status, userType }: LoginProps) {
                                 )}
                             </Button>
                         </>
-                    )}
+                    );
+                    }}
                 </Form>
 
-                {features.canRegister && (
+                {canRegister && (
                     <p className="mt-4 text-center text-sm text-muted-foreground">
                         New here?{' '}
                         <TextLink

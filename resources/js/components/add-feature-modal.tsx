@@ -33,7 +33,7 @@ export default function AddFeatureModal({
 }: AddFeatureModalProps) {
     const [name, setName] = useState('');
     const [categoryId, setCategoryId] = useState('');
-    const [errors, setErrors] = useState<{ name?: string; categoryId?: string }>({});
+    const [errors, setErrors] = useState<{ name?: string; categoryId?: string; error?: string }>({});
 
     // Reset on open
     useEffect(() => {
@@ -57,7 +57,24 @@ export default function AddFeatureModal({
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!validate()) return;
-        await onSubmit(name.trim(), Number(categoryId));
+        try {
+            await onSubmit(name.trim(), Number(categoryId));
+        } catch (error: any) {
+            const serverErrors = error?.response?.data?.errors;
+            if (serverErrors && typeof serverErrors === 'object') {
+                setErrors({
+                    name: serverErrors.name?.[0],
+                    categoryId: serverErrors.category_id?.[0] ?? serverErrors.categoryId?.[0],
+                    error: error?.response?.data?.message,
+                });
+                return;
+            }
+
+            setErrors((prev) => ({
+                ...prev,
+                error: 'Failed to add feature. Please try again.',
+            }));
+        }
     };
 
     return (
@@ -83,6 +100,9 @@ export default function AddFeatureModal({
                 {/* Body */}
                 <form onSubmit={handleSubmit}>
                     <div className="px-6 py-5 space-y-4">
+                        {errors.error && (
+                            <p className="text-sm text-red-500">{errors.error}</p>
+                        )}
                         {/* Feature Name */}
                         <div className="grid gap-1.5">
                             <Label htmlFor="feature-name">
