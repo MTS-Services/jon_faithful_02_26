@@ -11,7 +11,7 @@ The Laravel Boost guidelines are specifically curated by Laravel maintainers for
 ## Foundational Context
 This application is a Laravel application and its main Laravel ecosystems package & versions are below. You are an expert with them all. Ensure you abide by these specific packages & versions.
 
-- php - 8.3.21
+- php - 8.3.25
 - inertiajs/inertia-laravel (INERTIA) - v2
 - laravel/fortify (FORTIFY) - v1
 - laravel/framework (LARAVEL) - v12
@@ -499,11 +499,9 @@ export default () => (
 | decoration-slice | box-decoration-slice |
 | decoration-clone | box-decoration-clone |
 
-=== laravel/fortify rules ===
+=== laravel/wayfinder rules ===
 
-# Laravel Fortify
+# Laravel Wayfinder
 
-- Fortify is a headless authentication backend that provides authentication routes and controllers for Laravel applications.
-- IMPORTANT: Always use the `search-docs` tool for detailed Laravel Fortify patterns and documentation.
-- IMPORTANT: Activate `developing-with-fortify` skill when working with Fortify authentication features.
+Use Wayfinder to generate TypeScript functions for Laravel routes. Import from `@/actions/` (controllers) or `@/routes/` (named routes).
 </laravel-boost-guidelines>

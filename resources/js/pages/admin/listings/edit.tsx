@@ -6,7 +6,7 @@ import { CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import AdminLayout from "@/layouts/admin-layout";
-import { Head, useForm } from "@inertiajs/react";
+import { Head, useForm, usePage } from "@inertiajs/react";
 import { ArrowLeft } from "lucide-react";
 import { FormEvent, useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -43,8 +43,9 @@ interface ListingData extends Props {
 }
 
 export default function Edit({ listing, cities, propertyTypes, propertyStatuses, statuses, users }: ListingData) {
+    const page = usePage<{ errors?: Record<string, string | string[] | undefined> }>();
 
-    const { data, setData, post, processing, errors } = useForm({
+    const { data, setData, post, processing, errors: formErrors } = useForm({
         _method: 'PUT', // Required for Inertia/Laravel when sending files via POST
         title: listing.title || '',
         description: listing.description || '',
@@ -61,6 +62,10 @@ export default function Edit({ listing, cities, propertyTypes, propertyStatuses,
         primary_image_url: null as File | null, // Keep null unless user uploads new
         gallery_images: [] as File[],
     });
+    const errors: Record<string, string | string[] | undefined> = {
+        ...(page.props.errors ?? {}),
+        ...formErrors,
+    };
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();

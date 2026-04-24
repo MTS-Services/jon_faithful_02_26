@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -87,6 +88,8 @@ class UserController extends Controller
             $user->update($validated);
 
             return back()->with('success', 'Account settings updated successfully.');
+        } catch (ValidationException $e) {
+            throw $e;
         } catch (\Exception $e) {
             Log::error('User Account Update Error', [
                 'message' => $e->getMessage(),

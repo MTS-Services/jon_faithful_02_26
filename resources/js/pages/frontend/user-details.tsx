@@ -1,17 +1,23 @@
+import InputError from '@/components/input-error';
 import { PlatinumCard } from '@/components/ui/PlatinumCard';
 import FrontendLayout from '@/layouts/frontend-layout';
 import { useForm, usePage } from '@inertiajs/react';
 import { toast } from 'sonner';
 
 export default function UserDetails({ listings }: any) {
-    const { user } = usePage().props as any;
+    const page = usePage<{ user: any; errors?: Record<string, string | string[] | undefined> }>();
+    const { user } = page.props;
 
-    const { data, setData, post, processing, errors, reset } = useForm({
+    const { data, setData, post, processing, errors: formErrors, reset } = useForm({
         name: '',
         email: '',
         message: '',
         user_id: user.id,
     });
+    const errors: Record<string, string | string[] | undefined> = {
+        ...(page.props.errors ?? {}),
+        ...formErrors,
+    };
 
     const useContact = (e: React.FormEvent) => {
         e.preventDefault();
@@ -95,6 +101,7 @@ export default function UserDetails({ listings }: any) {
                                     onSubmit={useContact}
                                     className="space-y-4"
                                 >
+                                    <InputError message={errors.error} />
                                     <div>
                                         <label className="mt-2 mb-1 block text-sm font-medium text-gray-700">
                                             Name
@@ -108,6 +115,7 @@ export default function UserDetails({ listings }: any) {
                                                 setData('name', e.target.value)
                                             }
                                         />
+                                        <InputError message={errors.name} />
                                     </div>
                                     <div>
                                         <label className="mb-1 block text-sm font-medium text-gray-700">
@@ -122,6 +130,7 @@ export default function UserDetails({ listings }: any) {
                                                 setData('email', e.target.value)
                                             }
                                         />
+                                        <InputError message={errors.email} />
                                     </div>
                                     <div>
                                         <label className="mb-1 block text-sm font-medium text-gray-700">
@@ -136,6 +145,7 @@ export default function UserDetails({ listings }: any) {
                                                 setData('message', e.target.value)
                                             }
                                         ></textarea>
+                                        <InputError message={errors.message} />
                                     </div>
                                     <button
                                         type="submit"

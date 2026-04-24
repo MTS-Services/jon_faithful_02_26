@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import AdminLayout from '@/layouts/admin-layout';
-import { Head, Link, router, useForm } from '@inertiajs/react';
+import { Head, Link, router, useForm, usePage } from '@inertiajs/react';
 import { ArrowLeft } from 'lucide-react';
 import { toast } from 'sonner';
 import { FormEvent, useState } from 'react'; // Added useState
@@ -46,11 +46,12 @@ interface Props {
 }
 
 export default function Create({ cities, propertyTypes, propertyStatuses, statuses, users, selectedUserId }: Props) {
+    const page = usePage<{ errors?: Record<string, string | string[] | undefined> }>();
 
     // Maintain a local state for features to allow "Add New" without refresh
     // const [features, setfeatures] = useState(initialfeatures);
 
-    const { data, setData, post, processing, errors, reset } = useForm({
+    const { data, setData, post, processing, errors: formErrors, reset } = useForm({
         title: '',
         description: '',
         purchase_price: '',
@@ -67,6 +68,10 @@ export default function Create({ cities, propertyTypes, propertyStatuses, status
         gallery_images: [] as File[],
         features: [] as number[], // Added features array to form data
     });
+    const errors: Record<string, string | string[] | undefined> = {
+        ...(page.props.errors ?? {}),
+        ...formErrors,
+    };
 
     const handlePrimaryImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {

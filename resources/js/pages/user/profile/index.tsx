@@ -1,6 +1,6 @@
 import FileUpload from '@/components/file-upload';
 import UserDashboardLayout from '@/layouts/user-dashboard-layout';
-import { Link, useForm } from '@inertiajs/react';
+import { Link, useForm, usePage } from '@inertiajs/react';
 import { Label } from '@/components/ui/label';
 import React, { useEffect, useState } from 'react';
 import { City, User } from '@/types';
@@ -33,7 +33,8 @@ export default function Index({ user, cities }: Props) {
     //     your_self: item.your_self ?? '',
     // });
 
-    const { data, setData, post, processing, errors, reset } = useForm({
+    const page = usePage<{ errors?: Record<string, string | string[] | undefined> }>();
+    const { data, setData, post, processing, errors: formErrors, reset } = useForm({
         name: '',
         id: '',
         username: '',
@@ -43,31 +44,34 @@ export default function Index({ user, cities }: Props) {
         brokerage_name: '',
         license_number: '',
         image: null as File | null,
+        current_password: '',
         password: '',
         password_confirmation: '',
         your_self: '',
         _method: 'POST',
     });
+    const errors: Record<string, string | string[] | undefined> = {
+        ...(page.props.errors ?? {}),
+        ...formErrors,
+    };
     const [existingFiles, setExistingFiles] = useState<any[]>([]);
 
     useEffect(() => {
         if (user) {
-            setData((prev) => ({
-                ...prev,
-                name: user.name,
-                id: String(user.id),
-                username: user.username || '',
-                email: user.email,
-                phone: user.phone || '',
-                city_id: user.city_id ? String(user.city_id) : '',
-                brokerage_name: user.brokerage_name || '',
-                license_number: user.license_number || '',
-                image: null,
-                _method: 'POST',
-                your_self: user.your_self || '',
-                password: '',
-                password_confirmation: '',
-            }));
+            setData('name', user.name);
+            setData('id', String(user.id));
+            setData('username', user.username || '');
+            setData('email', user.email);
+            setData('phone', user.phone || '');
+            setData('city_id', user.city_id ? String(user.city_id) : '');
+            setData('brokerage_name', user.brokerage_name || '');
+            setData('license_number', user.license_number || '');
+            setData('image', null);
+            setData('_method', 'POST');
+            setData('your_self', (user.your_self as string) || '');
+            setData('current_password', '');
+            setData('password', '');
+            setData('password_confirmation', '');
 
             // Update existing files whenever information changes
             if (user.image) {
@@ -115,6 +119,7 @@ export default function Index({ user, cities }: Props) {
                                         accept="image/*"
                                         maxSize={10}
                                     />
+                                    <InputError message={errors.image} />
                                 </div>
                                 <div></div>
                                 <div className="grid gap-2 col-span-2">
@@ -123,9 +128,9 @@ export default function Index({ user, cities }: Props) {
                                         id="your_self"
                                         value={data.your_self}
                                         onChange={(e) => setData('your_self', e.target.value)}
-                                        required
+                                        
                                     />
-                                    {errors.your_self && <div className="text-red-500 text-sm">{errors.your_self}</div>}
+                                    <InputError message={errors.your_self} />
                                 </div>
                                 <div className="grid gap-2">
                                     <Label htmlFor="username">Username</Label>
@@ -135,7 +140,7 @@ export default function Index({ user, cities }: Props) {
                                         value={data.username}
                                         onChange={(e) => setData('username', e.target.value)}
                                     />
-                                    {errors.username && <div className="text-red-500 text-sm">{errors.username}</div>}
+                                    <InputError message={errors.username} />
                                 </div>
                                 <div className="grid gap-2">
                                     <Label htmlFor="name">Name</Label>
@@ -146,7 +151,7 @@ export default function Index({ user, cities }: Props) {
                                         onChange={(e) => setData('name', e.target.value)}
                                         required
                                     />
-                                    {errors.name && <div className="text-red-500 text-sm">{errors.name}</div>}
+                                    <InputError message={errors.name} />
                                 </div>
 
                                 <div className="grid gap-2">
@@ -158,7 +163,7 @@ export default function Index({ user, cities }: Props) {
                                         onChange={(e) => setData('email', e.target.value)}
                                         required
                                     />
-                                    {errors.email && <div className="text-red-500 text-sm">{errors.email}</div>}
+                                    <InputError message={errors.email} />
                                 </div>
                                 <div className="grid gap-2">
                                     <Label htmlFor="phone">Phone</Label>
@@ -169,7 +174,7 @@ export default function Index({ user, cities }: Props) {
                                         onChange={(e) => setData('phone', e.target.value)}
 
                                     />
-                                    {errors.phone && <div className="text-red-500 text-sm">{errors.phone}</div>}
+                                    <InputError message={errors.phone} />
                                 </div>
                                 <div className="grid gap-2">
                                     <Label htmlFor="city_id">City</Label>
@@ -200,7 +205,7 @@ export default function Index({ user, cities }: Props) {
                                         onChange={(e) => setData('brokerage_name', e.target.value)}
 
                                     />
-                                    {errors.brokerage_name && <div className="text-red-500 text-sm">{errors.brokerage_name}</div>}
+                                    <InputError message={errors.brokerage_name} />
                                 </div>
                                 <div className="grid gap-2">
                                     <Label htmlFor="license_number">License Number</Label>
@@ -211,7 +216,19 @@ export default function Index({ user, cities }: Props) {
                                         onChange={(e) => setData('license_number', e.target.value)}
 
                                     />
-                                    {errors.license_number && <div className="text-red-500 text-sm">{errors.license_number}</div>}
+                                    <InputError message={errors.license_number} />
+                                </div>
+                                <div className="grid gap-2">
+                                    <Label htmlFor="current_password">Current Password</Label>
+                                    <PasswordInput
+                                        id="current_password"
+                                        name="current_password"
+                                        value={data.current_password}
+                                        onChange={(e) => setData('current_password', e.target.value)}
+                                        placeholder="Enter current password"
+                                        className="h-11 border-gray-200 bg-white/50 px-4! py-3! transition-all focus:border-secondary! focus:ring-secondary!"
+                                    />
+                                    <InputError message={errors.current_password} />
                                 </div>
                                 <div className="grid gap-2">
                                     <Label htmlFor="password">Password</Label>

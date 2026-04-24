@@ -13,7 +13,7 @@ import {
     SelectValue,
 } from '@/components/ui/select';
 import AdminLayout from '@/layouts/admin-layout';
-import { Head, useForm } from '@inertiajs/react';
+import { Head, useForm, usePage } from '@inertiajs/react';
 import { ArrowLeft } from 'lucide-react';
 import axios from 'axios';
 import React, { useState } from 'react';
@@ -56,8 +56,9 @@ export default function Create({
     const [features, setfeatures] = useState(initialfeatures);
     const [modalOpen, setModalOpen] = useState(false);
     const [modalLoading, setModalLoading] = useState(false);
+    const page = usePage<{ errors?: Record<string, string | string[] | undefined> }>();
 
-    const { data, setData, post, processing, errors } = useForm<FormData>({
+    const { data, setData, post, processing, errors: formErrors } = useForm<FormData>({
         title: '',
         description: '',
         purchase_price: '',
@@ -75,6 +76,10 @@ export default function Create({
         youtube_video_url: '',
         pet_essentials: [], // 👈 new
     });
+    const errors: Record<string, string | string[] | undefined> = {
+        ...(page.props.errors ?? {}),
+        ...formErrors,
+    };
 
     const handleAddFeature = async (name: string, categoryId: number) => {
         setModalLoading(true);

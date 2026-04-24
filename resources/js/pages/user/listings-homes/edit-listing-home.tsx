@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import UserDashboardLayout from '@/layouts/user-dashboard-layout';
-import { useForm } from '@inertiajs/react';
+import { useForm, usePage } from '@inertiajs/react';
 import { id } from 'date-fns/locale';
 import { FormEvent, useEffect, useState } from 'react';
 import { toast } from 'sonner';
@@ -49,7 +49,8 @@ interface Props {
 }
 
 export default function EditListingHome({ listing, cities, propertyTypes, propertyStatuses }: Props) {
-    const { data, setData, post, processing, errors } = useForm({
+    const page = usePage<{ errors?: Record<string, string | string[] | undefined> }>();
+    const { data, setData, post, processing, errors: formErrors } = useForm({
         title: listing.title || '',
         description: listing.description || '',
         purchase_price: listing.purchase_price || '',
@@ -64,6 +65,10 @@ export default function EditListingHome({ listing, cities, propertyTypes, proper
         gallery_images: [] as File[],
         _method: 'PUT',
     });
+    const errors: Record<string, string | string[] | undefined> = {
+        ...(page.props.errors ?? {}),
+        ...formErrors,
+    };
     const [existingFiles, setExistingFiles] = useState<any[]>([]);
     useEffect(() => {
         if (data) {

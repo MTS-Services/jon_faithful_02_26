@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Head, useForm, Link, router } from '@inertiajs/react';
+import { Head, useForm, Link, router, usePage } from '@inertiajs/react';
 import { store, index } from '@/actions/App/Http/Controllers/Admin/UserManagement/UserController';
 import AdminLayout from '@/layouts/admin-layout';
 import { Button } from '@/components/ui/button';
@@ -46,7 +46,8 @@ interface Props {
 
 export default function CreateUser({ user_types, cities }: Props) {
     console.log('user_types', user_types);
-    const { data, setData, post, processing, errors } = useForm<FormData>({
+    const page = usePage<{ errors?: Record<string, string | string[] | undefined> }>();
+    const { data, setData, post, processing, errors: formErrors } = useForm<FormData>({
         files: null,
         username: '',
         name: '',
@@ -62,6 +63,10 @@ export default function CreateUser({ user_types, cities }: Props) {
         user_type: '',
         user_types: user_types
     });
+    const errors: Record<string, string | string[] | undefined> = {
+        ...(page.props.errors ?? {}),
+        ...formErrors,
+    };
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();

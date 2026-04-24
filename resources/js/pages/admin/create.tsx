@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Head, useForm, Link, router } from '@inertiajs/react';
 import AdminLayout from '@/layouts/admin-layout';
+import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -62,6 +63,7 @@ export default function CreateAdmin() {
                                     accept="image/*"
                                     maxSize={10}
                                 />
+                                <InputError message={errors.image} />
                             </div>
                             <div></div>
                             <div className="grid gap-2">
@@ -142,6 +144,7 @@ export default function CreateAdmin() {
                                     onChange={(e) => setData('password_confirmation', e.target.value)}
                                     required
                                 />
+                                <InputError message={errors.password_confirmation} />
                             </div>
                         </div>
 

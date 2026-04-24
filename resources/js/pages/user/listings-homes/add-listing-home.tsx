@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import UserDashboardLayout from '@/layouts/user-dashboard-layout';
-import { useForm } from '@inertiajs/react';
+import { useForm, usePage } from '@inertiajs/react';
 import { FormEvent } from 'react';
 import { useState } from 'react';
 import { toast } from 'sonner';
@@ -32,8 +32,9 @@ interface Props {
 
 export default function AddListingHome({ cities, propertyTypes, propertyStatuses }: Props) {
     const [activeTab, setActiveTab] = useState('manual');
+    const page = usePage<{ errors?: Record<string, string | string[] | undefined> }>();
 
-    const { data, setData, post, processing, errors, reset } = useForm({
+    const { data, setData, post, processing, errors: formErrors, reset } = useForm({
         title: '',
         description: '',
         purchase_price: '',
@@ -48,11 +49,19 @@ export default function AddListingHome({ cities, propertyTypes, propertyStatuses
         gallery_images: [] as File[],
     });
 
-    const { data: linkData, setData: setLinkData, post: postLink, processing: linkProcessing, errors: linkErrors } = useForm({
+    const { data: linkData, setData: setLinkData, post: postLink, processing: linkProcessing, errors: linkFormErrors } = useForm({
         name: '',
         email: '',
         external_link: '',
     });
+    const errors: Record<string, string | string[] | undefined> = {
+        ...(page.props.errors ?? {}),
+        ...formErrors,
+    };
+    const linkErrors: Record<string, string | string[] | undefined> = {
+        ...(page.props.errors ?? {}),
+        ...linkFormErrors,
+    };
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();

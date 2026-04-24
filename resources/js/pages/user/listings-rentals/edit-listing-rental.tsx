@@ -13,7 +13,7 @@ import {
     SelectValue,
 } from '@/components/ui/select';
 import UserDashboardLayout from '@/layouts/user-dashboard-layout';
-import { useForm } from '@inertiajs/react';
+import { useForm, usePage } from '@inertiajs/react';
 import axios from 'axios';
 import { FormEvent, useEffect, useMemo, useState } from 'react';
 import { toast } from 'sonner';
@@ -112,13 +112,14 @@ export default function EditListingRental({
     const [features, setFeatures] = useState(initialFeatures);
     const [modalOpen, setModalOpen] = useState(false);
     const [modalLoading, setModalLoading] = useState(false);
+    const page = usePage<{ errors?: Record<string, string | string[] | undefined> }>();
 
     const rentalPetEssentials = useMemo(
         () => rental.pet_essentials ?? rental.petEssentials ?? [],
         [rental],
     );
 
-    const { data, setData, post, processing, errors } = useForm<FormData>({
+    const { data, setData, post, processing, errors: formErrors } = useForm<FormData>({
         title: rental.title || '',
         description: rental.description || '',
         purchase_price: rental.purchase_price || '',
@@ -145,6 +146,10 @@ export default function EditListingRental({
         })),
         _method: 'PUT',
     });
+    const errors: Record<string, string | string[] | undefined> = {
+        ...(page.props.errors ?? {}),
+        ...formErrors,
+    };
 
     const [existingFiles, setExistingFiles] = useState<any[]>([]);
     useEffect(() => {

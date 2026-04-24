@@ -13,7 +13,7 @@ import {
     SelectValue,
 } from '@/components/ui/select';
 import AdminLayout from '@/layouts/admin-layout';
-import { Head, useForm } from '@inertiajs/react';
+import { Head, useForm, usePage } from '@inertiajs/react';
 import { ArrowLeft } from 'lucide-react';
 import axios from 'axios';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -58,13 +58,14 @@ export default function Edit({
     // Modal state
     const [modalOpen, setModalOpen] = useState(false);
     const [modalLoading, setModalLoading] = useState(false);
+    const page = usePage<{ errors?: Record<string, string | string[] | undefined> }>();
 
     const rentalPetEssentials = useMemo(
         () => rental.pet_essentials ?? rental.petEssentials ?? [],
         [rental],
     );
 
-    const { data, setData, post, processing, errors } = useForm<FormData>({
+    const { data, setData, post, processing, errors: formErrors } = useForm<FormData>({
         title: rental.title || '',
         description: rental.description || '',
         purchase_price: rental.purchase_price || '',
@@ -95,6 +96,10 @@ export default function Edit({
             existing_icon: item.icon ?? item.existing_icon ?? null,
         })),
     });
+    const errors: Record<string, string | string[] | undefined> = {
+        ...(page.props.errors ?? {}),
+        ...formErrors,
+    };
 
     const [existingFiles, setExistingFiles] = useState<any[]>([]);
 

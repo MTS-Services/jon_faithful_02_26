@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import AdminLayout from '@/layouts/admin-layout';
-import { Head, useForm, Link, router } from '@inertiajs/react';
+import { Head, useForm, Link, router, usePage } from '@inertiajs/react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { update, index } from '@/actions/App/Http/Controllers/Admin/UserManagement/UserController';
 import FileUpload from '@/components/file-upload';
+import InputError from '@/components/input-error';
 import { toast } from 'sonner';
 import { City, User } from '@/types';
 
@@ -16,7 +17,8 @@ interface Props {
 }
 
 export default function EditUser({ user, cities }: Props) {
-    const { data, setData, post, processing, errors, reset } = useForm({
+    const page = usePage<{ errors?: Record<string, string | string[] | undefined> }>();
+    const { data, setData, post, processing, errors: formErrors, reset } = useForm({
         name: '',
         id: '',
         username: '',
@@ -30,6 +32,10 @@ export default function EditUser({ user, cities }: Props) {
         password_confirmation: '',
         _method: 'PUT',
     });
+    const errors: Record<string, string | string[] | undefined> = {
+        ...(page.props.errors ?? {}),
+        ...formErrors,
+    };
     const [existingFiles, setExistingFiles] = useState<any[]>([]);
 
     useEffect(() => {
@@ -112,6 +118,7 @@ export default function EditUser({ user, cities }: Props) {
                                 accept="image/*"
                                 maxSize={10}
                             />
+                            <InputError message={errors.image} />
                         </div>
                         <div></div>
                         <div className="grid gap-2">
