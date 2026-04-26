@@ -1,6 +1,4 @@
-import listing from "@/routes/admin/listing";
-import { Auth } from "@/types";
-import { Link, usePage } from "@inertiajs/react";
+import { Link } from "@inertiajs/react";
 import React from "react";
 import { FaBath, FaBed, FaClone, FaMapMarkerAlt } from "react-icons/fa";
 
@@ -10,7 +8,12 @@ type CardType =
     | 'admin-listing'
     | 'admin-rental';
 
-const PlatinumCard: React.FC<{ property: any; type: CardType }> = ({ property, type }) => {
+type PlatinumCardProps = {
+    property: any;
+    type?: CardType;
+};
+
+const PlatinumCard: React.FC<PlatinumCardProps> = ({ property, type = "listing" }) => {
 
     const routeMap: Record<CardType, string> = {
         rental: 'frontend.single-product.rental',
@@ -20,8 +23,9 @@ const PlatinumCard: React.FC<{ property: any; type: CardType }> = ({ property, t
     };
 
     const isRoute = routeMap[type];
+    const href = isRoute && property?.id ? route(isRoute, property.id) : "#";
     return (
-        <Link href={route(isRoute, property.id)}>
+        <Link href={href}>
             <div className="border border-gray-100 rounded-lg overflow-hidden shadow-xl transition duration-300 group bg-white">
                 {/* Image */}
                 <div className="relative overflow-hidden">

@@ -343,10 +343,14 @@ class FrontendController extends Controller
                $listings = Listing::where('user_id', $decryptedId)
                     ->with(['city', 'galleries'])
                     ->get();
+               $rentals = Rental::where('user_id', $decryptedId)
+                    ->with(['city', 'galleries'])
+                    ->get();
 
                return Inertia::render('frontend/user-details', [
                     'user' => $user,
-                    'listings' => $listings
+                    'listings' => $listings,
+                    'rentals' => $rentals
                ]);
           } catch (\Exception $e) {
                abort(404);

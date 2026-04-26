@@ -4,7 +4,7 @@ import FrontendLayout from '@/layouts/frontend-layout';
 import { useForm, usePage } from '@inertiajs/react';
 import { toast } from 'sonner';
 
-export default function UserDetails({ listings }: any) {
+export default function UserDetails({ listings, rentals }: any) {
     const page = usePage<{ user: any; errors?: Record<string, string | string[] | undefined> }>();
     const { user } = page.props;
 
@@ -169,6 +169,7 @@ export default function UserDetails({ listings }: any) {
                                     <PlatinumCard
                                         key={listing.id}
                                         property={listing}
+                                        type="listing"
                                     />
                                 ))
                             ) : (
@@ -184,6 +185,40 @@ export default function UserDetails({ listings }: any) {
                                             className="mt-8 cursor-pointer rounded-full bg-gray-900 px-8 py-3 text-sm font-semibold text-white transition-all hover:bg-[#1e3a5f] hover:shadow-lg active:scale-95"
                                         >
                                             Refresh Listings
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+                <div className="bg-[#e4e4e4] py-20">
+                    <div className="container px-4">
+                        <h3 className="mb-4 text-center font-montserrat text-3xl font-medium">
+                            {user.name} Uploaded Rentals
+                        </h3>
+                        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                            {rentals && rentals.length > 0 ? (
+                                rentals.map((rental: any) => (
+                                    <PlatinumCard
+                                        key={rental.id}
+                                        property={rental}
+                                        type="rental"
+                                    />
+                                ))
+                            ) : (
+                                <div className="col-span-full flex flex-col items-center justify-center text-center">
+                                    <div className="rounded-2xl border border-[#1e3a5f] p-6">
+                                        <h3 className="mb-2 text-2xl text-gray-800">
+                                            No Rentals Available
+                                        </h3>
+                                        <button
+                                            onClick={() =>
+                                                window.location.reload()
+                                            }
+                                            className="mt-8 cursor-pointer rounded-full bg-gray-900 px-8 py-3 text-sm font-semibold text-white transition-all hover:bg-[#1e3a5f] hover:shadow-lg active:scale-95"
+                                        >
+                                            Refresh Rentals
                                         </button>
                                     </div>
                                 </div>
