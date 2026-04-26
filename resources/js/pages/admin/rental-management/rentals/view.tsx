@@ -179,6 +179,16 @@ export default function View({ rental }: Props) {
                                     </p>
                                 </CardContent>
                             </Card>
+                            <Card>
+                                <CardHeader>
+                                    <CardTitle>Address</CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                    <p className="text-muted-foreground">
+                                        {rental.address || 'N/A'}
+                                    </p>
+                                </CardContent>
+                            </Card>
 
                             <Card>
                                 <CardHeader>

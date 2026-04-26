@@ -6,7 +6,6 @@ use App\Enums\ActiveInactive;
 use App\Enums\RentalProperty;
 use App\Jobs\SendRentalNotificationJob;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Rental extends Model
 {
@@ -14,6 +13,7 @@ class Rental extends Model
         'user_id',
         'sort_order',
         'city_id',
+        'address',
         'title',
         'description',
         'purchase_price',
@@ -32,11 +32,11 @@ class Rental extends Model
 
     protected $casts = [
         'purchase_price' => 'decimal:2',
-        'bedrooms'       => 'integer',
-        'bathrooms'      => 'integer',
-        'square_feet'    => 'integer',
-        'status'         => ActiveInactive::class,
-        'property_type'  => RentalProperty::class,
+        'bedrooms' => 'integer',
+        'bathrooms' => 'integer',
+        'square_feet' => 'integer',
+        'status' => ActiveInactive::class,
+        'property_type' => RentalProperty::class,
     ];
 
     /* ---------------- Boot Methods ---------------- */
@@ -65,6 +65,7 @@ class Rental extends Model
             'listing_id'
         );
     }
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -85,7 +86,6 @@ class Rental extends Model
         return $this->hasMany(PetEssential::class);
     }
 
-
     /* ---------------- Scopes ---------------- */
 
     public function scopeActive($query)
@@ -94,14 +94,16 @@ class Rental extends Model
     }
 
     protected $appends = ['image_url'];
+
     public function getImageUrlAttribute()
     {
         if (filter_var($this->primary_image_url, FILTER_VALIDATE_URL)) {
             return $this->primary_image_url;
         }
-        if (!$this->primary_image_url) {
+        if (! $this->primary_image_url) {
             return asset('no-image.png');
         }
-        return asset('storage/rentals/primary/' . $this->primary_image_url);
+
+        return asset('storage/rentals/primary/'.$this->primary_image_url);
     }
 }

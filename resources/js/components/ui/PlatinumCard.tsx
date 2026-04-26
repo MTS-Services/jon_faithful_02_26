@@ -24,6 +24,10 @@ const PlatinumCard: React.FC<PlatinumCardProps> = ({ property, type = "listing" 
 
     const isRoute = routeMap[type];
     const href = isRoute && property?.id ? route(isRoute, property.id) : "#";
+    const listingAddress = property.address?.trim();
+    const cityName = property.city?.name?.trim();
+    const addressLine = listingAddress || cityName || "Address not available";
+
     return (
         <Link href={href}>
             <div className="border border-gray-100 rounded-lg overflow-hidden shadow-xl transition duration-300 group bg-white">
@@ -58,16 +62,6 @@ const PlatinumCard: React.FC<PlatinumCardProps> = ({ property, type = "listing" 
 
                     <div className="grid grid-cols-2 gap-y-3 text-sm text-gray-900">
                         <div className="flex items-center gap-2">
-                            <FaMapMarkerAlt className="text-brand-dark" />
-                            <span>{property.city?.name}</span>
-                        </div>
-
-                        <div className="flex items-center gap-2">
-                            <FaClone className="text-brand-dark" />
-                            <span>{property.square_feet} sqft</span>
-                        </div>
-
-                        <div className="flex items-center gap-2">
                             <FaBed className="text-brand-dark" />
                             <span>{property.bedrooms} Bedroom</span>
                         </div>
@@ -76,6 +70,20 @@ const PlatinumCard: React.FC<PlatinumCardProps> = ({ property, type = "listing" 
                             <FaBath className="text-brand-dark" />
                             <span>{property.bathrooms} Bathroom</span>
                         </div>
+
+                        <div className="flex items-center gap-2">
+                            <FaClone className="text-brand-dark" />
+                            <span>{property.square_feet} sqft</span>
+                        </div>
+
+                        <div className="flex items-center gap-2">
+                            <span>{property.listing_status_label || "For Sale"}</span>
+                        </div>
+                    </div>
+
+                    <div className="mt-3 flex items-start gap-2 text-sm text-gray-700">
+                        <FaMapMarkerAlt className="mt-0.5 shrink-0 text-brand-dark" />
+                        <span className="line-clamp-2">{addressLine}</span>
                     </div>
                 </div>
             </div>

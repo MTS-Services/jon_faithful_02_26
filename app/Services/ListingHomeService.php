@@ -2,16 +2,15 @@
 
 namespace App\Services;
 
+use App\Enums\ActiveInactive;
+use App\Mail\FoundingExternalSubmitionMail;
+use App\Models\ExternalListingSubmission;
 use App\Models\Listing;
 use App\Models\ListingGallery;
-use App\Models\ExternalListingSubmission;
-use App\Enums\ActiveInactive;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\FoundingExternalSubmitionMail;
 use Illuminate\Support\Facades\DB;
-use Termwind\Components\Li;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 class ListingHomeService
 {
@@ -28,20 +27,21 @@ class ListingHomeService
             $primaryImage = $this->handlePrimaryImage($request);
 
             $listing = Listing::create([
-                'user_id'          => $validated['user_id'] ?? auth()->id(),
-                'city_id'          => $validated['city_id'],
-                'title'            => $validated['title'],
-                'description'      => $validated['description'],
-                'purchase_price'   => $validated['purchase_price'],
-                'listing_status'   => $validated['listing_status'],
-                'property_type'    => $validated['property_type'],
-                'bedrooms'         => $validated['bedrooms'],
-                'bathrooms'        => $validated['bathrooms'],
-                'square_feet'      => $validated['square_feet'],
+                'user_id' => $validated['user_id'],
+                'city_id' => $validated['city_id'],
+                'address' => $validated['address'] ?? null,
+                'title' => $validated['title'],
+                'description' => $validated['description'],
+                'purchase_price' => $validated['purchase_price'],
+                'listing_status' => $validated['listing_status'],
+                'property_type' => $validated['property_type'],
+                'bedrooms' => $validated['bedrooms'],
+                'bathrooms' => $validated['bathrooms'],
+                'square_feet' => $validated['square_feet'],
                 'primary_image_url' => $primaryImage,
                 'youtube_video_url' => $validated['youtube_video_url'],
-                'status'           => $validated['status'] ?? ActiveInactive::INACTIVE->value,
-                'sort_order'       => 0,
+                'status' => $validated['status'] ?? ActiveInactive::INACTIVE->value,
+                'sort_order' => 0,
             ]);
 
             $this->handleGalleryImages($request, $listing);
@@ -91,9 +91,9 @@ class ListingHomeService
     public function submitExternalListing(array $validated): ExternalListingSubmission
     {
         $submission = ExternalListingSubmission::create([
-            'user_id'      => $validated['user_id'],
-            'name'         => $validated['name'],
-            'email'        => $validated['email'],
+            'user_id' => $validated['user_id'],
+            'name' => $validated['name'],
+            'email' => $validated['email'],
             'external_link' => $validated['external_link'],
             'external_listing_type' => $validated['external_listing_type'],
         ]);
@@ -109,10 +109,9 @@ class ListingHomeService
      * PRIVATE HELPERS
      * =======================================
      */
-
     private function handlePrimaryImage(Request $request): ?string
     {
-        if (!$request->hasFile('primary_image_url')) {
+        if (! $request->hasFile('primary_image_url')) {
             return null;
         }
 
@@ -124,7 +123,7 @@ class ListingHomeService
 
     private function handleGalleryImages(Request $request, Listing $listing): void
     {
-        if (!$request->hasFile('gallery_images')) {
+        if (! $request->hasFile('gallery_images')) {
             return;
         }
 
@@ -133,16 +132,16 @@ class ListingHomeService
             $imageName = $this->storeImage($image, 'listings/gallery');
 
             ListingGallery::create([
-                'listing_id'   => $listing->id,
+                'listing_id' => $listing->id,
                 'listing_type' => Listing::class,
-                'image_url'    => $imageName,
+                'image_url' => $imageName,
             ]);
         }
     }
 
     private function storeImage($file, string $path): string
     {
-        $imageName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+        $imageName = time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
         $file->storeAs($path, $imageName, 'public');
 
         return $imageName;
@@ -152,10 +151,10 @@ class ListingHomeService
     {
         if (
             $listing->primary_image_url &&
-            Storage::disk('public')->exists('listings/primary/' . $listing->primary_image_url)
+            Storage::disk('public')->exists('listings/primary/'.$listing->primary_image_url)
         ) {
             Storage::disk('public')
-                ->delete('listings/primary/' . $listing->primary_image_url);
+                ->delete('listings/primary/'.$listing->primary_image_url);
         }
     }
 
@@ -168,10 +167,10 @@ class ListingHomeService
         foreach ($galleries as $gallery) {
             if (
                 $gallery->image_url &&
-                Storage::disk('public')->exists('listings/gallery/' . $gallery->image_url)
+                Storage::disk('public')->exists('listings/gallery/'.$gallery->image_url)
             ) {
                 Storage::disk('public')
-                    ->delete('listings/gallery/' . $gallery->image_url);
+                    ->delete('listings/gallery/'.$gallery->image_url);
             }
         }
 
@@ -180,7 +179,7 @@ class ListingHomeService
             ->delete();
     }
 
-        public function deleteListing(Listing $listing): void
+    public function deleteListing(Listing $listing): void
     {
         DB::transaction(function () use ($listing) {
 

@@ -2,21 +2,20 @@
 
 namespace App\Services;
 
-use App\Models\Rental;
-use App\Models\ListingGallery;
-use App\Models\ExternalListingSubmission;
-use App\Enums\ActiveInactive;
-use App\Enums\RentalProperty;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Mail;
 use App\Mail\FoundingExternalSubmitionMail;
+use App\Models\ExternalListingSubmission;
+use App\Models\ListingGallery;
+use App\Models\Rental;
+use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 class RentalService
 {
     public function __construct(protected Rental $model) {}
+
     /**
      * ===========================================
      * CREATE RENTAL
@@ -30,24 +29,24 @@ class RentalService
 
             $user_id = $validated['user_id'] ?? $request->user()->id;
 
-
             $rental = Rental::create([
-                'user_id'          => $user_id,
-                'city_id'          => $validated['city_id'],
-                'title'    => $validated['title'],
-                'description'      => $validated['description'],
-                'purchase_price'   => $validated['purchase_price'],
+                'user_id' => $user_id,
+                'city_id' => $validated['city_id'],
+                'address' => $validated['address'] ?? null,
+                'title' => $validated['title'],
+                'description' => $validated['description'],
+                'purchase_price' => $validated['purchase_price'],
                 'property_type' => $validated['property_type'],
                 'security_deposit' => $validated['security_deposit'],
-                'lease_length'     => $validated['lease_length'],
-                'bedrooms'         => $validated['bedrooms'],
-                'bathrooms'        => $validated['bathrooms'],
-                'square_feet'      => $validated['square_feet'],
-                'pet_friendly'     => $validated['pet_friendly'] === 'yes',
-                'parking_garage'   => $validated['parking_garage'],
+                'lease_length' => $validated['lease_length'],
+                'bedrooms' => $validated['bedrooms'],
+                'bathrooms' => $validated['bathrooms'],
+                'square_feet' => $validated['square_feet'],
+                'pet_friendly' => $validated['pet_friendly'] === 'yes',
+                'parking_garage' => $validated['parking_garage'],
                 'primary_image_url' => $primaryImage,
-                'status'           => $validated['status'],
-                'sort_order'       => 0,
+                'status' => $validated['status'],
+                'sort_order' => 0,
                 'youtube_video_url' => $validated['youtube_video_url'],
             ]);
 
@@ -78,18 +77,19 @@ class RentalService
             $validated['pet_friendly'] = $validated['pet_friendly'] === 'yes';
 
             $rental->update([
-                'city_id'          => $validated['city_id'],
-                'title'    => $validated['title'],
-                'description'      => $validated['description'],
-                'purchase_price'   => $validated['purchase_price'],
-                'property_type'    => $validated['property_type'],
+                'city_id' => $validated['city_id'],
+                'address' => $validated['address'] ?? null,
+                'title' => $validated['title'],
+                'description' => $validated['description'],
+                'purchase_price' => $validated['purchase_price'],
+                'property_type' => $validated['property_type'],
                 'security_deposit' => $validated['security_deposit'],
-                'lease_length'     => $validated['lease_length'],
-                'bedrooms'         => $validated['bedrooms'],
-                'bathrooms'        => $validated['bathrooms'],
-                'square_feet'      => $validated['square_feet'],
-                'pet_friendly'     => $validated['pet_friendly'],
-                'parking_garage'   => $validated['parking_garage'],
+                'lease_length' => $validated['lease_length'],
+                'bedrooms' => $validated['bedrooms'],
+                'bathrooms' => $validated['bathrooms'],
+                'square_feet' => $validated['square_feet'],
+                'pet_friendly' => $validated['pet_friendly'],
+                'parking_garage' => $validated['parking_garage'],
                 'primary_image_url' => $validated['primary_image_url'] ?? $rental->primary_image_url,
                 'youtube_video_url' => $validated['youtube_video_url'],
                 'features' => ['nullable', 'array'],
@@ -130,9 +130,9 @@ class RentalService
     public function submitExternalRental(array $validated): ExternalListingSubmission
     {
         $submission = ExternalListingSubmission::create([
-            'user_id'      => $validated['user_id'],
-            'name'         => $validated['name'],
-            'email'        => $validated['email'],
+            'user_id' => $validated['user_id'],
+            'name' => $validated['name'],
+            'email' => $validated['email'],
             'external_link' => $validated['external_link'],
             'external_listing_type' => $validated['external_listing_type'],
         ]);
@@ -148,10 +148,9 @@ class RentalService
      * PRIVATE HELPERS
      * ===========================================
      */
-
     private function handlePrimaryImage(Request $request): ?string
     {
-        if (!$request->hasFile('primary_image_url')) {
+        if (! $request->hasFile('primary_image_url')) {
             return null;
         }
 
@@ -163,7 +162,7 @@ class RentalService
 
     private function handleGalleryImages(Request $request, Rental $rental): void
     {
-        if (!$request->hasFile('gallery_images')) {
+        if (! $request->hasFile('gallery_images')) {
             return;
         }
 
@@ -172,16 +171,16 @@ class RentalService
             $imageName = $this->storeImage($image, 'rentals/gallery');
 
             ListingGallery::create([
-                'listing_id'   => $rental->id,
+                'listing_id' => $rental->id,
                 'listing_type' => Rental::class,
-                'image_url'    => $imageName,
+                'image_url' => $imageName,
             ]);
         }
     }
 
     private function storeImage($file, string $path): string
     {
-        $imageName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+        $imageName = time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
         $file->storeAs($path, $imageName, 'public');
 
         return $imageName;
@@ -191,10 +190,10 @@ class RentalService
     {
         if (
             $rental->primary_image_url &&
-            Storage::disk('public')->exists('rentals/primary/' . $rental->primary_image_url)
+            Storage::disk('public')->exists('rentals/primary/'.$rental->primary_image_url)
         ) {
             Storage::disk('public')
-                ->delete('rentals/primary/' . $rental->primary_image_url);
+                ->delete('rentals/primary/'.$rental->primary_image_url);
         }
     }
 
@@ -207,10 +206,10 @@ class RentalService
         foreach ($galleries as $gallery) {
             if (
                 $gallery->image_url &&
-                Storage::disk('public')->exists('rentals/gallery/' . $gallery->image_url)
+                Storage::disk('public')->exists('rentals/gallery/'.$gallery->image_url)
             ) {
                 Storage::disk('public')
-                    ->delete('rentals/gallery/' . $gallery->image_url);
+                    ->delete('rentals/gallery/'.$gallery->image_url);
             }
         }
 
@@ -218,9 +217,6 @@ class RentalService
             ->where('listing_type', Rental::class)
             ->delete();
     }
-
-
-
 
     // ===================================================
     // Paginated Datas
@@ -232,36 +228,36 @@ class RentalService
             ->with('city')
             ->active();
 
-        if (!empty($filters['search'])) {
+        if (! empty($filters['search'])) {
             $search = $filters['search'];
             $query->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%{$search}%")
                     ->orWhere('description', 'like', "%{$search}%");
             });
         }
-        if (!empty($filters['exclude_id'])) {
+        if (! empty($filters['exclude_id'])) {
             $query->where('id', '!=', $filters['exclude_id']);
         }
-        if (!empty($filters['city'])) {
+        if (! empty($filters['city'])) {
             $cityIds = explode(',', $filters['city']);
             $query->whereIn('city_id', $cityIds);
         }
-        if (!empty($filters['price_min'])) {
+        if (! empty($filters['price_min'])) {
             $query->where('purchase_price', '>=', $filters['price_min']);
         }
-        if (!empty($filters['price_max'])) {
+        if (! empty($filters['price_max'])) {
             $query->where('purchase_price', '<=', $filters['price_max']);
         }
-        if (!empty($filters['bedrooms'])) {
+        if (! empty($filters['bedrooms'])) {
             $query->where('bedrooms', $filters['bedrooms']);
         }
-        if (!empty($filters['bathrooms'])) {
+        if (! empty($filters['bathrooms'])) {
             $query->where('bathrooms', $filters['bathrooms']);
         }
-        if (!empty($filters['square_feet'])) {
+        if (! empty($filters['square_feet'])) {
             $query->where('square_feet', $filters['square_feet']);
         }
-        if (!empty($filters['property_type'])) {
+        if (! empty($filters['property_type'])) {
             $propertyTypes = explode(',', $filters['property_type']);
             $query->whereIn('property_type', $propertyTypes);
         }

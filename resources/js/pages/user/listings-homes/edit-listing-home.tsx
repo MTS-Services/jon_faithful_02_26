@@ -31,6 +31,7 @@ interface Listing {
     description: string;
     purchase_price: string;
     city_id: number;
+    address: string | null;
     listing_status: string;
     property_type: string;
     bedrooms: number;
@@ -55,6 +56,7 @@ export default function EditListingHome({ listing, cities, propertyTypes, proper
         description: listing.description || '',
         purchase_price: listing.purchase_price || '',
         city_id: String(listing.city_id) || '',
+        address: listing.address || '',
         listing_status: listing.listing_status || propertyStatuses[0]?.value || '',
         property_type: listing.property_type || propertyTypes[0]?.value || '',
         bedrooms: String(listing.bedrooms) || '',
@@ -194,6 +196,17 @@ export default function EditListingHome({ listing, cities, propertyTypes, proper
                                     </SelectContent>
                                 </Select>
                                 <InputError message={errors.city_id} />
+                            </div>
+                            <div className="grid gap-2 mb-6">
+                                <Label htmlFor="address">Address</Label>
+                                <Input
+                                    id="address"
+                                    type="text"
+                                    value={data.address}
+                                    onChange={(e) => setData('address', e.target.value)}
+                                    placeholder="Enter property address"
+                                />
+                                <InputError message={errors.address} />
                             </div>
 
                             {/* Listing Status */}

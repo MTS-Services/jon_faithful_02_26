@@ -77,7 +77,6 @@ export default function Index() {
               </div>
               {recentListings.length === 0 ? (
                 <div className="flex items-center justify-center p-8">
-                  <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/10 dark:stroke-neutral-100/10" />
                   <div className="relative">No recent listings</div>
                 </div>
               ) : (
@@ -116,7 +115,6 @@ export default function Index() {
               </div>
               {recentRentals.length === 0 ? (
                 <div className="flex items-center justify-center p-8">
-                  <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/10 dark:stroke-neutral-100/10" />
                   <div className="relative">No recent rentals</div>
                 </div>
               ) : (

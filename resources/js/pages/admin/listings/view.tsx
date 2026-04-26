@@ -101,6 +101,10 @@ export default function View({ listing }: Props) {
                                 <CardHeader className="pb-2"><CardTitle className="text-sm font-medium">City</CardTitle></CardHeader>
                                 <CardContent><p className="font-medium">{(listing as any).city?.name ?? 'N/A'}</p></CardContent>
                             </Card>
+                            <Card>
+                                <CardHeader className="pb-2"><CardTitle className="text-sm font-medium">Address</CardTitle></CardHeader>
+                                <CardContent><p className="font-medium">{listing.address ?? 'N/A'}</p></CardContent>
+                            </Card>
                         </div>
 
                         {/* YouTube Video Section */}

@@ -153,6 +153,7 @@ export default function Gallery({ listing }: any) {
     };
 
     const embedUrl = getEmbedUrl(listing.youtube_video_url);
+    const listingAddress = listing.address?.trim() || listing.city?.name || 'Address not available';
 
     // Dynamic pet essentials from backend
     const petEssentials: any[] = listing.pet_essentials ?? [];
@@ -218,12 +219,12 @@ export default function Gallery({ listing }: any) {
                 <div className="space-y-8 lg:col-span-2">
                     {/* Meta info bar */}
                     <div className="flex flex-wrap items-center justify-between gap-4 border-b px-4 pb-4 text-sm font-semibold text-muted-foreground">
-                        <div className="flex items-center gap-2">
+                        {/* <div className="flex items-center gap-2">
                             <svg aria-hidden="true" className="h-5 w-5 md:h-6 md:w-6" viewBox="0 0 384 512" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z" />
                             </svg>
                             <span className="font-montserrat text-base font-semibold text-secondary-foreground md:text-lg">{listing.city?.name}</span>
-                        </div>
+                        </div> */}
                         <div className="flex items-center gap-2">
                             <svg aria-hidden="true" className="h-5 w-5 md:h-6 md:w-6" viewBox="0 0 640 512" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M176 256c44.11 0 80-35.89 80-80s-35.89-80-80-80-80 35.89-80 80 35.89 80 80 80zm352-128H304c-8.84 0-16 7.16-16 16v144H64V80c0-8.84-7.16-16-16-16H16C7.16 64 0 71.16 0 80v352c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16v-48h512v48c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16V240c0-61.86-50.14-112-112-112z" />
@@ -243,14 +244,21 @@ export default function Gallery({ listing }: any) {
                             <span className="font-montserrat text-base font-semibold text-secondary-foreground md:text-lg">{listing.square_feet} sqft</span>
                         </div>
                     </div>
+                    <div className="border-b px-4 py-3">
+                        <p className="font-montserrat text-base font-medium text-secondary-foreground">
+                            {listingAddress}
+                        </p>
+                    </div>
 
                     {/* Description */}
-                    <div className="flex flex-col gap-2 px-4 md:flex-row md:items-center md:gap-4">
+                    <div className="flex flex-col gap-2 px-4">
                         <h2 className="font-montserrat text-xl font-semibold text-primary md:text-[25px]">Description:</h2>
                         <p className="font-montserrat font-normal text-primary">{listing.description}</p>
                     </div>
 
-                    <UnitFeatures features={listing.features ?? []} />
+                    {listing.features && listing.features.length > 0 && (
+                        <UnitFeatures features={listing.features ?? []} />
+                    )}
 
                     {/* YouTube */}
                     {listing.youtube_video_url && <div className="px-4">

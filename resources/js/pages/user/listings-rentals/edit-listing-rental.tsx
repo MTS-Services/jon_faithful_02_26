@@ -34,6 +34,7 @@ interface Rental {
     description: string;
     purchase_price: string;
     city_id: number;
+    address: string | null;
     property_type: string;
     security_deposit: string;
     lease_length: number;
@@ -78,6 +79,7 @@ interface FormData {
     description: string;
     purchase_price: string;
     city_id: string;
+    address: string;
     property_type: string;
     security_deposit: string;
     lease_length: string;
@@ -124,6 +126,7 @@ export default function EditListingRental({
         description: rental.description || '',
         purchase_price: rental.purchase_price || '',
         city_id: String(rental.city_id) || '',
+        address: rental.address || '',
         property_type: rental.property_type || propertyTypes[0]?.value || '',
         security_deposit: rental.security_deposit || '',
         lease_length: String(rental.lease_length) || '',
@@ -357,6 +360,17 @@ export default function EditListingRental({
                                     </SelectContent>
                                 </Select>
                                 <InputError message={errors.city_id} />
+                            </div>
+                            <div className="grid gap-2">
+                                <Label htmlFor="address">Address</Label>
+                                <Input
+                                    id="address"
+                                    type="text"
+                                    value={data.address}
+                                    onChange={(e) => setData('address', e.target.value)}
+                                    placeholder="Enter rental address"
+                                />
+                                <InputError message={errors.address} />
                             </div>
 
                             {/* Property Type */}

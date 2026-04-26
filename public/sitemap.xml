@@ -1,272 +1,272 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
     <url>
-    <loc>http://127.0.0.1:8000</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8000/partner-program</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000/partner-program</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8000/bristol</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000/bristol</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8000/renting-tennessee</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000/renting-tennessee</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8000/moving-from-california-to-tennessee</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000/moving-from-california-to-tennessee</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8000/moving-from-new-york-city-to-tennessee</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000/moving-from-new-york-city-to-tennessee</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8000/moving-from-florida-to-tennessee</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000/moving-from-florida-to-tennessee</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8000/moving-from-texas-to-tennessee</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000/moving-from-texas-to-tennessee</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8000/moving-from-arizona-to-tennessee</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000/moving-from-arizona-to-tennessee</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8000/moving-from-north-carolina-to-tennessee</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000/moving-from-north-carolina-to-tennessee</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8000/moving-from-virginia-to-tennessee</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000/moving-from-virginia-to-tennessee</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8000/moving-from-illinois-to-tennessee</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000/moving-from-illinois-to-tennessee</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8000/is-tennessee-cheaper-than-texas</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000/is-tennessee-cheaper-than-texas</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8000/is-tennessee-cheaper-than-florida</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000/is-tennessee-cheaper-than-florida</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8000/chattanooga</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000/chattanooga</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8000/homes-for-sale</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000/homes-for-sale</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8000/moving-checklist</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000/moving-checklist</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8000/city-comparison</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000/city-comparison</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8000/real-estate-agents</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000/real-estate-agents</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8000/rentals</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000/rentals</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8000/why-tennessee</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000/why-tennessee</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8000/tennessee-relocation</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000/tennessee-relocation</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8000/live-tennessee</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000/live-tennessee</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8000/renting-buy</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000/renting-buy</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8000/living-in-nashville</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000/living-in-nashville</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8000/cost-of-renting-tennessee</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000/cost-of-renting-tennessee</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8000/moving-tennessee-renting</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000/moving-tennessee-renting</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8000/living-in-cookeville</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000/living-in-cookeville</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8000/living-in-knoxville</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000/living-in-knoxville</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8000/living-in-johnson-city</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000/living-in-johnson-city</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8000/living-in-franklin</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000/living-in-franklin</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8000/living-in-memphis</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000/living-in-memphis</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8000/living-in-clarksville</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000/living-in-clarksville</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8000/living-in-murfreesboro</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000/living-in-murfreesboro</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8000/living-in-kingsport</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000/living-in-kingsport</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8000/living-in-jackson</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000/living-in-jackson</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8000/cost-of-living-in-tennessee</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000/cost-of-living-in-tennessee</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8000/pros-cons-living-in-tennessee</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000/pros-cons-living-in-tennessee</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8000/privacy-policy</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000/privacy-policy</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8000/get-in-touch</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000/get-in-touch</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8000/list-rental-property</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000/list-rental-property</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8000/buying</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000/buying</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8000/cost-of-buying-tennessee</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000/cost-of-buying-tennessee</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8000/realtor</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000/realtor</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8000/mortgage-calculator</loc>
-    <lastmod>2026-04-09T08:49:39+00:00</lastmod>
+    <loc>http://localhost:8000/mortgage-calculator</loc>
+    <lastmod>2026-04-26T06:17:54+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
             </url>

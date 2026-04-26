@@ -25,6 +25,7 @@ interface FormData {
     user_id?: string | number;
     sort_order: string;
     city_id: string;
+    address: string;
     title: string;
     description: string;
     purchase_price: string;
@@ -67,6 +68,7 @@ export default function Create({
         bathrooms: '',
         square_feet: '',
         city_id: '',
+        address: '',
         user_id: selectedUserId ? String(selectedUserId) : '',
         sort_order: '0',
         status: '',
@@ -261,6 +263,17 @@ export default function Create({
                                     </SelectContent>
                                 </Select>
                                 <InputError message={errors.city_id} />
+                            </div>
+                            <div className="grid gap-2">
+                                <Label htmlFor="address">Address</Label>
+                                <Input
+                                    id="address"
+                                    type="text"
+                                    value={data.address}
+                                    onChange={(e) => setData('address', e.target.value)}
+                                    placeholder="Enter rental address"
+                                />
+                                <InputError message={errors.address} />
                             </div>
 
                             {/* Status */}

@@ -7,7 +7,6 @@ use App\Enums\ExternalListingType;
 use App\Enums\ListingProperty;
 use App\Enums\ListingStatus;
 use App\Models\City;
-use App\Models\Facility;
 use App\Models\Listing;
 use App\Services\ListingHomeService;
 use Illuminate\Http\Request;
@@ -39,11 +38,11 @@ class ListingHomeController extends Controller
 
         return Inertia::render('user/listings-homes/add-listing-home', [
             'cities' => $cities,
-            'propertyTypes' => collect(ListingProperty::cases())->map(fn($type) => [
+            'propertyTypes' => collect(ListingProperty::cases())->map(fn ($type) => [
                 'value' => $type->value,
                 'label' => $type->label(),
             ]),
-            'propertyStatuses' => collect(ListingStatus::cases())->map(fn($status) => [
+            'propertyStatuses' => collect(ListingStatus::cases())->map(fn ($status) => [
                 'value' => $status->value,
                 'label' => $status->label(),
             ]),
@@ -57,6 +56,7 @@ class ListingHomeController extends Controller
             'description' => ['nullable', 'string'],
             'purchase_price' => ['required', 'numeric', 'min:0'],
             'city_id' => ['required', 'exists:cities,id'],
+            'address' => ['nullable', 'string', 'max:500'],
             'listing_status' => ['required', new Enum(ListingStatus::class)],
             'property_type' => ['required', new Enum(ListingProperty::class)],
             'bedrooms' => ['required', 'integer', 'min:0'],
@@ -106,11 +106,11 @@ class ListingHomeController extends Controller
                 ...$listing->toArray(),
             ],
             'cities' => $cities,
-            'propertyTypes' => collect(ListingProperty::cases())->map(fn($type) => [
+            'propertyTypes' => collect(ListingProperty::cases())->map(fn ($type) => [
                 'value' => $type->value,
                 'label' => $type->label(),
             ]),
-            'propertyStatuses' => collect(ListingStatus::cases())->map(fn($status) => [
+            'propertyStatuses' => collect(ListingStatus::cases())->map(fn ($status) => [
                 'value' => $status->value,
                 'label' => $status->label(),
             ]),
@@ -127,6 +127,7 @@ class ListingHomeController extends Controller
             'description' => ['nullable', 'string'],
             'purchase_price' => ['required', 'numeric', 'min:0'],
             'city_id' => ['required', 'exists:cities,id'],
+            'address' => ['nullable', 'string', 'max:500'],
             'listing_status' => ['required', new Enum(ListingStatus::class)],
             'property_type' => ['required', new Enum(ListingProperty::class)],
             'bedrooms' => ['required', 'integer', 'min:0'],

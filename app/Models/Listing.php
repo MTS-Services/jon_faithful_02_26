@@ -14,6 +14,7 @@ class Listing extends Model
         'user_id',
         'sort_order',
         'city_id',
+        'address',
         'title',
         'description',
         'purchase_price',

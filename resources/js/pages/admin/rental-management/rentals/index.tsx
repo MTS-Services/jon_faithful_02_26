@@ -65,6 +65,16 @@ export default function Index({
             ),
         },
         {
+            key: 'address',
+            label: 'Address',
+            sortable: false,
+            render: (item) => (
+                <div className="max-w-[260px] truncate text-gray-600">
+                    {item.address || 'N/A'}
+                </div>
+            ),
+        },
+        {
             key: 'purchase_price',
             label: 'Rent Price',
             sortable: true,

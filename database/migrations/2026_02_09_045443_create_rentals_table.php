@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('sort_order')->default(0);
             $table->unsignedBigInteger('city_id');
+            $table->string('address', 500)->nullable();
 
             $table->string('title', 500);
             $table->text('description')->nullable();

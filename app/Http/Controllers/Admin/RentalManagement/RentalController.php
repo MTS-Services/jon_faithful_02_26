@@ -25,13 +25,12 @@ class RentalController extends Controller
         protected SitemapService $sitemapService
     ) {}
 
-
     public function index(): Response
     {
         $queryBody = Rental::query()->with(['user']);
 
         $result = $this->dataTableService->process($queryBody, request(), [
-            'searchable' => ['title', 'description'],
+            'searchable' => ['title', 'description', 'address'],
             'filterable' => [
                 'user_id',
                 'property_type',
@@ -75,11 +74,11 @@ class RentalController extends Controller
     public function details(Rental $rental): Response
     {
         $rental->load(['galleries', 'features.featureCategory']);
+
         return Inertia::render('admin/rental-management/rentals/view', [
-            'rental' => $rental
+            'rental' => $rental,
         ]);
     }
-
 
     public function create($user_id = null): Response
     {
@@ -93,9 +92,9 @@ class RentalController extends Controller
 
         // Get enum values as key => label
         $propertyTypes = collect(RentalProperty::cases())
-            ->mapWithKeys(fn($type) => [$type->value => $type->label()]);
+            ->mapWithKeys(fn ($type) => [$type->value => $type->label()]);
         $status = collect(ActiveInactive::cases())
-            ->mapWithKeys(fn($status) => [$status->value => $status->label()]);
+            ->mapWithKeys(fn ($status) => [$status->value => $status->label()]);
         $featureCategories = FeatureCategory::orderBy('name')->get();
 
         return Inertia::render('admin/rental-management/rentals/create', [
@@ -105,7 +104,7 @@ class RentalController extends Controller
             'selectedUserId' => $user_id ? (int) $user_id : null,
             'status' => $status,
             'features' => $features,
-            'featureCategories'  => $featureCategories,
+            'featureCategories' => $featureCategories,
         ]);
     }
 
@@ -113,18 +112,19 @@ class RentalController extends Controller
     {
         // Validate the request
         $validated = $request->validate([
-            'title'    => 'required|string|max:255',
-            'description'      => 'required|string',
-            'purchase_price'   => 'required|numeric',
-            'property_type'    => 'required|string',
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'purchase_price' => 'required|numeric',
+            'address' => 'nullable|string|max:500',
+            'property_type' => 'required|string',
             'security_deposit' => 'nullable|numeric',
-            'lease_length'     => 'nullable|string',
-            'bedrooms'         => 'nullable|numeric',
-            'bathrooms'        => 'nullable|numeric',
-            'square_feet'      => 'nullable|numeric',
-            'pet_friendly'     => 'nullable|string',
-            'parking_garage'   => 'nullable|string',
-            'city_id'          => 'required|exists:cities,id',
+            'lease_length' => 'nullable|string',
+            'bedrooms' => 'nullable|numeric',
+            'bathrooms' => 'nullable|numeric',
+            'square_feet' => 'nullable|numeric',
+            'pet_friendly' => 'nullable|string',
+            'parking_garage' => 'nullable|string',
+            'city_id' => 'required|exists:cities,id',
             'primary_image_url' => 'nullable|file|image|max:5120', // 5MB max
             'gallery_images.*' => 'nullable|file|image|max:10240', // 10MB max
             'status' => 'required|string',
@@ -132,12 +132,12 @@ class RentalController extends Controller
             'features.*' => ['exists:features,id'],
             'youtube_video_url' => ['nullable', 'url'],
 
-            'pet_essentials'                  => ['nullable', 'array'],
-            'pet_essentials.*.pet_type'       => ['required', 'string', 'max:100'],
-            'pet_essentials.*.allowed'        => ['required', 'in:yes,no'],
+            'pet_essentials' => ['nullable', 'array'],
+            'pet_essentials.*.pet_type' => ['required', 'string', 'max:100'],
+            'pet_essentials.*.allowed' => ['required', 'in:yes,no'],
             'pet_essentials.*.number_allowed' => ['nullable', 'integer', 'min:0'],
-            'pet_essentials.*.icon'           => ['nullable', 'image', 'max:2048'],
-            'pet_essentials.*.existing_icon'  => ['nullable', 'string'],
+            'pet_essentials.*.icon' => ['nullable', 'image', 'max:2048'],
+            'pet_essentials.*.existing_icon' => ['nullable', 'string'],
         ]);
 
         // Use RentalService to create the rental
@@ -157,7 +157,7 @@ class RentalController extends Controller
                 if ($request->hasFile("pet_essentials.$index.icon")) {
                     $file = $request->file("pet_essentials.$index.icon");
                     $item['icon'] = $this->storeImage($file, 'rentals/pet_icons');
-                } elseif (!empty($item['existing_icon'])) {
+                } elseif (! empty($item['existing_icon'])) {
                     $item['icon'] = $item['existing_icon'];
                 }
 
@@ -182,9 +182,9 @@ class RentalController extends Controller
         $users = User::where('is_verified', true)->where('status', ActiveInactive::ACTIVE)->get();
         $features = Feature::all();
         $propertyTypes = collect(RentalProperty::cases())
-            ->mapWithKeys(fn($type) => [$type->value => $type->label()]);
+            ->mapWithKeys(fn ($type) => [$type->value => $type->label()]);
         $status = collect(ActiveInactive::cases())
-            ->mapWithKeys(fn($status) => [$status->value => $status->label()]);
+            ->mapWithKeys(fn ($status) => [$status->value => $status->label()]);
         $featureCategories = FeatureCategory::orderBy('name')->get();
 
         return Inertia::render('admin/rental-management/rentals/edit', [
@@ -201,19 +201,20 @@ class RentalController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'user_id'          => 'required|exists:users,id',
-            'title'    => 'required|string|max:255',
-            'description'      => 'required|string',
-            'purchase_price'   => 'required|numeric',
-            'property_type'    => 'required|string',
+            'user_id' => 'required|exists:users,id',
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'purchase_price' => 'required|numeric',
+            'address' => 'nullable|string|max:500',
+            'property_type' => 'required|string',
             'security_deposit' => 'nullable|numeric',
-            'lease_length'     => 'nullable|string',
-            'bedrooms'         => 'nullable|numeric',
-            'bathrooms'        => 'nullable|numeric',
-            'square_feet'      => 'nullable|numeric',
-            'pet_friendly'     => 'nullable|string',
-            'parking_garage'   => 'nullable|string',
-            'city_id'          => 'required|exists:cities,id',
+            'lease_length' => 'nullable|string',
+            'bedrooms' => 'nullable|numeric',
+            'bathrooms' => 'nullable|numeric',
+            'square_feet' => 'nullable|numeric',
+            'pet_friendly' => 'nullable|string',
+            'parking_garage' => 'nullable|string',
+            'city_id' => 'required|exists:cities,id',
             'primary_image_url' => 'nullable|file|image|max:5120',
             'gallery_images.*' => 'nullable|file|image|max:5120',
             'status' => 'required|string',
@@ -221,13 +222,12 @@ class RentalController extends Controller
             'features.*' => ['exists:features,id'],
             'youtube_video_url' => ['nullable', 'url'],
 
-            'pet_essentials'                  => ['nullable', 'array'],
-            'pet_essentials.*.pet_type'       => ['required', 'string', 'max:100'],
-            'pet_essentials.*.allowed'        => ['required', 'in:yes,no'],
+            'pet_essentials' => ['nullable', 'array'],
+            'pet_essentials.*.pet_type' => ['required', 'string', 'max:100'],
+            'pet_essentials.*.allowed' => ['required', 'in:yes,no'],
             'pet_essentials.*.number_allowed' => ['nullable', 'integer', 'min:0'],
-            'pet_essentials.*.icon'           => ['nullable', 'image', 'max:2048'],
+            'pet_essentials.*.icon' => ['nullable', 'image', 'max:2048'],
         ]);
-
 
         $rental = Rental::findOrFail($id);
 
@@ -245,7 +245,7 @@ class RentalController extends Controller
                 if ($request->hasFile("pet_essentials.$index.icon")) {
                     $file = $request->file("pet_essentials.$index.icon");
                     $item['icon'] = $this->storeImage($file, 'rentals/pet_icons');
-                } elseif (!empty($item['existing_icon'])) {
+                } elseif (! empty($item['existing_icon'])) {
                     $item['icon'] = $item['existing_icon'];
                 }
 
@@ -264,19 +264,19 @@ class RentalController extends Controller
             ->with('success', 'Rental updated successfully!');
     }
 
-
     public function delete($id)
     {
         $rental = Rental::findOrFail($id);
         $this->rentalService->deleteRental($rental);
         $this->sitemapService->generate();
+
         return redirect()->route('admin.rentals.index')
             ->with('success', 'Rental deleted successfully!');
     }
 
     private function storeImage($file, string $path): string
     {
-        $imageName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+        $imageName = time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
         $file->storeAs($path, $imageName, 'public');
 
         return $imageName;

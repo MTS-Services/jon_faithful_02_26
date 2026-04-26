@@ -14,7 +14,6 @@ use App\Models\Rental;
 use App\Services\RentalService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -56,7 +55,7 @@ class ListingRentalController extends Controller
             'features' => $features,
             'featureCategories' => $featureCategories,
             'propertyTypes' => collect(RentalProperty::cases())
-                ->map(fn($type) => [
+                ->map(fn ($type) => [
                     'value' => $type->value,
                     'label' => $type->label(),
                 ])
@@ -73,6 +72,7 @@ class ListingRentalController extends Controller
             'description' => ['required', 'string'],
             'purchase_price' => ['required', 'numeric', 'min:0'],
             'city_id' => ['required', 'exists:cities,id'],
+            'address' => ['nullable', 'string', 'max:500'],
             'property_type' => ['required', 'string'],
             'security_deposit' => ['required', 'numeric', 'min:0'],
             'lease_length' => ['required', 'integer', 'min:1'],
@@ -87,12 +87,12 @@ class ListingRentalController extends Controller
             'features' => ['nullable', 'array'],
             'features.*' => ['integer', 'exists:features,id'],
 
-            'pet_essentials'                  => ['nullable', 'array'],
-            'pet_essentials.*.pet_type'       => ['required', 'string', 'max:100'],
-            'pet_essentials.*.allowed'        => ['required', 'in:yes,no'],
+            'pet_essentials' => ['nullable', 'array'],
+            'pet_essentials.*.pet_type' => ['required', 'string', 'max:100'],
+            'pet_essentials.*.allowed' => ['required', 'in:yes,no'],
             'pet_essentials.*.number_allowed' => ['nullable', 'integer', 'min:0'],
-            'pet_essentials.*.icon'           => ['nullable', 'image', 'max:2048'],
-            'pet_essentials.*.existing_icon'  => ['nullable', 'string'],
+            'pet_essentials.*.icon' => ['nullable', 'image', 'max:2048'],
+            'pet_essentials.*.existing_icon' => ['nullable', 'string'],
         ]);
 
         $validated['status'] = ActiveInactive::ACTIVE->value;
@@ -112,7 +112,7 @@ class ListingRentalController extends Controller
                 if ($request->hasFile("pet_essentials.$index.icon")) {
                     $file = $request->file("pet_essentials.$index.icon");
                     $item['icon'] = $this->storeImage($file, 'rentals/pet_icons');
-                } elseif (!empty($item['existing_icon'])) {
+                } elseif (! empty($item['existing_icon'])) {
                     $item['icon'] = $item['existing_icon'];
                 }
 
@@ -167,7 +167,7 @@ class ListingRentalController extends Controller
             'features' => $features,
             'featureCategories' => $featureCategories,
             'propertyTypes' => collect(RentalProperty::cases())
-                ->map(fn($type) => [
+                ->map(fn ($type) => [
                     'value' => $type->value,
                     'label' => $type->label(),
                 ])
@@ -185,6 +185,7 @@ class ListingRentalController extends Controller
             'description' => ['required', 'string'],
             'purchase_price' => ['required', 'numeric', 'min:0'],
             'city_id' => ['required', 'exists:cities,id'],
+            'address' => ['nullable', 'string', 'max:500'],
             'property_type' => ['required', 'string'],
             'security_deposit' => ['required', 'numeric', 'min:0'],
             'lease_length' => ['required', 'integer', 'min:1'],
@@ -199,12 +200,12 @@ class ListingRentalController extends Controller
             'features' => ['nullable', 'array'],
             'features.*' => ['exists:features,id'],
 
-            'pet_essentials'                  => ['nullable', 'array'],
-            'pet_essentials.*.pet_type'       => ['required', 'string', 'max:100'],
-            'pet_essentials.*.allowed'        => ['required', 'in:yes,no'],
+            'pet_essentials' => ['nullable', 'array'],
+            'pet_essentials.*.pet_type' => ['required', 'string', 'max:100'],
+            'pet_essentials.*.allowed' => ['required', 'in:yes,no'],
             'pet_essentials.*.number_allowed' => ['nullable', 'integer', 'min:0'],
-            'pet_essentials.*.icon'           => ['nullable', 'image', 'max:2048'],
-            'pet_essentials.*.existing_icon'  => ['nullable', 'string'],
+            'pet_essentials.*.icon' => ['nullable', 'image', 'max:2048'],
+            'pet_essentials.*.existing_icon' => ['nullable', 'string'],
         ]);
 
         $validated['status'] = ActiveInactive::INACTIVE->value;
@@ -219,7 +220,7 @@ class ListingRentalController extends Controller
                 if ($request->hasFile("pet_essentials.$index.icon")) {
                     $file = $request->file("pet_essentials.$index.icon");
                     $item['icon'] = $this->storeImage($file, 'rentals/pet_icons');
-                } elseif (!empty($item['existing_icon'])) {
+                } elseif (! empty($item['existing_icon'])) {
                     $item['icon'] = $item['existing_icon'];
                 }
 
@@ -258,7 +259,7 @@ class ListingRentalController extends Controller
 
     private function storeImage($file, string $path): string
     {
-        $imageName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+        $imageName = time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
         $file->storeAs($path, $imageName, 'public');
 
         return $imageName;

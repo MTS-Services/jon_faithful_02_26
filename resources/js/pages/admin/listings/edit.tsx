@@ -51,6 +51,7 @@ export default function Edit({ listing, cities, propertyTypes, propertyStatuses,
         description: listing.description || '',
         purchase_price: listing.purchase_price || '',
         city_id: String(listing.city_id) || '',
+        address: listing.address || '',
         user_id: String(listing.user_id) || '',
         listing_status: listing.listing_status || '',
         status: listing.status || '',
@@ -243,6 +244,17 @@ export default function Edit({ listing, cities, propertyTypes, propertyStatuses,
                                     </SelectContent>
                                 </Select>
                                 <InputError message={errors.city_id} />
+                            </div>
+                            <div className="grid gap-2 mb-6">
+                                <Label htmlFor="address">Address</Label>
+                                <Input
+                                    id="address"
+                                    type="text"
+                                    value={data.address}
+                                    onChange={(e) => setData('address', e.target.value)}
+                                    placeholder="Enter property address"
+                                />
+                                <InputError message={errors.address} />
                             </div>
 
                             {/* Listing Status */}

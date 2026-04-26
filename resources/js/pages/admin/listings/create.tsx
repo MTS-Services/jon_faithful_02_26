@@ -56,6 +56,7 @@ export default function Create({ cities, propertyTypes, propertyStatuses, status
         description: '',
         purchase_price: '',
         city_id: '',
+        address: '',
         user_id: selectedUserId ? String(selectedUserId) : '',
         listing_status: propertyStatuses[0]?.value || '',
         property_type: propertyTypes[0]?.value || '',
@@ -227,6 +228,17 @@ export default function Create({ cities, propertyTypes, propertyStatuses, status
                                     </SelectContent>
                                 </Select>
                                 <InputError message={errors.city_id} />
+                            </div>
+                            <div className="grid gap-2">
+                                <Label htmlFor="address">Address</Label>
+                                <Input
+                                    id="address"
+                                    type="text"
+                                    value={data.address}
+                                    onChange={(e) => setData('address', e.target.value)}
+                                    placeholder="Enter property address"
+                                />
+                                <InputError message={errors.address} />
                             </div>
 
                             {/* Listing Status */}

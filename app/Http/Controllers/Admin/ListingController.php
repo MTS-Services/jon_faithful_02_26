@@ -23,8 +23,11 @@ use Inertia\Response;
 class ListingController extends Controller
 {
     protected DataTableService $dataTableService;
+
     protected ListingHomeService $listingService;
+
     protected SitemapService $sitemapService;
+
     public function __construct(DataTableService $dataTableService, ListingHomeService $listingService, SitemapService $sitemapService)
     {
         $this->dataTableService = $dataTableService;
@@ -37,7 +40,7 @@ class ListingController extends Controller
         $query = Listing::query()->with(['user']);
 
         $result = $this->dataTableService->process($query, request(), [
-            'searchable' => ['title', 'description'],
+            'searchable' => ['title', 'description', 'address'],
 
             'filterable' => [
                 'user_id',
@@ -86,9 +89,10 @@ class ListingController extends Controller
         $listing->load(['user', 'city', 'galleries']);
 
         return Inertia::render('admin/listings/view', [
-            'listing' => $listing
+            'listing' => $listing,
         ]);
     }
+
     public function create($user_id = null): Response
     {
         $cities = City::all(['id', 'name']);
@@ -103,15 +107,15 @@ class ListingController extends Controller
             'selectedUserId' => $user_id ? (int) $user_id : null,
             'cities' => $cities,
             // 'features' => $features,
-            'propertyTypes' => collect(ListingProperty::cases())->map(fn($type) => [
+            'propertyTypes' => collect(ListingProperty::cases())->map(fn ($type) => [
                 'value' => $type->value,
                 'label' => $type->label(),
             ]),
-            'propertyStatuses' => collect(ListingStatus::cases())->map(fn($status) => [
+            'propertyStatuses' => collect(ListingStatus::cases())->map(fn ($status) => [
                 'value' => $status->value,
                 'label' => $status->label(),
             ]),
-            'statuses' => collect(ActiveInactive::cases())->map(fn($status) => [
+            'statuses' => collect(ActiveInactive::cases())->map(fn ($status) => [
                 'value' => $status->value,
                 'label' => $status->label(),
             ]),
@@ -127,6 +131,7 @@ class ListingController extends Controller
             'description' => ['nullable', 'string'],
             'purchase_price' => ['required', 'numeric', 'min:0'],
             'city_id' => ['required', 'exists:cities,id'],
+            'address' => ['nullable', 'string', 'max:500'],
             'user_id' => ['required', 'exists:users,id'],
             'listing_status' => ['required', new Enum(ListingStatus::class)],
             'property_type' => ['required', new Enum(ListingProperty::class)],
@@ -141,7 +146,6 @@ class ListingController extends Controller
             // 'features.*' => ['exists:features,id'],
         ]);
         $validated['status'] = $validated['status'] ?? ActiveInactive::ACTIVE->value;
-
 
         $listing = $this->listingService->createListing($validated, $request);
         $this->sitemapService->generate();
@@ -159,13 +163,13 @@ class ListingController extends Controller
     public function storeFacility(Request $request)
     {
         $validated = $request->validate([
-            'name'                => ['required', 'string', 'max:255', 'unique:features,name'],
+            'name' => ['required', 'string', 'max:255', 'unique:features,name'],
             'feature_category_id' => ['required', 'exists:feature_categories,id'],
         ]);
 
         $facility = Feature::create([
-            'name'                => $validated['name'],
-            'slug'                => Str::slug($validated['name']),
+            'name' => $validated['name'],
+            'slug' => Str::slug($validated['name']),
             'feature_category_id' => $validated['feature_category_id'],
         ]);
 
@@ -182,18 +186,18 @@ class ListingController extends Controller
             'users' => $users,
             'listing' => [
                 ...$listing->toArray(),
-                'features' => $currentFacilityIds // Pass just IDs for the form
+                'features' => $currentFacilityIds, // Pass just IDs for the form
             ],
             'cities' => City::all(['id', 'name']),
-            'propertyTypes' => collect(ListingProperty::cases())->map(fn($type) => [
+            'propertyTypes' => collect(ListingProperty::cases())->map(fn ($type) => [
                 'value' => $type->value,
                 'label' => $type->label(),
             ]),
-            'propertyStatuses' => collect(ListingStatus::cases())->map(fn($status) => [
+            'propertyStatuses' => collect(ListingStatus::cases())->map(fn ($status) => [
                 'value' => $status->value,
                 'label' => $status->label(),
             ]),
-            'statuses' => collect(ActiveInactive::cases())->map(fn($status) => [
+            'statuses' => collect(ActiveInactive::cases())->map(fn ($status) => [
                 'value' => $status->value,
                 'label' => $status->label(),
             ]),
@@ -208,6 +212,7 @@ class ListingController extends Controller
             'description' => ['nullable', 'string'],
             'purchase_price' => ['required', 'numeric', 'min:0'],
             'city_id' => ['required', 'exists:cities,id'],
+            'address' => ['nullable', 'string', 'max:500'],
             'user_id' => ['required', 'exists:users,id'],
             'listing_status' => ['required', new Enum(ListingStatus::class)],
             'property_type' => ['required', new Enum(ListingProperty::class)],
@@ -230,6 +235,7 @@ class ListingController extends Controller
 
         return redirect()->route('admin.listing.index')->with('success', 'Listing updated.');
     }
+
     public function delete(Listing $listing)
     {
         try {
