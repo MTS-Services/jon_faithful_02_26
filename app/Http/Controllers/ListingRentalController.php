@@ -95,7 +95,7 @@ class ListingRentalController extends Controller
             'pet_essentials.*.existing_icon'  => ['nullable', 'string'],
         ]);
 
-        $validated['status'] = ActiveInactive::INACTIVE->value;
+        $validated['status'] = ActiveInactive::ACTIVE->value;
 
         $rental = $this->rentalService->createRental($validated, $request);
 

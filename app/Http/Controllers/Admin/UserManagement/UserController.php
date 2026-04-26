@@ -78,6 +78,8 @@ class UserController extends Controller
             'password' => $this->passwordRules(),
         ])->validate();
 
+        $data['is_verified'] = true;
+
         // File upload logic
         if ($request->hasFile('image')) {
             $file = $request->file('image');
