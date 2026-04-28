@@ -137,7 +137,7 @@ const tabs = [
       'Tennessee’s lower cost structure makes entrepreneurship more accessible.',],
     footer:
       'Tennessee’s lower cost structure makes entrepreneurship more accessible.',
-    imageUrl: '/assets/images/live-in-tennessee/tennessee-state-capitol-building-nashville-aerial.jpeg',
+    imageUrl: '/assets/images/new-york-city/healthcare-professionals-team-medical-care-collaboration.jpeg',
   },
 ];
 

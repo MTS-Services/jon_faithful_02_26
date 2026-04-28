@@ -274,6 +274,28 @@ class RentalController extends Controller
             ->with('success', 'Rental deleted successfully!');
     }
 
+    public function activate($id)
+    {
+        $rental = Rental::findOrFail($id);
+        $rental->update([
+            'status' => ActiveInactive::ACTIVE->value,
+        ]);
+
+        return redirect()->route('admin.rentals.index')
+            ->with('success', 'Rental activated successfully!');
+    }
+
+    public function inactivate($id)
+    {
+        $rental = Rental::findOrFail($id);
+        $rental->update([
+            'status' => ActiveInactive::INACTIVE->value,
+        ]);
+
+        return redirect()->route('admin.rentals.index')
+            ->with('success', 'Rental inactivated successfully!');
+    }
+
     private function storeImage($file, string $path): string
     {
         $imageName = time().'_'.uniqid().'.'.$file->getClientOriginalExtension();

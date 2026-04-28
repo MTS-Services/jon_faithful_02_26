@@ -258,4 +258,22 @@ class ListingController extends Controller
             return redirect()->route('admin.listing.index')->with('error', 'Failed to delete listing.');
         }
     }
+
+    public function activate(Listing $listing)
+    {
+        $listing->update([
+            'status' => ActiveInactive::ACTIVE->value,
+        ]);
+
+        return redirect()->route('admin.listing.index')->with('success', 'Listing activated successfully.');
+    }
+
+    public function inactivate(Listing $listing)
+    {
+        $listing->update([
+            'status' => ActiveInactive::INACTIVE->value,
+        ]);
+
+        return redirect()->route('admin.listing.index')->with('success', 'Listing inactivated successfully.');
+    }
 }

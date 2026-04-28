@@ -11,7 +11,7 @@ import {
     PaginationData,
 } from '@/types/data-table.types';
 import { Head, Link, router } from '@inertiajs/react';
-import { Pencil, Plus, SquarePen, Trash2 } from 'lucide-react';
+import { Check, Pencil, Plus, SquarePen, Trash2, X } from 'lucide-react';
 
 interface FilterOption {
     value: string;
@@ -170,6 +170,22 @@ export default function Index({
                     router.visit(route('admin.rentals.delete', item?.id));
                 }
             },
+        },
+        {
+            label: 'Activate',
+            icon: <Check className="h-4 w-4 text-green-500" />,
+            onClick: (item) => {
+                router.visit(route('admin.rentals.activate', item?.id));
+            },
+            show: (item) => item.status !== 'active',
+        },
+        {
+            label: 'Inactivate',
+            icon: <X className="h-4 w-4 text-red-500" />,
+            onClick: (item) => {
+                router.visit(route('admin.rentals.inactivate', item?.id));
+            },
+            show: (item) => item.status === 'active',
         },
     ];
 
