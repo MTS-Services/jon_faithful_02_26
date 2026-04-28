@@ -46,7 +46,7 @@ class ListingRentalController extends Controller
      */
     public function addListing(): Response
     {
-        $cities = City::all(['id', 'name']);
+        $cities = City::orderBy('id', 'asc')->get(['id', 'name']);
         $features = Feature::all();
         $featureCategories = FeatureCategory::orderBy('name')->get();
 
@@ -157,7 +157,7 @@ class ListingRentalController extends Controller
             ->with(['features', 'petEssentials'])
             ->findOrFail($id);
 
-        $cities = City::all(['id', 'name']);
+        $cities = City::orderBy('id', 'asc')->get(['id', 'name']);
         $features = Feature::all();
         $featureCategories = FeatureCategory::orderBy('name')->get();
 

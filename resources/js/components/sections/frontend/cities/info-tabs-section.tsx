@@ -7,10 +7,11 @@ interface TabContent {
     label: string;
     title: string;
     intro: string;
-    intro2: string | null;
-    intro3: string | null;
+    intro2?: string | null;
+    intro3?: string | null;
     items: string[];
-    items2: string[] | null;
+    item2Intro?: string | null;
+    items2?: string[] | null;
     footer?: string;
     imageUrl: string;
     videoUrl?: string;
@@ -40,8 +41,8 @@ export default function InfoTabsSection({ tabs }: { tabs: TabContent[] }) {
                             key={tab.id}
                             onClick={() => setActiveTab(tab.id)}
                             className={`rounded-full px-3 py-2 font-medium transition sm:px-4 sm:py-3 sm:font-bold md:px-6 md:py-5 ${activeTab === tab.id
-                                    ? 'scale-105 bg-secondary text-white'
-                                    : 'bg-slate-800 text-white hover:bg-secondary'
+                                ? 'scale-105 bg-secondary text-white'
+                                : 'bg-slate-800 text-white hover:bg-secondary'
                                 }`}
                         >
                             {tab.label}
@@ -79,12 +80,12 @@ export default function InfoTabsSection({ tabs }: { tabs: TabContent[] }) {
                         ) : null}
 
                         <div className="p-3">
-                            <h2 className="mb-6 text-4xl font-bold">
+                            <h2 className="mb-4 text-4xl font-bold">
                                 {tab.title}
                             </h2>
-                            <p className="mb-6 text-gray-600">{tab.intro}</p>
+                            <p className="mb-4 text-gray-600">{tab.intro}</p>
                             {tab.intro2 ? (
-                                <p className="mb-2 text-gray-600">{tab.intro2}</p>
+                                <p className="my-4 text-gray-600">{tab.intro2}</p>
                             ) : null}
                             <ul className="space-y-4">
                                 {tab.items.map((item, i) => (
@@ -106,6 +107,9 @@ export default function InfoTabsSection({ tabs }: { tabs: TabContent[] }) {
                                     </li>
                                 ))}
                             </ul>
+                            {tab.item2Intro ? (
+                                <p className="my-4 text-gray-600">{tab.item2Intro}</p>
+                            ) : null}
                             <ul className="space-y-4">
                                 {tab.items2?.map((item, i) => (
                                     <li

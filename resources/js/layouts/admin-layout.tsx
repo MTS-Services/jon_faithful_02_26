@@ -19,6 +19,7 @@ export default function AdminLayout({ children, activeSlug }: AdminLayoutProps) 
         }
         return false;
     });
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 
     const { appearance, updateAppearance } = useAppearance();
     useEffect(() => {
@@ -34,12 +35,50 @@ export default function AdminLayout({ children, activeSlug }: AdminLayoutProps) 
         }
     }, [isCollapsed]);
 
+    React.useEffect(() => {
+        const onResize = () => {
+            if (window.innerWidth >= 768) {
+                setIsMobileMenuOpen(false);
+            }
+        };
+
+        window.addEventListener('resize', onResize);
+
+        return () => {
+            window.removeEventListener('resize', onResize);
+        };
+    }, []);
+
+    const handleMobileNavigate = React.useCallback(() => {
+        if (typeof window !== 'undefined' && window.innerWidth < 768) {
+            setIsMobileMenuOpen(false);
+        }
+    }, []);
+
     return (
         <div className="relative flex h-full max-h-screen min-h-screen bg-background">
-            <AdminSidebar isCollapsed={isCollapsed} activeSlug={activeSlug} />
+            {isMobileMenuOpen && (
+                <button
+                    type="button"
+                    aria-label="Close menu overlay"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="fixed inset-0 z-30 bg-black/40 md:hidden"
+                />
+            )}
+            <AdminSidebar
+                isCollapsed={isCollapsed}
+                isMobileMenuOpen={isMobileMenuOpen}
+                activeSlug={activeSlug}
+                onNavigate={handleMobileNavigate}
+            />
             <div className="flex flex-1 flex-col overflow-hidden">
-                <AdminHeader isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
-                <main className="flex-1 overflow-y-auto overflow-x-hidden p-6 space-y-6">
+                <AdminHeader
+                    isCollapsed={isCollapsed}
+                    isMobileMenuOpen={isMobileMenuOpen}
+                    setIsMobileMenuOpen={setIsMobileMenuOpen}
+                    setIsCollapsed={setIsCollapsed}
+                />
+                <main className="flex-1 overflow-y-auto overflow-x-hidden p-4 lg:p-6 space-y-6">
                     {children}
                 </main>
 

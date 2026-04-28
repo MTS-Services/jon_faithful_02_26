@@ -52,7 +52,7 @@ class UserController extends Controller
                 'value' => $type->value,
                 'label' => $type->label(),
             ]),
-            'cities' => City::orderBy('name')->get(['id', 'name']),
+            'cities' => City::orderBy('id', 'asc')->get(['id', 'name']),
         ]);
     }
 
@@ -125,7 +125,7 @@ class UserController extends Controller
 
         return Inertia::render('admin/user-management/users/edit', [
             'user' => $user->load('city'),
-            'cities' => City::orderBy('name')->get(['id', 'name']),
+            'cities' => City::orderBy('id', 'asc')->get(['id', 'name']),
         ]);
     }
 

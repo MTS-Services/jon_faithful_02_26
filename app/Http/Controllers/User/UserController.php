@@ -30,7 +30,7 @@ class UserController extends Controller
     {
         return Inertia::render('user/profile/index', [
             'user' => auth()->user()->load('city'),
-            'cities' => City::orderBy('name')->get(['id', 'name']),
+            'cities' => City::orderBy('id', 'asc')->get(['id', 'name']),
         ]);
     }
 

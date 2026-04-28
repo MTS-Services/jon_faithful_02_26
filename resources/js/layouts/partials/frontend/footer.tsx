@@ -65,11 +65,11 @@ const FrontendFooter: React.FC = () => {
             <div className="container mx-auto px-6">
                 <div className="mb-12 grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
                     {/* Brand/About Section */}
-                    <div>
+                    <div className="w-full">
                         <img
                             src="/assets/logo/why-tennessee-logo.png"
                             alt="Why Tennessee"
-                            className="mb-6 h-16"
+                            className="mb-6 max-w-48 mx-auto lg:mx-0"
                             width={256}
                             height={64}
                             loading="lazy"

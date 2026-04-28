@@ -104,6 +104,7 @@ export interface NavItemProps {
     currentRoute?: string;
     permissions?: string[];
     activeSlug?: string;
+    onNavigate?: () => void;
 }
 
 export interface DropdownPosition {

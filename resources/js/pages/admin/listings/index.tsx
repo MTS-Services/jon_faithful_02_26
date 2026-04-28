@@ -163,7 +163,7 @@ export default function index({
       <Head title="Listing Homes" />
 
       <div className="flex justify-between items-center">
-        <h2 className="text-3xl font-bold text-slate-900 mb-6">
+        <h2 className="text-xl lg:text-2xl font-bold text-slate-900">
           Listing Homes
         </h2>
         <ActionButton href={route('admin.listing.create')} IconNode={Plus} >Create</ActionButton>

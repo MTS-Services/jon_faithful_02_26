@@ -127,15 +127,15 @@ export default function Create({ cities, propertyTypes, propertyStatuses, status
         <AdminLayout activeSlug="listings">
             <Head title="Create User" />
 
-            <CardContent>
-                <CardHeader className="flex flex-row justify-between">
-                    <CardTitle className='text-2xl'>Create New User</CardTitle>
+            <CardContent className="p-0 lg:p-6">
+                <CardHeader className="flex flex-row justify-between items-center p-0 lg:p-6">
+                    <CardTitle className='text-xl lg:text-2xl'>Create New User</CardTitle>
                     <ActionButton href={index.url()} IconNode={ArrowLeft}>Back to Listings</ActionButton>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="p-0">
                     <form onSubmit={handleSubmit}>
-                        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-                            <div className="w-80 col-span-2">
+                        <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-2">
+                            <div className="w-80 col-span-1 lg:col-span-2">
                                 <div className="grid gap-2">
                                     <Label htmlFor="primary_image_url">Image</Label>
                                     <FileUpload
@@ -148,7 +148,7 @@ export default function Create({ cities, propertyTypes, propertyStatuses, status
                                 </div>
                             </div>
                             {/* Photo Gallery */}
-                            <div className="grid gap-2 col-span-2">
+                            <div className="grid gap-2 col-span-1 lg:col-span-2">
                                 <Label htmlFor="gallery_images">Photo Gallery*</Label>
                                 <input
                                     id="gallery_images"
@@ -211,7 +211,7 @@ export default function Create({ cities, propertyTypes, propertyStatuses, status
                             </div>
                             {/* City */}
                             <div className="grid gap-2">
-                                <Label htmlFor="city_id">City*</Label>
+                                <Label htmlFor="city_id">City and/or Region*</Label>
                                 <Select
                                     value={data.city_id}
                                     onValueChange={(value) => setData('city_id', value)}
@@ -345,7 +345,7 @@ export default function Create({ cities, propertyTypes, propertyStatuses, status
                                 <InputError message={errors.square_feet} />
                             </div>
                             {/* Square Youtube Video */}
-                            <div className="grid gap-2 col-span-2">
+                            <div className="grid gap-2 col-span-1 lg:col-span-2">
                                 <Label htmlFor="youtube_video_url">YouTube Video URL</Label>
                                 <Input
                                     id="youtube_video_url"
@@ -358,7 +358,7 @@ export default function Create({ cities, propertyTypes, propertyStatuses, status
                             </div>
 
                             {/* Listing Description */}
-                            <div className="grid gap-2 col-span-2">
+                            <div className="grid gap-2 col-span-1 lg:col-span-2">
                                 <Label htmlFor="description">Listing Description</Label>
                                 <textarea
                                     id="description"
@@ -372,7 +372,7 @@ export default function Create({ cities, propertyTypes, propertyStatuses, status
                             </div>
 
                             {/* --- Added features Section --- */}
-                            {/* <div className="grid gap-2 mb-8 col-span-2">
+                            {/* <div className="grid gap-2 mb-8 col-span-1 lg:col-span-2">
                                 <div className="flex items-center justify-between">
                                     <Label className="text-base font-semibold">features</Label>
                                     <Button

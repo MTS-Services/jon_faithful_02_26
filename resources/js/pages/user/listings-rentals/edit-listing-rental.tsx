@@ -246,9 +246,9 @@ export default function EditListingRental({
                     </h2>
 
                     <form onSubmit={handleSubmit}>
-                        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+                        <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-2">
                             {/* Primary Image */}
-                            <div className="col-span-2 w-80">
+                            <div className="col-span-1 lg:col-span-2 w-80">
                                 <div className="grid gap-2">
                                     <Label htmlFor="primary_image_url">
                                         Image
@@ -273,7 +273,7 @@ export default function EditListingRental({
                             </div>
 
                             {/* Photo Gallery */}
-                            <div className="col-span-2 grid gap-2">
+                            <div className="col-span-1 lg:col-span-2 grid gap-2">
                                 <Label htmlFor="gallery_images">
                                     Photo Gallery (Optional - only upload to
                                     replace)
@@ -338,7 +338,7 @@ export default function EditListingRental({
 
                             {/* City */}
                             <div className="grid gap-2">
-                                <Label htmlFor="city_id">City*</Label>
+                                <Label htmlFor="city_id">City and Region*</Label>
                                 <Select
                                     value={data.city_id}
                                     onValueChange={(value) =>
@@ -510,7 +510,7 @@ export default function EditListingRental({
                             </div>
 
                             {/* YouTube Video URL */}
-                            <div className="col-span-2 grid gap-2">
+                            <div className="col-span-1 lg:col-span-2 grid gap-2">
                                 <Label htmlFor="youtube_video_url">
                                     YouTube Video URL
                                 </Label>
@@ -532,7 +532,7 @@ export default function EditListingRental({
                             </div>
 
                             {/* Pet Friendly */}
-                            <div className="col-span-2 grid gap-2">
+                            <div className="col-span-1 lg:col-span-2 grid gap-2">
                                 <Label>Pet Friendly*</Label>
                                 <div className="space-y-2">
                                     <label className="flex cursor-pointer items-center gap-2 font-normal">
@@ -572,7 +572,7 @@ export default function EditListingRental({
                             </div>
 
                             {/* Pet Essentials */}
-                            <div className="col-span-2 grid gap-2">
+                            <div className="col-span-1 lg:col-span-2 grid gap-2">
                                 <div className="flex items-center justify-between">
                                     <Label className="text-base font-semibold">
                                         Pet Essentials
@@ -589,7 +589,7 @@ export default function EditListingRental({
                             </div>
 
                             {/* Listing Description */}
-                            <div className="col-span-2 grid gap-2">
+                            <div className="col-span-1 lg:col-span-2 grid gap-2">
                                 <Label htmlFor="description">
                                     Listing Description
                                 </Label>
@@ -607,7 +607,7 @@ export default function EditListingRental({
                             </div>
 
                             {/* Features Section */}
-                            <div className="col-span-2 mb-8 grid gap-2">
+                            <div className="col-span-1 lg:col-span-2 mb-8 grid gap-2">
                                 <div className="flex items-center justify-between">
                                     <Label className="text-base font-semibold">
                                         Unit Features

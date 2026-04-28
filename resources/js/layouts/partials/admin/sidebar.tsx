@@ -136,11 +136,13 @@ const adminNavItems: NavItemType[] = [
 
 interface AdminSidebarProps {
     isCollapsed: boolean;
+    isMobileMenuOpen: boolean;
     activeSlug?: string | null;
+    onNavigate?: () => void;
 }
 
 export const AdminSidebar = React.memo<AdminSidebarProps>(
-    ({ isCollapsed, activeSlug }) => {
+    ({ isCollapsed, isMobileMenuOpen, activeSlug, onNavigate }) => {
         const { props } = usePage();
 
         // Extract permissions safely
@@ -156,10 +158,12 @@ export const AdminSidebar = React.memo<AdminSidebarProps>(
         return (
             <aside
                 className={cn(
-                    'relative hidden h-screen border-r bg-background',
+                    'border-r bg-background',
                     'transition-all duration-300 ease-in-out',
-                    'flex-col md:flex',
-                    isCollapsed ? 'w-16' : 'w-64',
+                    'fixed inset-y-0 left-0 z-40 flex h-dvh w-72 flex-col md:relative md:z-auto md:h-screen',
+                    isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full',
+                    isCollapsed ? 'md:w-16' : 'md:w-64',
+                    'md:translate-x-0',
                 )}
             >
                 {/* Logo Section */}
@@ -197,9 +201,10 @@ export const AdminSidebar = React.memo<AdminSidebarProps>(
                                     key={`${item.title}-${index}`}
                                     item={item}
                                     isCollapsed={isCollapsed}
-                                    activeSlug={activeSlug}
+                                    activeSlug={activeSlug ?? undefined}
                                     isActive={isParentActive || isChildActive}
                                     permissions={userPermissions}
+                                    onNavigate={onNavigate}
                                 />
                             );
                         })}

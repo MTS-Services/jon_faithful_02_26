@@ -1,3 +1,4 @@
+import { ActionButton } from '@/components/ui/action-button';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { DataTable } from '@/components/ui/data-table';
@@ -10,7 +11,7 @@ import {
     PaginationData,
 } from '@/types/data-table.types';
 import { Head, Link, router } from '@inertiajs/react';
-import { Pencil, SquarePen, Trash2 } from 'lucide-react';
+import { Pencil, Plus, SquarePen, Trash2 } from 'lucide-react';
 
 interface FilterOption {
     value: string;
@@ -176,14 +177,11 @@ export default function Index({
         <AdminLayout activeSlug="rentals">
             <Head title="Listing Rentals" />
 
-            <h2 className="mb-6 text-3xl font-bold text-slate-900">
-                Listing Rentals
-            </h2>
-
-            <div className="mb-6 flex justify-end">
-                <Link href={route('admin.rentals.create')}>
-                    <Button>Create Listing</Button>
-                </Link>
+            <div className="flex justify-between items-center">
+                <h2 className="text-xl lg:text-2xl font-bold text-slate-900">
+                    Listing Rentals
+                </h2>
+                <ActionButton href={route('admin.rentals.create')} IconNode={Plus} >Create Listing</ActionButton>
             </div>
 
             <div className="mx-auto">

@@ -159,19 +159,19 @@ export default function Create({
                 loading={modalLoading}
             />
 
-            <CardContent>
-                <CardHeader className="flex flex-row justify-between">
-                    <CardTitle className="text-2xl">Create Rental Listing</CardTitle>
+            <CardContent className="p-0 lg:p-6">
+                <CardHeader className="flex flex-row justify-between items-center p-0 lg:p-6 mb-6 lg:mb-0">
+                    <CardTitle className="text-xl lg:text-2xl">Create Rental Listing</CardTitle>
                     <ActionButton href={route('admin.rentals.index')} IconNode={ArrowLeft}>
                         Back to Rentals
                     </ActionButton>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="p-0 lg:p-6">
                     <form onSubmit={handleSubmit}>
                         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
 
                             {/* Primary Image */}
-                            <div className="w-80 col-span-2">
+                            <div className="w-80 col-span-1 lg:col-span-2">
                                 <div className="grid gap-2">
                                     <Label htmlFor="primary_image_url">Image</Label>
                                     <FileUpload
@@ -187,7 +187,7 @@ export default function Create({
                             </div>
 
                             {/* Photo Gallery */}
-                            <div className="grid gap-2 col-span-2">
+                            <div className="grid gap-2 col-span-1 lg:col-span-2">
                                 <Label htmlFor="gallery_images">Photo Gallery*</Label>
                                 <input
                                     id="gallery_images"
@@ -255,7 +255,7 @@ export default function Create({
 
                             {/* City */}
                             <div className="grid gap-2">
-                                <Label htmlFor="city_id">City*</Label>
+                                <Label htmlFor="city_id">City and/or Region*</Label>
                                 <Select
                                     value={data.city_id}
                                     onValueChange={(value) => setData('city_id', value)}
@@ -410,7 +410,7 @@ export default function Create({
                             </div>
 
                             {/* YouTube Video URL */}
-                            <div className="grid gap-2 col-span-2">
+                            <div className="grid gap-2 col-span-1 lg:col-span-2">
                                 <Label htmlFor="youtube_video_url">YouTube Video URL</Label>
                                 <Input
                                     id="youtube_video_url"
@@ -423,7 +423,7 @@ export default function Create({
                             </div>
 
                             {/* Pet Friendly */}
-                            <div className="grid gap-2 col-span-2">
+                            <div className="grid gap-2 col-span-1 lg:col-span-2">
                                 <Label>Pet Friendly*</Label>
                                 <div className="space-y-2">
                                     <label className="flex cursor-pointer items-center gap-2 font-normal">
@@ -453,7 +453,7 @@ export default function Create({
                             </div>
 
                             {/* ✅ Pet Essentials Section */}
-                            <div className="grid gap-3 col-span-2">
+                            <div className="grid gap-3 col-span-1 lg:col-span-2">
                                 <div className="flex items-center justify-between">
                                     <Label className="text-base font-semibold">Pet Essentials</Label>
                                     <span className="text-xs text-muted-foreground">
@@ -468,7 +468,7 @@ export default function Create({
                             </div>
 
                             {/* Listing Description */}
-                            <div className="grid gap-2 col-span-2">
+                            <div className="grid gap-2 col-span-1 lg:col-span-2">
                                 <Label htmlFor="description">Listing Description</Label>
                                 <textarea
                                     id="description"
@@ -482,7 +482,7 @@ export default function Create({
                             </div>
 
                             {/* Features Section */}
-                            <div className="grid gap-2 mb-8 col-span-2">
+                            <div className="grid gap-2 mb-8 col-span-1 lg:col-span-2">
                                 <div className="flex items-center justify-between">
                                     <Label className="text-base font-semibold">Features</Label>
                                     <Button
