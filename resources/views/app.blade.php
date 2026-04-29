@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" @class(['dark' => ($appearance ?? 'system') == 'dark'])>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" @class(['dark'=> ($appearance ?? 'system') == 'dark'])>
 
 <head>
     <meta charset="utf-8">
@@ -9,7 +9,8 @@
     {{-- Dark mode script --}}
     <script>
         (function() {
-            const appearance = '{{ $appearance ?? 'system' }}';
+            const appearance = '{{ $appearance ?? '
+            system ' }}';
 
             if (appearance === 'system') {
                 const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -20,7 +21,7 @@
             }
         })();
     </script>
-    
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-KLNSK7NCGF"></script>
     <script>
@@ -35,18 +36,18 @@
 
     @verbatim
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "WHY TENNESSEE",
-      "url": "https://whytennessee.com/",
-      "email": "info@whytennessee.com",
-      "description": "WhyTennessee.com is your all-in-one guide to living, moving and buying a home in Tennessee.",
-      "areaServed": "United States",
-      "sameAs": [
-        "https://www.facebook.com/61585187906493/"
-      ]
-    }
+        {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "WHY TENNESSEE",
+            "url": "https://whytennessee.com/",
+            "email": "info@whytennessee.com",
+            "description": "WhyTennessee.com is your all-in-one guide to living, moving and buying a home in Tennessee.",
+            "areaServed": "United States",
+            "sameAs": [
+                "https://www.facebook.com/61585187906493/"
+            ]
+        }
     </script>
     @endverbatim
 
@@ -55,6 +56,7 @@
         html {
             background-color: oklch(1 0 0);
         }
+
         html.dark {
             background-color: oklch(0.145 0 0);
         }
@@ -63,7 +65,7 @@
     <title inertia>@yield('title', config('app.name', 'Why Tennessee'))</title>
 
     <meta name="description"
-          content="@yield('meta_description', 'Why Tennessee – Your complete guide to living, moving, and buying homes in Tennessee.')">
+        content="@yield('meta_description', 'Why Tennessee – Your complete guide to living, moving, and buying homes in Tennessee.')">
 
     <link rel="canonical" href="{{ request()->url() }}">
 
@@ -80,6 +82,32 @@
 
 <body class="font-sans antialiased">
     @inertia
+
+    <!-- Google Tag Manager -->
+    <script>
+        (function(w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start': new Date().getTime(),
+                event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-TP6KMVSJ');
+    </script>
+    <!-- End Google Tag Manager -->
+
+    Jon er header e boshaia den
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TP6KMVSJ"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 </body>
 
 </html>
