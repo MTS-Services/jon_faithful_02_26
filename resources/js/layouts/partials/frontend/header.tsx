@@ -109,7 +109,7 @@ function FrontendHeader({ activePage, subPage }: Props) {
       <div className="hidden lg:block bg-primary  border-b border-gray-200">
         <div className="container mx-auto px-6 py-2 flex justify-between items-center text-sm">
 
-          <Link href="mailto:info@whytennessee.com" className="flex items-center gap-2">
+          <a href="mailto:info@whytennessee.com" className="flex items-center gap-2">
             <span>
               <svg aria-hidden="true" className="w-5 h-5 fill-white" viewBox="0 0 512 512"
                 xmlns="http://www.w3.org/2000/svg">
@@ -118,7 +118,7 @@ function FrontendHeader({ activePage, subPage }: Props) {
                 </path>
               </svg> </span>
             <span className="text-white text-xl">info@whytennessee.com</span>
-          </Link>
+          </a>
           <div className="flex space-x-3">
             <a href="https://www.facebook.com/share/1AFnVNHKu9/?mibextid=wwXIfr" target="_blank"
               className="w-8 h-8 flex items-center justify-center bg-white rounded-full text-muted-foreground shadow-sm hover:bg-secondary group transition-all duration-300">
