@@ -114,8 +114,10 @@ const FrontendFooter: React.FC = () => {
                         </h3>
                         <ul className="space-y-4 text-sm text-gray-600">
                             <li className="flex items-center">
-                                <FaEnvelope className="mr-3 w-5 text-center text-gray-400" />
-                                info@whytennessee.com
+                                <a href="mailto:info@whytennessee.com">
+                                    <FaEnvelope className="mr-3 w-5 text-center text-gray-400" />
+                                    info@whytennessee.com
+                                </a>
                             </li>
                             <li className="flex items-center">
                                 <FaStopwatch className="mr-3 w-5 text-center text-gray-400" />
