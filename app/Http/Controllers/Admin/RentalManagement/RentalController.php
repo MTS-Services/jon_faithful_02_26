@@ -82,7 +82,7 @@ class RentalController extends Controller
 
     public function create($user_id = null): Response
     {
-        $cities = City::all();
+        $cities = City::orderBy('id', 'asc')->get();
         if ($user_id) {
             $users = User::where('is_verified', true)->where('status', ActiveInactive::ACTIVE)->where('id', $user_id)->get();
         } else {
@@ -178,7 +178,7 @@ class RentalController extends Controller
     public function edit($id)
     {
         $rental = Rental::with(['features', 'petEssentials'])->findOrFail($id);
-        $cities = City::all();
+        $cities = City::orderBy('id', 'asc')->get();
         $users = User::where('is_verified', true)->where('status', ActiveInactive::ACTIVE)->get();
         $features = Feature::all();
         $propertyTypes = collect(RentalProperty::cases())
@@ -272,6 +272,28 @@ class RentalController extends Controller
 
         return redirect()->route('admin.rentals.index')
             ->with('success', 'Rental deleted successfully!');
+    }
+
+    public function activate($id)
+    {
+        $rental = Rental::findOrFail($id);
+        $rental->update([
+            'status' => ActiveInactive::ACTIVE->value,
+        ]);
+
+        return redirect()->route('admin.rentals.index')
+            ->with('success', 'Rental activated successfully!');
+    }
+
+    public function inactivate($id)
+    {
+        $rental = Rental::findOrFail($id);
+        $rental->update([
+            'status' => ActiveInactive::INACTIVE->value,
+        ]);
+
+        return redirect()->route('admin.rentals.index')
+            ->with('success', 'Rental inactivated successfully!');
     }
 
     private function storeImage($file, string $path): string

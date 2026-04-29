@@ -10,6 +10,9 @@ class CitySeeder extends Seeder
     public function run(): void
     {
         $cities = [
+            ['name' => 'East Tennessee', 'slug' => 'east-tennessee'],
+            ['name' => 'Middle Tennessee', 'slug' => 'middle-tennessee'],
+            ['name' => 'West Tennessee', 'slug' => 'west-tennessee'],
             ['name' => 'Bristol',        'slug' => 'bristol'],
             ['name' => 'Chattanooga',    'slug' => 'chattanooga'],
             ['name' => 'Cookeville',     'slug' => 'living-in-cookeville'],

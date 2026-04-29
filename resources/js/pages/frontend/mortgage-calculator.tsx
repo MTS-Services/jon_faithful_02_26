@@ -396,7 +396,7 @@ export default function MortgageCalculator() {
                         name: "What should I do after I calculate my payment?",
                         acceptedAnswer: {
                             "@type": "Answer",
-                            text: "The best next step is to compare real mortgage offers, check current rates, or begin the pre-approval process with a trusted lending partner.",
+                            text: "Checking mortgage options usually has little to no impact on your credit score. Many lenders offer pre-qualification tools that use a soft credit check, which does not affect your score at all.",
                         },
                     },
                 ],
@@ -718,9 +718,6 @@ export default function MortgageCalculator() {
                                     Get Matched with a Tennessee Lender
                                 </a>
                             )}
-                            <p className="mt-5 text-xs text-[#9ca3af] mb-0">
-                                Configure your partner URL in the app to open an external lender flow from this button.
-                            </p>
                         </div>
                     </section>
 
@@ -788,11 +785,25 @@ export default function MortgageCalculator() {
                                 </details>
                                 <details className="bg-white border border-[#e5e7eb] rounded-[14px] px-4 py-4 [&>summary]:cursor-pointer [&>summary]:font-bold [&>summary]:text-primary [&>summary]:mb-2">
                                     <summary>Does checking mortgage options hurt my credit?</summary>
-                                    <p className="text-[#6b7280] m-0 text-sm">You can phrase this carefully based on your lender partner&apos;s approved language. Keep your wording aligned with the lender&apos;s compliance requirements.</p>
+                                    <p className="text-[#6b7280] m-0 text-sm">
+                                        Checking mortgage options usually has little to no impact on your credit score. Many lenders offer
+                                        pre-qualification tools that use a soft credit check, which does not affect your score at all.
+                                    </p>
                                 </details>
                                 <details className="bg-white border border-[#e5e7eb] rounded-[14px] px-4 py-4 [&>summary]:cursor-pointer [&>summary]:font-bold [&>summary]:text-primary [&>summary]:mb-2">
                                     <summary>Can I use this calculator if I am moving to Tennessee from another state?</summary>
-                                    <p className="text-[#6b7280] m-0 text-sm">Yes. This page is designed to help relocation buyers estimate affordability before speaking with a lender or local real estate professional.</p>
+                                    <p className="text-[#6b7280] m-0 text-sm">
+                                        Yes. This page is designed to help relocation buyers estimate affordability before speaking with a
+                                        lender or local real estate professional. When you&apos;re ready, use the{' '}
+                                        <button
+                                            type="button"
+                                            onClick={scrollToLenderLeadForm}
+                                            className="font-bold text-secondary underline underline-offset-4 hover:text-primary"
+                                        >
+                                            Get Matched with a Tennessee Lender
+                                        </button>{' '}
+                                        form to connect with a trusted local lender.
+                                    </p>
                                 </details>
                                 <details className="bg-white border border-[#e5e7eb] rounded-[14px] px-4 py-4 [&>summary]:cursor-pointer [&>summary]:font-bold [&>summary]:text-primary [&>summary]:mb-2">
                                     <summary>What should I do after I calculate my payment?</summary>

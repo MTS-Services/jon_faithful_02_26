@@ -27,7 +27,8 @@ export const NavItem = React.memo<NavItemProps>(({
     isActive = false,
     currentRoute = '',
     permissions = [],
-    activeSlug
+    activeSlug,
+    onNavigate,
 }) => {
     const hasActiveChild = useHasActiveChild(item, activeSlug);
     const [isOpen, setIsOpen] = React.useState(hasActiveChild);
@@ -81,7 +82,8 @@ export const NavItem = React.memo<NavItemProps>(({
         if (item.onClick) {
             item.onClick(item, event);
         }
-    }, [item]);
+        onNavigate?.();
+    }, [item, onNavigate]);
 
     if (!userHasPermission) return null;
 
@@ -115,7 +117,7 @@ export const NavItem = React.memo<NavItemProps>(({
                                 {item.badge && <NavItemBadge badge={item.badge} />}
                                 <ChevronDown
                                     className={cn(
-                                        "h-4 w-4 flex-shrink-0 transition-transform duration-200",
+                                        "h-4 w-4 shrink-0 transition-transform duration-200",
                                         isOpen && "rotate-180"
                                     )}
                                 />
@@ -142,6 +144,7 @@ export const NavItem = React.memo<NavItemProps>(({
                                     currentRoute={currentRoute}
                                     permissions={permissions}
                                     activeSlug={activeSlug}
+                                    onNavigate={onNavigate}
                                 />
                             ))}
                         </CollapsibleContent>
@@ -165,6 +168,7 @@ export const NavItem = React.memo<NavItemProps>(({
                                 currentRoute={currentRoute}
                                 permissions={permissions}
                                 activeSlug={activeSlug}
+                                onNavigate={onNavigate}
                             />
                         ))}
                     </NavItemDropdown>
@@ -209,7 +213,7 @@ export const NavItem = React.memo<NavItemProps>(({
             )}
 
             {!isCollapsed && itemIsActive && (
-                <div className="w-1.5 h-1.5 bg-primary rounded-full flex-shrink-0">
+                <div className="h-1.5 w-1.5 shrink-0 rounded-full bg-primary">
                     <div className="absolute w-1.5 h-1.5 bg-primary rounded-full animate-ping" />
                 </div>
             )}

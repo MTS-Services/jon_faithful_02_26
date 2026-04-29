@@ -123,9 +123,8 @@ export default function EditListingHome({ listing, cities, propertyTypes, proper
                 <div className="container mx-auto bg-white rounded-lg shadow-md p-6">
                     <h2 className="text-2xl font-bold text-gray-800 mb-6">Edit Listing</h2>
                     <form onSubmit={handleSubmit}>
-                        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-                            {/* Listing Title */}
-                            <div className="mb-6 w-80 col-span-2">
+                        <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-2">
+                            <div className="w-80 col-span-1 lg:col-span-2">
                                 <div className="grid gap-2">
                                     <Label htmlFor="primary_image_url">Image</Label>
                                     <FileUpload
@@ -140,7 +139,7 @@ export default function EditListingHome({ listing, cities, propertyTypes, proper
                                 </div>
                             </div>
                             {/* Photo Gallery */}
-                            <div className="grid gap-2 mb-6 col-span-2">
+                            <div className="grid gap-2 col-span-1 lg:col-span-2">
                                 <Label htmlFor="gallery_images">Photo Gallery*</Label>
                                 <input
                                     id="gallery_images"
@@ -154,7 +153,7 @@ export default function EditListingHome({ listing, cities, propertyTypes, proper
                                 <InputError message={errors.gallery_images} />
                             </div>
                             {/* Listing Title */}
-                            <div className="grid gap-2 mb-6">
+                            <div className="grid gap-2">
                                 <Label htmlFor="title">Listing Title*</Label>
                                 <Input
                                     id="title"
@@ -166,7 +165,7 @@ export default function EditListingHome({ listing, cities, propertyTypes, proper
                                 <InputError message={errors.title} />
                             </div>
                             {/* Purchase Price */}
-                            <div className="grid gap-2 mb-6">
+                            <div className="grid gap-2">
                                 <Label htmlFor="purchase_price">Purchase Price*</Label>
                                 <Input
                                     id="purchase_price"
@@ -178,8 +177,8 @@ export default function EditListingHome({ listing, cities, propertyTypes, proper
                                 <InputError message={errors.purchase_price} />
                             </div>
                             {/* City */}
-                            <div className="grid gap-2 mb-6">
-                                <Label htmlFor="city_id">City*</Label>
+                            <div className="grid gap-2">
+                                <Label htmlFor="city_id">City and Region*</Label>
                                 <Select
                                     value={data.city_id}
                                     onValueChange={(value) => setData('city_id', value)}
@@ -197,7 +196,7 @@ export default function EditListingHome({ listing, cities, propertyTypes, proper
                                 </Select>
                                 <InputError message={errors.city_id} />
                             </div>
-                            <div className="grid gap-2 mb-6">
+                            <div className="grid gap-2">
                                 <Label htmlFor="address">Address</Label>
                                 <Input
                                     id="address"
@@ -210,7 +209,7 @@ export default function EditListingHome({ listing, cities, propertyTypes, proper
                             </div>
 
                             {/* Listing Status */}
-                            <div className="grid gap-2 mb-6">
+                            <div className="grid gap-2">
                                 <Label htmlFor="listing_status">Listing Status*</Label>
                                 <Select
                                     value={data.listing_status}
@@ -231,7 +230,7 @@ export default function EditListingHome({ listing, cities, propertyTypes, proper
                             </div>
 
                             {/* Property Type */}
-                            <div className="grid gap-2 mb-6">
+                            <div className="grid gap-2">
                                 <Label htmlFor="property_type">Home Type*</Label>
                                 <Select
                                     value={data.property_type}
@@ -252,7 +251,7 @@ export default function EditListingHome({ listing, cities, propertyTypes, proper
                             </div>
 
                             {/* Bedrooms */}
-                            <div className="grid gap-2 mb-6">
+                            <div className="grid gap-2">
                                 <Label htmlFor="bedrooms">Bedrooms*</Label>
                                 <Input
                                     id="bedrooms"
@@ -266,7 +265,7 @@ export default function EditListingHome({ listing, cities, propertyTypes, proper
                             </div>
 
                             {/* Bathrooms */}
-                            <div className="grid gap-2 mb-6">
+                            <div className="grid gap-2">
                                 <Label htmlFor="bathrooms">Bathrooms*</Label>
                                 <Input
                                     id="bathrooms"
@@ -280,7 +279,7 @@ export default function EditListingHome({ listing, cities, propertyTypes, proper
                             </div>
 
                             {/* Square Feet */}
-                            <div className="grid gap-2 mb-8">
+                            <div className="grid gap-2">
                                 <Label htmlFor="square_feet">Square Feet*</Label>
                                 <Input
                                     id="square_feet"
@@ -293,7 +292,7 @@ export default function EditListingHome({ listing, cities, propertyTypes, proper
                                 <InputError message={errors.square_feet} />
                             </div>
                             {/* Square Youtube Video */}
-                            <div className="grid gap-2 mb-6 col-span-2">
+                            <div className="grid gap-2 col-span-1 lg:col-span-2">
                                 <Label htmlFor="youtube_video_url">YouTube Video URL</Label>
                                 <Input
                                     id="youtube_video_url"
@@ -306,7 +305,7 @@ export default function EditListingHome({ listing, cities, propertyTypes, proper
                             </div>
 
                             {/* Listing Description */}
-                            <div className="grid gap-2 mb-6 col-span-2">
+                            <div className="grid gap-2 col-span-1 lg:col-span-2">
                                 <Label htmlFor="description">Listing Description*</Label>
                                 <textarea
                                     id="description"

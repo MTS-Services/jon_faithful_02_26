@@ -81,7 +81,7 @@ const tabs = [
     ],
     footer:
       'For Californians used to high state costs, these differences can free up room in the budget for savings, travel, and a more sustainable lifestyle.',
-    imageUrl: '/assets/images/california-tennessee/la-jolla-california-veranda.jpg',
+    imageUrl: '/assets/images/home-ownership-process-real-estate-mortgage-compliance.jpeg',
   },
   {
     id: 'tab2',
@@ -104,7 +104,7 @@ const tabs = [
     ],
     footer:
       'This doesn’t mean Tennessee lacks culture, but understanding the differences in pace and community helps set expectations before you move.',
-    imageUrl: '/assets/images/live-in-tennessee/tennessee-state-capitol-building-nashville-aerial.jpeg',
+    imageUrl: '/assets/images/california-tennessee/southern-porch-rocking-chairs-rural-landscape.jpeg',
   },
   {
     id: 'tab3',
@@ -125,7 +125,7 @@ const tabs = [
     ],
     footer:
       'Being prepared for humidity and seasonal changes makes the transition from California’s climate much smoother.',
-    imageUrl: '/assets/images/live-in-tennessee/tennessee-state-capitol-building-nashville-aerial.jpeg',
+    imageUrl: '/assets/images/california-tennessee/couple-camping-blue-ridge-mountains-looking-glass-rock.jpeg',
   },
   {
     id: 'tab4',
@@ -143,7 +143,7 @@ const tabs = [
     ],
     footer:
       'If your income stays “California level” while your expenses drop to Tennessee levels, your financial picture can change quickly.',
-    imageUrl: '/assets/images/live-in-tennessee/tennessee-state-capitol-building-nashville-aerial.jpeg',
+    imageUrl: '/assets/images/california-tennessee/collaborative-business-strategy-brainstorming-session.jpeg',
   },
   {
     id: 'tab5',
@@ -161,7 +161,7 @@ const tabs = [
     items2: null,
     footer:
       'Each region offers a different lifestyle — and choosing the right one is key to a successful relocation.',
-    imageUrl: '/assets/images/live-in-tennessee/tennessee-state-capitol-building-nashville-aerial.jpeg',
+    imageUrl: '/assets/images/california-tennessee/Exploring-the-popular-locations-in-downtown-Memphis_Tennessee.jpeg',
   },
 ];
 

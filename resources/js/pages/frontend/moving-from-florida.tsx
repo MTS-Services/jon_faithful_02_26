@@ -63,7 +63,7 @@ const tabs = [
       'Tennessee average: $1,200–$2,000 per year',
     ],
     footer: 'That’s $2,000–$4,000/year savings just in insurance',
-    imageUrl: '/assets/images/florida-tennessee/key-biscayne.jpg',
+    imageUrl: '/assets/images/florida-tennessee/residential-real-estate-property-listing.jpe',
   },
   {
     id: 'tab-housing',
@@ -86,7 +86,7 @@ const tabs = [
     ],
     footer:
       'Real Example: Tampa median home: ~$420K. Nashville median home: ~$430K. BUT outside Nashville (like East TN): $250K–$350K range. Investor insight: Tennessee gives you better cash flow, lower holding costs, and less risk.',
-    imageUrl: '/assets/images/live-in-tennessee/tennessee-state-capitol-building-nashville-aerial.jpeg',
+    imageUrl: '/assets/images/florida-tennessee/modern-suburban-luxury-home-exterior.jpeg',
   },
   {
     id: 'tab-taxes',
@@ -103,7 +103,7 @@ const tabs = [
       '✔ Lower Overall Cost Burden in Tennessee — When you combine property tax, insurance, and housing costs.',
     ],
     footer: 'Tennessee wins financially for most homeowners.',
-    imageUrl: '/assets/images/live-in-tennessee/tennessee-state-capitol-building-nashville-aerial.jpeg',
+    imageUrl: '/assets/images/home-ownership-process-real-estate-mortgage-compliance.jpeg',
   },
   {
     id: 'tab-lifestyle',
@@ -125,20 +125,20 @@ const tabs = [
       'Larger coastal metro feel',
     ],
     footer: 'Tennessee lifestyle = More scenic, less chaotic, lower stress',
-    imageUrl: '/assets/images/live-in-tennessee/tennessee-state-capitol-building-nashville-aerial.jpeg',
+    imageUrl: '/assets/images/florida-tennessee/professional-cyclist-road-racing-action.jpe',
   },
   {
     id: 'tab-jobs',
     label: 'Job Market',
     title: '📈 Job Market Comparison',
     intro: 'Florida Strengths:',
-    intro2: null,
     intro3: null,
     items: ['Tourism', 'Hospitality', 'Healthcare'],
-    items2: ['Tennessee Strengths:', 'Healthcare (huge in Nashville)', 'Manufacturing', 'Logistics'],
+    item2Intro: 'Tennessee Strengths:',
+    items2: ['Healthcare (huge in Nashville)', 'Manufacturing', 'Logistics'],
     footer:
       'Tennessee is growing fast, especially in: Nashville (corporate + healthcare hub), Knoxville & Chattanooga (mid-size growth markets).',
-    imageUrl: '/assets/images/live-in-tennessee/tennessee-state-capitol-building-nashville-aerial.jpeg',
+    imageUrl: '/assets/images/florida-tennessee/laravel-javascript-software-development-process.jpeg',
   },
 ];
 

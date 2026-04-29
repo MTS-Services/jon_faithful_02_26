@@ -141,16 +141,16 @@ export default function Edit({ listing, cities, propertyTypes, propertyStatuses,
         <AdminLayout activeSlug="listings">
             <Head title={`Edit - ${listing.title}`} />
 
-            <CardContent>
-                <CardHeader className="flex flex-row justify-between">
+            <CardContent className="p-0 lg:p-6">
+                <CardHeader className="flex flex-row justify-between items-center p-0 lg:p-6 mb-6 lg:mb-0">
                     <CardTitle className='text-2xl'>Edit Listing: {listing.title}</CardTitle>
                     <ActionButton href={route('admin.listing.index')} IconNode={ArrowLeft}>Back</ActionButton>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="p-0 lg:p-6">
                     <form onSubmit={handleSubmit}>
                         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
                             {/* Listing Title */}
-                            <div className="mb-6 w-80 col-span-2">
+                            <div className="w-80 col-span-1 lg:col-span-2">
                                 <div className="grid gap-2">
                                     <Label htmlFor="primary_image_url">Image</Label>
                                     <FileUpload
@@ -165,7 +165,7 @@ export default function Edit({ listing, cities, propertyTypes, propertyStatuses,
                                 </div>
                             </div>
                             {/* Photo Gallery */}
-                            <div className="grid gap-2 mb-6 col-span-2">
+                            <div className="grid gap-2 col-span-1 lg:col-span-2">
                                 <Label htmlFor="gallery_images">Photo Gallery*</Label>
                                 <input
                                     id="gallery_images"
@@ -202,7 +202,7 @@ export default function Edit({ listing, cities, propertyTypes, propertyStatuses,
                                 <InputError message={errors.user_id} />
                             </div>
                             {/* Listing Title */}
-                            <div className="grid gap-2 mb-6">
+                            <div className="grid gap-2">
                                 <Label htmlFor="title">Listing Title*</Label>
                                 <Input
                                     id="title"
@@ -214,7 +214,7 @@ export default function Edit({ listing, cities, propertyTypes, propertyStatuses,
                                 <InputError message={errors.title} />
                             </div>
                             {/* Purchase Price */}
-                            <div className="grid gap-2 mb-6">
+                            <div className="grid gap-2">
                                 <Label htmlFor="purchase_price">Purchase Price*</Label>
                                 <Input
                                     id="purchase_price"
@@ -226,8 +226,8 @@ export default function Edit({ listing, cities, propertyTypes, propertyStatuses,
                                 <InputError message={errors.purchase_price} />
                             </div>
                             {/* City */}
-                            <div className="grid gap-2 mb-6">
-                                <Label htmlFor="city_id">City*</Label>
+                            <div className="grid gap-2">
+                                <Label htmlFor="city_id">City and/or Region*</Label>
                                 <Select
                                     value={data.city_id}
                                     onValueChange={(value) => setData('city_id', value)}
@@ -245,7 +245,7 @@ export default function Edit({ listing, cities, propertyTypes, propertyStatuses,
                                 </Select>
                                 <InputError message={errors.city_id} />
                             </div>
-                            <div className="grid gap-2 mb-6">
+                            <div className="grid gap-2">
                                 <Label htmlFor="address">Address</Label>
                                 <Input
                                     id="address"
@@ -279,7 +279,7 @@ export default function Edit({ listing, cities, propertyTypes, propertyStatuses,
                             </div>
 
                             {/* Listing Status */}
-                            <div className="grid gap-2 mb-6">
+                            <div className="grid gap-2">
                                 <Label htmlFor="listing_status">Listing Status*</Label>
                                 <Select
                                     value={data.listing_status}
@@ -300,7 +300,7 @@ export default function Edit({ listing, cities, propertyTypes, propertyStatuses,
                             </div>
 
                             {/* Property Type */}
-                            <div className="grid gap-2 mb-6">
+                            <div className="grid gap-2">
                                 <Label htmlFor="property_type">Home Type*</Label>
                                 <Select
                                     value={data.property_type}
@@ -321,7 +321,7 @@ export default function Edit({ listing, cities, propertyTypes, propertyStatuses,
                             </div>
 
                             {/* Bedrooms */}
-                            <div className="grid gap-2 mb-6">
+                            <div className="grid gap-2">
                                 <Label htmlFor="bedrooms">Bedrooms*</Label>
                                 <Input
                                     id="bedrooms"
@@ -335,7 +335,7 @@ export default function Edit({ listing, cities, propertyTypes, propertyStatuses,
                             </div>
 
                             {/* Bathrooms */}
-                            <div className="grid gap-2 mb-6">
+                            <div className="grid gap-2">
                                 <Label htmlFor="bathrooms">Bathrooms*</Label>
                                 <Input
                                     id="bathrooms"
@@ -362,7 +362,7 @@ export default function Edit({ listing, cities, propertyTypes, propertyStatuses,
                                 <InputError message={errors.square_feet} />
                             </div>
                             {/* Square Youtube Video */}
-                            <div className="grid gap-2 mb-6 col-span-2">
+                            <div className="grid gap-2 col-span-1 lg:col-span-2">
                                 <Label htmlFor="youtube_video_url">YouTube Video URL</Label>
                                 <Input
                                     id="youtube_video_url"
@@ -375,7 +375,7 @@ export default function Edit({ listing, cities, propertyTypes, propertyStatuses,
                             </div>
 
                             {/* Listing Description */}
-                            <div className="grid gap-2 mb-6 col-span-2">
+                            <div className="grid gap-2 col-span-1 lg:col-span-2">
                                 <Label htmlFor="description">Listing Description*</Label>
                                 <textarea
                                     id="description"
@@ -389,7 +389,7 @@ export default function Edit({ listing, cities, propertyTypes, propertyStatuses,
                             </div>
 
                             {/* features Section */}
-                            {/* <div className="grid gap-2 mb-8 col-span-2">
+                            {/* <div className="grid gap-2 mb-8 col-span-1 lg:col-span-2">
                                 <div className="flex items-center justify-between">
                                     <Label className="text-base font-semibold">features</Label>
                                     <Button type="button" size="sm" onClick={addNewFacility}>+ Add New</Button>

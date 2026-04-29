@@ -11,7 +11,7 @@ import {
 import { useInitials } from '@/hooks/use-initials';
 import { type BreadcrumbItem, type SharedData, type NavItemType } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
-import { ChevronsLeft, ChevronsRight, Search, BellIcon, } from 'lucide-react';
+import { ChevronsLeft, ChevronsRight, Menu, Search, BellIcon, X, } from 'lucide-react';
 import * as React from 'react';
 import { NavigationMenu, NavigationMenuItem, NavigationMenuList, navigationMenuTriggerStyle } from '@/components/ui/navigation-menu';
 import { cn, toUrl } from '@/lib/utils';
@@ -30,13 +30,20 @@ import { AdminMenuContent } from '@/components/admin-menu-content';
 
 interface AdminHeaderProps {
     isCollapsed: boolean;
+    isMobileMenuOpen: boolean;
+    setIsMobileMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
     setIsCollapsed: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const activeItemStyles =
     'text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100';
 
-export function AdminHeader({ isCollapsed, setIsCollapsed }: AdminHeaderProps) {
+export function AdminHeader({
+    isCollapsed,
+    isMobileMenuOpen,
+    setIsMobileMenuOpen,
+    setIsCollapsed,
+}: AdminHeaderProps) {
     const { auth } = usePage<SharedData>().props;
     const getInitials = useInitials();
     const page = usePage<SharedData>();
@@ -48,6 +55,15 @@ export function AdminHeader({ isCollapsed, setIsCollapsed }: AdminHeaderProps) {
             <Button
                 variant="outline"
                 size="icon"
+                className="md:hidden"
+                onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+            >
+                {isMobileMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+            </Button>
+            <Button
+                variant="outline"
+                size="icon"
+                className="hidden md:inline-flex"
                 onClick={() => setIsCollapsed(!isCollapsed)}
             >
                 {isCollapsed ? <ChevronsRight className="h-4 w-4" /> : <ChevronsLeft className="h-4 w-4" />}

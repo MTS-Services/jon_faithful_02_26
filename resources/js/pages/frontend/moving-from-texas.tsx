@@ -79,21 +79,11 @@ const tabs = [
     label: 'Taxes',
     title: '🧾 Taxes: The Biggest Advantage of Moving to Tennessee',
     intro: 'This is where Tennessee dominates.',
-    intro2: '✔ No State Income Tax (same as Texas)',
+    intro2: '✔ No State Income Tax (same as Texas):',
     intro3: null,
-    items: ['Both states let you keep your paycheck.'],
-    items2: [
-      '✔ MASSIVE Property Tax Savings',
-      'Texas: ~1.36%',
-      'Tennessee: ~0.49%',
-      '👉 On a $400,000 house:',
-      'Texas ≈ $5,400/year',
-      'Tennessee ≈ $2,000/year',
-      'That’s $3,000+ savings every year',
-      '✔ Lower Overall Tax Burden',
-      'Tennessee total tax burden ≈ 5.75%',
-      'Texas ≈ 8.22%',
-    ],
+    items: ['Both states let you keep your paycheck.', '✔ MASSIVE Property Tax Savings', 'Texas: ~1.36%', 'Tennessee: ~0.49%'],
+    item2Intro: '👉 On a $400,000 house:',
+    items2: ['Texas ≈ $5,400/year', 'Tennessee ≈ $2,000/year', 'That’s $3,000+ savings every year', '✔ Lower Overall Tax Burden', 'Tennessee total tax burden ≈ 5.75%', 'Texas ≈ 8.22%'],
     imageUrl: '/assets/images/texas-to-tennessee/pigeon-forge-tennessee-Kevin-Ruck.jpg',
   },
   {
@@ -218,11 +208,11 @@ export default function MovingFromTexas() {
             </table>
           </div>
           <div className="mt-12 text-center bg-indigo-500/10 border border-indigo-500/20 rounded-xl p-6 max-w-2xl mx-auto">
-                <span className="text-sm font-medium text-secondary uppercase tracking-wide block mb-3">Big Takeaway</span>
-                <p className="text-lg text-slate-200 leading-relaxed tracking-tight">Tennessee = lower taxes overall</p>
-                <p className="text-lg text-slate-200 leading-relaxed tracking-tight">Texas = slightly cheaper housing in some areas</p>
-                <p className="text-lg text-slate-200 leading-relaxed tracking-tight">Overall cost = very similar (but Tennessee often wins long-term)</p>
-            </div>
+            <span className="text-sm font-medium text-secondary uppercase tracking-wide block mb-3">Big Takeaway</span>
+            <p className="text-lg text-slate-200 leading-relaxed tracking-tight">Tennessee = lower taxes overall</p>
+            <p className="text-lg text-slate-200 leading-relaxed tracking-tight">Texas = slightly cheaper housing in some areas</p>
+            <p className="text-lg text-slate-200 leading-relaxed tracking-tight">Overall cost = very similar (but Tennessee often wins long-term)</p>
+          </div>
         </div>
       </section>
 

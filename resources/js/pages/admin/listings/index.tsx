@@ -6,9 +6,8 @@ import { useDataTable } from '@/hooks/use-data-table';
 import { PaginationData, ColumnConfig, ActionConfig } from '@/types/data-table.types'
 import { Badge } from '@/components/ui/badge'
 import { Listing } from '@/types/model'
-import { Eye, Pencil, Plus, Trash2 } from 'lucide-react'
+import { Check, Eye, Pencil, Plus, Trash2, X } from 'lucide-react'
 import { ActionButton } from '@/components/ui/action-button'
-import { Button } from '@/components/ui/button'
 
 interface FilterOption {
   value: string
@@ -51,7 +50,6 @@ export default function index({
   } = useDataTable({
     only: ['listings', 'pagination', 'offset', 'filters', 'search', 'sortBy', 'sortOrder', 'users', 'propertyTypes', 'listingStatuses'],
   });
-
   const columns: ColumnConfig<Listing>[] = [
     {
       key: 'title',
@@ -148,6 +146,22 @@ export default function index({
       },
     },
     {
+      label: 'Activate',
+      icon: <Check className="h-4 w-4 text-green-500" />,
+      onClick: (item) => {
+        router.visit(route('admin.listing.activate', item?.id));
+      },
+      show: (item) => item.status !== 'active',
+    },
+    {
+      label: 'Inactivate',
+      icon: <X className="h-4 w-4 text-red-500" />,
+      onClick: (item) => {
+        router.visit(route('admin.listing.inactivate', item?.id));
+      },
+      show: (item) => item.status === 'active',
+    },
+    {
       label: 'Delete',
       icon: <Trash2 className="h-4 w-4" />,
       onClick: (item) => {
@@ -163,7 +177,7 @@ export default function index({
       <Head title="Listing Homes" />
 
       <div className="flex justify-between items-center">
-        <h2 className="text-3xl font-bold text-slate-900 mb-6">
+        <h2 className="text-xl lg:text-2xl font-bold text-slate-900">
           Listing Homes
         </h2>
         <ActionButton href={route('admin.listing.create')} IconNode={Plus} >Create</ActionButton>

@@ -130,7 +130,7 @@ class FrontendController extends Controller
                filters: $filters
           );
 
-          $cities = City::orderBy('name')->get();
+          $cities = City::orderBy('id', 'asc')->get();
 
           return Inertia::render('frontend/homes-for-sale', [
                'listings' => $listings,
@@ -156,7 +156,7 @@ class FrontendController extends Controller
                'square_feet',
                'property_type'
           ]);
-          $cities = City::all();
+          $cities = City::orderBy('id', 'asc')->get();
 
           $rentals = $this->rentalService->getPaginatedDatas(
                perPage: 9,
@@ -174,7 +174,7 @@ class FrontendController extends Controller
      }
      public function realEstateAgents(Request $request): Response
      {
-          $cities = City::orderBy('name')->get();
+          $cities = City::orderBy('id', 'asc')->get();
           $selectedCityIds = $request->input('cities') ? explode(',', $request->input('cities')) : [];
 
           $filterByCity = function ($query) use ($selectedCityIds) {
@@ -421,7 +421,7 @@ class FrontendController extends Controller
 
      public function getInTouch(): Response
      {
-          $cities = City::all();
+          $cities = City::orderBy('id', 'asc')->get();
           return Inertia::render('frontend/get-in-touch', [
                'cities' => $cities,
                'interested_in_options' => collect(InterestedIn::cases())->map(fn($status) => [
@@ -493,7 +493,7 @@ class FrontendController extends Controller
 
      public function realtor(Request $request): Response
      {
-          $cities = City::all();
+          $cities = City::orderBy('id', 'asc')->get();
 
           // Get selected cities from the query string (e.g., ?cities=1,2,3)
           $selectedCityIds = $request->input('cities') ? explode(',', $request->input('cities')) : [];

@@ -37,7 +37,7 @@ class UserAuthController extends Controller
     public function register(): Response
     {
         return Inertia::render('auth/register', [
-            'cities' => City::orderBy('name')->get(['id', 'name']),
+            'cities' => City::orderBy('id', 'asc')->get(['id', 'name']),
             'formDefaults' => [
                 'username' => (string) old('username', ''),
                 'name' => (string) old('name', ''),

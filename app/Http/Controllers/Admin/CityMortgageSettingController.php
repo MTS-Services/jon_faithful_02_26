@@ -28,7 +28,7 @@ class CityMortgageSettingController extends Controller
             'sortable' => ['id', 'base_price', 'down_payment', 'annual_tax', 'annual_insurance', 'is_active', 'created_at'],
         ]);
 
-        $cities = City::orderBy('name')->get(['id', 'name']);
+        $cities = City::orderBy('id', 'asc')->get(['id', 'name']);
 
         return Inertia::render('admin/mortgage-settings/index', [
             'settings' => $result['data'],

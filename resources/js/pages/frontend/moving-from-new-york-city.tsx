@@ -78,7 +78,8 @@ const tabs = [
     ],
     footer:
       'New Yorkers accustomed to state, city, and local income taxes often save thousands of dollars per year after relocating.',
-    imageUrl: '/assets/images/new-york-city/New-York-City.jpg',
+    // imageUrl: '/assets/images/new-york-city/New-York-City.jpg',
+    imageUrl: '/assets/images/home-ownership-process-real-estate-mortgage-compliance.jpeg',
   },
   {
     id: 'tab3',
@@ -100,7 +101,8 @@ const tabs = [
     ],
     footer:
       'For many New Yorkers, this adjustment is welcome — but it can take time.',
-    imageUrl: '/assets/images/live-in-tennessee/tennessee-state-capitol-building-nashville-aerial.jpeg',
+    // imageUrl: '/assets/images/live-in-tennessee/tennessee-state-capitol-building-nashville-aerial.jpeg',
+    imageUrl: '/assets/images/new-york-city/ACTIVE-Young-couple-biking-on-a-forest-road-in-mountain-on-a-spring-day.jpeg',
   },
   {
     id: 'tab4',
@@ -121,7 +123,7 @@ const tabs = [
     ],
     footer:
       'If you’re leaving harsh New York winters, Tennessee’s climate often feels like a major upgrade - though summer humidity can surprise newcomers.',
-    imageUrl: '/assets/images/live-in-tennessee/tennessee-state-capitol-building-nashville-aerial.jpeg',
+    imageUrl: '/assets/images/new-york-city/Fall-off-The-Blue-Ridge- Parkway.jpeg',
   },
   {
     id: 'tab5',
@@ -130,15 +132,12 @@ const tabs = [
     intro: 'Tennessee’s economy continues to grow as businesses and workers relocate from high-cost states.',
     intro2: 'Major industries include:',
     intro3: 'Remote and hybrid work',
-    items: ['Healthcare', 'Logistics and distribution', 'Manufacturing', 'Technology', 'Music, entertainment, and tourism'],
-    items2: [
-      'Many former New Yorkers keep remote jobs after relocating.',
+    items: ['Healthcare', 'Logistics and distribution', 'Manufacturing', 'Technology', 'Music, entertainment, and tourism', 'Many former New Yorkers keep remote jobs after relocating.',
       'Others transfer with expanding companies or start small businesses.',
-      'Tennessee’s lower cost structure makes entrepreneurship more accessible.',
-    ],
+      'Tennessee’s lower cost structure makes entrepreneurship more accessible.',],
     footer:
       'Tennessee’s lower cost structure makes entrepreneurship more accessible.',
-    imageUrl: '/assets/images/live-in-tennessee/tennessee-state-capitol-building-nashville-aerial.jpeg',
+    imageUrl: '/assets/images/new-york-city/healthcare-professionals-team-medical-care-collaboration.jpeg',
   },
 ];
 
@@ -173,8 +172,8 @@ export default function MovingFromNewYorkCity() {
       <Hero
         slides={['/assets/images/new-york-city/newnycguidemain.jpeg']}
         title={<>
-        {/* Moving to Tennessee from New York: <br /> */}
-         A Complete 2026 Relocation Guide</>}
+          {/* Moving to Tennessee from New York: <br /> */}
+          A Complete 2026 Relocation Guide</>}
         description={
           <>
             <p className="mb-2">
@@ -207,7 +206,7 @@ export default function MovingFromNewYorkCity() {
         <div className="container mx-auto px-4 relative z-10 text-center">
           <h2 className="text-3xl font-bold text-white mb-4">Best Places in Tennessee for New Yorkers </h2>
           <p className="text-slate-300 max-w-2xl mx-auto mb-16">
-           Choosing the right area is critical for a successful relocation.
+            Choosing the right area is critical for a successful relocation.
           </p>
 
           <div className="grid sm:grid-cols-3 gap-8">

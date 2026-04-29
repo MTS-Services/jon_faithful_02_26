@@ -2,17 +2,17 @@
 
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\CityMortgageSettingController;
 use App\Http\Controllers\Admin\ContactUsController;
 use App\Http\Controllers\Admin\ExternalLinkSubmiition;
 use App\Http\Controllers\Admin\ListingController;
 use App\Http\Controllers\Admin\MortgageLeadController;
 use App\Http\Controllers\Admin\NewsletterController;
-use App\Http\Controllers\Admin\SeoPageController;
-use App\Http\Controllers\Admin\CityMortgageSettingController;
-use App\Http\Controllers\Admin\RentalManagement\RentalController;
-use App\Http\Controllers\Admin\UserManagement\UserController;
 use App\Http\Controllers\Admin\RentalManagement\FeatureCategoryController;
 use App\Http\Controllers\Admin\RentalManagement\FeatureController;
+use App\Http\Controllers\Admin\RentalManagement\RentalController;
+use App\Http\Controllers\Admin\SeoPageController;
+use App\Http\Controllers\Admin\UserManagement\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -68,6 +68,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/homes-details/{listing}', 'details')->name('details');
             Route::get('/edit-listing-home/{listing}', 'edit')->name('edit');
             Route::put('/update-listing-home/{listing}', 'update')->name('update');
+            Route::get('/activate/{listing}', 'activate')->name('activate');
+            Route::get('/inactivate/{listing}', 'inactivate')->name('inactivate');
             Route::get('/delete-listing-home/{listing}', 'delete')->name('delete');
             // Facilities
 
@@ -79,6 +81,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/edit/{id}', 'edit')->name('edit');
             Route::post('/update/{id}', 'update')->name('update');
             Route::get('/details/{rental}', 'details')->name('details');
+            Route::get('/activate/{id}', 'activate')->name('activate');
+            Route::get('/inactivate/{id}', 'inactivate')->name('inactivate');
             Route::get('/delete/{id}', 'delete')->name('delete');
         });
         Route::get('/external-link', [ExternalLinkSubmiition::class, 'externalLink'])->name('external-link');
@@ -107,7 +111,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::put('/{seoPage}', 'update')->name('update');
             Route::post('/generate-sitemap', 'generateSitemap')->name('generate-sitemap');
         });
-        
+
         Route::prefix('mortgage-leads')->as('mortgage-leads.')->controller(MortgageLeadController::class)->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('/delete/{mortgageLead}', 'delete')->name('delete');

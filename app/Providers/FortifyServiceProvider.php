@@ -75,7 +75,7 @@ class FortifyServiceProvider extends ServiceProvider
         ]));
 
         Fortify::registerView(fn (Request $request) => Inertia::render('auth/register', [
-            'cities' => City::orderBy('name')->get(['id', 'name']),
+            'cities' => City::orderBy('id', 'asc')->get(['id', 'name']),
             'formDefaults' => [
                 'username' => (string) old('username', ''),
                 'name' => (string) old('name', ''),

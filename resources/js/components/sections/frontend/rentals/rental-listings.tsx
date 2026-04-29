@@ -271,7 +271,7 @@ export default function RentalListings({ rentals, cities, filters = {} }: Props)
                             </div>
 
                             <div className="mb-3 rounded-xl bg-background p-4 font-montserrat font-semibold text-primary shadow">
-                                <h4 className="mb-3 font-semibold">Rental City</h4>
+                                <h4 className="mb-3 font-semibold">City and/or Region</h4>
                                 <div className="space-y-2">
                                     {cities?.map((city: any) => (
                                         <label key={city.id} className="flex cursor-pointer items-center gap-2 font-medium">

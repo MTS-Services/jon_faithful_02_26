@@ -34,7 +34,7 @@ class ListingHomeController extends Controller
 
     public function addListing(): Response
     {
-        $cities = City::all(['id', 'name']);
+        $cities = City::orderBy('id', 'asc')->get(['id', 'name']);
 
         return Inertia::render('user/listings-homes/add-listing-home', [
             'cities' => $cities,
@@ -99,7 +99,7 @@ class ListingHomeController extends Controller
     {
         $listing = Listing::findOrFail($id)->load('features');
 
-        $cities = City::all(['id', 'name']);
+        $cities = City::orderBy('id', 'asc')->get(['id', 'name']);
 
         return Inertia::render('user/listings-homes/edit-listing-home', [
             'listing' => [

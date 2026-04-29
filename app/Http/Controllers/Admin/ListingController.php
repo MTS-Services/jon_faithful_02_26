@@ -95,7 +95,7 @@ class ListingController extends Controller
 
     public function create($user_id = null): Response
     {
-        $cities = City::all(['id', 'name']);
+        $cities = City::orderBy('id', 'asc')->get(['id', 'name']);
         if ($user_id) {
             $users = User::where('is_verified', true)->where('status', ActiveInactive::ACTIVE)->where('id', $user_id)->get();
         } else {
@@ -188,7 +188,7 @@ class ListingController extends Controller
                 ...$listing->toArray(),
                 'features' => $currentFacilityIds, // Pass just IDs for the form
             ],
-            'cities' => City::all(['id', 'name']),
+            'cities' => City::orderBy('id', 'asc')->get(['id', 'name']),
             'propertyTypes' => collect(ListingProperty::cases())->map(fn ($type) => [
                 'value' => $type->value,
                 'label' => $type->label(),
@@ -257,5 +257,23 @@ class ListingController extends Controller
         } catch (\Exception $e) {
             return redirect()->route('admin.listing.index')->with('error', 'Failed to delete listing.');
         }
+    }
+
+    public function activate(Listing $listing)
+    {
+        $listing->update([
+            'status' => ActiveInactive::ACTIVE->value,
+        ]);
+
+        return redirect()->route('admin.listing.index')->with('success', 'Listing activated successfully.');
+    }
+
+    public function inactivate(Listing $listing)
+    {
+        $listing->update([
+            'status' => ActiveInactive::INACTIVE->value,
+        ]);
+
+        return redirect()->route('admin.listing.index')->with('success', 'Listing inactivated successfully.');
     }
 }

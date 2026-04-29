@@ -40,7 +40,7 @@ export default function Index() {
   return (
     <AdminLayout activeSlug={'dashboard'}>
       <Head title="Admin Dashboard" />
-      <div className="flex flex-col gap-6 p-6">
+      <div className="flex flex-col gap-6 p-0 lg:p-6">
         <div className="grid gap-4 md:grid-cols-3">
           <StatCard
             title="Total Users"
