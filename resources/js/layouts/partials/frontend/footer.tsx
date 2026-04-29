@@ -91,16 +91,16 @@ const FrontendFooter: React.FC = () => {
                         </h3>
 
                         <div className="space-y-3 text-sm text-gray-600">
-                            <div className="block grid-cols-2 gap-1.5 md:grid">
+                            <div className="grid gap-1.5 ">
                                 {quickLinks.map((link) => (
                                     <div className="" key={link.name}>
-                                        <a
+                                        <Link
                                             href={link.href}
                                             className="group flex items-center transition hover:text-black"
                                         >
                                             <FaArrowCircleRight className="mr-2 text-gray-400 transition-colors group-hover:text-primary" />
                                             {link.name}
-                                        </a>
+                                        </Link>
                                     </div>
                                 ))}
                             </div>
@@ -113,28 +113,28 @@ const FrontendFooter: React.FC = () => {
                             Information
                         </h3>
                         <ul className="space-y-4 text-sm text-gray-600">
-                            <li className="flex items-center">
+                            <li className="flex items-center group hover:text-black">
                                 <a href="mailto:info@whytennessee.com">
-                                    <FaEnvelope className="mr-3 w-5 text-center text-gray-400" />
-                                    info@whytennessee.com
+                                    <FaEnvelope className="mr-3 w-5 text-center text-gray-400 inline-block" />
+                                    <span className="group-hover:underline">info@whytennessee.com</span>
                                 </a>
                             </li>
-                            <li className="flex items-center">
+                            <li className="flex items-center hover:text-black">
                                 <FaStopwatch className="mr-3 w-5 text-center text-gray-400" />
                                 Typically within 24 hours
                             </li>
-                            <li className="flex items-center">
+                            <li className="flex items-center hover:text-black">
                                 <FaAddressBook className="mr-3 w-5 text-center text-gray-400" />
                                 United States
                             </li>
                             <li className="flex items-center">
-                                <a
+                                <Link
                                     href={route('frontend.get-in-touch')}
                                     className="flex items-center transition hover:text-black"
                                 >
                                     <FaAddressBook className="mr-3 w-5 text-center text-gray-400" />
                                     Contact Us
-                                </a>
+                                </Link>
                             </li>
                         </ul>
                     </div>
