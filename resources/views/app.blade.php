@@ -9,8 +9,7 @@
     {{-- Dark mode script --}}
     <script>
         (function() {
-            const appearance = '{{ $appearance ?? '
-            system ' }}';
+            const appearance = "{{ $appearance ?? 'system' }}";
 
             if (appearance === 'system') {
                 const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -22,8 +21,10 @@
         })();
     </script>
 
+    @if (config('services.google_analytics.measurement_id'))
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KLNSK7NCGF"></script>
+    <script async
+        src="https://www.googletagmanager.com/gtag/js?id={{ config('services.google_analytics.measurement_id') }}"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
 
@@ -31,8 +32,11 @@
             dataLayer.push(arguments);
         }
         gtag('js', new Date());
-        gtag('config', 'G-KLNSK7NCGF');
+        gtag('config', "{{ config('services.google_analytics.measurement_id') }}", {
+            send_page_view: false
+        });
     </script>
+    @endif
 
     @verbatim
     <script type="application/ld+json">
@@ -98,13 +102,15 @@
             j.src =
                 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
             f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-TP6KMVSJ');
+        })(window, document, 'script', 'dataLayer', "{{ config('services.google_analytics.gtm_container_id') }}");
     </script>
     <!-- End Google Tag Manager -->
 
     <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TP6KMVSJ"
-            height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id={{ config('services.google_analytics.gtm_container_id') }}"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
     <!-- End Google Tag Manager (noscript) -->
 </body>
 

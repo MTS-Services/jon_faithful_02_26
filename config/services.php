@@ -41,4 +41,10 @@ return [
         'base_url' => env('WHEN_I_WORK_BASE_URL', 'https://api.wheniwork.com/2/'),
     ],
 
+    'google_analytics' => [
+        'measurement_id' => env('VITE_GA_MEASUREMENT_ID'),
+        'embed_url' => env('VITE_LOOKER_STUDIO_EMBED_URL'),
+        'gtm_container_id' => env('GOOGLE_TAG_MANAGER_CONTAINER_ID'),
+    ],
+
 ];

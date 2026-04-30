@@ -26,6 +26,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::middleware('admin')->group(function () {
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+        Route::get('/analytics', [AdminController::class, 'analyticsDashboard'])->name('analytics.dashboard');
         Route::get('/all', [AdminController::class, 'index'])->name('index');
         Route::get('/view/detail/{id}', [AdminController::class, 'viewAdmin'])->name('view.detail');
         Route::get('/create', [AdminController::class, 'createAdmin'])->name('create');

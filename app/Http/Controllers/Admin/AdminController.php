@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\UserType;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
-use App\Models\User;
 use App\Models\Listing;
 use App\Models\Rental;
-use App\Enums\UserType;
+use App\Models\TrackingEvent;
+use App\Models\User;
 use App\Services\DataTableService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -15,8 +16,7 @@ use Inertia\Response;
 
 class AdminController extends Controller
 {
-
-    public function __construct(protected DataTableService $dataTableService){}
+    public function __construct(protected DataTableService $dataTableService) {}
 
     public function dashboard(): Response
     {
@@ -51,16 +51,46 @@ class AdminController extends Controller
         ]);
     }
 
+    public function analyticsDashboard(): Response
+    {
+        $eventTotals = TrackingEvent::query()
+            ->selectRaw('event_name, COUNT(*) as count')
+            ->where('created_at', '>=', now()->subDays(30))
+            ->groupBy('event_name')
+            ->orderByDesc('count')
+            ->get();
+
+        $dailyEvents = TrackingEvent::query()
+            ->selectRaw('DATE(created_at) as event_date, COUNT(*) as count')
+            ->where('created_at', '>=', now()->subDays(30))
+            ->groupBy('event_date')
+            ->orderBy('event_date')
+            ->get();
+
+        $topLandingPages = TrackingEvent::query()
+            ->selectRaw('page_url, COUNT(*) as visits')
+            ->whereNotNull('page_url')
+            ->where('created_at', '>=', now()->subDays(30))
+            ->groupBy('page_url')
+            ->orderByDesc('visits')
+            ->limit(10)
+            ->get();
+
+        return Inertia::render('admin/analytics/dashboard', [
+            'eventTotals' => $eventTotals,
+            'dailyEvents' => $dailyEvents,
+            'topLandingPages' => $topLandingPages,
+        ]);
+    }
+
     public function index(): Response
     {
         $queryBody = Admin::query();
-
 
         $result = $this->dataTableService->process($queryBody, request(), [
             'searchable' => ['name', 'email'],
             'sortable' => ['id', 'name', 'email', 'created_at'],
         ]);
-
 
         return Inertia::render('admin/all', [
             'admins' => $result['data'],
@@ -69,30 +99,36 @@ class AdminController extends Controller
             'filters' => $result['filters'],
             'search' => $result['search'],
             'sortBy' => $result['sort_by'],
-            'sortOrder' => $result['sort_order']
+            'sortOrder' => $result['sort_order'],
         ]);
     }
 
-    public function viewAdmin($id){
+    public function viewAdmin($id)
+    {
 
         $admin = Admin::find($id);
-        if(!$admin) {
+        if (! $admin) {
             abort(404);
         }
+
         return Inertia::render('admin/view', [
-            'admin' => $admin
+            'admin' => $admin,
         ]);
     }
-    public function createAdmin(){
+
+    public function createAdmin()
+    {
 
         return Inertia::render('admin/create');
     }
-    public function storeAdmin(Request $request){
-        $data =  $request ->validate([
+
+    public function storeAdmin(Request $request)
+    {
+        $data = $request->validate([
             'username' => 'required|unique:admins,username|string|max:255',
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:admins,email',
-            'password' => 'required|string|min:8|confirmed', 
+            'password' => 'required|string|min:8|confirmed',
             'phone' => 'required|string',
             'your_self' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -101,44 +137,52 @@ class AdminController extends Controller
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
-            $imageName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $imageName = time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
             $file->storeAs('admin_images', $imageName);
             $data['image'] = $imageName;
         }
         $admin = Admin::create($data);
-        if (!$admin) {
+        if (! $admin) {
             return back()->with('error', 'Admin creation failed.');
         }
 
         return redirect()->route('admin.index')->with('success', 'Admin created successfully.');
     }
-    public function editAdmin($id){
+
+    public function editAdmin($id)
+    {
 
         $admin = Admin::find($id);
-        if(!$admin) {
+        if (! $admin) {
             abort(404);
         }
+
         return Inertia::render('admin/edit', [
-            'admin' => $admin
+            'admin' => $admin,
         ]);
     }
-    public function updateAdmin(Request $request){
 
-     $data = $request->validate([
-        'name' => ['required', 'string', 'max:255'],
-     ]);
+    public function updateAdmin(Request $request)
+    {
 
-      $admin = Admin::find($request->id);
-      $admin->update($data);
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+        ]);
 
-      return back()->with('success', 'Admin updated successfully.');
+        $admin = Admin::find($request->id);
+        $admin->update($data);
+
+        return back()->with('success', 'Admin updated successfully.');
     }
-    public function deleteAdmin($id){
+
+    public function deleteAdmin($id)
+    {
         $admin = Admin::find($id);
-        if(!$admin) {
+        if (! $admin) {
             abort(404);
         }
         $admin->forceDelete();
+
         return back()->with('success', 'Admin deleted successfully.');
     }
 }

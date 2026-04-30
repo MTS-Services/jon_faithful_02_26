@@ -2,6 +2,7 @@ import '../css/app.css';
 import '../css/datatable.css';
 
 import { createInertiaApp } from '@inertiajs/react';
+import { router } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { StrictMode, type ComponentType } from 'react';
 import { createRoot } from 'react-dom/client';
@@ -12,9 +13,17 @@ import ErrorFallback from './components/error-fallback';
 import { ErrorBadge, ErrorOverlay } from './components/error-overlay';
 import GlobalSeoHead from './components/global-seo-head';
 import { initializeTheme } from './hooks/use-appearance';
+import { GA_MEASUREMENT_ID } from './lib/analytics/gtag';
+import { useTracking } from './lib/analytics/useTracking';
 import { ErrorObservabilityProvider } from './lib/errors/error-context';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+
+function GlobalTrackingBootstrap() {
+    useTracking();
+
+    return null;
+}
 
 createInertiaApp({
     title: (title) => (title ? `${title} - ${appName}` : appName),
@@ -31,6 +40,7 @@ createInertiaApp({
                 ...module,
                 default: (props: any) => (
                     <>
+                        <GlobalTrackingBootstrap />
                         <GlobalSeoHead />
                         <Page {...props} />
                     </>
@@ -76,3 +86,15 @@ createInertiaApp({
 
 // This will set light / dark mode on load...
 initializeTheme();
+
+router.on('navigate', (event) => {
+    if (typeof window.gtag === 'undefined' || !GA_MEASUREMENT_ID) {
+        return;
+    }
+
+    window.gtag('event', 'page_view', {
+        page_location: event.detail.page.url,
+        page_title: document.title,
+        send_to: GA_MEASUREMENT_ID,
+    });
+});

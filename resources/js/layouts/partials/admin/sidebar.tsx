@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils';
 import { type NavItemType, type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
 import {
+    BarChart3,
     Building2,
     Calculator,
     ClipboardList,
@@ -51,6 +52,13 @@ const adminNavItems: NavItemType[] = [
                 slug: 'pending-verification',
             },
         ],
+    },
+    {
+        title: 'Analytics',
+        href: route('admin.analytics.dashboard'),
+        icon: BarChart3,
+        permission: 'view analytics',
+        slug: 'analytics',
     },
     {
         title: 'Listings (Homes)',
