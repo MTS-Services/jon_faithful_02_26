@@ -144,19 +144,6 @@ const FrontendFooter: React.FC = () => {
                         <h3 className="mb-6 text-lg font-bold text-primary">
                             Newsletter
                         </h3>
-                        {/* <form
-                            className="flex flex-col space-y-3"
-                            onSubmit={(e) => e.preventDefault()}
-                        >
-                            <input
-                                type="email"
-                                placeholder="Email"
-                                className="w-full rounded border border-gray-300 bg-white px-4 py-2 text-sm transition focus:border-primary focus:outline-none"
-                            />
-                            <button className="rounded bg-primary px-4 py-2 text-sm font-medium text-white transition hover:bg-black">
-                                Submit
-                            </button>
-                        </form> */}
                         <form
                             className="flex flex-col space-y-3"
                             onSubmit={submitNewsletter}
